@@ -19,7 +19,7 @@ import java.util.List;
 @IdClass(NewsId.class)
 public class News {
     @Id
-    @Column(name="news_id")
+    @Column(name="id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 

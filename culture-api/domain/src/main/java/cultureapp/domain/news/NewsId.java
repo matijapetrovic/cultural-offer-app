@@ -9,6 +9,6 @@ import java.io.Serializable;
 @Getter
 @EqualsAndHashCode
 public class NewsId implements Serializable {
-    private Long culturalOfferId;
+    private Long culturalOffer;
     private Long id;
 }

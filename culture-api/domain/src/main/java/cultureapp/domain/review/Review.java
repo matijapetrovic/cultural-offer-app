@@ -15,12 +15,12 @@ import java.util.List;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Table(name="news")
+@Table(name="review")
 @Entity
 @IdClass(ReviewId.class)
 public class Review {
     @Id
-    @Column(name="news_id")
+    @Column(name="id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
@@ -38,6 +38,16 @@ public class Review {
     @ElementCollection
     private List<Image> images;
 
+    @OneToOne(fetch = FetchType.EAGER)
+    private Reply reply;
+
+    public boolean addReply(Reply reply) {
+        if (this.reply != null)
+            return false;
+        this.reply = reply;
+        return true;
+    }
+
     public static Review withId(
             Long id,
             CulturalOffer culturalOffer,
@@ -49,7 +59,8 @@ public class Review {
                 culturalOffer,
                 comment,
                 rating,
-                images);
+                images,
+                null);
     }
 
     public static Review of(

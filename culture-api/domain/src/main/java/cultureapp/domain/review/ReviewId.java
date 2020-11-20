@@ -1,4 +1,14 @@
 package cultureapp.domain.review;
 
-public class ReviewId {
+import lombok.*;
+
+import java.io.Serializable;
+
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
+@EqualsAndHashCode
+public class ReviewId implements Serializable {
+    private Long culturalOffer;
+    private Long id;
 }

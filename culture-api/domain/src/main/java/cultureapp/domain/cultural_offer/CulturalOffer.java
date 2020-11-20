@@ -22,7 +22,7 @@ public class CulturalOffer {
     @Column(name="name", nullable = false)
     private String name;
 
-    @Column(name="name")
+    @Column(name="description")
     private String description;
 
     @Embedded

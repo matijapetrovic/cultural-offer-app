@@ -18,7 +18,7 @@ import java.io.Serializable;
 public class Subcategory implements Serializable {
 
     @Id
-    @Column(name="subcategory_id")
+    @Column(name="id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 

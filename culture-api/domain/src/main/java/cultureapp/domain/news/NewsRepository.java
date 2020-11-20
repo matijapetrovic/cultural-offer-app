@@ -1,4 +1,6 @@
 package cultureapp.domain.news;
 
-public class NewsRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface NewsRepository extends JpaRepository<News, NewsId> {
 }
