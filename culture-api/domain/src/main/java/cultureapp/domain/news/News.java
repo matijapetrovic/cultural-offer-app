@@ -1,0 +1,66 @@
+package cultureapp.domain.news;
+
+import cultureapp.domain.cultural_offer.CulturalOffer;
+import cultureapp.domain.cultural_offer.Image;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.List;
+
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
+@Table(name="news")
+@Entity
+@IdClass(NewsId.class)
+public class News {
+    @Id
+    @Column(name="news_id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
+
+    @Id
+    @ManyToOne
+    @JoinColumn(name="cultural_offer_id", insertable = false, updatable = false)
+    private CulturalOffer culturalOffer;
+
+    @Column(name="name", nullable = false, unique = true)
+    private String name;
+
+    @Column(name="posted_date")
+    private LocalDateTime postedDate;
+
+    @ElementCollection
+    private List<Image> images;
+
+    public static News withId(
+            Long id,
+            CulturalOffer culturalOffer,
+            String name,
+            LocalDateTime postedDate,
+            List<Image> images) {
+        return new News(
+                id,
+                culturalOffer,
+                name,
+                postedDate,
+                images);
+    }
+
+    public static News of(
+            CulturalOffer culturalOffer,
+            String name,
+            LocalDateTime postedDate,
+            List<Image> images) {
+        return withId(
+                null,
+                culturalOffer,
+                name,
+                postedDate,
+                images);
+    }
+}
