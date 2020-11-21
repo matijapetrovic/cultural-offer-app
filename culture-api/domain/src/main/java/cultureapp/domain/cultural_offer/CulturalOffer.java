@@ -1,5 +1,6 @@
 package cultureapp.domain.cultural_offer;
 
+import cultureapp.domain.regular_user.RegularUser;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -31,18 +33,23 @@ public class CulturalOffer {
     @ElementCollection
     private List<Image> images;
 
+    @ManyToMany(mappedBy = "culturalOffers")
+    private Set<RegularUser> regularUsers;
+
     public static CulturalOffer withId(
             Long id,
             String name,
             String description,
             Location location,
-            List<Image> images) {
+            List<Image> images,
+            Set<RegularUser> regularUsers) {
         return new CulturalOffer(
                 id,
                 name,
                 description,
                 location,
-                images);
+                images,
+                regularUsers);
     }
 
     public static CulturalOffer of(
@@ -55,6 +62,7 @@ public class CulturalOffer {
                 name,
                 description,
                 location,
-                images);
+                images,
+                null);
     }
 }
