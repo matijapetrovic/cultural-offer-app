@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
@@ -13,10 +14,8 @@ import java.util.List;
 @Getter
 @Setter
 public class NewsRequest {
-    // TODO: Check if Long culturalOfferId is preferred (if not, make name unique)
-    private String culturalOfferName;
-
+    private Long culturalOfferID;
     private String name;
-    private String postedDate;
+    private Date postedDate;
     private List<MultipartFile> images;
 }
