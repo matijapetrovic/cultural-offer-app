@@ -36,8 +36,8 @@ public class News {
     private LocalDateTime postedDate;
 
     @ManyToOne
-    @JoinColumn(name="admin_id", referencedColumnName = "id")
-    private Administrator administrator;
+    @JoinColumn(name="author_id", referencedColumnName = "id")
+    private Administrator author;
 
     @ElementCollection
     private List<Image> images;

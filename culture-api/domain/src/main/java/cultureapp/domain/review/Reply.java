@@ -1,6 +1,7 @@
 package cultureapp.domain.review;
 
 
+import cultureapp.domain.administrator.Administrator;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,16 +31,22 @@ public class Reply {
     @MapsId
     private Review review;
 
+    @ManyToOne
+    @JoinColumn(name="author_id", referencedColumnName = "id")
+    private Administrator administrator;
+
     @Column(name="comment")
     private String comment;
 
     public static Reply of(
             Review review,
-            String comment) {
+            String comment,
+            Administrator administrator) {
         return new Reply(
                 review.getId(),
                 review.getCulturalOffer().getId(),
                 review,
+                administrator,
                 comment);
     }
 }
