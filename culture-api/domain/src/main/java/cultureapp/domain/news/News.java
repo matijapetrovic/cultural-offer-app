@@ -1,5 +1,6 @@
 package cultureapp.domain.news;
 
+import cultureapp.domain.administrator.Administrator;
 import cultureapp.domain.cultural_offer.CulturalOffer;
 import cultureapp.domain.cultural_offer.Image;
 import lombok.AccessLevel;
@@ -34,6 +35,10 @@ public class News {
     @Column(name="posted_date")
     private LocalDateTime postedDate;
 
+    @ManyToOne
+    @JoinColumn(name="admin_id", referencedColumnName = "id")
+    private Administrator administrator;
+
     @ElementCollection
     private List<Image> images;
 
@@ -42,12 +47,14 @@ public class News {
             CulturalOffer culturalOffer,
             String name,
             LocalDateTime postedDate,
+            Administrator administrator,
             List<Image> images) {
         return new News(
                 id,
                 culturalOffer,
                 name,
                 postedDate,
+                administrator,
                 images);
     }
 
@@ -55,12 +62,14 @@ public class News {
             CulturalOffer culturalOffer,
             String name,
             LocalDateTime postedDate,
+            Administrator administrator,
             List<Image> images) {
         return withId(
                 null,
                 culturalOffer,
                 name,
                 postedDate,
+                administrator,
                 images);
     }
 }
