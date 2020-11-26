@@ -1,6 +1,7 @@
 package cultureapp.domain.subcategory.query;
 
 import cultureapp.domain.subcategory.Subcategory;
+import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,7 +9,7 @@ import lombok.Getter;
 import javax.validation.constraints.Positive;
 
 public interface GetSubcategoryByIdQuery {
-    GetSubcategoryByIdDTO getSubcategory(@Positive Long id, @Positive Long categoryId);
+    GetSubcategoryByIdDTO getSubcategory(@Positive Long id, @Positive Long categoryId) throws SubcategoryNotFoundException;
 
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @Getter

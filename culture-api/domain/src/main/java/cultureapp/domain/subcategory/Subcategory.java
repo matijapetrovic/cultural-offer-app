@@ -30,6 +30,22 @@ public class Subcategory implements Serializable {
     @Column(name="name", nullable = false, unique = true)
     private String name;
 
+    @Column(name="archived", nullable = false)
+    private boolean archived;
+
+    public boolean update(String name) {
+        boolean changed = false;
+        if (!this.name.equals(name)) {
+            this.name = name;
+            changed = true;
+        }
+        return changed;
+    }
+
+    public void archive() {
+        this.archived = true;
+    }
+
     public static Subcategory withId(
             Long id,
             Category category,
@@ -37,7 +53,8 @@ public class Subcategory implements Serializable {
         return new Subcategory(
                 id,
                 category,
-                name);
+                name,
+                false);
     }
 
     public static Subcategory of(
