@@ -72,6 +72,7 @@ public class SubcategoryService implements
             throws SubcategoryNotFoundException {
         Subcategory subcategory = subcategoryRepository.findByCategoryIdAndIdAndArchivedFalse(categoryId, id)
                 .orElseThrow(() -> new SubcategoryNotFoundException(id, categoryId));
-        subcategoryRepository.delete(subcategory);
+        subcategory.archive();
+        subcategoryRepository.save(subcategory);
     }
 }

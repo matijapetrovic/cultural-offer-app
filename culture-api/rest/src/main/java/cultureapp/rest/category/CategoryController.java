@@ -1,7 +1,11 @@
 package cultureapp.rest.category;
 
 import cultureapp.domain.category.command.AddCategoryUseCase;
+import cultureapp.domain.category.command.DeleteCategoryUseCase;
+import cultureapp.domain.category.command.UpdateCategoryUseCase;
+import cultureapp.domain.category.exception.CategoryNotFoundException;
 import cultureapp.domain.category.query.GetCategoriesQuery;
+import cultureapp.domain.category.query.GetCategoryByIdQuery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,17 +19,37 @@ import java.util.List;
 public class CategoryController {
     private final AddCategoryUseCase addCategoryUseCase;
     private final GetCategoriesQuery getCategoriesQuery;
+    private final GetCategoryByIdQuery getCategoryByIdQuery;
+    private final UpdateCategoryUseCase updateCategoryUseCase;
+    private final DeleteCategoryUseCase deleteCategoryUseCase;
 
     @PostMapping("")
-    public void addCategory(@RequestBody CategoryRequest request) {
+    public void addCategory(@RequestBody CategoryRequest request) throws CategoryNotFoundException {
         AddCategoryUseCase.AddCategoryCommand command =
                 new AddCategoryUseCase.AddCategoryCommand(request.getName());
         addCategoryUseCase.addCategory(command);
     }
 
     @GetMapping("")
-    public ResponseEntity<List<GetCategoriesQuery.GetCategoriesDTO>> getCategories() {
+    public ResponseEntity<List<GetCategoriesQuery.GetCategoriesDTO>> getCategories() throws CategoryNotFoundException {
         return ResponseEntity.ok(getCategoriesQuery.getCategories());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getCategory(@PathVariable Long id) throws CategoryNotFoundException {
+        return ResponseEntity.ok(getCategoryByIdQuery.getCategory(id));
+    }
+
+    @PutMapping("/{id}")
+    public void updateCategory(@PathVariable Long id,
+                                @RequestBody CategoryRequest request) throws CategoryNotFoundException {
+        UpdateCategoryUseCase.UpdateCategoryCommand command =
+                new UpdateCategoryUseCase.UpdateCategoryCommand(id, request.getName());
+        updateCategoryUseCase.updateCategory(command);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteCategory(@PathVariable Long id) throws CategoryNotFoundException {
+        deleteCategoryUseCase.deleteCategoryById(id);
+    }
 }

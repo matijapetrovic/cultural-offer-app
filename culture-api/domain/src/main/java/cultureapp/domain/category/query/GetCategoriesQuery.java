@@ -1,15 +1,15 @@
 package cultureapp.domain.category.query;
 
 import cultureapp.domain.category.Category;
+import cultureapp.domain.category.exception.CategoryNotFoundException;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
 
-
 public interface GetCategoriesQuery {
-    List<GetCategoriesDTO> getCategories();
+    List<GetCategoriesDTO> getCategories() throws CategoryNotFoundException;
 
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @Getter
