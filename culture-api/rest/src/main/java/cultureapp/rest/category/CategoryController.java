@@ -7,6 +7,8 @@ import cultureapp.domain.category.exception.CategoryNotFoundException;
 import cultureapp.domain.category.query.GetCategoriesQuery;
 import cultureapp.domain.category.query.GetCategoryByIdQuery;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,8 +33,10 @@ public class CategoryController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<GetCategoriesQuery.GetCategoriesDTO>> getCategories() throws CategoryNotFoundException {
-        return ResponseEntity.ok(getCategoriesQuery.getCategories());
+    public ResponseEntity<List<GetCategoriesQuery.GetCategoriesDTO>> getCategories(
+            @RequestParam(required = false) Integer page) throws CategoryNotFoundException {
+        Pageable pageable = PageRequest.of(page != null ? page : 0, 2);
+        return ResponseEntity.ok(getCategoriesQuery.getCategories(pageable));
     }
 
     @GetMapping("/{id}")

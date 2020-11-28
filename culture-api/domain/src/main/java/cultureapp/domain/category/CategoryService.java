@@ -7,6 +7,7 @@ import cultureapp.domain.category.exception.CategoryNotFoundException;
 import cultureapp.domain.category.query.GetCategoriesQuery;
 import cultureapp.domain.category.query.GetCategoryByIdQuery;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.Positive;
@@ -37,9 +38,9 @@ public class CategoryService implements
     }
 
     @Override
-    public List<GetCategoriesDTO> getCategories() {
+    public List<GetCategoriesDTO> getCategories(Pageable pageable) {
         return categoryRepository
-                .findAllByArchivedFalse()
+                .findAllByArchivedFalse(pageable)
                 .stream()
                 .map(GetCategoriesDTO::of)
                 .collect(Collectors.toList());
