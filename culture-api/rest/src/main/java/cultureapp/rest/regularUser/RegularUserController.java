@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value="/api/regular-user", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value="/api/regular-users", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RegularUserController {
     private final RegularUserService regularUserService;
 

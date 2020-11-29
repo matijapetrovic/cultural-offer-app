@@ -1,5 +1,7 @@
 package cultureapp.domain.subcategory;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,7 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface SubcategoryRepository extends JpaRepository<Subcategory, SubcategoryId> {
-
-    List<Subcategory> findAllByCategoryIdAndArchivedFalse(Long categoryId);
-    Optional<Subcategory> findByCategoryIdAndIdAndArchivedFalse(Long categoryId, Long id);
+    Slice<Subcategory> findAllByCategoryIdAndArchivedFalse(Long categoryId, Pageable pageable);
+    Optional<Subcategory> findByIdAndCategoryIdAndArchivedFalse(Long categoryId, Long id);
 }

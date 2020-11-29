@@ -13,7 +13,6 @@
         <module>rest</module>
         <module>application</module>
         <module>security</module>
-        <module>geocoding</module>
     </modules>
 
     <parent>
