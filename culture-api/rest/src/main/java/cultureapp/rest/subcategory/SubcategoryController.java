@@ -7,16 +7,17 @@ import cultureapp.domain.subcategory.command.UpdateSubcategoryUseCase;
 import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
 import cultureapp.domain.subcategory.query.GetSubcategoriesQuery;
 import cultureapp.domain.subcategory.query.GetSubcategoryByIdQuery;
+import cultureapp.rest.PaginatedResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Slice;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value="/api/category/{categoryId}/subcategory", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value="/api/categories/{categoryId}/subcategories", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SubcategoryController {
     private final AddSubcategoryUseCase addSubcategoryUseCase;
     private final GetSubcategoriesQuery getSubcategoriesQuery;
@@ -33,10 +34,17 @@ public class SubcategoryController {
         addSubcategoryUseCase.addSubcategory(command);
     }
 
-    @GetMapping("")
-    public ResponseEntity<List<GetSubcategoriesQuery.GetSubcategoriesDTO>> getSubcategories(
-            @PathVariable Long categoryId) throws CategoryNotFoundException {
-        return ResponseEntity.ok(getSubcategoriesQuery.getSubcategories(categoryId));
+    @GetMapping(value = "", params = { "page", "limit" })
+    public ResponseEntity<PaginatedResponse<GetSubcategoriesQuery.GetSubcategoriesDTO>> getSubcategories(
+            @PathVariable Long categoryId,
+            @RequestParam(required = false) Integer page,
+            @RequestParam(required = false) Integer limit,
+            UriComponentsBuilder uriBuilder) throws CategoryNotFoundException {
+
+        Slice<GetSubcategoriesQuery.GetSubcategoriesDTO> result =
+                getSubcategoriesQuery.getSubcategories(categoryId, page, limit);
+        String resourceUri = String.format("/api/category/%d/subcategory", categoryId);
+        return ResponseEntity.ok(PaginatedResponse.of(result, uriBuilder, resourceUri));
     }
 
     @GetMapping("/{id}")

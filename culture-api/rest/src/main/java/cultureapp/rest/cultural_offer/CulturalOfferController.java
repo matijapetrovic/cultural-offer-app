@@ -16,7 +16,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value="/api/cultural-offer", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value="/api/cultural-offers", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CulturalOfferController {
     private final AddCulturalOfferUseCase addCulturalOfferUseCase;
 

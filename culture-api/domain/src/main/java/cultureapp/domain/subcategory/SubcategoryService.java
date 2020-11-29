@@ -10,12 +10,14 @@ import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
 import cultureapp.domain.subcategory.query.GetSubcategoriesQuery;
 import cultureapp.domain.subcategory.query.GetSubcategoryByIdQuery;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.Positive;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import javax.validation.constraints.PositiveOrZero;
 
 @RequiredArgsConstructor
 @Service
@@ -38,22 +40,23 @@ public class SubcategoryService implements
     }
 
     @Override
-    public List<GetSubcategoriesDTO> getSubcategories(@Positive Long categoryId)
-            throws CategoryNotFoundException {
+    public Slice<GetSubcategoriesDTO> getSubcategories(@Positive Long categoryId,
+                                                      @PositiveOrZero Integer page,
+                                                      @Positive Integer limit) throws CategoryNotFoundException {
         Category category = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new CategoryNotFoundException(categoryId));
+        Pageable pageRequest = PageRequest.of(page, limit, Sort.by("name"));
 
-        return subcategoryRepository
-                .findAllByCategoryIdAndArchivedFalse(category.getId())
-                .stream()
-                .map(GetSubcategoriesDTO::of)
-                .collect(Collectors.toList());
+        Slice<Subcategory> subcategories = subcategoryRepository
+                .findAllByCategoryIdAndArchivedFalse(category.getId(), pageRequest);
+
+        return subcategories.map(GetSubcategoriesDTO::of);
     }
 
     @Override
     public GetSubcategoryByIdDTO getSubcategory(@Positive Long id, @Positive Long categoryId)
             throws SubcategoryNotFoundException {
-        Subcategory subcategory = subcategoryRepository.findByCategoryIdAndIdAndArchivedFalse(categoryId, id)
+        Subcategory subcategory = subcategoryRepository.findByIdAndCategoryIdAndArchivedFalse(categoryId, id)
                 .orElseThrow(() -> new SubcategoryNotFoundException(id, categoryId));
         return GetSubcategoryByIdDTO.of(subcategory);
     }
@@ -61,7 +64,7 @@ public class SubcategoryService implements
     @Override
     public void updateSubcategory(UpdateSubcategoryCommand command) throws SubcategoryNotFoundException {
         Subcategory subcategory =
-                subcategoryRepository.findByCategoryIdAndIdAndArchivedFalse(command.getCategoryId(), command.getId())
+                subcategoryRepository.findByIdAndCategoryIdAndArchivedFalse(command.getCategoryId(), command.getId())
                 .orElseThrow(() -> new SubcategoryNotFoundException(command.getId(), command.getCategoryId()));
         if(subcategory.update(command.getName()))
             subcategoryRepository.save(subcategory);
@@ -70,7 +73,7 @@ public class SubcategoryService implements
     @Override
     public void deleteSubcategoryById(@Positive Long categoryId, @Positive Long id)
             throws SubcategoryNotFoundException {
-        Subcategory subcategory = subcategoryRepository.findByCategoryIdAndIdAndArchivedFalse(categoryId, id)
+        Subcategory subcategory = subcategoryRepository.findByIdAndCategoryIdAndArchivedFalse(categoryId, id)
                 .orElseThrow(() -> new SubcategoryNotFoundException(id, categoryId));
         subcategoryRepository.delete(subcategory);
     }
