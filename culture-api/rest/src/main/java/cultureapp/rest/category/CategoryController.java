@@ -6,14 +6,13 @@ import cultureapp.domain.category.command.UpdateCategoryUseCase;
 import cultureapp.domain.category.exception.CategoryNotFoundException;
 import cultureapp.domain.category.query.GetCategoriesQuery;
 import cultureapp.domain.category.query.GetCategoryByIdQuery;
+import cultureapp.rest.PaginatedResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RequiredArgsConstructor
 @RestController
@@ -32,11 +31,17 @@ public class CategoryController {
         addCategoryUseCase.addCategory(command);
     }
 
-    @GetMapping("")
-    public ResponseEntity<List<GetCategoriesQuery.GetCategoriesDTO>> getCategories(
-            @RequestParam(required = false) Integer page) throws CategoryNotFoundException {
-        Pageable pageable = PageRequest.of(page != null ? page : 0, 2);
-        return ResponseEntity.ok(getCategoriesQuery.getCategories(pageable));
+    @GetMapping(value = "", params = { "page", "limit" })
+    public ResponseEntity<PaginatedResponse<GetCategoriesQuery.GetCategoriesDTO>> getCategories(
+            @RequestParam(required = false) Integer page,
+            @RequestParam(required = false) Integer limit,
+            UriComponentsBuilder uriBuilder) throws CategoryNotFoundException {
+
+        Slice<GetCategoriesQuery.GetCategoriesDTO> result =
+                getCategoriesQuery.getCategories(page, limit);
+        String resourceUri = "/api/categories";
+        uriBuilder.path(resourceUri);
+        return ResponseEntity.ok(PaginatedResponse.of(result, uriBuilder));
     }
 
     @GetMapping("/{id}")

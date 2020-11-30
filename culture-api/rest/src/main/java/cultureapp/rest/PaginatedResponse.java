@@ -18,17 +18,17 @@ public class PaginatedResponse<T> {
         this.links = new HashMap<>();
     }
 
-    public static <T> PaginatedResponse<T> of(Slice<T> data, UriComponentsBuilder uriBuilder, String resourceUri) {
+    public static <T> PaginatedResponse<T> of(Slice<T> data, UriComponentsBuilder uriBuilder) {
         PaginatedResponse<T> response = new PaginatedResponse<T>(data.getContent());
 
         response.addLink("self",
-                constructUriPage(uriBuilder, resourceUri, data.getNumber() + 1, data.getSize()));
+                constructUriPage(uriBuilder, data.getNumber(), data.getSize()));
         if (data.hasNext())
             response.addLink("next",
-                    constructUriPage(uriBuilder, resourceUri, data.getNumber() + 1, data.getSize()));
+                    constructUriPage(uriBuilder, data.getNumber() + 1, data.getSize()));
         if (data.hasPrevious())
             response.addLink("prev",
-                    constructUriPage(uriBuilder, resourceUri, data.getNumber() - 1, data.getSize()));
+                    constructUriPage(uriBuilder, data.getNumber() - 1, data.getSize()));
         return response;
     }
 
@@ -36,10 +36,9 @@ public class PaginatedResponse<T> {
         links.put(rel, link);
     }
 
-    private static String constructUriPage(UriComponentsBuilder uriBuilder, String resourceUri, int page, int size) {
-        uriBuilder.path(resourceUri);
+    private static String constructUriPage(UriComponentsBuilder uriBuilder, int page, int limit) {
         return uriBuilder.replaceQueryParam("page", page)
-                .replaceQueryParam("size", size)
+                .replaceQueryParam("limit", limit)
                 .build()
                 .encode()
                 .toUriString();

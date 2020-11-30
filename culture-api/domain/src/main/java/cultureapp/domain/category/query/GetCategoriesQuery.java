@@ -5,12 +5,14 @@ import cultureapp.domain.category.exception.CategoryNotFoundException;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 
-import java.util.List;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 
 public interface GetCategoriesQuery {
-    List<GetCategoriesDTO> getCategories(Pageable pageable) throws CategoryNotFoundException;
+    Slice<GetCategoriesDTO> getCategories(@PositiveOrZero Integer page,
+                                          @Positive Integer limit) throws CategoryNotFoundException;
 
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @Getter
