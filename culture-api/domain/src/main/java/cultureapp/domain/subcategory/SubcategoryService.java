@@ -73,7 +73,7 @@ public class SubcategoryService implements
     @Override
     public void deleteSubcategoryById(@Positive Long categoryId, @Positive Long id)
             throws SubcategoryNotFoundException {
-        Subcategory subcategory = subcategoryRepository.findByIdAndCategoryIdAndArchivedFalse(categoryId, id)
+        Subcategory subcategory = subcategoryRepository.findByIdAndCategoryIdAndArchivedFalse(id, categoryId)
                 .orElseThrow(() -> new SubcategoryNotFoundException(id, categoryId));
         subcategory.archive();
         subcategoryRepository.save(subcategory);
