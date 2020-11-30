@@ -4,10 +4,7 @@ package cultureapp.rest.cultural_offer;
 import cultureapp.domain.cultural_offer.command.AddCulturalOfferUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -27,10 +24,10 @@ public class CulturalOfferController {
                     request.getName(),
                     request.getLongitude(),
                     request.getLatitude(),
-                    readBytes(request.getImages()),
+                    null,
                     request.getDescription());
 
-        addCulturalOfferUseCase.addCulturalOffer(command);
+        addCulturalOfferUseCase.addCulturalOffer(null);
     }
 
     // Stream ne moze da baci gresku???
