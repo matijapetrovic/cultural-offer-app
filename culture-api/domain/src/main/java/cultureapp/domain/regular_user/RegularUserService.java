@@ -1,15 +1,20 @@
 package cultureapp.domain.regular_user;
 
+import cultureapp.domain.account.Account;
+import cultureapp.domain.regular_user.command.AddRegularUserUseCase;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@RequiredArgsConstructor
 @Service
-public class RegularUserService {
+public class RegularUserService
+        implements AddRegularUserUseCase {
     private final RegularUserRepository regularUserRepository;
 
-    @Autowired
-    public RegularUserService(RegularUserRepository regularUserRepository) {
-        this.regularUserRepository = regularUserRepository;
+    @Override
+    public void addRegularUser(AddRegularUserCommand command) {
+        RegularUser regularUser = RegularUser.of(command.getFirstName(), command.getLastName(),
+                Account.of(command.getEmail(), command.getPassword()));
+        regularUserRepository.save(regularUser);
     }
 }
