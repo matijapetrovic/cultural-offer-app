@@ -1,4 +1,4 @@
-package cultureapp.domain.cultural_offer.add;
+package cultureapp.domain.cultural_offer.services;
 
 import cultureapp.domain.cultural_offer.CulturalOffer;
 import cultureapp.domain.cultural_offer.CulturalOfferRepository;

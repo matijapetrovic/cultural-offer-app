@@ -2,6 +2,8 @@ package cultureapp.rest.cultural_offer;
 
 
 import cultureapp.domain.cultural_offer.command.AddCulturalOfferUseCase;
+import cultureapp.domain.cultural_offer.command.DeleteCulturalOfferUseCase;
+import cultureapp.domain.cultural_offer.exception.CulturalOfferNotFoundException;
 import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -17,9 +19,11 @@ import java.util.List;
 @RequestMapping(value="/api/cultural-offers", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CulturalOfferController {
     private final AddCulturalOfferUseCase addCulturalOfferUseCase;
+    private final DeleteCulturalOfferUseCase deleteCulturalOfferUseCase;
 
     @PostMapping("")
-    public void addCulturalOffer(@RequestBody CulturalOfferRequest request) throws IOException, SubcategoryNotFoundException {
+    public void addCulturalOffer(@RequestBody CulturalOfferRequest request)
+            throws IOException, SubcategoryNotFoundException {
         AddCulturalOfferUseCase.AddCulturalOfferCommand command
             = new AddCulturalOfferUseCase.AddCulturalOfferCommand(
                     request.getName(),
@@ -31,6 +35,11 @@ public class CulturalOfferController {
                     request.getSubcategoryId());
 
         addCulturalOfferUseCase.addCulturalOffer(command);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteCulturalOffer(@PathVariable Long id) throws CulturalOfferNotFoundException {
+        deleteCulturalOfferUseCase.deleteCulturalOffer(id);
     }
 
     // Stream ne moze da baci gresku???

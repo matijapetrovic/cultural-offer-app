@@ -39,10 +39,14 @@ public class CulturalOffer {
 
     @ManyToOne
     @JoinColumns({
-            @JoinColumn(name = "subcategory_id", referencedColumnName = "id", insertable = false, updatable = false),
-            @JoinColumn(name = "category_id", referencedColumnName = "category_id", insertable = false, updatable = false)
+            @JoinColumn(name = "subcategory_id", referencedColumnName = "id"),
+            @JoinColumn(name = "category_id", referencedColumnName = "category_id")
     })
     private Subcategory subcategory;
+
+    @Column(name="archived", nullable = false)
+    private boolean archived;
+
 
     public static CulturalOffer withId(
             Long id,
@@ -59,7 +63,12 @@ public class CulturalOffer {
                 location,
                 images,
                 regularUsers,
-                subcategory);
+                subcategory,
+                false);
+    }
+
+    public void archive() {
+        this.archived = true;
     }
 
     public static CulturalOffer of(
