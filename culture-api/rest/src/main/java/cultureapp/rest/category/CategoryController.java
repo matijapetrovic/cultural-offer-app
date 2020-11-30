@@ -17,7 +17,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value="/api/category", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value="/api/categories", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CategoryController {
     private final AddCategoryUseCase addCategoryUseCase;
     private final GetCategoriesQuery getCategoriesQuery;

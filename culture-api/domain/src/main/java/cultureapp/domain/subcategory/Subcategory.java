@@ -24,7 +24,7 @@ public class Subcategory implements Serializable {
 
     @Id
     @ManyToOne
-    @JoinColumn(name="category_id", insertable = false, updatable = false)
+    @JoinColumn(name="category_id", insertable = false, updatable = false, nullable = false)
     private Category category;
 
     @Column(name="name", nullable = false, unique = true)
