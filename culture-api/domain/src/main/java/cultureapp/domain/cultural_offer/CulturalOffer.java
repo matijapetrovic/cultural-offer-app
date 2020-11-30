@@ -1,6 +1,7 @@
 package cultureapp.domain.cultural_offer;
 
 import cultureapp.domain.regular_user.RegularUser;
+import cultureapp.domain.subcategory.Subcategory;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,33 +37,44 @@ public class CulturalOffer {
     @ManyToMany(mappedBy = "culturalOffers")
     private Set<RegularUser> regularUsers;
 
+    @ManyToOne
+    @JoinColumns({
+            @JoinColumn(name = "subcategory_id", referencedColumnName = "id", insertable = false, updatable = false),
+            @JoinColumn(name = "category_id", referencedColumnName = "category_id", insertable = false, updatable = false)
+    })
+    private Subcategory subcategory;
+
     public static CulturalOffer withId(
             Long id,
             String name,
             String description,
             Location location,
             List<Image> images,
-            Set<RegularUser> regularUsers) {
+            Set<RegularUser> regularUsers,
+            Subcategory subcategory) {
         return new CulturalOffer(
                 id,
                 name,
                 description,
                 location,
                 images,
-                regularUsers);
+                regularUsers,
+                subcategory);
     }
 
     public static CulturalOffer of(
             String name,
             String description,
             Location location,
-            List<Image> images) {
+            List<Image> images,
+            Subcategory subcategory) {
         return withId(
                 null,
                 name,
                 description,
                 location,
                 images,
-                null);
+                null,
+                subcategory);
     }
 }

@@ -2,6 +2,7 @@ package cultureapp.rest.cultural_offer;
 
 
 import cultureapp.domain.cultural_offer.command.AddCulturalOfferUseCase;
+import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -18,16 +19,18 @@ public class CulturalOfferController {
     private final AddCulturalOfferUseCase addCulturalOfferUseCase;
 
     @PostMapping("")
-    public void addCulturalOffer(@RequestBody CulturalOfferRequest request) throws IOException  {
+    public void addCulturalOffer(@RequestBody CulturalOfferRequest request) throws IOException, SubcategoryNotFoundException {
         AddCulturalOfferUseCase.AddCulturalOfferCommand command
             = new AddCulturalOfferUseCase.AddCulturalOfferCommand(
                     request.getName(),
                     request.getLongitude(),
                     request.getLatitude(),
                     null,
-                    request.getDescription());
+                    request.getDescription(),
+                    request.getCategoryId(),
+                    request.getSubcategoryId());
 
-        addCulturalOfferUseCase.addCulturalOffer(null);
+        addCulturalOfferUseCase.addCulturalOffer(command);
     }
 
     // Stream ne moze da baci gresku???
