@@ -43,8 +43,9 @@ public class SubcategoryController {
 
         Slice<GetSubcategoriesQuery.GetSubcategoriesDTO> result =
                 getSubcategoriesQuery.getSubcategories(categoryId, page, limit);
-        String resourceUri = String.format("/api/category/%d/subcategory", categoryId);
-        return ResponseEntity.ok(PaginatedResponse.of(result, uriBuilder, resourceUri));
+        String resourceUri = String.format("/api/categories/%d/subcategories", categoryId);
+        uriBuilder.path(resourceUri);
+        return ResponseEntity.ok(PaginatedResponse.of(result, uriBuilder));
     }
 
     @GetMapping("/{id}")
