@@ -1,10 +1,9 @@
-package cultureapp.domain.cultural_offer.services;
+package cultureapp.domain.cultural_offer.service;
 
 import cultureapp.domain.cultural_offer.CulturalOffer;
 import cultureapp.domain.cultural_offer.CulturalOfferRepository;
 import cultureapp.domain.cultural_offer.command.DeleteCulturalOfferUseCase;
 import cultureapp.domain.cultural_offer.exception.CulturalOfferNotFoundException;
-import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

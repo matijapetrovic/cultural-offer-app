@@ -3,6 +3,7 @@ package cultureapp.rest.cultural_offer;
 
 import cultureapp.domain.cultural_offer.command.AddCulturalOfferUseCase;
 import cultureapp.domain.cultural_offer.command.DeleteCulturalOfferUseCase;
+import cultureapp.domain.cultural_offer.command.UpdateCulturalOfferUseCase;
 import cultureapp.domain.cultural_offer.exception.CulturalOfferNotFoundException;
 import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ import java.util.List;
 public class CulturalOfferController {
     private final AddCulturalOfferUseCase addCulturalOfferUseCase;
     private final DeleteCulturalOfferUseCase deleteCulturalOfferUseCase;
+    private final UpdateCulturalOfferUseCase updateCulturalOfferUseCase;
 
     @PostMapping("")
     public void addCulturalOffer(@RequestBody CulturalOfferRequest request)
@@ -38,8 +40,25 @@ public class CulturalOfferController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteCulturalOffer(@PathVariable Long id) throws CulturalOfferNotFoundException {
+    public void deleteCulturalOffer(@PathVariable(required = true) Long id) throws CulturalOfferNotFoundException {
         deleteCulturalOfferUseCase.deleteCulturalOffer(id);
+    }
+
+    @PutMapping("/{id}")
+    public void updateCulturalOffer(@PathVariable(required = true) Long id,
+                                    @RequestBody CulturalOfferRequest request)
+            throws CulturalOfferNotFoundException, SubcategoryNotFoundException {
+        UpdateCulturalOfferUseCase.UpdateCulturalOfferCommand command = new UpdateCulturalOfferUseCase.UpdateCulturalOfferCommand(
+                id,
+                request.getName(),
+                request.getDescription(),
+                request.getLongitude(),
+                request.getLatitude(),
+                request.getCategoryId(),
+                request.getSubcategoryId()
+        );
+
+        updateCulturalOfferUseCase.updateCulturalOffer(command);
     }
 
     // Stream ne moze da baci gresku???

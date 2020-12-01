@@ -2,10 +2,7 @@ package cultureapp.domain.cultural_offer;
 
 import cultureapp.domain.regular_user.RegularUser;
 import cultureapp.domain.subcategory.Subcategory;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -14,6 +11,7 @@ import java.util.Set;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Setter
 @Table(name="cultural_offer")
 @Entity
 public class CulturalOffer {
