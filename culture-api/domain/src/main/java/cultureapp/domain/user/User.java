@@ -18,7 +18,7 @@ public abstract class User {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.TABLE)
-    private long id;
+    private Long id;
 
     @Column(name="first_name", nullable = false)
     private String firstName;
@@ -29,5 +29,4 @@ public abstract class User {
     @OneToOne
     @JoinColumn(name = "account_id", referencedColumnName = "id")
     private Account account;
-
 }
