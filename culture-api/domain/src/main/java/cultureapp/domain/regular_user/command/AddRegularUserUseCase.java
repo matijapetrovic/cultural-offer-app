@@ -30,5 +30,4 @@ public interface AddRegularUserUseCase {
             this.validateSelf();
         }
     }
-
 }
