@@ -1,6 +1,5 @@
 package cultureapp.domain.review;
 
-
 import cultureapp.domain.cultural_offer.CulturalOffer;
 import cultureapp.domain.image.Image;
 import lombok.AccessLevel;
@@ -10,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -35,7 +35,7 @@ public class Review {
     @Column(name="rating")
     private BigDecimal rating;
 
-    @ElementCollection
+    @OneToMany(cascade = CascadeType.REMOVE)
     private List<Image> images;
 
     @OneToOne(fetch = FetchType.EAGER)
@@ -50,7 +50,10 @@ public class Review {
         this.reply = reply;
         return true;
     }
-    // TODO dodati datume ?
+
+    @Column(name="date")
+    LocalDateTime date;
+
     public void archive() {
         this.archived = true;
     }
@@ -61,7 +64,8 @@ public class Review {
             String comment,
             BigDecimal rating,
             boolean archived,
-            List<Image> images) {
+            List<Image> images,
+            LocalDateTime date) {
         return new Review(
                 id,
                 culturalOffer,
@@ -69,7 +73,8 @@ public class Review {
                 rating,
                 images,
                 null,
-                archived);
+                archived,
+                date);
     }
 
     public static Review of(
@@ -77,13 +82,15 @@ public class Review {
             String comment,
             BigDecimal rating,
             boolean archived,
-            List<Image> images) {
+            List<Image> images,
+            LocalDateTime date) {
         return withId(
                 null,
                 culturalOffer,
                 comment,
                 rating,
                 archived,
-                images);
+                images,
+                date);
     }
 }

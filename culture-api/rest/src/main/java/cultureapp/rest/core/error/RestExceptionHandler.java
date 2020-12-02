@@ -1,11 +1,8 @@
 package cultureapp.rest.core.error;
 
 import cultureapp.domain.category.exception.CategoryNotFoundException;
-<<<<<<< HEAD
 import cultureapp.domain.review.exception.ReviewNotFoundException;
-=======
 import cultureapp.domain.image.exception.ImageNotFoundException;
->>>>>>> master
 import cultureapp.domain.subcategory.exception.SubcategoryAlreadyExists;
 import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
 import org.springframework.core.Ordered;

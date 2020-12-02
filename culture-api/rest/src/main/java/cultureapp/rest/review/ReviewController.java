@@ -2,6 +2,8 @@ package cultureapp.rest.review;
 
 
 import cultureapp.domain.cultural_offer.exception.CulturalOfferNotFoundException;
+import cultureapp.domain.date_time.DateTimeProvider;
+import cultureapp.domain.image.exception.ImageNotFoundException;
 import cultureapp.domain.review.command.AddReviewUseCase;
 import cultureapp.domain.review.command.DeleteReviewUseCase;
 import cultureapp.domain.review.exception.ReviewNotFoundException;
@@ -26,13 +28,13 @@ public class ReviewController {
 
     @PostMapping("")
     public void addReview(@PathVariable Long culturalOfferId,
-                          @RequestBody ReviewRequest request) throws CulturalOfferNotFoundException {
+                          @RequestBody ReviewRequest request) throws CulturalOfferNotFoundException, ImageNotFoundException {
         AddReviewUseCase.AddReviewCommand command =
                 new AddReviewUseCase.AddReviewCommand(
                         culturalOfferId,
                         request.getComment(),
                         request.getRating(),
-                        null
+                        request.getImages()
                 );
         addReviewUseCase.addReview(command);
     }
@@ -46,15 +48,14 @@ public class ReviewController {
     ) throws CulturalOfferNotFoundException {
         Slice<GetReviewsQuery.GetReviewsQueryDTO> result =
                 getReviewsQuery.getReviewsDTO(culturalOfferId, page, limit);
-        String resourceUri = String.format("/api/cultural-offers/{culturalOfferId}/reviews", culturalOfferId);
+        String resourceUri = String.format("/api/cultural-offers/%s/reviews", culturalOfferId);
         uriBuilder.path(resourceUri);
         return ResponseEntity.ok((PaginatedResponse.of(result, uriBuilder)));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<GetReviewByIdQuery.GetReviewByIdDTO> getReview(@PathVariable Long culturalOfferId,
-                                                                         @PathVariable Long id,
-                                                                         @RequestBody ReviewRequest request) throws ReviewNotFoundException {
+                                                                         @PathVariable Long id) throws ReviewNotFoundException {
         return ResponseEntity.ok(getReviewByIdQuery.getReview(id, culturalOfferId));
     }
 
