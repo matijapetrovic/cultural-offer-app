@@ -3,9 +3,11 @@ package cultureapp.rest.category;
 import cultureapp.domain.category.command.AddCategoryUseCase;
 import cultureapp.domain.category.command.DeleteCategoryUseCase;
 import cultureapp.domain.category.command.UpdateCategoryUseCase;
+import cultureapp.domain.category.exception.CategoryAlreadyExists;
 import cultureapp.domain.category.exception.CategoryNotFoundException;
 import cultureapp.domain.category.query.GetCategoriesQuery;
 import cultureapp.domain.category.query.GetCategoryByIdQuery;
+import cultureapp.domain.subcategory.exception.SubcategoryAlreadyExists;
 import cultureapp.rest.core.PaginatedResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Slice;
@@ -25,7 +27,7 @@ public class CategoryController {
     private final DeleteCategoryUseCase deleteCategoryUseCase;
 
     @PostMapping("")
-    public void addCategory(@RequestBody CategoryRequest request) throws CategoryNotFoundException {
+    public void addCategory(@RequestBody CategoryRequest request) throws CategoryNotFoundException, CategoryAlreadyExists {
         AddCategoryUseCase.AddCategoryCommand command =
                 new AddCategoryUseCase.AddCategoryCommand(request.getName());
         addCategoryUseCase.addCategory(command);
@@ -51,7 +53,7 @@ public class CategoryController {
 
     @PutMapping("/{id}")
     public void updateCategory(@PathVariable Long id,
-                                @RequestBody CategoryRequest request) throws CategoryNotFoundException {
+                                @RequestBody CategoryRequest request) throws CategoryNotFoundException, SubcategoryAlreadyExists, CategoryAlreadyExists {
         UpdateCategoryUseCase.UpdateCategoryCommand command =
                 new UpdateCategoryUseCase.UpdateCategoryCommand(id, request.getName());
         updateCategoryUseCase.updateCategory(command);

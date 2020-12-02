@@ -1,6 +1,8 @@
 package cultureapp.rest.core.error;
 
+import cultureapp.domain.category.exception.CategoryAlreadyExists;
 import cultureapp.domain.category.exception.CategoryNotFoundException;
+import cultureapp.domain.regular_user.exception.RegularUserAlreadyExists;
 import cultureapp.domain.review.exception.ReviewNotFoundException;
 import cultureapp.domain.image.exception.ImageNotFoundException;
 import cultureapp.domain.subcategory.exception.SubcategoryAlreadyExists;
@@ -20,6 +22,12 @@ import java.io.IOException;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice("cultureapp.rest")
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
+    @ExceptionHandler(RegularUserAlreadyExists.class)
+    protected ResponseEntity<Object> handleRegularUserAlreadyExists(
+            RegularUserAlreadyExists ex) {
+        ApiError apiError = new ApiError(HttpStatus.CONFLICT, ex.getMessage(), ex);
+        return buildResponse(apiError);
+    }
 
     @ExceptionHandler(ReviewNotFoundException.class)
     protected ResponseEntity<Object> handleReviewNotFound(
@@ -42,16 +50,30 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponse(apiError);
     }
 
-    @ExceptionHandler(SubcategoryNotFoundException.class)
-    protected ResponseEntity<Object> handleSubcategoryNotFound(
-            SubcategoryNotFoundException ex) {
-        ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage(), ex);
+    @ExceptionHandler(CategoryAlreadyExists.class)
+    protected ResponseEntity<Object> handleCategoryAlreadyExists(
+            CategoryAlreadyExists ex) {
+        ApiError apiError = new ApiError(HttpStatus.CONFLICT, ex.getMessage(), ex);
         return buildResponse(apiError);
     }
 
     @ExceptionHandler(CategoryNotFoundException.class)
     protected ResponseEntity<Object> handleCategoryNotFound(
             CategoryNotFoundException ex) {
+        ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage(), ex);
+        return buildResponse(apiError);
+    }
+
+    @ExceptionHandler(SubcategoryAlreadyExists.class)
+    protected ResponseEntity<Object> handleSubcategoryAlreadyExists(
+            SubcategoryAlreadyExists ex) {
+        ApiError apiError = new ApiError(HttpStatus.CONFLICT, ex.getMessage(), ex);
+        return buildResponse(apiError);
+    }
+
+    @ExceptionHandler(SubcategoryNotFoundException.class)
+    protected ResponseEntity<Object> handleSubcategoryNotFound(
+            SubcategoryNotFoundException ex) {
         ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage(), ex);
         return buildResponse(apiError);
     }
