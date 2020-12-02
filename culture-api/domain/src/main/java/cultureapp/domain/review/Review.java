@@ -2,7 +2,7 @@ package cultureapp.domain.review;
 
 
 import cultureapp.domain.cultural_offer.CulturalOffer;
-import cultureapp.domain.cultural_offer.Image;
+import cultureapp.domain.image.Image;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

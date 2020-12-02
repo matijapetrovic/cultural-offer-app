@@ -1,7 +1,11 @@
 package cultureapp.rest.core.error;
 
 import cultureapp.domain.category.exception.CategoryNotFoundException;
+<<<<<<< HEAD
 import cultureapp.domain.review.exception.ReviewNotFoundException;
+=======
+import cultureapp.domain.image.exception.ImageNotFoundException;
+>>>>>>> master
 import cultureapp.domain.subcategory.exception.SubcategoryAlreadyExists;
 import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
 import org.springframework.core.Ordered;
@@ -19,9 +23,17 @@ import java.io.IOException;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice("cultureapp.rest")
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
+
     @ExceptionHandler(ReviewNotFoundException.class)
     protected ResponseEntity<Object> handleReviewNotFound(
             ReviewNotFoundException ex) {
+        ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage(), ex);
+        return buildResponse(apiError);
+    }
+
+    @ExceptionHandler(ImageNotFoundException.class)
+    protected ResponseEntity<Object> handleImageNotFoundException(
+            ImageNotFoundException ex) {
         ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage(), ex);
         return buildResponse(apiError);
     }
