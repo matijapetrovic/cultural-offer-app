@@ -36,6 +36,9 @@ public class CulturalOffer {
     @ManyToMany(mappedBy = "culturalOffers")
     private Set<RegularUser> regularUsers;
 
+    @Column(name="archived", nullable = false)
+    private boolean archived;
+
     public static CulturalOffer withId(
             Long id,
             String name,
@@ -49,7 +52,8 @@ public class CulturalOffer {
                 description,
                 location,
                 images,
-                regularUsers);
+                regularUsers,
+                false);
     }
 
     public static CulturalOffer of(

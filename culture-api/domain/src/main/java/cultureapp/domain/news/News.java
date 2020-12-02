@@ -42,7 +42,7 @@ public class News {
     @Column(name = "text")
     private String text;
 
-    @Column
+    @Column(name="archived", nullable = false)
     private Boolean archived;
 
     @ElementCollection

@@ -7,8 +7,9 @@ import lombok.EqualsAndHashCode;
 import lombok.Value;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface AddNewsUseCase {
@@ -23,25 +24,24 @@ public interface AddNewsUseCase {
         @NotBlank
         String name;
 
-        @NotBlank
-        Date postedDate;
+        @NotNull
+        LocalDateTime postedDate;
 
-        @NotBlank
+        @Positive
         Long authorID;
 
         @NotBlank
         String text;
 
-        // Base64 String encoded images
-        List<String> images;
+        List<byte[]> images;
 
         public AddNewsCommand(
                 Long culturalOfferID,
                 String name,
-                Date postedDate,
+                LocalDateTime postedDate,
                 Long authorID,
                 String text,
-                List<String> images
+                List<byte[]> images
         ) {
             this.culturalOfferID = culturalOfferID;
             this.name = name;

@@ -31,28 +31,9 @@ public interface GetNewsByIdQuery {
         private Long authorId;
         private String text;
 
-        // Base64 String encoded images
-        private List<String> images;
+//        private List<String> images;
 
         public static GetNewsByIdDTO of(News news) {
-            // Convert images to base64 string
-            List<String> base64Files = new ArrayList<>();
-            try {
-                for (Image image : news.getImages()) {
-//                    File imageFile = new File(image.getPath());
-//                    FileInputStream reader = new FileInputStream(imageFile);
-//                    byte[] fileBytes = new byte[(int) imageFile.length()];
-//                    reader.read(fileBytes);
-
-                    byte[] fileBytes = Files.readAllBytes(Paths.get(image.getPath()));
-                    String encodedFile = Base64.getEncoder().encodeToString(fileBytes);
-                    base64Files.add(encodedFile);
-                }
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
 
             return new GetNewsByIdDTO(
                     news.getId(),
@@ -60,8 +41,7 @@ public interface GetNewsByIdQuery {
                     news.getName(),
                     news.getPostedDate(),
                     news.getAuthor().getId(),
-                    news.getText(),
-                    base64Files
+                    news.getText()
             );
         }
     }

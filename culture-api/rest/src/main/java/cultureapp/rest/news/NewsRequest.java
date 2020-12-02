@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -15,9 +16,8 @@ import java.util.List;
 public class NewsRequest {
     private Long culturalOfferID;
     private String name;
-    private Date postedDate;
+    private LocalDateTime postedDate;
     private Long authorID;
+    private String text;
 
-    // Base64 String encoded images
-    private List<String> images;
 }
