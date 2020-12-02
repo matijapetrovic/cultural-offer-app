@@ -3,12 +3,14 @@ package cultureapp.domain.cultural_offer;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Data
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor
 @Embeddable
 public class Location {
     @Column(name="longitude", nullable = false)
