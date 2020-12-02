@@ -3,6 +3,7 @@ package cultureapp.rest.core.error;
 import cultureapp.domain.administrator.exception.AdminNotFoundException;
 import cultureapp.domain.category.exception.CategoryNotFoundException;
 import cultureapp.domain.cultural_offer.exception.CulturalOfferNotFoundException;
+import cultureapp.domain.news.exception.NewsNotFoundException;
 import cultureapp.domain.subcategory.exception.SubcategoryAlreadyExists;
 import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
 import org.springframework.core.Ordered;
@@ -68,6 +69,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(AdminNotFoundException.class)
     protected ResponseEntity<Object> handleAdminNotFound(AdminNotFoundException ex) {
+        ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage(), ex);
+        return buildResponse(apiError);
+    }
+
+    @ExceptionHandler(NewsNotFoundException.class)
+    protected ResponseEntity<Object> handleNewsNotFound(NewsNotFoundException ex) {
         ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage(), ex);
         return buildResponse(apiError);
     }

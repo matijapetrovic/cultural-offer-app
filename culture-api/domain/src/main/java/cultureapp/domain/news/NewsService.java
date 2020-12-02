@@ -52,6 +52,10 @@ public class NewsService implements
     @Override
     public void deleteNews(@Positive Long culturalOfferId, @Positive Long id) throws NewsNotFoundException {
         News news = newsRepository.findByIdAndCulturalOfferIdAndArchivedFalse(id, culturalOfferId)
-                .orElseThrow(() -> new NewsNotFoundException(id));
+                .orElseThrow(() -> new NewsNotFoundException(id, culturalOfferId));
+
+        news.archive();
+
+        newsRepository.save(news);
     }
 }

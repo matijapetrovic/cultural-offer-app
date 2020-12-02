@@ -86,4 +86,8 @@ public class News {
                 archived,
                 images);
     }
+
+    public void archive() {
+        this.archived = true;
+    }
 }

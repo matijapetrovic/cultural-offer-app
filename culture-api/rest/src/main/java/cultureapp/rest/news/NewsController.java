@@ -44,7 +44,7 @@ public class NewsController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteNews(@PathVariable Long culturalOfferId, @PathVariable Long id) throws NewsNotFoundException, CulturalOfferNotFoundException {
+    public void deleteNews(@PathVariable Long culturalOfferId, @PathVariable Long id) throws NewsNotFoundException {
         newsService.deleteNews(culturalOfferId, id);
     }
 }

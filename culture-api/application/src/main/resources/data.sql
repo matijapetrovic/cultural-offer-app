@@ -2,6 +2,7 @@ insert into account (email, password) values ('admin', 'admin');
 
 insert into administrator (id, first_name, last_name, account_id) values (1001, 'Jovan', 'Bodroza', 1);
 
+insert into cultural_offer (name, description, longitude, latitude, archived) values ('ponuda 1', 'opis 1', 0, 0, false);
 
 insert into category (name, archived) values ('Institution', false);
 insert into category (name, archived) values ('Manifestation', false);
