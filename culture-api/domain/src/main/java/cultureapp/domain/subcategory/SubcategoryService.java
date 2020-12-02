@@ -6,10 +6,12 @@ import cultureapp.domain.category.exception.CategoryNotFoundException;
 import cultureapp.domain.subcategory.command.AddSubcategoryUseCase;
 import cultureapp.domain.subcategory.command.DeleteSubcategoryUseCase;
 import cultureapp.domain.subcategory.command.UpdateSubcategoryUseCase;
+import cultureapp.domain.subcategory.exception.SubcategoryAlreadyExists;
 import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
 import cultureapp.domain.subcategory.query.GetSubcategoriesQuery;
 import cultureapp.domain.subcategory.query.GetSubcategoryByIdQuery;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -26,17 +28,18 @@ public class SubcategoryService implements
         GetSubcategoriesQuery,
         GetSubcategoryByIdQuery,
         UpdateSubcategoryUseCase,
-        DeleteSubcategoryUseCase{
+        DeleteSubcategoryUseCase {
     private final SubcategoryRepository subcategoryRepository;
     private final CategoryRepository categoryRepository;
 
     @Override
-    public void addSubcategory(AddSubcategoryCommand command) throws CategoryNotFoundException {
+    public void addSubcategory(AddSubcategoryCommand command)
+            throws CategoryNotFoundException, SubcategoryAlreadyExists {
         Category category = categoryRepository.findById(command.getCategoryId())
                 .orElseThrow(() -> new CategoryNotFoundException(command.getCategoryId()));
 
         Subcategory subcategory = Subcategory.of(category, command.getName());
-        subcategoryRepository.save(subcategory);
+        saveSubcategory(subcategory);
     }
 
     @Override
@@ -62,12 +65,13 @@ public class SubcategoryService implements
     }
 
     @Override
-    public void updateSubcategory(UpdateSubcategoryCommand command) throws SubcategoryNotFoundException {
+    public void updateSubcategory(UpdateSubcategoryCommand command)
+            throws SubcategoryNotFoundException, SubcategoryAlreadyExists {
         Subcategory subcategory =
                 subcategoryRepository.findByIdAndCategoryIdAndArchivedFalse(command.getCategoryId(), command.getId())
                 .orElseThrow(() -> new SubcategoryNotFoundException(command.getId(), command.getCategoryId()));
         if(subcategory.update(command.getName()))
-            subcategoryRepository.save(subcategory);
+            saveSubcategory(subcategory);
     }
 
     @Override
@@ -77,5 +81,13 @@ public class SubcategoryService implements
                 .orElseThrow(() -> new SubcategoryNotFoundException(id, categoryId));
         subcategory.archive();
         subcategoryRepository.save(subcategory);
+    }
+
+    private void saveSubcategory(Subcategory subcategory) throws SubcategoryAlreadyExists {
+        try {
+            subcategoryRepository.save(subcategory);
+        } catch (DataIntegrityViolationException ex) {
+            throw new SubcategoryAlreadyExists(subcategory.getName());
+        }
     }
 }
