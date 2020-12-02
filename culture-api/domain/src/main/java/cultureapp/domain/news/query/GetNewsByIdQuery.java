@@ -2,6 +2,7 @@ package cultureapp.domain.news.query;
 
 import cultureapp.domain.cultural_offer.Image;
 import cultureapp.domain.news.News;
+import cultureapp.domain.news.exception.NewsNotFoundException;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,7 +19,7 @@ import java.util.Base64;
 import java.util.List;
 
 public interface GetNewsByIdQuery {
-    GetNewsByIdDTO getNewsById(@Positive Long id, @Positive Long culturalOfferId);
+    GetNewsByIdDTO getNewsById(@Positive Long id, @Positive Long culturalOfferId) throws NewsNotFoundException;
 
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @Getter
