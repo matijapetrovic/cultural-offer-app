@@ -3,6 +3,7 @@ package cultureapp.rest.core.error;
 import cultureapp.domain.administrator.exception.AdminNotFoundException;
 import cultureapp.domain.category.exception.CategoryNotFoundException;
 import cultureapp.domain.cultural_offer.exception.CulturalOfferNotFoundException;
+import cultureapp.domain.subcategory.exception.SubcategoryAlreadyExists;
 import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -15,10 +16,18 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import java.io.IOException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice("cultureapp.rest")
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
+    @ExceptionHandler(SubcategoryAlreadyExists.class)
+    protected ResponseEntity<Object> handleSubcategoryAlreadyExists(
+            SubcategoryAlreadyExists ex) {
+        ApiError apiError = new ApiError(HttpStatus.CONFLICT, ex.getMessage(), ex);
+        return buildResponse(apiError);
+    }
+
     @ExceptionHandler(SubcategoryNotFoundException.class)
     protected ResponseEntity<Object> handleSubcategoryNotFound(
             SubcategoryNotFoundException ex) {

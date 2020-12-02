@@ -2,6 +2,7 @@ package cultureapp.domain.subcategory.command;
 
 import cultureapp.domain.category.exception.CategoryNotFoundException;
 import cultureapp.domain.core.validation.SelfValidating;
+import cultureapp.domain.subcategory.exception.SubcategoryAlreadyExists;
 import lombok.EqualsAndHashCode;
 import lombok.Value;
 
@@ -9,7 +10,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 
 public interface AddSubcategoryUseCase {
-    void addSubcategory(AddSubcategoryCommand command) throws CategoryNotFoundException;
+    void addSubcategory(AddSubcategoryCommand command) throws CategoryNotFoundException, SubcategoryAlreadyExists;
 
     @Value
     @EqualsAndHashCode(callSuper = false)

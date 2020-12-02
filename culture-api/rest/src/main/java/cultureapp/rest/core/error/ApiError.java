@@ -15,7 +15,7 @@ class ApiError {
     private HttpStatus status;
     private String message;
     private String debugMessage;
-    private List<Object> subErrors;
+    private List<Object> subErrors = new ArrayList<>();
 
     private ApiError() {
         timestamp = LocalDateTime.now();
@@ -39,8 +39,6 @@ class ApiError {
     }
 
     public void addSubError(Object error) {
-        if (subErrors == null)
-            subErrors = new ArrayList<Object>();
         subErrors.add(error);
     }
 }

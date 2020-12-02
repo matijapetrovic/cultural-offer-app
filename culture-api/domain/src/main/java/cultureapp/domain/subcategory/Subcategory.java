@@ -24,11 +24,27 @@ public class Subcategory implements Serializable {
 
     @Id
     @ManyToOne
-    @JoinColumn(name="category_id", insertable = false, updatable = false)
+    @JoinColumn(name="category_id", insertable = false, updatable = false, nullable = false)
     private Category category;
 
     @Column(name="name", nullable = false, unique = true)
     private String name;
+
+    @Column(name="archived", nullable = false)
+    private boolean archived;
+
+    public boolean update(String name) {
+        boolean changed = false;
+        if (!this.name.equals(name)) {
+            this.name = name;
+            changed = true;
+        }
+        return changed;
+    }
+
+    public void archive() {
+        this.archived = true;
+    }
 
     public static Subcategory withId(
             Long id,
@@ -37,7 +53,8 @@ public class Subcategory implements Serializable {
         return new Subcategory(
                 id,
                 category,
-                name);
+                name,
+                false);
     }
 
     public static Subcategory of(
