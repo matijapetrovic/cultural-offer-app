@@ -39,6 +39,12 @@ public class News {
     @JoinColumn(name="author_id", referencedColumnName = "id")
     private Administrator author;
 
+    @Column(name = "text")
+    private String text;
+
+    @Column
+    private Boolean archived;
+
     @ElementCollection
     private List<Image> images;
 
@@ -48,6 +54,8 @@ public class News {
             String name,
             LocalDateTime postedDate,
             Administrator administrator,
+            String text,
+            Boolean archived,
             List<Image> images) {
         return new News(
                 id,
@@ -55,6 +63,8 @@ public class News {
                 name,
                 postedDate,
                 administrator,
+                text,
+                archived,
                 images);
     }
 
@@ -63,6 +73,8 @@ public class News {
             String name,
             LocalDateTime postedDate,
             Administrator administrator,
+            String text,
+            Boolean archived,
             List<Image> images) {
         return withId(
                 null,
@@ -70,6 +82,8 @@ public class News {
                 name,
                 postedDate,
                 administrator,
+                text,
+                archived,
                 images);
     }
 }
