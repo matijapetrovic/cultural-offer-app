@@ -2,9 +2,13 @@ package cultureapp.domain.cultural_offer.query;
 
 import cultureapp.domain.cultural_offer.CulturalOffer;
 import cultureapp.domain.cultural_offer.exception.CulturalOfferNotFoundException;
+import cultureapp.domain.image.Image;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public interface GetCulturalOfferByIdQuery {
     GetCulturalOfferByIdDTO getCulturalOffer(Long id) throws CulturalOfferNotFoundException;
@@ -18,6 +22,7 @@ public interface GetCulturalOfferByIdQuery {
         Double longitude;
         Double latitude;
         String subcategory;
+        List<String> images;
 
         public static GetCulturalOfferByIdDTO of(CulturalOffer offer) {
             return new GetCulturalOfferByIdDTO(
@@ -26,8 +31,8 @@ public interface GetCulturalOfferByIdQuery {
                     offer.getDescription(),
                     offer.getLocation().getLongitude(),
                     offer.getLocation().getLatitude(),
-                    offer.getSubcategory().getName()
-            );
+                    offer.getSubcategory().getName(),
+                    offer.getImages().stream().map(Image::getUrl).collect(Collectors.toList()));
         }
     }
 }

@@ -3,6 +3,8 @@ package cultureapp.rest.core.error;
 import cultureapp.domain.category.exception.CategoryAlreadyExists;
 import cultureapp.domain.category.exception.CategoryNotFoundException;
 import cultureapp.domain.regular_user.exception.RegularUserAlreadyExists;
+import cultureapp.domain.review.exception.ReviewNotFoundException;
+import cultureapp.domain.image.exception.ImageNotFoundException;
 import cultureapp.domain.subcategory.exception.SubcategoryAlreadyExists;
 import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
 import org.springframework.core.Ordered;
@@ -23,6 +25,27 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(RegularUserAlreadyExists.class)
     protected ResponseEntity<Object> handleRegularUserAlreadyExists(
             RegularUserAlreadyExists ex) {
+        ApiError apiError = new ApiError(HttpStatus.CONFLICT, ex.getMessage(), ex);
+        return buildResponse(apiError);
+    }
+
+    @ExceptionHandler(ReviewNotFoundException.class)
+    protected ResponseEntity<Object> handleReviewNotFound(
+            ReviewNotFoundException ex) {
+        ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage(), ex);
+        return buildResponse(apiError);
+    }
+
+    @ExceptionHandler(ImageNotFoundException.class)
+    protected ResponseEntity<Object> handleImageNotFoundException(
+            ImageNotFoundException ex) {
+        ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage(), ex);
+        return buildResponse(apiError);
+    }
+
+    @ExceptionHandler(SubcategoryAlreadyExists.class)
+    protected ResponseEntity<Object> handleSubcategoryAlreadyExists(
+            SubcategoryAlreadyExists ex) {
         ApiError apiError = new ApiError(HttpStatus.CONFLICT, ex.getMessage(), ex);
         return buildResponse(apiError);
     }

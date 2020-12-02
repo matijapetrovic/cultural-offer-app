@@ -8,3 +8,10 @@ insert into subcategory (category_id, id, name, archived) values (2, 100000001, 
 insert into subcategory (category_id, id, name, archived) values (2, 100000002, 'Fair', false);
 insert into subcategory (category_id, id, name, archived) values (3, 100000001, 'Monument', false);
 insert into subcategory (category_id, id, name, archived) values (3, 100000002, 'Landmark', false);
+
+insert into cultural_offer (name, subcategory_id, category_id, longitude, latitude, archived) values ('offer',100000001, 1, 80, 80, false);
+
+insert  into review (id, cultural_offer_id, comment, archived) values (1001, 1, 'aaa', false);
+
+insert into image (url) values ('http://res.cloudinary.com/culture-app/image/upload/v1606935300/m6paxwralnvpfl8qwtwn.jpg');
+insert into image (url) values ('http://res.cloudinary.com/culture-app/image/upload/v1606935301/ksaqdgvg0ntswti5djem.jpg');
