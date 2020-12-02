@@ -10,6 +10,7 @@ import cultureapp.domain.cultural_offer.exception.CulturalOfferNotFoundException
 import cultureapp.domain.news.command.AddNewsUseCase;
 import cultureapp.domain.news.command.DeleteNewsUseCase;
 import cultureapp.domain.news.exception.NewsNotFoundException;
+import cultureapp.domain.news.query.GetNewsByIdQuery;
 import cultureapp.domain.news.query.GetNewsQuery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -29,7 +30,8 @@ import java.util.List;
 public class NewsService implements
         AddNewsUseCase,
         DeleteNewsUseCase,
-        GetNewsQuery {
+        GetNewsQuery,
+        GetNewsByIdQuery {
     private final NewsRepository newsRepository;
     private final CulturalOfferRepository culturalOfferRepository;
     private final AdministratorRepository administratorRepository;
@@ -73,5 +75,13 @@ public class NewsService implements
 
         return news.map(GetNewsDTO::of);
 
+    }
+
+    @Override
+    public GetNewsByIdDTO getNewsById(@Positive Long id, @Positive Long culturalOfferId) throws NewsNotFoundException {
+        News news = newsRepository.findByIdAndCulturalOfferIdAndArchivedFalse(id, culturalOfferId)
+                .orElseThrow(() -> new NewsNotFoundException(id, culturalOfferId));
+
+        return GetNewsByIdDTO.of(news);
     }
 }
