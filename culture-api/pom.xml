@@ -13,6 +13,7 @@
         <module>rest</module>
         <module>application</module>
         <module>security</module>
+        <module>infrastructure</module>
     </modules>
 
     <parent>

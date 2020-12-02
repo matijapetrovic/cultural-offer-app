@@ -1,6 +1,7 @@
 package cultureapp.rest.core.error;
 
 import cultureapp.domain.category.exception.CategoryNotFoundException;
+import cultureapp.domain.image.exception.ImageNotFoundException;
 import cultureapp.domain.subcategory.exception.SubcategoryAlreadyExists;
 import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
 import org.springframework.core.Ordered;
@@ -19,6 +20,13 @@ import java.sql.SQLIntegrityConstraintViolationException;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice("cultureapp.rest")
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
+    @ExceptionHandler(ImageNotFoundException.class)
+    protected ResponseEntity<Object> handleImageNotFoundException(
+            ImageNotFoundException ex) {
+        ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage(), ex);
+        return buildResponse(apiError);
+    }
+
     @ExceptionHandler(SubcategoryAlreadyExists.class)
     protected ResponseEntity<Object> handleSubcategoryAlreadyExists(
             SubcategoryAlreadyExists ex) {
