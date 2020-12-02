@@ -1,6 +1,5 @@
 package cultureapp.domain.news.query;
 
-import cultureapp.domain.cultural_offer.Image;
 import cultureapp.domain.news.News;
 import cultureapp.domain.news.exception.NewsNotFoundException;
 import lombok.AccessLevel;
@@ -9,14 +8,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.Positive;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public interface GetNewsByIdQuery {
     GetNewsByIdDTO getNewsById(@Positive Long id, @Positive Long culturalOfferId) throws NewsNotFoundException;
@@ -31,8 +25,7 @@ public interface GetNewsByIdQuery {
         private LocalDateTime postedDate;
         private Long authorId;
         private String text;
-
-//        private List<String> images;
+        List<String> images;
 
         public static GetNewsByIdDTO of(News news) {
 
@@ -42,7 +35,11 @@ public interface GetNewsByIdQuery {
                     news.getName(),
                     news.getPostedDate(),
                     news.getAuthor().getId(),
-                    news.getText()
+                    news.getText(),
+                    news.getImages()
+                            .stream()
+                            .map(image -> image.getUrl())
+                            .collect(Collectors.toList())
             );
         }
     }

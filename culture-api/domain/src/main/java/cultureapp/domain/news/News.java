@@ -29,8 +29,6 @@ public class News {
     @Id
     @ManyToOne
     @JoinColumn(name="cultural_offer_id", insertable = false, updatable = false)
-
-
     private CulturalOffer culturalOffer;
 
     @Column(name="name", nullable = false, unique = true)
@@ -41,8 +39,6 @@ public class News {
 
     @ManyToOne
     @JoinColumn(name="author_id", referencedColumnName = "id")
-
-
     private Administrator author;
 
     @Column(name = "text")
@@ -51,7 +47,7 @@ public class News {
     @Column(name="archived", nullable = false)
     private Boolean archived;
 
-    @ElementCollection
+    @OneToMany(cascade = CascadeType.REMOVE)
     private List<Image> images;
 
     public static News withId(

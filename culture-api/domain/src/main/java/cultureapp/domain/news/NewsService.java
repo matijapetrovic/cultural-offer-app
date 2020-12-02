@@ -5,15 +5,19 @@ import cultureapp.domain.administrator.AdministratorRepository;
 import cultureapp.domain.administrator.exception.AdminNotFoundException;
 import cultureapp.domain.cultural_offer.CulturalOffer;
 import cultureapp.domain.cultural_offer.CulturalOfferRepository;
-import cultureapp.domain.cultural_offer.Image;
 import cultureapp.domain.cultural_offer.exception.CulturalOfferNotFoundException;
+import cultureapp.domain.image.Image;
+import cultureapp.domain.image.ImageRepository;
+import cultureapp.domain.image.exception.ImageNotFoundException;
 import cultureapp.domain.news.command.AddNewsUseCase;
 import cultureapp.domain.news.command.DeleteNewsUseCase;
 import cultureapp.domain.news.command.UpdateNewsUseCase;
+import cultureapp.domain.news.exception.NewsAlreadyExistException;
 import cultureapp.domain.news.exception.NewsNotFoundException;
 import cultureapp.domain.news.query.GetNewsByIdQuery;
 import cultureapp.domain.news.query.GetNewsQuery;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -21,9 +25,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.Positive;
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -37,9 +39,12 @@ public class NewsService implements
     private final NewsRepository newsRepository;
     private final CulturalOfferRepository culturalOfferRepository;
     private final AdministratorRepository administratorRepository;
+    private final ImageRepository imageRepository;
 
     @Override
-    public void addNews(AddNewsCommand command) throws CulturalOfferNotFoundException, AdminNotFoundException {
+    public void addNews(AddNewsCommand command) throws CulturalOfferNotFoundException, AdminNotFoundException, NewsAlreadyExistException, ImageNotFoundException {
+        List<Image> images = loadImages(command.getImages());
+
         CulturalOffer offer = culturalOfferRepository.findByIdAndArchivedFalse(command.getCulturalOfferID())
                 .orElseThrow(() -> new CulturalOfferNotFoundException(command.getCulturalOfferID()));
 
@@ -53,10 +58,10 @@ public class NewsService implements
                 admin,
                 command.getText(),
                 false,
-                null
+                images
         );
 
-        newsRepository.save(news);
+        saveNews(news);
     }
 
     @Override
@@ -73,9 +78,13 @@ public class NewsService implements
     public void updateNews(UpdateNewsCommand command)
             throws NewsNotFoundException,
             AdminNotFoundException,
-            CulturalOfferNotFoundException {
+            CulturalOfferNotFoundException,
+            NewsAlreadyExistException, ImageNotFoundException {
         News news = newsRepository.findByIdAndCulturalOfferIdAndArchivedFalse(command.getId(), command.getCulturalOfferID())
                 .orElseThrow(() -> new NewsNotFoundException(command.getId(), command.getCulturalOfferID()));
+
+        List<Image> images = loadImages(command.getImages());
+        news.setImages(images);
 
         news.setName(command.getName());
         news.setPostedDate(command.getPostedDate());
@@ -93,7 +102,7 @@ public class NewsService implements
             news.setAuthor(admin);
         }
 
-        newsRepository.save(news);
+        saveNews(news);
     }
 
     private boolean updateCulturalOffer(News news, Long culturalOfferId) {
@@ -124,5 +133,24 @@ public class NewsService implements
                 .orElseThrow(() -> new NewsNotFoundException(id, culturalOfferId));
 
         return GetNewsByIdDTO.of(news);
+    }
+
+
+    private void saveNews(News news) throws NewsAlreadyExistException {
+        try {
+            newsRepository.save(news);
+        } catch (DataIntegrityViolationException ex) {
+            throw new NewsAlreadyExistException(news.getName());
+        }
+    }
+
+    private List<Image> loadImages(List<Long> imageIds) throws ImageNotFoundException {
+        List<Image> images = new ArrayList<>();
+        for (Long imageId : imageIds) {
+            Image image = imageRepository.findById(imageId)
+                    .orElseThrow(() -> new ImageNotFoundException(imageId));
+            images.add(image);
+        }
+        return images;
     }
 }

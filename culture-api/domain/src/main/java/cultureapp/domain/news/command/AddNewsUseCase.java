@@ -2,7 +2,10 @@ package cultureapp.domain.news.command;
 
 import cultureapp.domain.administrator.exception.AdminNotFoundException;
 import cultureapp.domain.core.validation.SelfValidating;
+import cultureapp.domain.core.validation.annotation.IdList;
 import cultureapp.domain.cultural_offer.exception.CulturalOfferNotFoundException;
+import cultureapp.domain.image.exception.ImageNotFoundException;
+import cultureapp.domain.news.exception.NewsAlreadyExistException;
 import lombok.EqualsAndHashCode;
 import lombok.Value;
 
@@ -13,7 +16,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface AddNewsUseCase {
-    void addNews(AddNewsCommand command) throws CulturalOfferNotFoundException, AdminNotFoundException;
+    void addNews(AddNewsCommand command) throws CulturalOfferNotFoundException, AdminNotFoundException, NewsAlreadyExistException, ImageNotFoundException;
 
     @Value
     @EqualsAndHashCode(callSuper = false)
@@ -33,7 +36,8 @@ public interface AddNewsUseCase {
         @NotBlank
         String text;
 
-        List<byte[]> images;
+        @IdList
+        List<Long> images;
 
         public AddNewsCommand(
                 Long culturalOfferID,
@@ -41,7 +45,7 @@ public interface AddNewsUseCase {
                 LocalDateTime postedDate,
                 Long authorID,
                 String text,
-                List<byte[]> images
+                List<Long> images
         ) {
             this.culturalOfferID = culturalOfferID;
             this.name = name;

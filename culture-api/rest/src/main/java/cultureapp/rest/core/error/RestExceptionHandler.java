@@ -67,13 +67,6 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponse(apiError);
     }
 
-    @ExceptionHandler(SubcategoryAlreadyExists.class)
-    protected ResponseEntity<Object> handleSubcategoryAlreadyExists(
-            SubcategoryAlreadyExists ex) {
-        ApiError apiError = new ApiError(HttpStatus.CONFLICT, ex.getMessage(), ex);
-        return buildResponse(apiError);
-    }
-
     @ExceptionHandler(SubcategoryNotFoundException.class)
     protected ResponseEntity<Object> handleSubcategoryNotFound(
             SubcategoryNotFoundException ex) {
