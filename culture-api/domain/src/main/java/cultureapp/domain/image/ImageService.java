@@ -14,9 +14,8 @@ public class ImageService implements UploadImagesUseCase {
     private final ImageUploadService imageUploadService;
 
     @Override
-    public List<Long> uploadImages(List<UploadImagesCommand> files) {
-        List<String> paths = imageUploadService.uploadImages(
-                files.stream().map(UploadImagesCommand::getFile).collect(Collectors.toList()));
+    public List<Long> uploadImages(UploadImagesCommand command) {
+        List<String> paths = imageUploadService.uploadImages(command.getFiles());
 
         List<Image> images = paths
                 .stream()

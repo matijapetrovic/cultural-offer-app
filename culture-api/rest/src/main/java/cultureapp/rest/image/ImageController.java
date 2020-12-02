@@ -20,20 +20,21 @@ public class ImageController {
 
     @PostMapping("")
     ResponseEntity<List<Long>> uploadImages(@RequestParam("images") List<MultipartFile> images) throws IOException {
-        List<UploadImagesUseCase.UploadImagesCommand> command = createCommands(images);
+        UploadImagesUseCase.UploadImagesCommand command = createCommand(images);
         List<Long> response = uploadImagesUseCase.uploadImages(command);
         return ResponseEntity.ok(response);
     }
 
-    List<UploadImagesUseCase.UploadImagesCommand> createCommands(List<MultipartFile> files) throws IOException {
-        List<UploadImagesUseCase.UploadImagesCommand> commands = new ArrayList<>();
+    UploadImagesUseCase.UploadImagesCommand createCommand(List<MultipartFile> files) throws IOException {
+        List<byte[]> images = new ArrayList<>();
+        List<String> types = new ArrayList<>();
+
         for (MultipartFile file : files) {
-            UploadImagesUseCase.UploadImagesCommand command = new UploadImagesUseCase.UploadImagesCommand(
-                    file.getContentType(),
-                    file.getBytes());
-            commands.add(command);
+            images.add(file.getBytes());
+            types.add(file.getContentType());
         }
 
-        return commands;
+        return new UploadImagesUseCase.UploadImagesCommand(images, types);
+
     }
 }

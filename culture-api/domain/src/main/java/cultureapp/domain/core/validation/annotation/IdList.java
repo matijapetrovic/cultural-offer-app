@@ -1,7 +1,6 @@
 package cultureapp.domain.core.validation.annotation;
 
 import cultureapp.domain.core.validation.validator.IdListValidator;
-import cultureapp.domain.core.validation.validator.ImageTypeValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
