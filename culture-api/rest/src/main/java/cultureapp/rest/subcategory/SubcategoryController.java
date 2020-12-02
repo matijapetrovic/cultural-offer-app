@@ -58,7 +58,7 @@ public class SubcategoryController {
     @PutMapping("/{id}")
     public void updateSubcategory(@PathVariable Long categoryId,
                                   @PathVariable Long id,
-                                  @RequestBody SubcategoryRequest request) throws SubcategoryNotFoundException {
+                                  @RequestBody SubcategoryRequest request) throws SubcategoryNotFoundException, SubcategoryAlreadyExists {
         UpdateSubcategoryUseCase.UpdateSubcategoryCommand command =
                 new UpdateSubcategoryUseCase.UpdateSubcategoryCommand(id, categoryId, request.getName());
         updateSubcategoryUseCase.updateSubcategory(command);

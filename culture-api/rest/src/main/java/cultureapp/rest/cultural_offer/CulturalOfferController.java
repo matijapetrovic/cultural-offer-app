@@ -8,7 +8,7 @@ import cultureapp.domain.cultural_offer.exception.CulturalOfferNotFoundException
 import cultureapp.domain.cultural_offer.query.GetCulturalOfferByIdQuery;
 import cultureapp.domain.cultural_offer.query.GetCulturalOffersQuery;
 import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
-import cultureapp.rest.PaginatedResponse;
+import cultureapp.rest.core.PaginatedResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Slice;
 import org.springframework.http.MediaType;
