@@ -7,6 +7,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -15,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Setter
 @Table(name="news")
 @Entity
 @IdClass(NewsId.class)
@@ -39,7 +41,13 @@ public class News {
     @JoinColumn(name="author_id", referencedColumnName = "id")
     private Administrator author;
 
-    @ElementCollection
+    @Column(name = "text")
+    private String text;
+
+    @Column(name="archived", nullable = false)
+    private Boolean archived;
+
+    @OneToMany(cascade = CascadeType.REMOVE)
     private List<Image> images;
 
     public static News withId(
@@ -48,6 +56,8 @@ public class News {
             String name,
             LocalDateTime postedDate,
             Administrator administrator,
+            String text,
+            Boolean archived,
             List<Image> images) {
         return new News(
                 id,
@@ -55,6 +65,8 @@ public class News {
                 name,
                 postedDate,
                 administrator,
+                text,
+                archived,
                 images);
     }
 
@@ -63,6 +75,8 @@ public class News {
             String name,
             LocalDateTime postedDate,
             Administrator administrator,
+            String text,
+            Boolean archived,
             List<Image> images) {
         return withId(
                 null,
@@ -70,6 +84,8 @@ public class News {
                 name,
                 postedDate,
                 administrator,
+                text,
+                archived,
                 images);
     }
 }

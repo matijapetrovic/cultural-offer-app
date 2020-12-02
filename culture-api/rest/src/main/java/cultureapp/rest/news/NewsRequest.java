@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -14,8 +14,9 @@ import java.util.List;
 @Getter
 @Setter
 public class NewsRequest {
-    private Long culturalOfferID;
-    private String name;
-    private Date postedDate;
-    private List<MultipartFile> images;
+    String name;
+    Long authorID;
+    String text;
+    List<Long> images;
+
 }

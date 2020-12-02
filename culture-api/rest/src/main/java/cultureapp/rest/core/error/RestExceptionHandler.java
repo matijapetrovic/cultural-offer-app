@@ -1,10 +1,13 @@
 package cultureapp.rest.core.error;
 
 import cultureapp.domain.category.exception.CategoryAlreadyExists;
+import cultureapp.domain.administrator.exception.AdminNotFoundException;
 import cultureapp.domain.category.exception.CategoryNotFoundException;
 import cultureapp.domain.regular_user.exception.RegularUserAlreadyExists;
 import cultureapp.domain.review.exception.ReviewNotFoundException;
 import cultureapp.domain.image.exception.ImageNotFoundException;
+import cultureapp.domain.cultural_offer.exception.CulturalOfferNotFoundException;
+import cultureapp.domain.news.exception.NewsNotFoundException;
 import cultureapp.domain.subcategory.exception.SubcategoryAlreadyExists;
 import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
 import org.springframework.core.Ordered;
@@ -64,13 +67,6 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponse(apiError);
     }
 
-    @ExceptionHandler(SubcategoryAlreadyExists.class)
-    protected ResponseEntity<Object> handleSubcategoryAlreadyExists(
-            SubcategoryAlreadyExists ex) {
-        ApiError apiError = new ApiError(HttpStatus.CONFLICT, ex.getMessage(), ex);
-        return buildResponse(apiError);
-    }
-
     @ExceptionHandler(SubcategoryNotFoundException.class)
     protected ResponseEntity<Object> handleSubcategoryNotFound(
             SubcategoryNotFoundException ex) {
@@ -93,6 +89,24 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleCategoryNotFound(
             IOException ex) {
         ApiError apiError = new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
+        return buildResponse(apiError);
+    }
+
+    @ExceptionHandler(CulturalOfferNotFoundException.class)
+    protected ResponseEntity<Object> handleCulturalOfferNotFound(CulturalOfferNotFoundException ex) {
+        ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage(), ex);
+        return buildResponse(apiError);
+    }
+
+    @ExceptionHandler(AdminNotFoundException.class)
+    protected ResponseEntity<Object> handleAdminNotFound(AdminNotFoundException ex) {
+        ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage(), ex);
+        return buildResponse(apiError);
+    }
+
+    @ExceptionHandler(NewsNotFoundException.class)
+    protected ResponseEntity<Object> handleNewsNotFound(NewsNotFoundException ex) {
+        ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage(), ex);
         return buildResponse(apiError);
     }
 
