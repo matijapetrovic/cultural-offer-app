@@ -8,6 +8,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Value;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -30,7 +31,7 @@ public interface UpdateNewsUseCase {
         @NotBlank
         String name;
 
-        @NotBlank
+        @NotNull
         LocalDateTime postedDate;
 
         @Positive
