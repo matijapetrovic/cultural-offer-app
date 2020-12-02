@@ -20,11 +20,7 @@ import java.time.LocalDateTime;
 
 @RequiredArgsConstructor
 @RestController
-<<<<<<< HEAD
-@RequestMapping(value = "/api/cultural-offer/{culturalOfferId}/news", produces = MediaType.APPLICATION_JSON_VALUE)
-=======
 @RequestMapping(value="/api/cultural-offers/{culturalOfferId}/news")
->>>>>>> master
 public class NewsController {
     private final NewsService newsService;
 
