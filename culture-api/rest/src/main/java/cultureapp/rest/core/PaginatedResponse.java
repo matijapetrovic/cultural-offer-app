@@ -1,4 +1,4 @@
-package cultureapp.rest;
+package cultureapp.rest.core;
 
 import lombok.Getter;
 import org.springframework.data.domain.Slice;
