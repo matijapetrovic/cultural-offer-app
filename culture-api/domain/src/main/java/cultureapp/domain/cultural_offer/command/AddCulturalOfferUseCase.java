@@ -16,6 +16,7 @@ public interface AddCulturalOfferUseCase {
     @EqualsAndHashCode(callSuper = false)
     class AddCulturalOfferCommand extends SelfValidating<AddCulturalOfferCommand> {
 
+        @NotBlank
         String name;
         
         Double longitude;
