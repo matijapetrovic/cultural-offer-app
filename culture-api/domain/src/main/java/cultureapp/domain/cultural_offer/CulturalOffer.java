@@ -1,5 +1,6 @@
 package cultureapp.domain.cultural_offer;
 
+import cultureapp.domain.image.Image;
 import cultureapp.domain.regular_user.RegularUser;
 import cultureapp.domain.subcategory.Subcategory;
 import lombok.*;
@@ -29,7 +30,7 @@ public class CulturalOffer {
     @Embedded
     private Location location;
 
-    @ElementCollection
+    @OneToMany(cascade = CascadeType.REMOVE)
     private List<Image> images;
 
     @ManyToMany(mappedBy = "culturalOffers")

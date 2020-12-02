@@ -14,8 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 public class ReviewRequest {
-    private Long culturalOfferID;
     private String comment;
     private BigDecimal rating;
-    private List<MultipartFile> images;
+    private List<Long> images;
 }

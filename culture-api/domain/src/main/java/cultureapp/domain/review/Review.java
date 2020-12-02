@@ -1,8 +1,7 @@
 package cultureapp.domain.review;
 
-
 import cultureapp.domain.cultural_offer.CulturalOffer;
-import cultureapp.domain.cultural_offer.Image;
+import cultureapp.domain.image.Image;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -35,11 +35,14 @@ public class Review {
     @Column(name="rating")
     private BigDecimal rating;
 
-    @ElementCollection
+    @OneToMany(cascade = CascadeType.REMOVE)
     private List<Image> images;
 
     @OneToOne(fetch = FetchType.EAGER)
     private Reply reply;
+
+    @Column(name="archived", nullable = false)
+    private boolean archived;
 
     public boolean addReply(Reply reply) {
         if (this.reply != null)
@@ -48,31 +51,46 @@ public class Review {
         return true;
     }
 
+    @Column(name="date")
+    LocalDateTime date;
+
+    public void archive() {
+        this.archived = true;
+    }
+
     public static Review withId(
             Long id,
             CulturalOffer culturalOffer,
             String comment,
             BigDecimal rating,
-            List<Image> images) {
+            boolean archived,
+            List<Image> images,
+            LocalDateTime date) {
         return new Review(
                 id,
                 culturalOffer,
                 comment,
                 rating,
                 images,
-                null);
+                null,
+                archived,
+                date);
     }
 
     public static Review of(
             CulturalOffer culturalOffer,
             String comment,
             BigDecimal rating,
-            List<Image> images) {
+            boolean archived,
+            List<Image> images,
+            LocalDateTime date) {
         return withId(
                 null,
                 culturalOffer,
                 comment,
                 rating,
-                images);
+                archived,
+                images,
+                date);
     }
 }
