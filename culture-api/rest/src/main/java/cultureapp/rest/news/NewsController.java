@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.websocket.server.PathParam;
 import java.time.LocalDateTime;
 
 @RequiredArgsConstructor
@@ -25,16 +26,13 @@ public class NewsController {
     private final NewsService newsService;
 
     @PostMapping("")
-    public void addNews(@RequestBody NewsRequest request) throws CulturalOfferNotFoundException, AdminNotFoundException {
+    public void addNews(@PathVariable Long culturalOfferId, @RequestBody NewsRequest request) throws CulturalOfferNotFoundException, AdminNotFoundException {
         LocalDateTime now = LocalDateTime.now();
-        System.out.println(now.toString());
-
-        System.out.println(request.getName());
 
         AddNewsUseCase.AddNewsCommand command = new AddNewsUseCase.AddNewsCommand(
-                request.getCulturalOfferID(),
+                culturalOfferId,
                 request.getName(),
-                request.getPostedDate(),
+                now,
                 request.getAuthorID(),
                 request.getText(),
                 null

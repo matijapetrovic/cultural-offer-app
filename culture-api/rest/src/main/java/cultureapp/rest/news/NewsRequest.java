@@ -14,9 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 public class NewsRequest {
-    private Long culturalOfferID;
     private String name;
-    private LocalDateTime postedDate;
     private Long authorID;
     private String text;
 
