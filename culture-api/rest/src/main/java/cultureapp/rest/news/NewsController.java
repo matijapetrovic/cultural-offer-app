@@ -5,6 +5,7 @@ import cultureapp.domain.administrator.exception.AdminNotFoundException;
 import cultureapp.domain.cultural_offer.exception.CulturalOfferNotFoundException;
 import cultureapp.domain.news.NewsService;
 import cultureapp.domain.news.command.AddNewsUseCase;
+import cultureapp.domain.news.command.UpdateNewsUseCase;
 import cultureapp.domain.news.exception.NewsNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,7 +44,23 @@ public class NewsController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteNews(@PathVariable Long culturalOfferId, @PathVariable Long id) throws NewsNotFoundException {
+    public void deleteNews(@PathVariable Long id, @PathVariable Long culturalOfferId) throws NewsNotFoundException {
         newsService.deleteNews(culturalOfferId, id);
+    }
+
+    @PutMapping("/{id}")
+    public void updateNews(@PathVariable Long id,
+                           @PathVariable Long culturalOfferId,
+                           @RequestBody NewsRequest request) throws CulturalOfferNotFoundException, NewsNotFoundException, AdminNotFoundException {
+        UpdateNewsUseCase.UpdateNewsCommand command = new UpdateNewsUseCase.UpdateNewsCommand(
+                id,
+                culturalOfferId,
+                request.getName(),
+                LocalDateTime.now(),
+                request.getAuthorID(),
+                request.getText()
+        );
+
+        newsService.updateNews(command);
     }
 }

@@ -9,6 +9,7 @@ import cultureapp.domain.cultural_offer.Image;
 import cultureapp.domain.cultural_offer.exception.CulturalOfferNotFoundException;
 import cultureapp.domain.news.command.AddNewsUseCase;
 import cultureapp.domain.news.command.DeleteNewsUseCase;
+import cultureapp.domain.news.command.UpdateNewsUseCase;
 import cultureapp.domain.news.exception.NewsNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,8 @@ import java.util.List;
 @Service
 public class NewsService implements
         AddNewsUseCase,
-        DeleteNewsUseCase {
+        DeleteNewsUseCase,
+        UpdateNewsUseCase {
     private final NewsRepository newsRepository;
     private final CulturalOfferRepository culturalOfferRepository;
     private final AdministratorRepository administratorRepository;
@@ -54,8 +56,43 @@ public class NewsService implements
         News news = newsRepository.findByIdAndCulturalOfferIdAndArchivedFalse(id, culturalOfferId)
                 .orElseThrow(() -> new NewsNotFoundException(id, culturalOfferId));
 
-        news.archive();
+        news.setArchived(true);
 
         newsRepository.save(news);
+    }
+
+    @Override
+    public void updateNews(UpdateNewsCommand command)
+            throws NewsNotFoundException,
+            AdminNotFoundException,
+            CulturalOfferNotFoundException {
+        News news = newsRepository.findByIdAndCulturalOfferIdAndArchivedFalse(command.getId(), command.getCulturalOfferID())
+                .orElseThrow(() -> new NewsNotFoundException(command.getId(), command.getCulturalOfferID()));
+
+        news.setName(command.getName());
+        news.setPostedDate(command.getPostedDate());
+        news.setText(command.getText());
+
+        if (updateCulturalOffer(news, command.getCulturalOfferID())) {
+            CulturalOffer offer = culturalOfferRepository.findByIdAndArchivedFalse(command.getCulturalOfferID())
+                    .orElseThrow(() -> new CulturalOfferNotFoundException(command.getCulturalOfferID()));
+            news.setCulturalOffer(offer);
+        }
+
+        if (updateAuthor(news, command.getAuthorID())) {
+            Administrator admin = administratorRepository.findById(command.getAuthorID())
+                    .orElseThrow(() -> new AdminNotFoundException(command.getAuthorID()));
+            news.setAuthor(admin);
+        }
+
+        newsRepository.save(news);
+    }
+
+    private boolean updateCulturalOffer(News news, Long culturalOfferId) {
+        return !news.getCulturalOffer().getId().equals(culturalOfferId);
+    }
+
+    private boolean updateAuthor(News news, Long adminId) {
+        return !news.getAuthor().getId().equals(adminId);
     }
 }

@@ -7,6 +7,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -15,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Setter
 @Table(name="news")
 @Entity
 @IdClass(NewsId.class)
@@ -27,6 +29,8 @@ public class News {
     @Id
     @ManyToOne
     @JoinColumn(name="cultural_offer_id", insertable = false, updatable = false)
+
+
     private CulturalOffer culturalOffer;
 
     @Column(name="name", nullable = false, unique = true)
@@ -37,6 +41,8 @@ public class News {
 
     @ManyToOne
     @JoinColumn(name="author_id", referencedColumnName = "id")
+
+
     private Administrator author;
 
     @Column(name = "text")
@@ -85,9 +91,5 @@ public class News {
                 text,
                 archived,
                 images);
-    }
-
-    public void archive() {
-        this.archived = true;
     }
 }

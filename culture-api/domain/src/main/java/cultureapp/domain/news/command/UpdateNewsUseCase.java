@@ -1,5 +1,6 @@
 package cultureapp.domain.news.command;
 
+import cultureapp.domain.administrator.exception.AdminNotFoundException;
 import cultureapp.domain.core.validation.SelfValidating;
 import cultureapp.domain.cultural_offer.exception.CulturalOfferNotFoundException;
 import cultureapp.domain.news.exception.NewsNotFoundException;
@@ -8,10 +9,14 @@ import lombok.Value;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public interface UpdateNewsUseCase {
-    void updateNews(UpdateNewsCommand command) throws NewsNotFoundException;
+    void updateNews(UpdateNewsCommand command)
+            throws NewsNotFoundException,
+            AdminNotFoundException,
+            CulturalOfferNotFoundException;
 
     @Value
     @EqualsAndHashCode(callSuper = true)
@@ -26,7 +31,7 @@ public interface UpdateNewsUseCase {
         String name;
 
         @NotBlank
-        Date postedDate;
+        LocalDateTime postedDate;
 
         @Positive
         Long authorID;
@@ -35,7 +40,7 @@ public interface UpdateNewsUseCase {
         String text;
 
         public UpdateNewsCommand(Long id, Long culturalOfferID, String name,
-                                 Date postedDate, Long authorID, String text)
+                                 LocalDateTime postedDate, Long authorID, String text)
         {
             this.id = id;
             this.culturalOfferID = culturalOfferID;
