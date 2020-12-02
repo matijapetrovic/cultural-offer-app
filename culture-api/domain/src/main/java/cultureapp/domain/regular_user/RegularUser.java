@@ -2,17 +2,24 @@ package cultureapp.domain.regular_user;
 
 
 import cultureapp.domain.account.Account;
+import cultureapp.domain.authority.Authority;
 import cultureapp.domain.cultural_offer.CulturalOffer;
 import cultureapp.domain.user.User;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-@NoArgsConstructor
 @Table(name = "regular_user")
 public class RegularUser extends User {
 
