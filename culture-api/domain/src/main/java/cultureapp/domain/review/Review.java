@@ -41,11 +41,18 @@ public class Review {
     @OneToOne(fetch = FetchType.EAGER)
     private Reply reply;
 
+    @Column(name="archived", nullable = false)
+    private boolean archived;
+
     public boolean addReply(Reply reply) {
         if (this.reply != null)
             return false;
         this.reply = reply;
         return true;
+    }
+    // TODO dodati datume ?
+    public void archive() {
+        this.archived = true;
     }
 
     public static Review withId(
@@ -53,6 +60,7 @@ public class Review {
             CulturalOffer culturalOffer,
             String comment,
             BigDecimal rating,
+            boolean archived,
             List<Image> images) {
         return new Review(
                 id,
@@ -60,19 +68,22 @@ public class Review {
                 comment,
                 rating,
                 images,
-                null);
+                null,
+                archived);
     }
 
     public static Review of(
             CulturalOffer culturalOffer,
             String comment,
             BigDecimal rating,
+            boolean archived,
             List<Image> images) {
         return withId(
                 null,
                 culturalOffer,
                 comment,
                 rating,
+                archived,
                 images);
     }
 }
