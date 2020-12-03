@@ -2,6 +2,7 @@ package cultureapp.rest.regularUser;
 
 import cultureapp.domain.regular_user.RegularUserService;
 import cultureapp.domain.regular_user.command.AddRegularUserUseCase;
+import cultureapp.domain.regular_user.exception.RegularUserAlreadyExists;
 import cultureapp.rest.user.UserRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -17,7 +18,7 @@ public class RegularUserController {
     private final RegularUserService regularUserService;
 
     @PostMapping("")
-    public void addRegularUser(@RequestBody UserRequest request) {
+    public void addRegularUser(@RequestBody UserRequest request) throws RegularUserAlreadyExists {
         AddRegularUserUseCase.AddRegularUserCommand command =
                 new AddRegularUserUseCase.AddRegularUserCommand(
                         request.getFirstName(), request.getLastName(), request.getEmail(), request.getPassword());

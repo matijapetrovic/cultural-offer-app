@@ -7,6 +7,7 @@ import cultureapp.domain.cultural_offer.command.UpdateCulturalOfferUseCase;
 import cultureapp.domain.cultural_offer.exception.CulturalOfferNotFoundException;
 import cultureapp.domain.cultural_offer.query.GetCulturalOfferByIdQuery;
 import cultureapp.domain.cultural_offer.query.GetCulturalOffersQuery;
+import cultureapp.domain.image.exception.ImageNotFoundException;
 import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
 import cultureapp.rest.core.PaginatedResponse;
 import lombok.RequiredArgsConstructor;
@@ -14,12 +15,7 @@ import org.springframework.data.domain.Slice;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -33,16 +29,16 @@ public class CulturalOfferController {
 
     @PostMapping("")
     public void addCulturalOffer(@RequestBody CulturalOfferRequest request)
-            throws IOException, SubcategoryNotFoundException {
+            throws SubcategoryNotFoundException, ImageNotFoundException {
         AddCulturalOfferUseCase.AddCulturalOfferCommand command
-            = new AddCulturalOfferUseCase.AddCulturalOfferCommand(
-                    request.getName(),
-                    request.getLongitude(),
-                    request.getLatitude(),
-                    null,
-                    request.getDescription(),
-                    request.getCategoryId(),
-                    request.getSubcategoryId());
+                = new AddCulturalOfferUseCase.AddCulturalOfferCommand(
+                request.getName(),
+                request.getLongitude(),
+                request.getLatitude(),
+                request.getImages(),
+                request.getDescription(),
+                request.getCategoryId(),
+                request.getSubcategoryId());
 
         addCulturalOfferUseCase.addCulturalOffer(command);
     }
@@ -55,7 +51,7 @@ public class CulturalOfferController {
     @PutMapping("/{id}")
     public void updateCulturalOffer(@PathVariable(required = true) Long id,
                                     @RequestBody CulturalOfferRequest request)
-            throws CulturalOfferNotFoundException, SubcategoryNotFoundException {
+            throws CulturalOfferNotFoundException, SubcategoryNotFoundException, ImageNotFoundException {
         UpdateCulturalOfferUseCase.UpdateCulturalOfferCommand command = new UpdateCulturalOfferUseCase.UpdateCulturalOfferCommand(
                 id,
                 request.getName(),
@@ -63,21 +59,21 @@ public class CulturalOfferController {
                 request.getLongitude(),
                 request.getLatitude(),
                 request.getCategoryId(),
-                request.getSubcategoryId()
-        );
+                request.getSubcategoryId(),
+                request.getImages());
 
         updateCulturalOfferUseCase.updateCulturalOffer(command);
     }
 
-    @GetMapping(value = "", params = { "page", "limit" })
+    @GetMapping(value = "", params = {"page", "limit"})
     public ResponseEntity<PaginatedResponse<GetCulturalOffersQuery.GetCulturalOffersDTO>> getCulturalOffers(
-            @RequestParam(name="page", required = true) Integer page,
-            @RequestParam(name="limit", required = true) Integer limit,
+            @RequestParam(name = "page", required = true) Integer page,
+            @RequestParam(name = "limit", required = true) Integer limit,
             UriComponentsBuilder uriBuilder
     ) {
         Slice<GetCulturalOffersQuery.GetCulturalOffersDTO> result = getCulturalOffersQuery.getCulturalOffers(page, limit);
         uriBuilder.path("/api/cultural-offers");
-        return  ResponseEntity.ok(PaginatedResponse.of(result, uriBuilder));
+        return ResponseEntity.ok(PaginatedResponse.of(result, uriBuilder));
     }
 
     @GetMapping("/{id}")
@@ -85,13 +81,5 @@ public class CulturalOfferController {
             throws CulturalOfferNotFoundException {
         return ResponseEntity.ok(getCulturalOfferByIdQuery.getCulturalOffer(id));
     }
-
-    // Stream ne moze da baci gresku???
-    private List<byte[]> readBytes(List<MultipartFile> files) throws IOException {
-        List<byte[]> bytes = new ArrayList<>();
-        for (MultipartFile file : files) {
-            bytes.add(file.getBytes());
-        }
-        return bytes;
-    }
 }
+
