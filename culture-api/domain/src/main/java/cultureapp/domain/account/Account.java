@@ -20,7 +20,7 @@ public class Account {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
     public static Account withId(

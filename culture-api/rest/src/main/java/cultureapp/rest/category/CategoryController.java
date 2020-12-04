@@ -3,6 +3,7 @@ package cultureapp.rest.category;
 import cultureapp.domain.category.command.AddCategoryUseCase;
 import cultureapp.domain.category.command.DeleteCategoryUseCase;
 import cultureapp.domain.category.command.UpdateCategoryUseCase;
+import cultureapp.domain.category.exception.CategoryAlreadyExists;
 import cultureapp.domain.category.exception.CategoryNotFoundException;
 import cultureapp.domain.category.query.GetCategoriesQuery;
 import cultureapp.domain.category.query.GetCategoryByIdQuery;
@@ -25,7 +26,7 @@ public class CategoryController {
     private final DeleteCategoryUseCase deleteCategoryUseCase;
 
     @PostMapping("")
-    public void addCategory(@RequestBody CategoryRequest request) throws CategoryNotFoundException {
+    public void addCategory(@RequestBody CategoryRequest request) throws CategoryNotFoundException, CategoryAlreadyExists {
         AddCategoryUseCase.AddCategoryCommand command =
                 new AddCategoryUseCase.AddCategoryCommand(request.getName());
         addCategoryUseCase.addCategory(command);
