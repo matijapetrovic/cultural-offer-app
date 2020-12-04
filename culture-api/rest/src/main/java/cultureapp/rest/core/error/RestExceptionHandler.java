@@ -1,7 +1,7 @@
 package cultureapp.rest.core.error;
-
-import cultureapp.domain.category.exception.CategoryAlreadyExists;
+import cultureapp.domain.account.exception.AccountAlreadyExists;
 import cultureapp.domain.administrator.exception.AdminNotFoundException;
+import cultureapp.domain.category.exception.CategoryAlreadyExists;
 import cultureapp.domain.category.exception.CategoryNotFoundException;
 import cultureapp.domain.regular_user.exception.RegularUserAlreadyExists;
 import cultureapp.domain.review.exception.ReviewNotFoundException;
@@ -56,6 +56,13 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(CategoryAlreadyExists.class)
     protected ResponseEntity<Object> handleCategoryAlreadyExists(
             CategoryAlreadyExists ex) {
+        ApiError apiError = new ApiError(HttpStatus.CONFLICT, ex.getMessage(), ex);
+        return buildResponse(apiError);
+    }
+
+    @ExceptionHandler(AccountAlreadyExists.class)
+    protected ResponseEntity<Object> handleUserAlreadyExists(
+            AccountAlreadyExists ex) {
         ApiError apiError = new ApiError(HttpStatus.CONFLICT, ex.getMessage(), ex);
         return buildResponse(apiError);
     }
