@@ -7,6 +7,7 @@ import cultureapp.domain.category.exception.CategoryAlreadyExists;
 import cultureapp.domain.category.exception.CategoryNotFoundException;
 import cultureapp.domain.category.query.GetCategoriesQuery;
 import cultureapp.domain.category.query.GetCategoryByIdQuery;
+import cultureapp.domain.subcategory.exception.SubcategoryAlreadyExists;
 import cultureapp.rest.core.PaginatedResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Slice;
@@ -52,7 +53,7 @@ public class CategoryController {
 
     @PutMapping("/{id}")
     public void updateCategory(@PathVariable Long id,
-                                @RequestBody CategoryRequest request) throws CategoryNotFoundException {
+                                @RequestBody CategoryRequest request) throws CategoryNotFoundException, SubcategoryAlreadyExists, CategoryAlreadyExists {
         UpdateCategoryUseCase.UpdateCategoryCommand command =
                 new UpdateCategoryUseCase.UpdateCategoryCommand(id, request.getName());
         updateCategoryUseCase.updateCategory(command);

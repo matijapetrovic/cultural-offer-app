@@ -2,6 +2,7 @@ package cultureapp.domain.regular_user.command;
 
 import cultureapp.domain.account.exception.AccountAlreadyExists;
 import cultureapp.domain.core.validation.SelfValidating;
+import cultureapp.domain.regular_user.exception.RegularUserAlreadyExists;
 import lombok.EqualsAndHashCode;
 import lombok.Value;
 

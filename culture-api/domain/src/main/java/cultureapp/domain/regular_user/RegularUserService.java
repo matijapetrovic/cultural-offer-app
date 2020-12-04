@@ -4,6 +4,7 @@ import cultureapp.domain.account.Account;
 import cultureapp.domain.account.AccountRepository;
 import cultureapp.domain.account.exception.AccountAlreadyExists;
 import cultureapp.domain.regular_user.command.AddRegularUserUseCase;
+import cultureapp.domain.regular_user.exception.RegularUserAlreadyExists;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ public class RegularUserService implements AddRegularUserUseCase {
                 command.getLastName(),
                 account
                );
-        regularUserRepository.save(regularUser);
+       regularUserRepository.save(regularUser);
     }
 
     private Account saveAccount(AddRegularUserCommand command) throws AccountAlreadyExists {

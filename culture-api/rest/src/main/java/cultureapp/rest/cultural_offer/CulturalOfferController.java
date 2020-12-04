@@ -15,12 +15,7 @@ import org.springframework.data.domain.Slice;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -56,7 +51,7 @@ public class CulturalOfferController {
     @PutMapping("/{id}")
     public void updateCulturalOffer(@PathVariable(required = true) Long id,
                                     @RequestBody CulturalOfferRequest request)
-            throws CulturalOfferNotFoundException, SubcategoryNotFoundException {
+            throws CulturalOfferNotFoundException, SubcategoryNotFoundException, ImageNotFoundException {
         UpdateCulturalOfferUseCase.UpdateCulturalOfferCommand command = new UpdateCulturalOfferUseCase.UpdateCulturalOfferCommand(
                 id,
                 request.getName(),
@@ -64,8 +59,8 @@ public class CulturalOfferController {
                 request.getLongitude(),
                 request.getLatitude(),
                 request.getCategoryId(),
-                request.getSubcategoryId()
-        );
+                request.getSubcategoryId(),
+                request.getImages());
 
         updateCulturalOfferUseCase.updateCulturalOffer(command);
     }

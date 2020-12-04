@@ -7,8 +7,6 @@ import cultureapp.domain.category.exception.CategoryAlreadyExists;
 import cultureapp.domain.category.exception.CategoryNotFoundException;
 import cultureapp.domain.category.query.GetCategoriesQuery;
 import cultureapp.domain.category.query.GetCategoryByIdQuery;
-import cultureapp.domain.subcategory.Subcategory;
-import cultureapp.domain.subcategory.exception.SubcategoryAlreadyExists;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
@@ -54,19 +52,22 @@ public class CategoryService implements
     }
 
     @Override
-    public void updateCategory(UpdateCategoryCommand command) throws CategoryNotFoundException {
+    public void updateCategory(UpdateCategoryCommand command) throws CategoryNotFoundException, CategoryAlreadyExists {
         Category category = categoryRepository.findByIdAndArchivedFalse(command.getId())
                 .orElseThrow(() -> new CategoryNotFoundException(command.getId()));
         if(category.update(command.getName()))
-            categoryRepository.save(category);
+            saveCategory(category);
     }
 
     @Override
     public void deleteCategoryById(@Positive Long id) throws CategoryNotFoundException {
         Category category = categoryRepository.findByIdAndArchivedFalse(id)
                 .orElseThrow(() -> new CategoryNotFoundException(id));
-        category.archive();
-        categoryRepository.save(category);
+
+        if(!categoryRepository.existsWithSubcateogory(id)) {
+            category.archive();
+            categoryRepository.save(category);
+        }
     }
 
     private void saveCategory(Category category) throws CategoryAlreadyExists {
