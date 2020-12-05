@@ -82,7 +82,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
-    protected ResponseEntity<Object> handleConstraintViolated(
+    protected ResponseEntity<Object> handleConstraintViolated(tes
             ConstraintViolationException ex) {
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, "Constraints violated", ex);
 
