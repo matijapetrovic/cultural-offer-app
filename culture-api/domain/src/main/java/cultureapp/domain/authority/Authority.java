@@ -1,7 +1,6 @@
 package cultureapp.domain.authority;
 
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 
@@ -11,7 +10,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name="authority")
-public class Authority implements GrantedAuthority {
+public class Authority {
 
     @Id
     @Column(name="id")
@@ -21,10 +20,6 @@ public class Authority implements GrantedAuthority {
     @Column(name="name")
     String name;
 
-    @Override
-    public String getAuthority() {
-        return name;
-    }
 
     public static Authority withId(
             Long id,

@@ -17,5 +17,7 @@ public class CulturalOfferRequest {
     String description;
     Double longitude;
     Double latitude;
-    List<MultipartFile> images;
+    List<Long> images;
+    Long categoryId;
+    Long subcategoryId;
 }

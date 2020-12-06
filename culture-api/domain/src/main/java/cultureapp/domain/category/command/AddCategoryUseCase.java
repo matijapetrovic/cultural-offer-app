@@ -1,14 +1,16 @@
 package cultureapp.domain.category.command;
 
+import cultureapp.domain.category.exception.CategoryAlreadyExists;
 import cultureapp.domain.category.exception.CategoryNotFoundException;
 import cultureapp.domain.core.validation.SelfValidating;
+import cultureapp.domain.subcategory.exception.SubcategoryAlreadyExists;
 import lombok.EqualsAndHashCode;
 import lombok.Value;
 
 import javax.validation.constraints.NotBlank;
 
 public interface AddCategoryUseCase {
-    void addCategory(AddCategoryCommand command) throws CategoryNotFoundException;
+    void addCategory(AddCategoryCommand command) throws CategoryNotFoundException, CategoryAlreadyExists;
 
     @Value
     @EqualsAndHashCode(callSuper = false)

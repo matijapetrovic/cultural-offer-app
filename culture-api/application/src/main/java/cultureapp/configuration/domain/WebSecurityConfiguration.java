@@ -1,9 +1,9 @@
 package cultureapp.configuration.domain;
 
-import cultureapp.TokenUtils;
-import cultureapp.auth.RestAuthenticationEntryPoint;
-import cultureapp.auth.TokenAuthenticationFilter;
-import cultureapp.domain.user.CustomUserDetailsService;
+import cultureapp.security.TokenUtils;
+import cultureapp.security.rest.RestAuthenticationEntryPoint;
+import cultureapp.security.rest.TokenAuthenticationFilter;
+import cultureapp.security.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

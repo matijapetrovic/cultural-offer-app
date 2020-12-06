@@ -3,10 +3,12 @@ package cultureapp.domain.category;
 import cultureapp.domain.category.command.AddCategoryUseCase;
 import cultureapp.domain.category.command.DeleteCategoryUseCase;
 import cultureapp.domain.category.command.UpdateCategoryUseCase;
+import cultureapp.domain.category.exception.CategoryAlreadyExists;
 import cultureapp.domain.category.exception.CategoryNotFoundException;
 import cultureapp.domain.category.query.GetCategoriesQuery;
 import cultureapp.domain.category.query.GetCategoryByIdQuery;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -27,9 +29,9 @@ public class CategoryService implements
     private final CategoryRepository categoryRepository;
 
     @Override
-    public void addCategory(AddCategoryCommand command) {
+    public void addCategory(AddCategoryCommand command) throws CategoryAlreadyExists {
         Category category = Category.of(command.getName());
-        categoryRepository.save(category);
+        saveCategory(category);
     }
 
     @Override
@@ -50,18 +52,29 @@ public class CategoryService implements
     }
 
     @Override
-    public void updateCategory(UpdateCategoryCommand command) throws CategoryNotFoundException {
+    public void updateCategory(UpdateCategoryCommand command) throws CategoryNotFoundException, CategoryAlreadyExists {
         Category category = categoryRepository.findByIdAndArchivedFalse(command.getId())
                 .orElseThrow(() -> new CategoryNotFoundException(command.getId()));
         if(category.update(command.getName()))
-            categoryRepository.save(category);
+            saveCategory(category);
     }
 
     @Override
     public void deleteCategoryById(@Positive Long id) throws CategoryNotFoundException {
         Category category = categoryRepository.findByIdAndArchivedFalse(id)
                 .orElseThrow(() -> new CategoryNotFoundException(id));
-        category.archive();
-        categoryRepository.save(category);
+
+        if(!categoryRepository.existsWithSubcateogory(id)) {
+            category.archive();
+            categoryRepository.save(category);
+        }
+    }
+
+    private void saveCategory(Category category) throws CategoryAlreadyExists {
+        try {
+            categoryRepository.save(category);
+        } catch (DataIntegrityViolationException ex) {
+            throw new CategoryAlreadyExists(category.getName());
+        }
     }
 }

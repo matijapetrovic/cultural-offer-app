@@ -5,7 +5,6 @@ import cultureapp.domain.account.AccountRepository;
 import cultureapp.domain.authority.Authority;
 import cultureapp.domain.regular_user.command.AddRegularUserUseCase;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,13 +14,13 @@ import java.util.List;
 public class RegularUserService implements AddRegularUserUseCase {
     private final RegularUserRepository regularUserRepository;
     private final AccountRepository accountRepository;
-    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void addRegularUser(AddRegularUserCommand command) {
         Account account = accountRepository.save(Account.of(
                 command.getEmail(),
-                passwordEncoder.encode(command.getPassword()),
+                //passwordEncoder.encode(command.getPassword()),
+                command.getPassword(),
                 null,
                 false,
                 false,
@@ -32,6 +31,6 @@ public class RegularUserService implements AddRegularUserUseCase {
                 command.getLastName(),
                 account
                );
-        regularUserRepository.save(regularUser);
+       regularUserRepository.save(regularUser);
     }
 }

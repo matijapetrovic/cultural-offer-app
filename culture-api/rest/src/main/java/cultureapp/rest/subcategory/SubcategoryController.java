@@ -4,10 +4,11 @@ import cultureapp.domain.category.exception.CategoryNotFoundException;
 import cultureapp.domain.subcategory.command.AddSubcategoryUseCase;
 import cultureapp.domain.subcategory.command.DeleteSubcategoryUseCase;
 import cultureapp.domain.subcategory.command.UpdateSubcategoryUseCase;
+import cultureapp.domain.subcategory.exception.SubcategoryAlreadyExists;
 import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
 import cultureapp.domain.subcategory.query.GetSubcategoriesQuery;
 import cultureapp.domain.subcategory.query.GetSubcategoryByIdQuery;
-import cultureapp.rest.PaginatedResponse;
+import cultureapp.rest.core.PaginatedResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Slice;
 import org.springframework.http.MediaType;
@@ -28,7 +29,7 @@ public class SubcategoryController {
     @PostMapping("")
     public void addSubcategory(
             @PathVariable Long categoryId,
-            @RequestBody SubcategoryRequest request) throws CategoryNotFoundException {
+            @RequestBody SubcategoryRequest request) throws CategoryNotFoundException, SubcategoryAlreadyExists {
         AddSubcategoryUseCase.AddSubcategoryCommand command =
                 new AddSubcategoryUseCase.AddSubcategoryCommand(categoryId, request.getName());
         addSubcategoryUseCase.addSubcategory(command);
@@ -57,7 +58,7 @@ public class SubcategoryController {
     @PutMapping("/{id}")
     public void updateSubcategory(@PathVariable Long categoryId,
                                   @PathVariable Long id,
-                                  @RequestBody SubcategoryRequest request) throws SubcategoryNotFoundException {
+                                  @RequestBody SubcategoryRequest request) throws SubcategoryNotFoundException, SubcategoryAlreadyExists {
         UpdateSubcategoryUseCase.UpdateSubcategoryCommand command =
                 new UpdateSubcategoryUseCase.UpdateSubcategoryCommand(id, categoryId, request.getName());
         updateSubcategoryUseCase.updateSubcategory(command);
