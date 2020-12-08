@@ -15,13 +15,12 @@ import java.util.Date;
 @Component
 public class TokenUtils {
 
-    @Value("spring-security-example")
+    @Value("culture-app")
     private String APP_NAME;
 
-    @Value("somesecret")
+    @Value("cultureappsecretkey")
     public String SECRET;
 
-    // Period vazenja
     @Value("1800000") // 5h
     private int EXPIRES_IN;
 
@@ -88,12 +87,11 @@ public class TokenUtils {
 
     // Funkcija za validaciju JWT tokena
     public Boolean validateToken(String token, UserDetails userDetails) {
-        User user = (User) userDetails;
         final String username = getUsernameFromToken(token);
-        final Date created = getIssuedAtDateFromToken(token);
+        //final Date created = getIssuedAtDateFromToken(token);
 
-        return (username != null && username.equals(((User) userDetails).getEmail())
-                && !isCreatedBeforeLastPasswordReset(created, user.getLastPasswordResetDate()));
+        return (username != null && username.equals((userDetails).getUsername()));
+                //&& !isCreatedBeforeLastPasswordReset(created, user.getLastPasswordResetDate()));
     }
 
     public String getUsernameFromToken(String token) {

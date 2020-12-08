@@ -26,18 +26,12 @@ public class Account {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "last_password_reset_date")
-    private Timestamp lastPasswordResetDate;
-
-    @Column(name="password_changed")
-    private boolean passwordChanged;
-
     @Column(name="activated")
     private boolean activated;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "account_authority",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            joinColumns = @JoinColumn(name = "account_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
     private List<Authority> authorities;
 
@@ -45,8 +39,6 @@ public class Account {
             Long id,
             String email,
             String password,
-            Timestamp lastPasswordResetDate,
-            boolean passwordChanged,
             boolean activated,
             List<Authority> authorities
     ) {
@@ -54,8 +46,6 @@ public class Account {
                 id,
                 email,
                 password,
-                lastPasswordResetDate,
-                passwordChanged,
                 activated,
                 authorities
         );
@@ -64,22 +54,10 @@ public class Account {
     public static Account of(
             String email,
             String password,
-            Timestamp lastPasswordResetDate,
-            boolean passwordChanged,
             boolean activated,
             List<Authority> authorities
     ) {
-        return withId(null, email, password,
-                lastPasswordResetDate, passwordChanged,
-                activated, authorities);
-    }
-
-    public Timestamp getLastPasswordResetDate() {
-        return lastPasswordResetDate;
-    }
-
-    public void setLastPasswordResetDate(Timestamp lastPasswordResetDate) {
-        this.lastPasswordResetDate = lastPasswordResetDate;
+        return withId(null, email, password, activated, authorities);
     }
 
     public boolean changePassword(String newPassword) {
@@ -87,7 +65,6 @@ public class Account {
             return false;
 
         password = newPassword;
-        passwordChanged = true;
         return true;
     }
 

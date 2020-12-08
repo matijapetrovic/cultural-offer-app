@@ -1,4 +1,4 @@
-package cultureapp.security.rest;
+package cultureapp.security.rest.login;
 
 import lombok.Value;
 

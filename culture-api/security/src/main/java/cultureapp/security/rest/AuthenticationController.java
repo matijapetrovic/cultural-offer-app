@@ -1,15 +1,26 @@
 package cultureapp.security.rest;
 
+import cultureapp.domain.account.ActivateAccountService;
+import cultureapp.domain.account.ChangePasswordService;
+import cultureapp.domain.account.command.ChangePasswordUseCase;
 import cultureapp.domain.authentication.LoginService;
 import cultureapp.domain.authentication.command.LoginUseCase;
 import cultureapp.domain.authentication.exception.AccountNotActivatedException;
-import cultureapp.security.CustomUserDetailsService;
+import cultureapp.domain.regular_user.RegularUserService;
+import cultureapp.domain.regular_user.command.AddRegularUserUseCase;
 import cultureapp.security.TokenUtils;
+import cultureapp.security.rest.login.LoginRequest;
+import cultureapp.security.rest.login.LoginResponse;
+import cultureapp.security.rest.password.PasswordRequest;
+import cultureapp.security.rest.user.UserRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
+
+import javax.security.auth.login.AccountNotFoundException;
+import java.util.Map;
 
 @Component
 @RestController
@@ -18,6 +29,9 @@ import org.springframework.web.bind.annotation.*;
 public class AuthenticationController {
     private final LoginService loginService;
     private final TokenUtils tokenUtils;
+    private final RegularUserService regularUserService;
+    private final ChangePasswordService changePasswordService;
+    private final ActivateAccountService activateAccountService;
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) throws AccountNotActivatedException {
@@ -32,6 +46,14 @@ public class AuthenticationController {
                 tokenUtils.generateToken(loginInfo.getEmail()),
                 loginInfo.getRole(),
                 tokenUtils.getExpiredIn());
+    }
+
+    @PostMapping("/register")
+    public void register(@RequestBody UserRequest request) {
+        AddRegularUserUseCase.AddRegularUserCommand command =
+                new AddRegularUserUseCase.AddRegularUserCommand(
+                        request.getFirstName(), request.getLastName(), request.getEmail(), request.getPassword());
+        regularUserService.addRegularUser(command);
     }
 
 //    @PostMapping(value = "/refresh")
@@ -51,25 +73,26 @@ public class AuthenticationController {
 //            return ResponseEntity.badRequest().body(userTokenState);
 //        }
 //    }
-//
-//    @PostMapping("/password")
-//    public ResponseEntity<Map<String, String>> changePassword(@RequestBody PasswordRequest request) throws AccountNotFoundException {
-//        ChangePasswordCommand command = new ChangePasswordCommand(request.getOldPassword(), request.getNewPassword());
-//        boolean changed = changePasswordUseCase.changePassword(command);
-//        if (changed) {
-//            return ResponseEntity
-//                    .accepted()
-//                    .body(Map.of("message", "Password successfully changed"));
-//        }
-//        else {
-//            return ResponseEntity
-//                    .badRequest()
-//                    .body(Map.of("message", "New password cannot be same as old password"));
-//        }
-//    }
-//
-//    @PostMapping("/activate/{accountId}")
-//    public void activate(@PathVariable Long accountId) throws NotFoundException, ForbiddenException {
-//        activateAccountUseCase.activateAccount(accountId);
-//    }
+
+    @PostMapping("/password")
+    public ResponseEntity<Map<String, String>> changePassword(@RequestBody PasswordRequest request) throws AccountNotFoundException {
+        ChangePasswordUseCase.ChangePasswordCommand command =
+                new ChangePasswordUseCase.ChangePasswordCommand(request.getOldPassword(), request.getNewPassword());
+        boolean changed = changePasswordService.changePassword(command);
+        if (changed) {
+            return ResponseEntity
+                    .accepted()
+                    .body(Map.of("message", "Password successfully changed"));
+        }
+        else {
+            return ResponseEntity
+                    .badRequest()
+                    .body(Map.of("message", "New password cannot be same as old password"));
+        }
+    }
+
+    @PostMapping("/activate/{accountId}")
+    public void activate(@PathVariable Long accountId) throws AccountNotFoundException {
+        activateAccountService.activateAccount(accountId);
+    }
 }

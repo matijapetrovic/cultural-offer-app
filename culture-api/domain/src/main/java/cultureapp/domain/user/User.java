@@ -34,14 +34,8 @@ public abstract class User {
 
     public void setPassword(String password) {
         Timestamp now = new Timestamp(new Date().getTime());
-        this.account.setLastPasswordResetDate(now);
         this.account.setPassword(password);
     }
 
     public String getEmail() { return account.getEmail(); }
-
-    public Timestamp getLastPasswordResetDate() {
-        return account.getLastPasswordResetDate();
-    }
-
 }

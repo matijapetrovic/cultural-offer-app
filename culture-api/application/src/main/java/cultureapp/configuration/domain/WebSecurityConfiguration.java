@@ -78,8 +78,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     // Generalna bezbednost aplikacije
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers(HttpMethod.POST, "/api/auth/login");
+        web.ignoring().antMatchers(HttpMethod.POST, "/api/auth/**", "/h2-console/**");
         web.ignoring().antMatchers(HttpMethod.GET, "/", "/webjars/**", "/*.html", "/favicon.ico", "/**/*.html",
-                "/**/*.css", "/**/*.js");
+                "/**/*.css", "/**/*.js", "/h2-console/**");
     }
 }

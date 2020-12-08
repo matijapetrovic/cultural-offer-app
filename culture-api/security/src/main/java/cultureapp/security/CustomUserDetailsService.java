@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
     private final AccountRepository accountRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final BCryptEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
 
     @Override
