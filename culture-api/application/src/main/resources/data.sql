@@ -1,7 +1,13 @@
-insert into account (email, password) values ('admin', 'admin');
+insert into authority (id, name) values (1, 'ROLE_ADMIN');
+insert into authority (id, name) values (2, 'ROLE_USER');
+
+insert into account (id, email, password,  activated) values (1, 'admin@gmail.com', '$2a$10$ShxMC2hNJzcZI0So7aIZWeAi455lp/o3WUgw.Lf/Kj.PE2QVlQjdO', true);
+
+insert into regular_user (id, first_name, last_name, account_id) values (1000, 'Aleksandar', 'Aleksic', 1);
+
+insert into account_authority (account_id, authority_id) values (1, 1);
 
 insert into administrator (id, first_name, last_name, account_id) values (1001, 'Jovan', 'Bodroza', 1);
-
 insert into category (name, archived) values ('Institution', false);
 insert into category (name, archived) values ('Manifestation', false);
 insert into category (name, archived) values ('Cultural Good', false);

@@ -4,6 +4,7 @@ import cultureapp.domain.core.validation.SelfValidating;
 import cultureapp.domain.core.validation.annotation.IdList;
 import cultureapp.domain.cultural_offer.exception.CulturalOfferNotFoundException;
 import cultureapp.domain.image.exception.ImageNotFoundException;
+import cultureapp.domain.regular_user.exception.RegularUserNotFound;
 import lombok.EqualsAndHashCode;
 import lombok.Value;
 
@@ -14,7 +15,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public interface AddReviewUseCase {
-    void addReview(AddReviewCommand command) throws CulturalOfferNotFoundException, ImageNotFoundException;
+    void addReview(AddReviewCommand command) throws CulturalOfferNotFoundException, ImageNotFoundException, RegularUserNotFound;
 
     @Value
     @EqualsAndHashCode(callSuper = false)

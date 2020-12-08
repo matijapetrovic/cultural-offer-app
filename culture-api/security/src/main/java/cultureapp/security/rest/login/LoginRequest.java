@@ -1,19 +1,15 @@
-package cultureapp.rest.user;
+package cultureapp.security.rest.login;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
-public class UserRequest {
-    private String firstName;
-    private String lastName;
-
-    // account
+@NoArgsConstructor
+@AllArgsConstructor
+public class LoginRequest {
     private String email;
     private String password;
 }

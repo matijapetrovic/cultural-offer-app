@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Slice;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -28,6 +29,7 @@ public class CulturalOfferController {
     private final GetCulturalOfferByIdQuery getCulturalOfferByIdQuery;
 
     @PostMapping("")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void addCulturalOffer(@RequestBody CulturalOfferRequest request)
             throws SubcategoryNotFoundException, ImageNotFoundException {
         AddCulturalOfferUseCase.AddCulturalOfferCommand command
@@ -44,11 +46,13 @@ public class CulturalOfferController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteCulturalOffer(@PathVariable(required = true) Long id) throws CulturalOfferNotFoundException {
         deleteCulturalOfferUseCase.deleteCulturalOffer(id);
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void updateCulturalOffer(@PathVariable(required = true) Long id,
                                     @RequestBody CulturalOfferRequest request)
             throws CulturalOfferNotFoundException, SubcategoryNotFoundException, ImageNotFoundException {
