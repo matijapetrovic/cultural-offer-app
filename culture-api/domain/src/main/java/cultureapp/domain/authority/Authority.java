@@ -20,7 +20,6 @@ public class Authority {
     @Column(name="name")
     String name;
 
-
     public static Authority withId(
             Long id,
             String name) {

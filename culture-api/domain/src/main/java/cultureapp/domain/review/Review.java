@@ -22,7 +22,8 @@ import java.util.List;
 public class Review {
     @Id
     @Column(name="id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="review_generator")
+    @SequenceGenerator(name="review_generator", sequenceName = "review_id_seq", allocationSize = 1)
     private Long id;
 
     @Id

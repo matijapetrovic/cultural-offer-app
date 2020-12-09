@@ -19,7 +19,8 @@ public abstract class User {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator="user_generator")
+    @SequenceGenerator(name="user_generator", sequenceName = "user_id_seq", allocationSize = 1)
     private Long id;
 
     @Column(name="first_name", nullable = false)

@@ -23,7 +23,8 @@ import java.util.List;
 public class News {
     @Id
     @Column(name="id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="news_generator")
+    @SequenceGenerator(name="news_generator", sequenceName = "news_id_seq", allocationSize = 1)
     private Long id;
 
     @Id
