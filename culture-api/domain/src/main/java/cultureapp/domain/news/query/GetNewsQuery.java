@@ -33,7 +33,7 @@ public interface GetNewsQuery {
             return new GetNewsDTO(
                     news.getId(),
                     news.getCulturalOffer().getId(),
-                    news.getName(),
+                    news.getTitle(),
                     news.getPostedDate(),
                     news.getAuthor().getId(),
                     news.getText(),

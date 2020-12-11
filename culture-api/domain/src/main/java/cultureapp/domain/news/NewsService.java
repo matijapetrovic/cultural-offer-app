@@ -86,7 +86,7 @@ public class NewsService implements
         List<Image> images = loadImages(command.getImages());
         news.setImages(images);
 
-        news.setName(command.getName());
+        news.setTitle(command.getName());
         news.setPostedDate(command.getPostedDate());
         news.setText(command.getText());
 
@@ -140,7 +140,7 @@ public class NewsService implements
         try {
             newsRepository.save(news);
         } catch (DataIntegrityViolationException ex) {
-            throw new NewsAlreadyExistException(news.getName());
+            throw new NewsAlreadyExistException(news.getTitle());
         }
     }
 
