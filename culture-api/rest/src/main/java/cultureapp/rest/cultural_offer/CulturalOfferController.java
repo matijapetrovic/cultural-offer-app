@@ -33,7 +33,7 @@ public class CulturalOfferController {
     private final GetCulturalOffersQuery getCulturalOffersQuery;
     private final GetCulturalOfferByIdQuery getCulturalOfferByIdQuery;
 
-    @PostMapping("/{id}/subscribe")
+    @PostMapping("/{id}/subscriptions")
     @PreAuthorize("hasRole('ROLE_USER')")
     public void subscribe(@PathVariable Long id)
             throws CulturalOfferNotFoundException, RegularUserNotFound, SubscriptionAlreadyExists {
@@ -42,7 +42,7 @@ public class CulturalOfferController {
         subscribeToCulturalOfferNewsUseCase.subscribe(command);
     }
 
-    @PostMapping("/{id}/unsubscribe")
+    @DeleteMapping("/{id}/subscriptions")
     @PreAuthorize("hasRole('ROLE_USER')")
     public void unsubscribe(@PathVariable Long id)
             throws CulturalOfferNotFoundException, RegularUserNotFound, SubscriptionNotFound {

@@ -36,7 +36,7 @@ public class CulturalOffer {
     private List<Image> images;
 
     @ManyToMany(mappedBy = "culturalOffers")
-    private Set<RegularUser> regularUsers;
+    private Set<RegularUser> subscribers;
 
     @ManyToOne
     @JoinColumns({
