@@ -15,10 +15,12 @@ import java.util.Set;
 @Setter
 @Table(name="cultural_offer")
 @Entity
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class CulturalOffer {
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
 
     @Column(name="name", nullable = false)

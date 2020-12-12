@@ -3,6 +3,8 @@ import cultureapp.domain.account.exception.AccountAlreadyExists;
 import cultureapp.domain.administrator.exception.AdminNotFoundException;
 import cultureapp.domain.category.exception.CategoryAlreadyExists;
 import cultureapp.domain.category.exception.CategoryNotFoundException;
+import cultureapp.domain.cultural_offer.exception.SubscriptionAlreadyExists;
+import cultureapp.domain.cultural_offer.exception.SubscriptionNotFound;
 import cultureapp.domain.regular_user.exception.RegularUserAlreadyExists;
 import cultureapp.domain.review.exception.ReviewNotFoundException;
 import cultureapp.domain.image.exception.ImageNotFoundException;
@@ -25,6 +27,20 @@ import java.io.IOException;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice("cultureapp.rest")
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
+    @ExceptionHandler(SubscriptionNotFound.class)
+    protected ResponseEntity<Object> handleSubscriptionNotFound(
+            SubscriptionNotFound ex) {
+        ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage(), ex);
+        return buildResponse(apiError);
+    }
+
+    @ExceptionHandler(SubscriptionAlreadyExists.class)
+    protected ResponseEntity<Object> handleSubscriptionAlreadyExists(
+            SubscriptionAlreadyExists ex) {
+        ApiError apiError = new ApiError(HttpStatus.CONFLICT, ex.getMessage(), ex);
+        return buildResponse(apiError);
+    }
+
     @ExceptionHandler(RegularUserAlreadyExists.class)
     protected ResponseEntity<Object> handleRegularUserAlreadyExists(
             RegularUserAlreadyExists ex) {
