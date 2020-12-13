@@ -22,7 +22,7 @@ public interface GetNewsByIdQuery {
         private Long id;
         private Long culturalOfferId;
         private String name;
-        private LocalDateTime postedDate;
+        private String postedDate;
         private Long authorId;
         private String text;
         List<String> images;
@@ -33,7 +33,7 @@ public interface GetNewsByIdQuery {
                     news.getId(),
                     news.getCulturalOffer().getId(),
                     news.getTitle(),
-                    news.getPostedDate(),
+                    news.getPostedDate().toString().replace("T", " "),
                     news.getAuthor().getId(),
                     news.getText(),
                     news.getImages()
