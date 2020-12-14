@@ -1,13 +1,14 @@
 package cultureapp.rest.cultural_offer;
 
 
-import cultureapp.domain.cultural_offer.command.AddCulturalOfferUseCase;
-import cultureapp.domain.cultural_offer.command.DeleteCulturalOfferUseCase;
-import cultureapp.domain.cultural_offer.command.UpdateCulturalOfferUseCase;
+import cultureapp.domain.cultural_offer.command.*;
 import cultureapp.domain.cultural_offer.exception.CulturalOfferNotFoundException;
+import cultureapp.domain.cultural_offer.exception.SubscriptionAlreadyExists;
+import cultureapp.domain.cultural_offer.exception.SubscriptionNotFound;
 import cultureapp.domain.cultural_offer.query.GetCulturalOfferByIdQuery;
 import cultureapp.domain.cultural_offer.query.GetCulturalOffersQuery;
 import cultureapp.domain.image.exception.ImageNotFoundException;
+import cultureapp.domain.regular_user.exception.RegularUserNotFound;
 import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
 import cultureapp.rest.core.PaginatedResponse;
 import lombok.RequiredArgsConstructor;
@@ -22,11 +23,33 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RestController
 @RequestMapping(value="/api/cultural-offers", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CulturalOfferController {
+    private final SubscribeToCulturalOfferNewsUseCase subscribeToCulturalOfferNewsUseCase;
+    private final UnsubscribeFromCulturalOfferNewsUseCase unsubscribeFromCulturalOfferNewsUseCase;
+
     private final AddCulturalOfferUseCase addCulturalOfferUseCase;
     private final DeleteCulturalOfferUseCase deleteCulturalOfferUseCase;
     private final UpdateCulturalOfferUseCase updateCulturalOfferUseCase;
+
     private final GetCulturalOffersQuery getCulturalOffersQuery;
     private final GetCulturalOfferByIdQuery getCulturalOfferByIdQuery;
+
+    @PostMapping("/{id}/subscriptions")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public void subscribe(@PathVariable Long id)
+            throws CulturalOfferNotFoundException, RegularUserNotFound, SubscriptionAlreadyExists {
+        SubscribeToCulturalOfferNewsUseCase.SubscribeToCulturalOfferNewsCommand command =
+                new SubscribeToCulturalOfferNewsUseCase.SubscribeToCulturalOfferNewsCommand(id);
+        subscribeToCulturalOfferNewsUseCase.subscribe(command);
+    }
+
+    @DeleteMapping("/{id}/subscriptions")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public void unsubscribe(@PathVariable Long id)
+            throws CulturalOfferNotFoundException, RegularUserNotFound, SubscriptionNotFound {
+        UnsubscribeFromCulturalOfferNewsUseCase.UnsubscribeFromCulturalOfferNewsCommand command =
+                new UnsubscribeFromCulturalOfferNewsUseCase.UnsubscribeFromCulturalOfferNewsCommand(id);
+        unsubscribeFromCulturalOfferNewsUseCase.unsubscribe(command);
+    }
 
     @PostMapping("")
     @PreAuthorize("hasRole('ROLE_ADMIN')")

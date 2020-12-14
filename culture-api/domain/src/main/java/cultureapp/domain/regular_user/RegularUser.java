@@ -24,9 +24,17 @@ public class RegularUser extends User {
             CascadeType.MERGE
     })
     @JoinTable(name = "subscription",
-    joinColumns = @JoinColumn(name="user_id"),
-    inverseJoinColumns = @JoinColumn(name = "offer_id"))
+        joinColumns = @JoinColumn(name="user_id"),
+        inverseJoinColumns = @JoinColumn(name = "offer_id"))
     private Set<CulturalOffer> culturalOffers;
+
+    public boolean subscribe(CulturalOffer culturalOffer) {
+        return culturalOffers.add(culturalOffer);
+    }
+
+    public boolean unsubscribe(CulturalOffer culturalOffer) {
+        return culturalOffers.remove(culturalOffer);
+    }
 
     private RegularUser(
             Long id,
