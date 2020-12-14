@@ -46,7 +46,7 @@ public class SubcategoryService implements
     public Slice<GetSubcategoriesDTO> getSubcategories(@Positive Long categoryId,
                                                       @PositiveOrZero Integer page,
                                                       @Positive Integer limit) throws CategoryNotFoundException {
-        Category category = categoryRepository.findById(categoryId)
+        Category category = categoryRepository.findByIdAndArchivedFalse(categoryId)
                 .orElseThrow(() -> new CategoryNotFoundException(categoryId));
         Pageable pageRequest = PageRequest.of(page, limit, Sort.by("name"));
 
@@ -59,7 +59,7 @@ public class SubcategoryService implements
     @Override
     public GetSubcategoryByIdDTO getSubcategory(@Positive Long id, @Positive Long categoryId)
             throws SubcategoryNotFoundException {
-        Subcategory subcategory = subcategoryRepository.findByIdAndCategoryIdAndArchivedFalse(categoryId, id)
+        Subcategory subcategory = subcategoryRepository.findByIdAndCategoryIdAndArchivedFalse(id, categoryId)
                 .orElseThrow(() -> new SubcategoryNotFoundException(id, categoryId));
         return GetSubcategoryByIdDTO.of(subcategory);
     }
@@ -68,7 +68,7 @@ public class SubcategoryService implements
     public void updateSubcategory(UpdateSubcategoryCommand command)
             throws SubcategoryNotFoundException, SubcategoryAlreadyExists {
         Subcategory subcategory =
-                subcategoryRepository.findByIdAndCategoryIdAndArchivedFalse(command.getCategoryId(), command.getId())
+                subcategoryRepository.findByIdAndCategoryIdAndArchivedFalse(command.getId(), command.getCategoryId())
                 .orElseThrow(() -> new SubcategoryNotFoundException(command.getId(), command.getCategoryId()));
         if(subcategory.update(command.getName()))
             saveSubcategory(subcategory);
