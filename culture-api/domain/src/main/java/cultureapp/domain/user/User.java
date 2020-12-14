@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.util.Date;
 
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -17,7 +19,8 @@ public abstract class User {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator="user_generator")
+    @SequenceGenerator(name="user_generator", sequenceName = "user_id_seq", allocationSize = 1)
     private Long id;
 
     @Column(name="first_name", nullable = false)
@@ -29,4 +32,11 @@ public abstract class User {
     @OneToOne
     @JoinColumn(name = "account_id", referencedColumnName = "id")
     private Account account;
+
+    public void setPassword(String password) {
+        Timestamp now = new Timestamp(new Date().getTime());
+        this.account.setPassword(password);
+    }
+
+    public String getEmail() { return account.getEmail(); }
 }

@@ -1,5 +1,7 @@
 package cultureapp.domain.review;
 
+import cultureapp.domain.account.Account;
+import cultureapp.domain.authentication.AuthenticationService;
 import cultureapp.domain.cultural_offer.CulturalOffer;
 import cultureapp.domain.cultural_offer.CulturalOfferRepository;
 import cultureapp.domain.cultural_offer.exception.CulturalOfferNotFoundException;
@@ -7,6 +9,10 @@ import cultureapp.domain.date_time.DateTimeProvider;
 import cultureapp.domain.image.Image;
 import cultureapp.domain.image.ImageRepository;
 import cultureapp.domain.image.exception.ImageNotFoundException;
+import cultureapp.domain.regular_user.RegularUser;
+import cultureapp.domain.regular_user.RegularUserRepository;
+import cultureapp.domain.regular_user.RegularUserService;
+import cultureapp.domain.regular_user.exception.RegularUserNotFound;
 import cultureapp.domain.review.command.AddReviewUseCase;
 import cultureapp.domain.review.command.DeleteReviewUseCase;
 import cultureapp.domain.review.exception.ReviewNotFoundException;
@@ -37,9 +43,15 @@ public class ReviewService implements
     private final ImageRepository imageRepository;
     private final CulturalOfferRepository culturalOfferRepository;
     private final DateTimeProvider dateTimeProvider;
+    private final AuthenticationService authenticationService;
+    private final RegularUserRepository regularUserRepository;
 
     @Override
-    public void addReview(AddReviewCommand command) throws CulturalOfferNotFoundException, ImageNotFoundException {
+    public void addReview(AddReviewCommand command) throws CulturalOfferNotFoundException, ImageNotFoundException, RegularUserNotFound {
+        Account account = authenticationService.getAuthenticated();
+        RegularUser user = regularUserRepository
+                .findByAccountId(account.getId())
+                .orElseThrow(() -> new RegularUserNotFound(account.getEmail()));
         CulturalOffer culturalOffer =
                         culturalOfferRepository.findById(command.getCulturalOfferId())
                         .orElseThrow(() -> new CulturalOfferNotFoundException(command.getCulturalOfferId()));
@@ -51,6 +63,7 @@ public class ReviewService implements
                 command.getRating(),
                 false,
                 images,
+                user,
                 date);
         reviewRepository.save(review);
     }
@@ -62,7 +75,6 @@ public class ReviewService implements
                 .orElseThrow(() -> new ReviewNotFoundException(id, culturalOfferId));
         review.archive();
         reviewRepository.save(review);
-        // TODO obrisi sve reply-eve koji imaju id ovog revieva
     }
 
     @Override

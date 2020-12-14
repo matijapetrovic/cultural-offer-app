@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Slice;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -27,6 +28,7 @@ public class CategoryController {
     private final DeleteCategoryUseCase deleteCategoryUseCase;
 
     @PostMapping("")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void addCategory(@RequestBody CategoryRequest request) throws CategoryNotFoundException, CategoryAlreadyExists {
         AddCategoryUseCase.AddCategoryCommand command =
                 new AddCategoryUseCase.AddCategoryCommand(request.getName());
@@ -52,6 +54,7 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void updateCategory(@PathVariable Long id,
                                 @RequestBody CategoryRequest request) throws CategoryNotFoundException, SubcategoryAlreadyExists, CategoryAlreadyExists {
         UpdateCategoryUseCase.UpdateCategoryCommand command =
@@ -60,6 +63,7 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteCategory(@PathVariable Long id) throws CategoryNotFoundException {
         deleteCategoryUseCase.deleteCategoryById(id);
     }

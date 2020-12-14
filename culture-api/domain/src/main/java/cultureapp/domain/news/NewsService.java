@@ -17,7 +17,6 @@ import cultureapp.domain.news.exception.NewsNotFoundException;
 import cultureapp.domain.news.query.GetNewsByIdQuery;
 import cultureapp.domain.news.query.GetNewsQuery;
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -61,7 +60,10 @@ public class NewsService implements
                 images
         );
 
-        saveNews(news);
+
+        // TODO: Implement sending mail to subscribed users
+
+        newsRepository.save(news);
     }
 
     @Override
@@ -86,7 +88,7 @@ public class NewsService implements
         List<Image> images = loadImages(command.getImages());
         news.setImages(images);
 
-        news.setName(command.getName());
+        news.setTitle(command.getName());
         news.setPostedDate(command.getPostedDate());
         news.setText(command.getText());
 
@@ -102,7 +104,7 @@ public class NewsService implements
             news.setAuthor(admin);
         }
 
-        saveNews(news);
+        newsRepository.save(news);
     }
 
     private boolean updateCulturalOffer(News news, Long culturalOfferId) {
@@ -119,7 +121,7 @@ public class NewsService implements
         CulturalOffer offer = culturalOfferRepository.findByIdAndArchivedFalse(offerId)
                 .orElseThrow(() -> new CulturalOfferNotFoundException(offerId));
 
-        Pageable pageRequest = PageRequest.of(page, limit, Sort.by("name"));
+        Pageable pageRequest = PageRequest.of(page, limit, Sort.by("title"));
 
         Slice<News> news = newsRepository.findAllByCulturalOfferIdAndArchivedFalse(offerId, pageRequest);
 
@@ -135,14 +137,6 @@ public class NewsService implements
         return GetNewsByIdDTO.of(news);
     }
 
-
-    private void saveNews(News news) throws NewsAlreadyExistException {
-        try {
-            newsRepository.save(news);
-        } catch (DataIntegrityViolationException ex) {
-            throw new NewsAlreadyExistException(news.getName());
-        }
-    }
 
     private List<Image> loadImages(List<Long> imageIds) throws ImageNotFoundException {
         List<Image> images = new ArrayList<>();

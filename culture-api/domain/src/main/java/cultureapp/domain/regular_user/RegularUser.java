@@ -4,15 +4,18 @@ package cultureapp.domain.regular_user;
 import cultureapp.domain.account.Account;
 import cultureapp.domain.cultural_offer.CulturalOffer;
 import cultureapp.domain.user.User;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Set;
 
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-@NoArgsConstructor
 @Table(name = "regular_user")
 public class RegularUser extends User {
 
@@ -21,9 +24,17 @@ public class RegularUser extends User {
             CascadeType.MERGE
     })
     @JoinTable(name = "subscription",
-    joinColumns = @JoinColumn(name="user_id"),
-    inverseJoinColumns = @JoinColumn(name = "offer_id"))
+        joinColumns = @JoinColumn(name="user_id"),
+        inverseJoinColumns = @JoinColumn(name = "offer_id"))
     private Set<CulturalOffer> culturalOffers;
+
+    public boolean subscribe(CulturalOffer culturalOffer) {
+        return culturalOffers.add(culturalOffer);
+    }
+
+    public boolean unsubscribe(CulturalOffer culturalOffer) {
+        return culturalOffers.remove(culturalOffer);
+    }
 
     private RegularUser(
             Long id,

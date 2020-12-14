@@ -2,6 +2,7 @@ package cultureapp.domain.review;
 
 import cultureapp.domain.cultural_offer.CulturalOffer;
 import cultureapp.domain.image.Image;
+import cultureapp.domain.regular_user.RegularUser;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,7 +22,8 @@ import java.util.List;
 public class Review {
     @Id
     @Column(name="id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="review_generator")
+    @SequenceGenerator(name="review_generator", sequenceName = "review_id_seq", allocationSize = 1)
     private Long id;
 
     @Id
@@ -51,6 +53,10 @@ public class Review {
         return true;
     }
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="user_id", referencedColumnName = "id")
+    private RegularUser user;
+
     @Column(name="date")
     LocalDateTime date;
 
@@ -65,7 +71,9 @@ public class Review {
             BigDecimal rating,
             boolean archived,
             List<Image> images,
-            LocalDateTime date) {
+            RegularUser user,
+            LocalDateTime date
+           ) {
         return new Review(
                 id,
                 culturalOffer,
@@ -74,6 +82,7 @@ public class Review {
                 images,
                 null,
                 archived,
+                user,
                 date);
     }
 
@@ -83,7 +92,9 @@ public class Review {
             BigDecimal rating,
             boolean archived,
             List<Image> images,
-            LocalDateTime date) {
+            RegularUser user,
+            LocalDateTime date
+           ) {
         return withId(
                 null,
                 culturalOffer,
@@ -91,6 +102,7 @@ public class Review {
                 rating,
                 archived,
                 images,
+                user,
                 date);
     }
 }

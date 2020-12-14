@@ -4,6 +4,7 @@ package cultureapp.rest.review;
 import cultureapp.domain.cultural_offer.exception.CulturalOfferNotFoundException;
 import cultureapp.domain.date_time.DateTimeProvider;
 import cultureapp.domain.image.exception.ImageNotFoundException;
+import cultureapp.domain.regular_user.exception.RegularUserNotFound;
 import cultureapp.domain.review.command.AddReviewUseCase;
 import cultureapp.domain.review.command.DeleteReviewUseCase;
 import cultureapp.domain.review.exception.ReviewNotFoundException;
@@ -14,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Slice;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -27,8 +29,9 @@ public class ReviewController {
     private final DeleteReviewUseCase deleteReviewUseCase;
 
     @PostMapping("")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public void addReview(@PathVariable Long culturalOfferId,
-                          @RequestBody ReviewRequest request) throws CulturalOfferNotFoundException, ImageNotFoundException {
+                          @RequestBody ReviewRequest request) throws CulturalOfferNotFoundException, ImageNotFoundException, RegularUserNotFound {
         AddReviewUseCase.AddReviewCommand command =
                 new AddReviewUseCase.AddReviewCommand(
                         culturalOfferId,
@@ -60,6 +63,7 @@ public class ReviewController {
     }
 
     @DeleteMapping("/{id}")
+    // TODO: pogledati da li treba uradti ovaj delete
     public void deleteReview(@PathVariable Long culturalOfferId,
                              @PathVariable Long id) throws CulturalOfferNotFoundException, ReviewNotFoundException {
         deleteReviewUseCase.deleteReviewByCulturalOfferId(id, culturalOfferId);
