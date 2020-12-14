@@ -32,8 +32,8 @@ public class News {
     @JoinColumn(name="cultural_offer_id", insertable = false, updatable = false)
     private CulturalOffer culturalOffer;
 
-    @Column(name="name", nullable = false, unique = true)
-    private String name;
+    @Column(name="title", nullable = false)
+    private String title;
 
     @Column(name="posted_date")
     private LocalDateTime postedDate;

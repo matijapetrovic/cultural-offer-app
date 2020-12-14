@@ -64,6 +64,7 @@ public class CategoryService implements
         Category category = categoryRepository.findByIdAndArchivedFalse(id)
                 .orElseThrow(() -> new CategoryNotFoundException(id));
 
+        // TODO: ERROR -> counts deleted subcategories
         if(!categoryRepository.existsWithSubcateogory(id)) {
             category.archive();
             categoryRepository.save(category);
