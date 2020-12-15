@@ -1,7 +1,7 @@
 package cultureapp.rest.news;
 
 
-import cultureapp.domain.administrator.exception.AdminNotFoundException;
+import cultureapp.domain.user.exception.AdminNotFoundException;
 import cultureapp.domain.cultural_offer.exception.CulturalOfferNotFoundException;
 import cultureapp.domain.image.exception.ImageNotFoundException;
 import cultureapp.domain.news.command.AddNewsUseCase;

@@ -4,7 +4,7 @@ import cultureapp.domain.category.exception.CategoryNotFoundException;
 import cultureapp.domain.subcategory.command.AddSubcategoryUseCase;
 import cultureapp.domain.subcategory.command.DeleteSubcategoryUseCase;
 import cultureapp.domain.subcategory.command.UpdateSubcategoryUseCase;
-import cultureapp.domain.subcategory.exception.SubcategoryAlreadyExists;
+import cultureapp.domain.subcategory.exception.SubcategoryAlreadyExistsException;
 import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
 import cultureapp.domain.subcategory.query.GetSubcategoriesQuery;
 import cultureapp.domain.subcategory.query.GetSubcategoryByIdQuery;
@@ -29,7 +29,7 @@ public class SubcategoryController {
     @PostMapping("")
     public void addSubcategory(
             @PathVariable Long categoryId,
-            @RequestBody SubcategoryRequest request) throws CategoryNotFoundException, SubcategoryAlreadyExists {
+            @RequestBody SubcategoryRequest request) throws CategoryNotFoundException, SubcategoryAlreadyExistsException {
         AddSubcategoryUseCase.AddSubcategoryCommand command =
                 new AddSubcategoryUseCase.AddSubcategoryCommand(categoryId, request.getName());
         addSubcategoryUseCase.addSubcategory(command);
@@ -58,7 +58,7 @@ public class SubcategoryController {
     @PutMapping("/{id}")
     public void updateSubcategory(@PathVariable Long categoryId,
                                   @PathVariable Long id,
-                                  @RequestBody SubcategoryRequest request) throws SubcategoryNotFoundException, SubcategoryAlreadyExists {
+                                  @RequestBody SubcategoryRequest request) throws SubcategoryNotFoundException, SubcategoryAlreadyExistsException {
         UpdateSubcategoryUseCase.UpdateSubcategoryCommand command =
                 new UpdateSubcategoryUseCase.UpdateSubcategoryCommand(id, categoryId, request.getName());
         updateSubcategoryUseCase.updateSubcategory(command);

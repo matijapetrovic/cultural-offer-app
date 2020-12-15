@@ -1,5 +1,6 @@
 package cultureapp.domain.image;
 
+import cultureapp.domain.core.ImageUploader;
 import cultureapp.domain.image.command.UploadImagesUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,11 +12,11 @@ import java.util.stream.Collectors;
 @Service
 public class ImageService implements UploadImagesUseCase {
     private final ImageRepository imageRepository;
-    private final ImageUploadService imageUploadService;
+    private final ImageUploader imageUploader;
 
     @Override
     public List<Long> uploadImages(UploadImagesCommand command) {
-        List<String> paths = imageUploadService.uploadImages(command.getFiles());
+        List<String> paths = imageUploader.uploadImages(command.getFiles());
 
         List<Image> images = paths
                 .stream()

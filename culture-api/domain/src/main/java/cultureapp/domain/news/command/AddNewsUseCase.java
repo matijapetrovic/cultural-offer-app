@@ -1,6 +1,6 @@
 package cultureapp.domain.news.command;
 
-import cultureapp.domain.administrator.exception.AdminNotFoundException;
+import cultureapp.domain.user.exception.AdminNotFoundException;
 import cultureapp.domain.core.validation.SelfValidating;
 import cultureapp.domain.core.validation.annotation.IdList;
 import cultureapp.domain.cultural_offer.exception.CulturalOfferNotFoundException;

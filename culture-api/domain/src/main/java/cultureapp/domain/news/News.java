@@ -1,6 +1,6 @@
 package cultureapp.domain.news;
 
-import cultureapp.domain.administrator.Administrator;
+import cultureapp.domain.user.Administrator;
 import cultureapp.domain.cultural_offer.CulturalOffer;
 import cultureapp.domain.image.Image;
 import lombok.AccessLevel;

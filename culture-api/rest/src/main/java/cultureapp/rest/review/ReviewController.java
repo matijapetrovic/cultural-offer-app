@@ -2,9 +2,8 @@ package cultureapp.rest.review;
 
 
 import cultureapp.domain.cultural_offer.exception.CulturalOfferNotFoundException;
-import cultureapp.domain.date_time.DateTimeProvider;
 import cultureapp.domain.image.exception.ImageNotFoundException;
-import cultureapp.domain.regular_user.exception.RegularUserNotFound;
+import cultureapp.domain.user.exception.RegularUserNotFoundException;
 import cultureapp.domain.review.command.AddReviewUseCase;
 import cultureapp.domain.review.command.DeleteReviewUseCase;
 import cultureapp.domain.review.exception.ReviewNotFoundException;
@@ -31,7 +30,7 @@ public class ReviewController {
     @PostMapping("")
     @PreAuthorize("hasRole('ROLE_USER')")
     public void addReview(@PathVariable Long culturalOfferId,
-                          @RequestBody ReviewRequest request) throws CulturalOfferNotFoundException, ImageNotFoundException, RegularUserNotFound {
+                          @RequestBody ReviewRequest request) throws CulturalOfferNotFoundException, ImageNotFoundException, RegularUserNotFoundException {
         AddReviewUseCase.AddReviewCommand command =
                 new AddReviewUseCase.AddReviewCommand(
                         culturalOfferId,

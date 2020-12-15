@@ -3,6 +3,7 @@ package cultureapp.domain.authentication;
 import cultureapp.domain.authentication.command.LoginUseCase;
 import cultureapp.domain.authentication.exception.AccountNotActivatedException;
 import cultureapp.domain.account.Account;
+import cultureapp.domain.core.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

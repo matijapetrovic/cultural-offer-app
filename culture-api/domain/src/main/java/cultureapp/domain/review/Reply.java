@@ -1,7 +1,7 @@
 package cultureapp.domain.review;
 
 
-import cultureapp.domain.administrator.Administrator;
+import cultureapp.domain.user.Administrator;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
