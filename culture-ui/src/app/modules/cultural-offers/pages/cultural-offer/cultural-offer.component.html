@@ -1,4 +1,28 @@
-<div *ngIf="culturalOffer">
-  <h1>{{ culturalOffer.name }}</h1>
-  <p>{{ culturalOffer.description }}</p>
+<div *ngIf="culturalOffer" fxLayout="row wrap" fxFlexFill fxLayoutGap="25px" class="container">
+  <div fxFlex="calc(25% - 25px)">
+      <h1>{{ culturalOffer.name }}</h1>
+  </div>
+  <div fxFlex="calc(75% - 25px)">
+    <p>{{ culturalOffer.description }}</p>
+  </div>
+  <div fxFlex="calc(40% - 25px)">
+      <h2>Reviews</h2>
+      <div *ngIf="reviewPage">
+        <ul>
+          <li *ngFor="let review of reviewPage.data">{{ review.comment }}</li>
+        </ul>
+        <button [disabled]="!reviewPage.links.prev" (click)="previousReviewsHandler()">Previous</button>
+        <button [disabled]="!reviewPage.links.next" (click)="nextReviewsHandler()">Next</button>
+      </div>
+  </div>
+  <div fxFlex="calc(60% - 25px)">
+    <h2>News</h2>
+    <div *ngIf="newsPage">
+      <ul>
+        <li *ngFor="let news of newsPage.data">{{ news.title }}</li>
+      </ul>
+      <button [disabled]="!newsPage.links.prev" (click)="previousNewsHandler()">Previous</button>
+      <button [disabled]="!newsPage.links.next" (click)="nextNewsHandler()">Next</button>
+    </div>
+  </div>
 </div>

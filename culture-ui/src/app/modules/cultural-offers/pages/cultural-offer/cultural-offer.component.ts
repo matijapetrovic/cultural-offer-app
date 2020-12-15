@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { CulturalOffersService } from 'src/app/modules/cultural-offers/cultural-offers.service';
+import { NewsPage } from 'src/app/modules/news/news';
+import { NewsService } from 'src/app/modules/news/news.service';
+import { Review, ReviewPage } from 'src/app/modules/reviews/review';
+import { ReviewsService } from 'src/app/modules/reviews/reviews.service';
 import { CulturalOffer } from '../../cultural-offer';
 
 @Component({
@@ -11,18 +14,63 @@ import { CulturalOffer } from '../../cultural-offer';
 })
 export class CulturalOfferComponent implements OnInit {
   culturalOffer: CulturalOffer;
+  reviewPage: ReviewPage;
+  newsPage: NewsPage;
+
+  private culturalOfferId: number;
+
+  private currentReviewsPage: number;
+  private reviewsLimit: number = 1;
+
+  private currentNewsPage: number;
+  private newsLimit: number = 1;
 
   constructor(
-    private culturalOfferService : CulturalOffersService,
+    private culturalOffersService : CulturalOffersService,
+    private reviewsService: ReviewsService,
+    private newsService: NewsService,
     private route: ActivatedRoute
-  ) { }
-
-  ngOnInit(): void {
-    this.getCulturalOffer(+this.route.snapshot.paramMap.get('id'));
+  ) {
+    this.currentReviewsPage = 0;
+    this.currentNewsPage = 0;
   }
 
+  ngOnInit(): void {
+    this.culturalOfferId = +this.route.snapshot.paramMap.get('id');
+    this.getCulturalOffer();
+    this.getReviews();
+    this.getNews();
+  }
 
-  getCulturalOffer(id: number): void {
-    this.culturalOfferService.getCulturalOffer(id).subscribe(culturalOffer => this.culturalOffer = culturalOffer);
+  getCulturalOffer(): void {
+    this.culturalOffersService.getCulturalOffer(this.culturalOfferId).subscribe(culturalOffer => this.culturalOffer = culturalOffer);
+  }
+
+  getReviews(): void {
+    this.reviewsService.getReviews(this.culturalOfferId, this.currentReviewsPage, this.reviewsLimit).subscribe(reviewPage => this.reviewPage = reviewPage);
+  }
+
+  getNews(): void {
+    this.newsService.getNews(this.culturalOfferId, this.currentNewsPage, this.newsLimit).subscribe(newsPage => this.newsPage = newsPage);
+  }
+
+  nextReviewsHandler(): void {
+    this.currentReviewsPage++;
+    this.getReviews();
+  }
+
+  previousReviewsHandler(): void {
+    this.currentReviewsPage--;
+    this.getReviews();
+  }
+
+  nextNewsHandler(): void {
+    this.currentNewsPage++;
+    this.getNews();
+  }
+
+  previousNewsHandler(): void {
+    this.currentNewsPage--;
+    this.getNews();
   }
 }

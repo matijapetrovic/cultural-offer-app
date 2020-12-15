@@ -37,8 +37,7 @@ public class ReviewService implements
         AddReviewUseCase,
         DeleteReviewUseCase,
         GetReviewByIdQuery,
-        GetReviewsQuery
-{
+        GetReviewsQuery {
     private final ReviewRepository reviewRepository;
     private final ImageRepository imageRepository;
     private final CulturalOfferRepository culturalOfferRepository;

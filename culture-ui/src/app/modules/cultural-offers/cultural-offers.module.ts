@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { SharedModule } from './../../shared/shared.module';
 import { CulturalOfferComponent } from './pages/cultural-offer/cultural-offer.component';
@@ -12,7 +13,8 @@ import { CulturalOfferMapComponent } from './pages/cultural-offer-map/cultural-o
   imports: [
     CommonModule,
     CulturalOffersRoutingModule,
-    SharedModule
+    SharedModule,
+    FlexLayoutModule
   ]
 })
 export class CulturalOffersModule { }

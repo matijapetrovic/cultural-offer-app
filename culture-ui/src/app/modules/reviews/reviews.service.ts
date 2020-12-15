@@ -1,11 +1,11 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HandleError, HttpErrorHandler } from '../../core/services/http-error-handler.service';
 
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { CulturalOffer } from './cultural-offer';
 import { environment } from 'src/environments/environment';
+import { Review, ReviewPage } from './review';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -18,19 +18,24 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class CulturalOffersService {
-  culturalOffersUrl = `${environment.apiUrl}/api/cultural-offers`;
+export class ReviewsService {
+  reviewsUrl = `${environment.apiUrl}/api/cultural-offers`;
   private handleError: HandleError;
 
   constructor(private http: HttpClient, httpErrorHandler : HttpErrorHandler) {
-    this.handleError = httpErrorHandler.createHandleError('CulturalOffersService');
+    this.handleError = httpErrorHandler.createHandleError('ReviewsService');
   }
 
-  getCulturalOffer(id: number): Observable<CulturalOffer> {
-    const url = `${this.culturalOffersUrl}/${id}`;
-    return this.http.get<CulturalOffer>(url, httpOptions)
+  getReviews(culturalOfferId: number, page: number, limit: number): Observable<ReviewPage>{
+    let params: HttpParams = 
+      new HttpParams()
+        .append('page', page.toString())
+        .append('limit', limit.toString());
+
+    const url = `${this.reviewsUrl}/${culturalOfferId}/reviews`;
+    return this.http.get<ReviewPage>(url, {...httpOptions, params})
       .pipe(
-        catchError(this.handleError<CulturalOffer>('getCulturalOffer'))
+        catchError(this.handleError<ReviewPage>('getReviews'))
       );
   }
 }

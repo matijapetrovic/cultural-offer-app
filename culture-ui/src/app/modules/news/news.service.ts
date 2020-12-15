@@ -1,11 +1,11 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HandleError, HttpErrorHandler } from '../../core/services/http-error-handler.service';
 
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { CulturalOffer } from './cultural-offer';
 import { environment } from 'src/environments/environment';
+import { NewsPage } from './news';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -18,19 +18,24 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class CulturalOffersService {
-  culturalOffersUrl = `${environment.apiUrl}/api/cultural-offers`;
+export class NewsService {
+  newsUrl = `${environment.apiUrl}/api/cultural-offers`;
   private handleError: HandleError;
 
   constructor(private http: HttpClient, httpErrorHandler : HttpErrorHandler) {
-    this.handleError = httpErrorHandler.createHandleError('CulturalOffersService');
+    this.handleError = httpErrorHandler.createHandleError('NewsService');
   }
 
-  getCulturalOffer(id: number): Observable<CulturalOffer> {
-    const url = `${this.culturalOffersUrl}/${id}`;
-    return this.http.get<CulturalOffer>(url, httpOptions)
+  getNews(culturalOfferId: number, page: number, limit: number): Observable<NewsPage>{
+    let params: HttpParams = 
+      new HttpParams()
+        .append('page', page.toString())
+        .append('limit', limit.toString());
+
+    const url = `${this.newsUrl}/${culturalOfferId}/news`;
+    return this.http.get<NewsPage>(url, {...httpOptions, params})
       .pipe(
-        catchError(this.handleError<CulturalOffer>('getCulturalOffer'))
+        catchError(this.handleError<NewsPage>('getNews'))
       );
   }
 }

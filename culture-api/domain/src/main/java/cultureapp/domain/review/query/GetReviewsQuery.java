@@ -21,16 +21,17 @@ public interface GetReviewsQuery {
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @Getter
     class GetReviewsQueryDTO {
-        String comment;
+        Long id;
         Long culturalOfferId;
+        String comment;
         List<String> images;
 
         public static GetReviewsQueryDTO of(Review review) {
             return new GetReviewsQueryDTO(
-                    review.getComment(),
+                    review.getId(),
                     review.getCulturalOffer().getId(),
-                    review
-                            .getImages()
+                    review.getComment(),
+                    review.getImages()
                             .stream()
                             .map(Image::getUrl)
                             .collect(Collectors.toList())
