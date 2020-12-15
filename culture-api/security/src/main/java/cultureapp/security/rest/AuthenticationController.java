@@ -1,13 +1,15 @@
 package cultureapp.security.rest;
 
-import cultureapp.domain.account.ActivateAccountService;
-import cultureapp.domain.account.ChangePasswordService;
+import cultureapp.domain.account.exception.AccountAlreadyActivatedException;
+import cultureapp.domain.account.exception.AccountNotFoundException;
+import cultureapp.domain.account.service.ActivateAccountService;
+import cultureapp.domain.account.service.ChangePasswordService;
 import cultureapp.domain.account.command.ChangePasswordUseCase;
 import cultureapp.domain.authentication.LoginService;
 import cultureapp.domain.authentication.command.LoginUseCase;
 import cultureapp.domain.authentication.exception.AccountNotActivatedException;
-import cultureapp.domain.regular_user.RegularUserService;
-import cultureapp.domain.regular_user.command.AddRegularUserUseCase;
+import cultureapp.domain.user.RegularUserService;
+import cultureapp.domain.user.command.RegisterRegularUserUseCase;
 import cultureapp.security.TokenUtils;
 import cultureapp.security.rest.login.LoginRequest;
 import cultureapp.security.rest.login.LoginResponse;
@@ -19,7 +21,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
-import javax.security.auth.login.AccountNotFoundException;
 import java.util.Map;
 
 @Component
@@ -50,8 +51,8 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public void register(@RequestBody UserRequest request) {
-        AddRegularUserUseCase.AddRegularUserCommand command =
-                new AddRegularUserUseCase.AddRegularUserCommand(
+        RegisterRegularUserUseCase.RegisterRegularUserCommand command =
+                new RegisterRegularUserUseCase.RegisterRegularUserCommand(
                         request.getFirstName(), request.getLastName(), request.getEmail(), request.getPassword());
         regularUserService.addRegularUser(command);
     }
@@ -75,7 +76,7 @@ public class AuthenticationController {
 //    }
 
     @PostMapping("/password")
-    public ResponseEntity<Map<String, String>> changePassword(@RequestBody PasswordRequest request) throws AccountNotFoundException {
+    public ResponseEntity<Map<String, String>> changePassword(@RequestBody PasswordRequest request) {
         ChangePasswordUseCase.ChangePasswordCommand command =
                 new ChangePasswordUseCase.ChangePasswordCommand(request.getOldPassword(), request.getNewPassword());
         boolean changed = changePasswordService.changePassword(command);
@@ -92,7 +93,8 @@ public class AuthenticationController {
     }
 
     @PostMapping("/activate/{accountId}")
-    public void activate(@PathVariable Long accountId) throws AccountNotFoundException {
+    public void activate(@PathVariable Long accountId)
+            throws AccountNotFoundException, AccountAlreadyActivatedException {
         activateAccountService.activateAccount(accountId);
     }
 }

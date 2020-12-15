@@ -2,7 +2,7 @@ package cultureapp.domain.cultural_offer.query;
 
 import cultureapp.domain.cultural_offer.CulturalOffer;
 import cultureapp.domain.image.Image;
-import cultureapp.domain.regular_user.exception.RegularUserNotFound;
+import cultureapp.domain.user.exception.RegularUserNotFoundException;
 import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public interface GetSubscriptionsForUserQuery {
     List<GetSubscriptionsForUserDTO> getSubscriptions(
             @Positive Long categoryId,
-            @Positive Long subcategoryId) throws RegularUserNotFound, SubcategoryNotFoundException;
+            @Positive Long subcategoryId) throws RegularUserNotFoundException, SubcategoryNotFoundException;
 
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @Getter

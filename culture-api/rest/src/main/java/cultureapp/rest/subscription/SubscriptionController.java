@@ -2,7 +2,7 @@ package cultureapp.rest.subscription;
 
 
 import cultureapp.domain.cultural_offer.query.GetSubscriptionsForUserQuery;
-import cultureapp.domain.regular_user.exception.RegularUserNotFound;
+import cultureapp.domain.user.exception.RegularUserNotFoundException;
 import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -24,7 +24,7 @@ public class SubscriptionController {
     public ResponseEntity<List<GetSubscriptionsForUserQuery.GetSubscriptionsForUserDTO>> getSubscriptions(
             @RequestParam(name = "categoryId") Long categoryId,
             @RequestParam(name = "subcategoryId") Long subcategoryId)
-            throws SubcategoryNotFoundException, RegularUserNotFound {
+            throws SubcategoryNotFoundException, RegularUserNotFoundException {
         return ResponseEntity.ok(getSubscriptionsForUserQuery.getSubscriptions(categoryId, subcategoryId));
     }
 }

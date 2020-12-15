@@ -1,5 +1,6 @@
 package cultureapp.domain.account;
 
+import cultureapp.domain.account.exception.AccountAlreadyActivatedException;
 import cultureapp.domain.authority.Authority;
 import lombok.*;
 
@@ -68,7 +69,9 @@ public class Account {
         return true;
     }
 
-    public void activate() {
-        this.activated = true;
+    public void activate() throws AccountAlreadyActivatedException {
+        if (activated)
+            throw new AccountAlreadyActivatedException(id);
+        activated = true;
     }
 }
