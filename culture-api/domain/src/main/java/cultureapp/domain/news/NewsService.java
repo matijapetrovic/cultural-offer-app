@@ -15,7 +15,7 @@ import cultureapp.domain.news.command.UpdateNewsUseCase;
 import cultureapp.domain.news.exception.NewsAlreadyExistException;
 import cultureapp.domain.news.exception.NewsNotFoundException;
 import cultureapp.domain.news.query.GetNewsByIdQuery;
-import cultureapp.domain.news.query.GetNewsQuery;
+import cultureapp.domain.news.query.GetNewsForOfferQuery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -33,7 +33,7 @@ public class NewsService implements
         AddNewsUseCase,
         DeleteNewsUseCase,
         UpdateNewsUseCase,
-        GetNewsQuery,
+        GetNewsForOfferQuery,
         GetNewsByIdQuery {
     private final NewsRepository newsRepository;
     private final CulturalOfferRepository culturalOfferRepository;
@@ -59,7 +59,6 @@ public class NewsService implements
                 false,
                 images
         );
-
 
         // TODO: Implement sending mail to subscribed users
 
@@ -116,7 +115,7 @@ public class NewsService implements
     }
 
     @Override
-    public Slice<GetNewsDTO> getNews(Long offerId, Integer page, Integer limit) throws CulturalOfferNotFoundException {
+    public Slice<GetNewsForOfferDTO> getNews(Long offerId, Integer page, Integer limit) throws CulturalOfferNotFoundException {
 
         CulturalOffer offer = culturalOfferRepository.findByIdAndArchivedFalse(offerId)
                 .orElseThrow(() -> new CulturalOfferNotFoundException(offerId));
@@ -125,7 +124,7 @@ public class NewsService implements
 
         Slice<News> news = newsRepository.findAllByCulturalOfferIdAndArchivedFalse(offerId, pageRequest);
 
-        return news.map(GetNewsDTO::of);
+        return news.map(GetNewsForOfferDTO::of);
 
     }
 

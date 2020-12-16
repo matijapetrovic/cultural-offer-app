@@ -10,7 +10,7 @@ import cultureapp.domain.news.command.UpdateNewsUseCase;
 import cultureapp.domain.news.exception.NewsAlreadyExistException;
 import cultureapp.domain.news.exception.NewsNotFoundException;
 import cultureapp.domain.news.query.GetNewsByIdQuery;
-import cultureapp.domain.news.query.GetNewsQuery;
+import cultureapp.domain.news.query.GetNewsForOfferQuery;
 import cultureapp.rest.core.PaginatedResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Slice;
@@ -34,7 +34,7 @@ import java.time.LocalDateTime;
 @RequestMapping(value="/api/cultural-offers/{culturalOfferId}/news")
 public class NewsController {
     private final AddNewsUseCase addNews;
-    private final GetNewsQuery getNewsQuery;
+    private final GetNewsForOfferQuery getNewsForOfferQuery;
     private final DeleteNewsUseCase deleteNews;
     private final GetNewsByIdQuery getNewsByIdQuery;
     private final UpdateNewsUseCase updateNews;
@@ -63,13 +63,13 @@ public class NewsController {
     }
 
     @GetMapping(value = "", params = { "page", "limit" })
-    public ResponseEntity<PaginatedResponse<GetNewsQuery.GetNewsDTO>> getNews(
+    public ResponseEntity<PaginatedResponse<GetNewsForOfferQuery.GetNewsForOfferDTO>> getNews(
             @PathVariable Long culturalOfferId,
             @RequestParam(name="page", required = true) Integer page,
             @RequestParam(name="limit", required = true) Integer limit,
             UriComponentsBuilder uriBuilder
     ) throws CulturalOfferNotFoundException {
-        Slice<GetNewsQuery.GetNewsDTO> result = getNewsQuery.getNews(culturalOfferId, page, limit);
+        Slice<GetNewsForOfferQuery.GetNewsForOfferDTO> result = getNewsForOfferQuery.getNews(culturalOfferId, page, limit);
         String uri = String.format("/api/cultural-offers/%d/news", culturalOfferId);
         uriBuilder.path(uri);
         return  ResponseEntity.ok(PaginatedResponse.of(result, uriBuilder));

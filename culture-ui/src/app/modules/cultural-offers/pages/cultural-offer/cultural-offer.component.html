@@ -19,7 +19,7 @@
     <h2>News</h2>
     <div *ngIf="newsPage">
       <ul>
-        <li *ngFor="let news of newsPage.data">{{ news.title }}</li>
+        <li *ngFor="let news of newsPage.data">{{ news.title }} - {{ news.author.firstName }} {{ news.author.lastName }}</li>
       </ul>
       <button [disabled]="!newsPage.links.prev" (click)="previousNewsHandler()">Previous</button>
       <button [disabled]="!newsPage.links.next" (click)="nextNewsHandler()">Next</button>

@@ -13,21 +13,22 @@ import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public interface GetReviewsQuery {
-    Slice<GetReviewsQueryDTO> getReviewsDTO(@Positive Long culturalOfferId,
-                                       @PositiveOrZero Integer page,
-                                       @Positive Integer limit) throws CulturalOfferNotFoundException;
+public interface GetReviewsForOfferQuery {
+    Slice<GetReviewsForOfferQueryDTO> getReviewsForOffer(
+            @Positive Long culturalOfferId,
+            @PositiveOrZero Integer page,
+            @Positive Integer limit) throws CulturalOfferNotFoundException;
 
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @Getter
-    class GetReviewsQueryDTO {
+    class GetReviewsForOfferQueryDTO {
         Long id;
         Long culturalOfferId;
         String comment;
         List<String> images;
 
-        public static GetReviewsQueryDTO of(Review review) {
-            return new GetReviewsQueryDTO(
+        public static GetReviewsForOfferQueryDTO of(Review review) {
+            return new GetReviewsForOfferQueryDTO(
                     review.getId(),
                     review.getCulturalOffer().getId(),
                     review.getComment(),
