@@ -4,7 +4,7 @@ import cultureapp.domain.category.Category;
 import cultureapp.domain.category.CategoryRepository;
 import cultureapp.domain.category.exception.CategoryNotFoundException;
 import cultureapp.domain.subcategory.command.AddSubcategoryUseCase;
-import cultureapp.domain.subcategory.exception.SubcategoryAlreadyExists;
+import cultureapp.domain.subcategory.exception.SubcategoryAlreadyExistsException;
 import org.junit.Test;
 import org.mockito.Mockito;
 import javax.validation.ConstraintViolationException;
@@ -26,7 +26,7 @@ public class SubcategoryServiceUnitTest {
             new SubcategoryService(subcategoryRepository, categoryRepository);
 
     @Test(expected = CategoryNotFoundException.class)
-    public void whenCategoryDoesntExistThenAddSubcategoryWillFail() throws CategoryNotFoundException, SubcategoryAlreadyExists {
+    public void whenCategoryDoesntExistThenAddSubcategoryWillFail() throws CategoryNotFoundException, SubcategoryAlreadyExistsException {
         Long categoryId = 1L;
         String subcategoryName = "Museum";
         given(categoryRepository.findById(categoryId)).willReturn(Optional.empty());
@@ -55,7 +55,7 @@ public class SubcategoryServiceUnitTest {
 
     @Test
     public void whenAddSubcategoryCommandIsValidThenAddSubcategoryWillSucceed() throws
-            CategoryNotFoundException, SubcategoryAlreadyExists {
+            CategoryNotFoundException, SubcategoryAlreadyExistsException {
         Long categoryId = 1L;
         String subcategoryName = "Museum";
         Category category = Category.withId(categoryId, "Institution");

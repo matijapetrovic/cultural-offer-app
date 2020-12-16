@@ -1,7 +1,7 @@
 package cultureapp.domain.cultural_offer;
 
 import cultureapp.domain.image.Image;
-import cultureapp.domain.regular_user.RegularUser;
+import cultureapp.domain.user.RegularUser;
 import cultureapp.domain.subcategory.Subcategory;
 import lombok.*;
 

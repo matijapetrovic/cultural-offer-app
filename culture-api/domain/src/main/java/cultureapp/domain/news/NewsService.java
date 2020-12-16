@@ -1,8 +1,8 @@
 package cultureapp.domain.news;
 
-import cultureapp.domain.administrator.Administrator;
-import cultureapp.domain.administrator.AdministratorRepository;
-import cultureapp.domain.administrator.exception.AdminNotFoundException;
+import cultureapp.domain.user.Administrator;
+import cultureapp.domain.user.AdministratorRepository;
+import cultureapp.domain.user.exception.AdminNotFoundException;
 import cultureapp.domain.cultural_offer.CulturalOffer;
 import cultureapp.domain.cultural_offer.CulturalOfferRepository;
 import cultureapp.domain.cultural_offer.exception.CulturalOfferNotFoundException;

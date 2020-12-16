@@ -21,7 +21,7 @@ public interface GetNewsQuery {
     class GetNewsDTO {
         private Long id;
         private Long culturalOfferId;
-        private String name;
+        private String title;
         private String postedDate;
         private Long authorId;
         private String text;

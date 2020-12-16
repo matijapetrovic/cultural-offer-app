@@ -3,12 +3,12 @@ package cultureapp.rest.cultural_offer;
 
 import cultureapp.domain.cultural_offer.command.*;
 import cultureapp.domain.cultural_offer.exception.CulturalOfferNotFoundException;
-import cultureapp.domain.cultural_offer.exception.SubscriptionAlreadyExists;
-import cultureapp.domain.cultural_offer.exception.SubscriptionNotFound;
+import cultureapp.domain.cultural_offer.exception.SubscriptionAlreadyExistsException;
+import cultureapp.domain.cultural_offer.exception.SubscriptionNotFoundException;
 import cultureapp.domain.cultural_offer.query.GetCulturalOfferByIdQuery;
 import cultureapp.domain.cultural_offer.query.GetCulturalOffersQuery;
 import cultureapp.domain.image.exception.ImageNotFoundException;
-import cultureapp.domain.regular_user.exception.RegularUserNotFound;
+import cultureapp.domain.user.exception.RegularUserNotFoundException;
 import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
 import cultureapp.rest.core.PaginatedResponse;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +36,7 @@ public class CulturalOfferController {
     @PostMapping("/{id}/subscriptions")
     @PreAuthorize("hasRole('ROLE_USER')")
     public void subscribe(@PathVariable Long id)
-            throws CulturalOfferNotFoundException, RegularUserNotFound, SubscriptionAlreadyExists {
+            throws CulturalOfferNotFoundException, RegularUserNotFoundException, SubscriptionAlreadyExistsException {
         SubscribeToCulturalOfferNewsUseCase.SubscribeToCulturalOfferNewsCommand command =
                 new SubscribeToCulturalOfferNewsUseCase.SubscribeToCulturalOfferNewsCommand(id);
         subscribeToCulturalOfferNewsUseCase.subscribe(command);
@@ -45,7 +45,7 @@ public class CulturalOfferController {
     @DeleteMapping("/{id}/subscriptions")
     @PreAuthorize("hasRole('ROLE_USER')")
     public void unsubscribe(@PathVariable Long id)
-            throws CulturalOfferNotFoundException, RegularUserNotFound, SubscriptionNotFound {
+            throws CulturalOfferNotFoundException, RegularUserNotFoundException, SubscriptionNotFoundException {
         UnsubscribeFromCulturalOfferNewsUseCase.UnsubscribeFromCulturalOfferNewsCommand command =
                 new UnsubscribeFromCulturalOfferNewsUseCase.UnsubscribeFromCulturalOfferNewsCommand(id);
         unsubscribeFromCulturalOfferNewsUseCase.unsubscribe(command);

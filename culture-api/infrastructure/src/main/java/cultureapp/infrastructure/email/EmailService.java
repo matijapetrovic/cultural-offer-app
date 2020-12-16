@@ -1,6 +1,6 @@
 package cultureapp.infrastructure.email;
 
-import cultureapp.domain.email.EmailSender;
+import cultureapp.domain.core.EmailSender;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.SimpleMailMessage;
