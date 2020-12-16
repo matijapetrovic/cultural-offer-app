@@ -2,9 +2,9 @@ package cultureapp.domain.account.command;
 
 import cultureapp.domain.account.exception.AccountAlreadyActivatedException;
 
-import javax.security.auth.login.AccountNotFoundException;
+import cultureapp.domain.account.exception.AccountNotFoundException;
 import javax.validation.constraints.Positive;
 
 public interface ActivateAccountUseCase {
-    void activateAccount(@Positive Long accountId) throws AccountNotFoundException, cultureapp.domain.account.exception.AccountNotFoundException, AccountAlreadyActivatedException;
+    void activateAccount(@Positive Long accountId) throws AccountNotFoundException, AccountAlreadyActivatedException;
 }
