@@ -15,7 +15,7 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
 
     Optional<Category> findByIdAndArchivedFalse(Long id);
 
-    // TODO: ERROR -> method counts deleted subcategories
-    @Query("select case when count (sc)>0 then true else false end from Subcategory sc where sc.category.id = :id")
+    @Query("select case when count (sc)>0 then true else false end " +
+            "from Subcategory sc where sc.category.id = :id and sc.archived=false ")
     boolean existsWithSubcategory(@Param(value="id") Long id);
 }
