@@ -12,6 +12,7 @@ import org.springframework.data.domain.Slice;
 
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,7 +29,7 @@ public interface GetNewsForOfferQuery {
         private Long id;
         private Long culturalOfferId;
         private String title;
-        private String postedDate;
+        private LocalDateTime postedDate;
         private AuthorDTO author;
         private String text;
 
@@ -39,7 +40,7 @@ public interface GetNewsForOfferQuery {
                     news.getId(),
                     news.getCulturalOffer().getId(),
                     news.getTitle(),
-                    news.getPostedDate().toString().replace("T", " "),
+                    news.getPostedDate(),
                     AuthorDTO.of(news.getAuthor()),
                     news.getText(),
                     news.getImages()

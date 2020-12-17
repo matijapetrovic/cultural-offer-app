@@ -6,10 +6,12 @@ import { PaginationBarComponent } from './components/pagination-bar/pagination-b
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { StarRatingModule } from 'angular-star-rating';
+import { LocalDatePipe } from './pipes/local-date.pipe';
 
 @NgModule({
     declarations: [
-    PaginationBarComponent],
+    PaginationBarComponent,
+    LocalDatePipe],
     imports: [
         CommonModule,
         FlexLayoutModule,
@@ -18,6 +20,7 @@ import { StarRatingModule } from 'angular-star-rating';
     ],
     exports: [
         PaginationBarComponent,
+        LocalDatePipe,
         FlexLayoutModule,
         MatButtonModule,
         StarRatingModule

@@ -28,9 +28,7 @@
           (navigatePrevEvent)="getPrevNews()"
           (navigateNextEvent)="getNextNews()"
         ></app-pagination-bar>
-      <ul>
-        <li *ngFor="let news of newsPage.data">{{ news.title }} - {{ news.author.firstName }} {{ news.author.lastName }}</li>
-      </ul>
+      <app-offer-news [news]="newsPage.data"></app-offer-news>
     </div>
   </div>
 </div>
