@@ -6,7 +6,7 @@ import cultureapp.domain.category.exception.CategoryNotFoundException;
 import cultureapp.domain.subcategory.command.AddSubcategoryUseCase;
 import cultureapp.domain.subcategory.command.DeleteSubcategoryUseCase;
 import cultureapp.domain.subcategory.command.UpdateSubcategoryUseCase;
-import cultureapp.domain.subcategory.exception.SubcategoryAlreadyExists;
+import cultureapp.domain.subcategory.exception.SubcategoryAlreadyExistsException;
 import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
 import cultureapp.domain.subcategory.query.GetSubcategoriesQuery;
 import cultureapp.domain.subcategory.query.GetSubcategoryByIdQuery;
@@ -34,7 +34,7 @@ public class SubcategoryService implements
 
     @Override
     public void addSubcategory(AddSubcategoryCommand command)
-            throws CategoryNotFoundException, SubcategoryAlreadyExists {
+            throws CategoryNotFoundException, SubcategoryAlreadyExistsException {
         Category category = categoryRepository.findById(command.getCategoryId())
                 .orElseThrow(() -> new CategoryNotFoundException(command.getCategoryId()));
 
@@ -46,7 +46,7 @@ public class SubcategoryService implements
     public Slice<GetSubcategoriesDTO> getSubcategories(@Positive Long categoryId,
                                                       @PositiveOrZero Integer page,
                                                       @Positive Integer limit) throws CategoryNotFoundException {
-        Category category = categoryRepository.findById(categoryId)
+        Category category = categoryRepository.findByIdAndArchivedFalse(categoryId)
                 .orElseThrow(() -> new CategoryNotFoundException(categoryId));
         Pageable pageRequest = PageRequest.of(page, limit, Sort.by("name"));
 
@@ -59,16 +59,16 @@ public class SubcategoryService implements
     @Override
     public GetSubcategoryByIdDTO getSubcategory(@Positive Long id, @Positive Long categoryId)
             throws SubcategoryNotFoundException {
-        Subcategory subcategory = subcategoryRepository.findByIdAndCategoryIdAndArchivedFalse(categoryId, id)
+        Subcategory subcategory = subcategoryRepository.findByIdAndCategoryIdAndArchivedFalse(id, categoryId)
                 .orElseThrow(() -> new SubcategoryNotFoundException(id, categoryId));
         return GetSubcategoryByIdDTO.of(subcategory);
     }
 
     @Override
     public void updateSubcategory(UpdateSubcategoryCommand command)
-            throws SubcategoryNotFoundException, SubcategoryAlreadyExists {
+            throws SubcategoryNotFoundException, SubcategoryAlreadyExistsException {
         Subcategory subcategory =
-                subcategoryRepository.findByIdAndCategoryIdAndArchivedFalse(command.getCategoryId(), command.getId())
+                subcategoryRepository.findByIdAndCategoryIdAndArchivedFalse(command.getId(), command.getCategoryId())
                 .orElseThrow(() -> new SubcategoryNotFoundException(command.getId(), command.getCategoryId()));
         if(subcategory.update(command.getName()))
             saveSubcategory(subcategory);
@@ -83,11 +83,11 @@ public class SubcategoryService implements
         subcategoryRepository.save(subcategory);
     }
 
-    private void saveSubcategory(Subcategory subcategory) throws SubcategoryAlreadyExists {
+    private void saveSubcategory(Subcategory subcategory) throws SubcategoryAlreadyExistsException {
         try {
             subcategoryRepository.save(subcategory);
         } catch (DataIntegrityViolationException ex) {
-            throw new SubcategoryAlreadyExists(subcategory.getName());
+            throw new SubcategoryAlreadyExistsException(subcategory.getName());
         }
     }
 }

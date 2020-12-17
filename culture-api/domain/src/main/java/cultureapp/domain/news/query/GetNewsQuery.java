@@ -21,8 +21,8 @@ public interface GetNewsQuery {
     class GetNewsDTO {
         private Long id;
         private Long culturalOfferId;
-        private String name;
-        private LocalDateTime postedDate;
+        private String title;
+        private String postedDate;
         private Long authorId;
         private String text;
 
@@ -33,8 +33,8 @@ public interface GetNewsQuery {
             return new GetNewsDTO(
                     news.getId(),
                     news.getCulturalOffer().getId(),
-                    news.getName(),
-                    news.getPostedDate(),
+                    news.getTitle(),
+                    news.getPostedDate().toString().replace("T", " "),
                     news.getAuthor().getId(),
                     news.getText(),
                     news.getImages()

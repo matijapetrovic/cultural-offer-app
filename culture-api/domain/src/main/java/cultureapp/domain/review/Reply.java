@@ -1,7 +1,7 @@
 package cultureapp.domain.review;
 
 
-import cultureapp.domain.administrator.Administrator;
+import cultureapp.domain.user.Administrator;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,6 +19,8 @@ public class Reply {
 
     @Id
     @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="reply_generator")
+    @SequenceGenerator(name="reply_generator", sequenceName = "reply_id_seq", allocationSize = 1)
     private Long id;
 
     @Id

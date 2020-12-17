@@ -1,7 +1,7 @@
 package cultureapp.domain.cultural_offer;
 
 import cultureapp.domain.image.Image;
-import cultureapp.domain.regular_user.RegularUser;
+import cultureapp.domain.user.RegularUser;
 import cultureapp.domain.subcategory.Subcategory;
 import lombok.*;
 
@@ -15,10 +15,12 @@ import java.util.Set;
 @Setter
 @Table(name="cultural_offer")
 @Entity
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class CulturalOffer {
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
 
     @Column(name="name", nullable = false)
@@ -34,7 +36,7 @@ public class CulturalOffer {
     private List<Image> images;
 
     @ManyToMany(mappedBy = "culturalOffers")
-    private Set<RegularUser> regularUsers;
+    private Set<RegularUser> subscribers;
 
     @ManyToOne
     @JoinColumns({

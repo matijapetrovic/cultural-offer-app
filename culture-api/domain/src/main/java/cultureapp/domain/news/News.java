@@ -1,6 +1,6 @@
 package cultureapp.domain.news;
 
-import cultureapp.domain.administrator.Administrator;
+import cultureapp.domain.user.Administrator;
 import cultureapp.domain.cultural_offer.CulturalOffer;
 import cultureapp.domain.image.Image;
 import lombok.AccessLevel;
@@ -23,7 +23,8 @@ import java.util.List;
 public class News {
     @Id
     @Column(name="id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="news_generator")
+    @SequenceGenerator(name="news_generator", sequenceName = "news_id_seq", allocationSize = 1)
     private Long id;
 
     @Id
@@ -31,8 +32,8 @@ public class News {
     @JoinColumn(name="cultural_offer_id", insertable = false, updatable = false)
     private CulturalOffer culturalOffer;
 
-    @Column(name="name", nullable = false, unique = true)
-    private String name;
+    @Column(name="title", nullable = false)
+    private String title;
 
     @Column(name="posted_date")
     private LocalDateTime postedDate;
