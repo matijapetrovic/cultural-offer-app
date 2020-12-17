@@ -20,10 +20,10 @@ export class CulturalOfferComponent implements OnInit {
   private culturalOfferId: number;
 
   private currentReviewsPage: number;
-  private reviewsLimit: number = 1;
+  private reviewsLimit: number = 3;
 
   private currentNewsPage: number;
-  private newsLimit: number = 1;
+  private newsLimit: number = 3;
 
   constructor(
     private culturalOffersService : CulturalOffersService,

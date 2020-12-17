@@ -8,11 +8,7 @@
   <div fxFlex="calc(40% - 25px)">
       <h2>Reviews</h2>
       <div *ngIf="reviewPage">
-        <ul>
-          <li *ngFor="let review of reviewPage.data">{{ review.comment }}</li>
-        </ul>
-        <button [disabled]="!reviewPage.links.prev" (click)="previousReviewsHandler()">Previous</button>
-        <button [disabled]="!reviewPage.links.next" (click)="nextReviewsHandler()">Next</button>
+       <app-offer-reviews [reviews]="reviewPage.data"></app-offer-reviews>
       </div>
   </div>
   <div fxFlex="calc(60% - 25px)">
