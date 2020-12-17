@@ -1,20 +1,13 @@
-package cultureapp.security.rest;
+package cultureapp.rest.authentication;
 
+import cultureapp.domain.account.command.ActivateAccountUseCase;
 import cultureapp.domain.account.exception.AccountAlreadyActivatedException;
+import cultureapp.domain.account.exception.AccountAlreadyExistsException;
 import cultureapp.domain.account.exception.AccountNotFoundException;
-import cultureapp.domain.account.service.ActivateAccountService;
-import cultureapp.domain.account.service.ChangePasswordService;
 import cultureapp.domain.account.command.ChangePasswordUseCase;
-import cultureapp.domain.authentication.LoginService;
 import cultureapp.domain.authentication.command.LoginUseCase;
 import cultureapp.domain.authentication.exception.AccountNotActivatedException;
-import cultureapp.domain.user.RegularUserService;
 import cultureapp.domain.user.command.RegisterRegularUserUseCase;
-import cultureapp.security.TokenUtils;
-import cultureapp.security.rest.login.LoginRequest;
-import cultureapp.security.rest.login.LoginResponse;
-import cultureapp.security.rest.password.PasswordRequest;
-import cultureapp.security.rest.user.UserRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -28,33 +21,25 @@ import java.util.Map;
 @RequestMapping(value = "/api/auth", produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 public class AuthenticationController {
-    private final LoginService loginService;
-    private final TokenUtils tokenUtils;
-    private final RegularUserService regularUserService;
-    private final ChangePasswordService changePasswordService;
-    private final ActivateAccountService activateAccountService;
+    private final LoginUseCase loginUseCase;
+    private final RegisterRegularUserUseCase registerRegularUserUseCase;
+    private final ChangePasswordUseCase changePasswordUseCase;
+    private final ActivateAccountUseCase activateAccountUseCase;
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) throws AccountNotActivatedException {
+    public ResponseEntity<LoginUseCase.LoginDTO> login(@RequestBody LoginRequest request) throws AccountNotActivatedException {
         LoginUseCase.LoginCommand command =
                 new LoginUseCase.LoginCommand(request.getEmail(), request.getPassword());
-        LoginUseCase.LoginDTO loginInfo = loginService.login(command);
-        return ResponseEntity.ok(mapLoginInfo(loginInfo));
-    }
-
-    private LoginResponse mapLoginInfo(LoginUseCase.LoginDTO loginInfo) {
-        return new LoginResponse(
-                tokenUtils.generateToken(loginInfo.getEmail()),
-                loginInfo.getRole(),
-                tokenUtils.getExpiredIn());
+        return ResponseEntity.ok(loginUseCase.login(command));
     }
 
     @PostMapping("/register")
-    public void register(@RequestBody UserRequest request) {
+    public void register(@RequestBody RegisterRequest request)
+            throws AccountAlreadyExistsException {
         RegisterRegularUserUseCase.RegisterRegularUserCommand command =
                 new RegisterRegularUserUseCase.RegisterRegularUserCommand(
                         request.getFirstName(), request.getLastName(), request.getEmail(), request.getPassword());
-        regularUserService.addRegularUser(command);
+        registerRegularUserUseCase.addRegularUser(command);
     }
 
 //    @PostMapping(value = "/refresh")
@@ -76,10 +61,11 @@ public class AuthenticationController {
 //    }
 
     @PostMapping("/password")
-    public ResponseEntity<Map<String, String>> changePassword(@RequestBody PasswordRequest request) {
+    public ResponseEntity<Map<String, String>> changePassword(@RequestBody PasswordRequest request)
+            throws AccountNotFoundException {
         ChangePasswordUseCase.ChangePasswordCommand command =
                 new ChangePasswordUseCase.ChangePasswordCommand(request.getOldPassword(), request.getNewPassword());
-        boolean changed = changePasswordService.changePassword(command);
+        boolean changed = changePasswordUseCase.changePassword(command);
         if (changed) {
             return ResponseEntity
                     .accepted()
@@ -95,6 +81,6 @@ public class AuthenticationController {
     @PostMapping("/activate/{accountId}")
     public void activate(@PathVariable Long accountId)
             throws AccountNotFoundException, AccountAlreadyActivatedException {
-        activateAccountService.activateAccount(accountId);
+        activateAccountUseCase.activateAccount(accountId);
     }
 }

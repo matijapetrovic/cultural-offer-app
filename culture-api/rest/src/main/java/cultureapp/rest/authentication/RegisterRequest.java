@@ -1,4 +1,4 @@
-package cultureapp.security.rest.user;
+package cultureapp.rest.authentication;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class UserRequest {
+public class RegisterRequest {
     private String firstName;
     private String lastName;
 

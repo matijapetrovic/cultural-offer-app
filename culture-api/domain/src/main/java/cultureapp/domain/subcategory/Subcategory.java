@@ -47,6 +47,8 @@ public class Subcategory implements Serializable {
         this.archived = true;
     }
 
+    public void unarchive() { this.archived = false; }
+
     public static Subcategory withId(
             Long id,
             Category category,

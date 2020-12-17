@@ -35,7 +35,7 @@ public class SubcategoryService implements
     @Override
     public void addSubcategory(AddSubcategoryCommand command)
             throws CategoryNotFoundException, SubcategoryAlreadyExistsException {
-        Category category = categoryRepository.findById(command.getCategoryId())
+        Category category = categoryRepository.findByIdAndArchivedFalse(command.getCategoryId())
                 .orElseThrow(() -> new CategoryNotFoundException(command.getCategoryId()));
 
         Subcategory subcategory = Subcategory.of(category, command.getName());
@@ -43,9 +43,10 @@ public class SubcategoryService implements
     }
 
     @Override
-    public Slice<GetSubcategoriesDTO> getSubcategories(@Positive Long categoryId,
-                                                      @PositiveOrZero Integer page,
-                                                      @Positive Integer limit) throws CategoryNotFoundException {
+    public Slice<GetSubcategoriesDTO> getSubcategories(
+            @Positive Long categoryId,
+            @PositiveOrZero Integer page,
+            @Positive Integer limit) throws CategoryNotFoundException {
         Category category = categoryRepository.findByIdAndArchivedFalse(categoryId)
                 .orElseThrow(() -> new CategoryNotFoundException(categoryId));
         Pageable pageRequest = PageRequest.of(page, limit, Sort.by("name"));
@@ -75,7 +76,7 @@ public class SubcategoryService implements
     }
 
     @Override
-    public void deleteSubcategoryById(@Positive Long categoryId, @Positive Long id)
+    public void deleteSubcategoryById(@Positive Long id, @Positive Long categoryId)
             throws SubcategoryNotFoundException {
         Subcategory subcategory = subcategoryRepository.findByIdAndCategoryIdAndArchivedFalse(id, categoryId)
                 .orElseThrow(() -> new SubcategoryNotFoundException(id, categoryId));
