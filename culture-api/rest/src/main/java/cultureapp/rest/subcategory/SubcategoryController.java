@@ -11,8 +11,10 @@ import cultureapp.domain.subcategory.query.GetSubcategoryByIdQuery;
 import cultureapp.rest.core.PaginatedResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Slice;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -27,12 +29,14 @@ public class SubcategoryController {
     private final DeleteSubcategoryUseCase deleteSubcategoryUseCase;
 
     @PostMapping("")
-    public void addSubcategory(
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<Void> addSubcategory(
             @PathVariable Long categoryId,
             @RequestBody SubcategoryRequest request) throws CategoryNotFoundException, SubcategoryAlreadyExistsException {
         AddSubcategoryUseCase.AddSubcategoryCommand command =
                 new AddSubcategoryUseCase.AddSubcategoryCommand(categoryId, request.getName());
         addSubcategoryUseCase.addSubcategory(command);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping(value = "", params = { "page", "limit" })
@@ -56,18 +60,22 @@ public class SubcategoryController {
     }
 
     @PutMapping("/{id}")
-    public void updateSubcategory(@PathVariable Long categoryId,
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<Void> updateSubcategory(@PathVariable Long categoryId,
                                   @PathVariable Long id,
                                   @RequestBody SubcategoryRequest request) throws SubcategoryNotFoundException, SubcategoryAlreadyExistsException {
         UpdateSubcategoryUseCase.UpdateSubcategoryCommand command =
                 new UpdateSubcategoryUseCase.UpdateSubcategoryCommand(id, categoryId, request.getName());
         updateSubcategoryUseCase.updateSubcategory(command);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
-    public void deleteSubcategory(@PathVariable Long categoryId,
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<Void> deleteSubcategory(@PathVariable Long categoryId,
                                   @PathVariable Long id) throws CategoryNotFoundException, SubcategoryNotFoundException {
-        deleteSubcategoryUseCase.deleteSubcategoryById(categoryId, id);
+        deleteSubcategoryUseCase.deleteSubcategoryById(id, categoryId);
+        return ResponseEntity.noContent().build();
     }
 
 }

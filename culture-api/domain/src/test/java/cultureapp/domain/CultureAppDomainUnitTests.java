@@ -8,5 +8,5 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
         SubcategoryServiceUnitTest.class
 })
-public class CultureAppDomainTests {
+public class CultureAppDomainUnitTests {
 }
