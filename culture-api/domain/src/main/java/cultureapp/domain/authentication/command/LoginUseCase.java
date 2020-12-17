@@ -34,16 +34,16 @@ public interface LoginUseCase {
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @Getter
     class LoginDTO {
-        String email;
+        String token;
         List<String> role;
+        long expiresIn;
 
-        public static LoginDTO of(Account account) {
-            return new LoginDTO(account.getEmail(), mapRoles(account));
+        public static LoginDTO of(String token, List<Authority> authorities, long expiresIn) {
+            return new LoginDTO(token, mapRoles(authorities), expiresIn);
         }
 
-        private static List<String> mapRoles(Account account) {
-            return account.
-                    getAuthorities()
+        private static List<String> mapRoles(List<Authority> authorities) {
+            return authorities
                     .stream()
                     .map(Authority::getName)
                     .collect(Collectors.toList());

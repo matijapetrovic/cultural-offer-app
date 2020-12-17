@@ -1,4 +1,4 @@
-package cultureapp.security.rest.login;
+package cultureapp.rest.authentication;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

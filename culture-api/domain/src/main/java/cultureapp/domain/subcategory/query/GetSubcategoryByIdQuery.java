@@ -15,11 +15,13 @@ public interface GetSubcategoryByIdQuery {
     @Getter
     class GetSubcategoryByIdDTO {
         Long id;
+        Long categoryId;
         String name;
 
         public static GetSubcategoryByIdDTO of(Subcategory subcategory) {
             return new GetSubcategoryByIdDTO(
                     subcategory.getId(),
+                    subcategory.getCategory().getId(),
                     subcategory.getName());
         }
     }

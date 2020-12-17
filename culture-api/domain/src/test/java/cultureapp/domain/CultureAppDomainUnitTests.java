@@ -10,5 +10,5 @@ import org.junit.runners.Suite;
         SubcategoryServiceUnitTest.class,
         CategoryServiceUnitTest.class
 })
-public class CultureAppDomainTests {
+public class CultureAppDomainUnitTests {
 }

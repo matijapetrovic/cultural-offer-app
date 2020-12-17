@@ -26,6 +26,7 @@ public interface UpdateSubcategoryUseCase {
             this.id = id;
             this.categoryId = categoryId;
             this.name = name;
+            this.validateSelf();
         }
     }
 }
