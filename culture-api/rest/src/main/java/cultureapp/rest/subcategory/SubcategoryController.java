@@ -61,19 +61,21 @@ public class SubcategoryController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void updateSubcategory(@PathVariable Long categoryId,
+    public ResponseEntity<Void> updateSubcategory(@PathVariable Long categoryId,
                                   @PathVariable Long id,
                                   @RequestBody SubcategoryRequest request) throws SubcategoryNotFoundException, SubcategoryAlreadyExistsException {
         UpdateSubcategoryUseCase.UpdateSubcategoryCommand command =
                 new UpdateSubcategoryUseCase.UpdateSubcategoryCommand(id, categoryId, request.getName());
         updateSubcategoryUseCase.updateSubcategory(command);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void deleteSubcategory(@PathVariable Long categoryId,
+    public ResponseEntity<Void> deleteSubcategory(@PathVariable Long categoryId,
                                   @PathVariable Long id) throws CategoryNotFoundException, SubcategoryNotFoundException {
         deleteSubcategoryUseCase.deleteSubcategoryById(id, categoryId);
+        return ResponseEntity.noContent().build();
     }
 
 }
