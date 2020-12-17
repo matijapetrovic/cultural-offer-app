@@ -54,22 +54,22 @@ export class CulturalOfferComponent implements OnInit {
     this.newsService.getNews(this.culturalOfferId, this.currentNewsPage, this.newsLimit).subscribe(newsPage => this.newsPage = newsPage);
   }
 
-  nextReviewsHandler(): void {
+  getNextReviews(): void {
     this.currentReviewsPage++;
     this.getReviews();
   }
 
-  previousReviewsHandler(): void {
+  getPrevReviews(): void {
     this.currentReviewsPage--;
     this.getReviews();
   }
 
-  nextNewsHandler(): void {
+  getNextNews(): void {
     this.currentNewsPage++;
     this.getNews();
   }
 
-  previousNewsHandler(): void {
+  getPrevNews(): void {
     this.currentNewsPage--;
     this.getNews();
   }

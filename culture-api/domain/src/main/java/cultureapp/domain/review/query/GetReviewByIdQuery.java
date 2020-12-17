@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import javax.validation.constraints.Positive;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,21 +19,25 @@ public interface GetReviewByIdQuery {
     @Getter
     class GetReviewByIdDTO {
         Long id;
-        String comment;
         Long culturalOfferId;
+        BigDecimal rating;
+        String comment;
         List<String> images;
 
         public static GetReviewByIdDTO of(Review review) {
             return new GetReviewByIdDTO(
                     review.getId(),
-                    review.getComment(),
                     review.getCulturalOffer().getId(),
-                    review
-                        .getImages()
-                        .stream()
-                        .map(Image::getUrl)
-                        .collect(Collectors.toList())
+                    review.getRating(),
+                    review.getComment(),
+                    mapImages(review.getImages())
             );
+        }
+
+        private static List<String> mapImages(List<Image> images) {
+            return images.stream()
+                    .map(Image::getUrl)
+                    .collect(Collectors.toList());
         }
     }
 }

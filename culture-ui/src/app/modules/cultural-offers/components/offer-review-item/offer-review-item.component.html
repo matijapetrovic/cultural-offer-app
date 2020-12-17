@@ -1,15 +1,16 @@
 <div fxLayout="row">
   <div class="review-rating" fxFlex="25" fxLayout="row" gdAlignRows="center center" gdAlignColumns="center center">
-    <span class="rating-number">3.0</span>
+    <span class="rating-number">{{ review.rating }}</span>
     <star-rating 
       [starType]="'svg'" 
-      [rating]="3.0" 
+      [rating]="review.rating" 
       [showHalfStars]="true" 
       [readOnly]="true">
     </star-rating>
   </div>
   <div class="review-content" fxFlex="75">
     <p class="review-comment">{{ review.comment }}</p>
+    <span class="review-author">{{ review.author.firstName }} {{ review.author.lastName }}</span>
     <div class="review-images">
       <div fxFlex="calc(33% - 10px)">
         <img [src]="review.images[0]" alt="">
