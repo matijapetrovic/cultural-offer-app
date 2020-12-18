@@ -4,6 +4,7 @@ import cultureapp.domain.image.Image;
 import cultureapp.domain.user.RegularUser;
 import cultureapp.domain.subcategory.Subcategory;
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import java.util.List;
@@ -26,7 +27,7 @@ public class CulturalOffer {
     @Column(name="name", nullable = false)
     private String name;
 
-    @Column(name="description")
+    @Column(name="description", length = 1000)
     private String description;
 
     @Embedded

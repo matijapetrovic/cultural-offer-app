@@ -37,7 +37,7 @@ public class Reply {
     @JoinColumn(name="author_id", referencedColumnName = "id")
     private Administrator administrator;
 
-    @Column(name="comment")
+    @Column(name="comment", length = 1000)
     private String comment;
 
     public static Reply of(

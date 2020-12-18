@@ -42,7 +42,7 @@ public class News {
     @JoinColumn(name="author_id", referencedColumnName = "id")
     private Administrator author;
 
-    @Column(name = "text")
+    @Column(name = "text", length = 1000)
     private String text;
 
     @Column(name="archived", nullable = false)
