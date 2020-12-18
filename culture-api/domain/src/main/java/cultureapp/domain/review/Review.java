@@ -31,7 +31,7 @@ public class Review {
     @JoinColumn(name="cultural_offer_id", insertable = false, updatable = false)
     private CulturalOffer culturalOffer;
 
-    @Column(name="comment")
+    @Column(name="comment", length = 1000)
     private String comment;
 
     @Column(name="rating")
