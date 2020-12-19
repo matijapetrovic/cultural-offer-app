@@ -20,10 +20,10 @@ export class CulturalOfferComponent implements OnInit {
   private culturalOfferId: number;
 
   private currentReviewsPage: number;
-  private reviewsLimit: number = 1;
+  private reviewsLimit: number = 3;
 
   private currentNewsPage: number;
-  private newsLimit: number = 1;
+  private newsLimit: number = 3;
 
   constructor(
     private culturalOffersService : CulturalOffersService,
@@ -54,22 +54,22 @@ export class CulturalOfferComponent implements OnInit {
     this.newsService.getNews(this.culturalOfferId, this.currentNewsPage, this.newsLimit).subscribe(newsPage => this.newsPage = newsPage);
   }
 
-  nextReviewsHandler(): void {
+  getNextReviews(): void {
     this.currentReviewsPage++;
     this.getReviews();
   }
 
-  previousReviewsHandler(): void {
+  getPrevReviews(): void {
     this.currentReviewsPage--;
     this.getReviews();
   }
 
-  nextNewsHandler(): void {
+  getNextNews(): void {
     this.currentNewsPage++;
     this.getNews();
   }
 
-  previousNewsHandler(): void {
+  getPrevNews(): void {
     this.currentNewsPage--;
     this.getNews();
   }
