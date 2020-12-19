@@ -1,12 +1,14 @@
 package cultureapp.domain;
 
+import cultureapp.domain.category.CategoryRepositoryIntegrationTest;
 import cultureapp.domain.subcategory.SubcategoryRepositoryIntegrationTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        SubcategoryRepositoryIntegrationTest.class
+        SubcategoryRepositoryIntegrationTest.class,
+        CategoryRepositoryIntegrationTest.class
 })
 public class CultureAppRepositoryIntegrationTests {
 }

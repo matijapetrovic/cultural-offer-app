@@ -55,7 +55,7 @@ public class CategoryServiceUnitTest {
     @Test(expected = CategoryAlreadyExistsException.class)
     public void givenCategoryNameAlreadyExistingNameThenCreateCategoryCommandWillFail() throws CategoryAlreadyExistsException {
         AddCategoryUseCase.AddCategoryCommand command =
-                new AddCategoryUseCase.AddCategoryCommand(VALID_CATEGORY_NAME);
+                new AddCategoryUseCase.AddCategoryCommand(EXISTING_CATEGORY_NAME_FOR_ID_1);
         given(categoryRepository.save(notNull())).willThrow(DataIntegrityViolationException.class);
 
         categoryService.addCategory(command);
@@ -67,7 +67,7 @@ public class CategoryServiceUnitTest {
     -----------------------
     */
     @Test
-    public void givenCategoryIdExistsThenGetCategorySucceed() throws CategoryNotFoundException {
+    public void givenCategoryIdExistsThenGetCategoryWillReturnNotEmpty() throws CategoryNotFoundException {
         Category category = Category.withId(VALID_CATEGORY_ID, VALID_CATEGORY_NAME);
 
         given(categoryRepository.findByIdAndArchivedFalse(VALID_CATEGORY_ID)).willReturn(Optional.of(category));
@@ -85,11 +85,10 @@ public class CategoryServiceUnitTest {
     @Test
     public void givenGetCategoriesExistThenGetCategoriesSucceed() {
         int page = 0;
-        int limit = 3;
 
-        given(categoryRepository.findAllByArchivedFalse(PageRequest.of(page, limit, Sort.by("name")))).willReturn(
+        given(categoryRepository.findAllByArchivedFalse(PageRequest.of(page, CATEGORY_PAGE_SIZE, Sort.by("name")))).willReturn(
                 new SliceImpl<>(List.of(Category.of("Category1"), Category.of("Category2"))));
-        Slice<GetCategoriesQuery.GetCategoriesDTO> categories = categoryService.getCategories(page, limit);
+        Slice<GetCategoriesQuery.GetCategoriesDTO> categories = categoryService.getCategories(page, CATEGORY_PAGE_SIZE);
 
         assertEquals(categories.getContent().size(), 2);
         assertNotEquals(categories.getContent().size(), 0);
@@ -130,8 +129,8 @@ public class CategoryServiceUnitTest {
     @Test(expected = Exception.class)
     public void givenUpdateCategoryCommandAlreadyExistsThenUpdateCategoryWillFail() throws CategoryNotFoundException, CategoryAlreadyExistsException {
         UpdateCategoryUseCase.UpdateCategoryCommand command =
-                new UpdateCategoryUseCase.UpdateCategoryCommand(VALID_CATEGORY_ID, VALID_CATEGORY_NAME);
-        given(categoryRepository.findByIdAndArchivedFalse(VALID_CATEGORY_ID)).willReturn(Optional.empty());
+                new UpdateCategoryUseCase.UpdateCategoryCommand(NON_EXISTING_CATEGORY_ID, VALID_CATEGORY_NAME);
+        given(categoryRepository.findByIdAndArchivedFalse(NON_EXISTING_CATEGORY_ID)).willThrow(CategoryNotFoundException.class);
 
         categoryService.updateCategory(command);
     }
