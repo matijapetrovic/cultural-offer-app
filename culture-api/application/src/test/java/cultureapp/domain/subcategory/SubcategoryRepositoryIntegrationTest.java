@@ -38,7 +38,7 @@ public class SubcategoryRepositoryIntegrationTest {
         Subcategory result = resultOptional.get();
         assertFalse(result.isArchived());
         assertEquals(EXISTING_SUBCATEGORY_NAME_FOR_CATEGORY_ID_1, result.getName());
-        assertEquals(EXISTING_CATEGORY_NAME, result.getCategory().getName());
+        assertEquals(EXISTING_CATEGORY_NAME_FOR_ID_1, result.getCategory().getName());
     }
 
     @Test
