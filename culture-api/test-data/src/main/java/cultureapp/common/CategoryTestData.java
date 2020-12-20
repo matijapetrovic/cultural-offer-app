@@ -1,7 +1,5 @@
 package cultureapp.common;
 
-import cultureapp.domain.category.Category;
-
 public class CategoryTestData {
     public static final String EXISTING_CATEGORY_NAME_FOR_ID_1 = "Category1";
     public static final String EXISTING_CATEGORY_NAME_FOR_ID_2 = "Category2";
@@ -16,11 +14,6 @@ public class CategoryTestData {
 
     public static final String VALID_CATEGORY_NAME = "Non-empty-string";
 
-    public static Category validCategory() {
-        return Category.withId(
-                VALID_CATEGORY_ID,
-                VALID_CATEGORY_NAME);
-    }
     public static final Long VALID_CATEGORY_ID = 1L;
 
     public static final int CATEGORY_PAGE_SIZE = 2;

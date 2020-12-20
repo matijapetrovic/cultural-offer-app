@@ -43,7 +43,8 @@ public class SubscribeToCulturalOfferNewsServiceIntegrationTest {
     public void givenUserDoesNotExistThenSubscribeFails() throws CulturalOfferNotFoundException, RegularUserNotFoundException, SubscriptionAlreadyExistsException {
         authenticationService.authenticate(EXISTING_ADMINISTRATOR_EMAIL, EXISTING_ADMINISTRATOR_PASSWORD);
 
-        SubscribeToCulturalOfferNewsUseCase.SubscribeToCulturalOfferNewsCommand command = validSubscribeCommand();
+        SubscribeToCulturalOfferNewsUseCase.SubscribeToCulturalOfferNewsCommand command =
+                new SubscribeToCulturalOfferNewsUseCase.SubscribeToCulturalOfferNewsCommand(NON_EXISTING_SUBSCRIPTION_ID_FOR_USER_1);
         subscribeService.subscribe(command);
     }
 

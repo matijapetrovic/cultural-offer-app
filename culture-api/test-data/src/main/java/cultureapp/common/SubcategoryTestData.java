@@ -1,8 +1,5 @@
 package cultureapp.common;
 
-import cultureapp.domain.category.Category;
-import cultureapp.domain.subcategory.Subcategory;
-
 public class SubcategoryTestData {
     public static final String EXISTING_SUBCATEGORY_NAME_FOR_CATEGORY_ID_1 = "Subcategory11";
     public static final String EXISTING_SUBCATEGORY_NAME_2_FOR_CATEGORY_ID_1 = "Subcategory12";
@@ -26,10 +23,4 @@ public class SubcategoryTestData {
     public static final String VALID_UPDATE_SUBCATEGORY_NAME = "New non-empty-string";
     public static final Long VALID_SUBCATEGORY_ID = 5L;
 
-    public static Subcategory validSubcategoryWithCategory(Category category) {
-        return Subcategory.withId(
-                VALID_SUBCATEGORY_ID,
-                category,
-                VALID_SUBCATEGORY_NAME);
-    }
 }

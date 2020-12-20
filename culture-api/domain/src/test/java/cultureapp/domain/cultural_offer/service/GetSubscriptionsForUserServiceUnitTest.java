@@ -1,9 +1,8 @@
 package cultureapp.domain.cultural_offer.service;
 
 import static cultureapp.common.CategoryTestData.*;
-import static cultureapp.common.RegularUserTestData.*;
 import static cultureapp.common.SubcategoryTestData.*;
-import static cultureapp.common.CulturalOfferTestData.*;
+import static cultureapp.domain.DomainUnitTestsUtil.*;
 
 import cultureapp.domain.account.Account;
 import cultureapp.domain.core.AuthenticationService;

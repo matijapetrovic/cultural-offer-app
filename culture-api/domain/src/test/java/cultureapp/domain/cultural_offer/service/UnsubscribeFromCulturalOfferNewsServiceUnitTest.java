@@ -18,11 +18,8 @@ import javax.validation.ConstraintViolationException;
 
 import java.util.Optional;
 
-import static cultureapp.common.CategoryTestData.validCategory;
 import static cultureapp.common.CulturalOfferTestData.*;
-import static cultureapp.common.CulturalOfferTestData.VALID_CULTURAL_OFFER_ID;
-import static cultureapp.common.RegularUserTestData.*;
-import static cultureapp.common.SubcategoryTestData.validSubcategoryWithCategory;
+import static cultureapp.domain.DomainUnitTestsUtil.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 
