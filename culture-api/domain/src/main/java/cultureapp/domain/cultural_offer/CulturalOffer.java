@@ -33,10 +33,10 @@ public class CulturalOffer {
     @Embedded
     private Location location;
 
-    @OneToMany(cascade = CascadeType.REMOVE)
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<Image> images;
 
-    @ManyToMany(mappedBy = "culturalOffers")
+    @ManyToMany(mappedBy = "culturalOffers", fetch = FetchType.EAGER)
     private Set<RegularUser> subscribers;
 
     @ManyToOne

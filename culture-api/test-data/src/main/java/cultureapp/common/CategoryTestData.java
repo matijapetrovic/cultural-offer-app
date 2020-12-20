@@ -13,6 +13,7 @@ public class CategoryTestData {
     public static final Long INVALID_CATEGORY_ID = -1L;
 
     public static final String VALID_CATEGORY_NAME = "Non-empty-string";
+
     public static final Long VALID_CATEGORY_ID = 1L;
 
     public static final int CATEGORY_PAGE_SIZE = 2;

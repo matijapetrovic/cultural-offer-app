@@ -22,4 +22,5 @@ public class SubcategoryTestData {
     public static final String VALID_SUBCATEGORY_NAME = "Non-empty-string";
     public static final String VALID_UPDATE_SUBCATEGORY_NAME = "New non-empty-string";
     public static final Long VALID_SUBCATEGORY_ID = 5L;
+
 }

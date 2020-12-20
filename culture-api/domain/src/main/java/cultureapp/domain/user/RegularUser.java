@@ -21,7 +21,8 @@ public class RegularUser extends User {
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
-    })
+    },
+    fetch = FetchType.EAGER)
     @JoinTable(name = "subscription",
         joinColumns = @JoinColumn(name="user_id"),
         inverseJoinColumns = @JoinColumn(name = "offer_id"))

@@ -1,10 +1,7 @@
 package cultureapp.domain.subcategory;
 
 import cultureapp.domain.category.Category;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,17 +12,20 @@ import java.io.Serializable;
 @Table(name="subcategory")
 @Entity
 @IdClass(SubcategoryId.class)
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Subcategory implements Serializable {
 
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="subcategory_generator")
     @SequenceGenerator(name="subcategory_generator", sequenceName = "subcategory_id_seq", allocationSize = 1)
+    @EqualsAndHashCode.Include
     private Long id;
 
     @Id
     @ManyToOne
     @JoinColumn(name="category_id", insertable = false, updatable = false, nullable = false)
+    @EqualsAndHashCode.Include
     private Category category;
 
     @Column(name="name", nullable = false, unique = true)

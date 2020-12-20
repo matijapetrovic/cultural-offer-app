@@ -149,9 +149,9 @@ public class SubcategoryServiceUnitTest {
                 subcategoryService.getSubcategory(VALID_SUBCATEGORY_ID, VALID_CATEGORY_ID);
 
         assertNotNull(result);
-        assertEquals(VALID_CATEGORY_ID, result.getId());
+        assertEquals(VALID_SUBCATEGORY_ID, result.getId());
         assertEquals(VALID_SUBCATEGORY_NAME, result.getName());
-        assertEquals(VALID_SUBCATEGORY_ID, result.getCategoryId());
+        assertEquals(VALID_CATEGORY_ID, result.getCategoryId());
     }
 
     // update
