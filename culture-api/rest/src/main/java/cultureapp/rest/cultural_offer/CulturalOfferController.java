@@ -20,6 +20,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.servlet.http.HttpServletResponse;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value="/api/cultural-offers", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -33,6 +35,7 @@ public class CulturalOfferController {
 
     private final GetCulturalOffersQuery getCulturalOffersQuery;
     private final GetCulturalOfferByIdQuery getCulturalOfferByIdQuery;
+
 
     @PostMapping("/{id}/subscriptions")
     @PreAuthorize("hasRole('ROLE_USER')")
@@ -108,7 +111,7 @@ public class CulturalOfferController {
 
     @GetMapping("/{id}")
     public ResponseEntity<GetCulturalOfferByIdQuery.GetCulturalOfferByIdDTO> getCulturalOffer(@PathVariable Long id)
-            throws CulturalOfferNotFoundException {
+            throws CulturalOfferNotFoundException, RegularUserNotFoundException {
         return ResponseEntity.ok(getCulturalOfferByIdQuery.getCulturalOffer(id));
     }
 }
