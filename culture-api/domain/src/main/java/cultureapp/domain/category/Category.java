@@ -25,6 +25,8 @@ public class Category {
 
     public void archive() { this.archived = true; }
 
+    public void unarchive() { this.archived = false; };
+
     public boolean update(String name) {
         boolean changed = false;
         if (!this.name.equals(name)) {

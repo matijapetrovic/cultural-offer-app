@@ -1,6 +1,7 @@
 insert into category (name, archived) values ('Category1', false);
 insert into category (name, archived) values ('Category2', false);
 insert into category (name, archived) values ('Category3', false);
+insert into category (name, archived) values ('Category4', false);
 insert into subcategory (id, category_id, name, archived) values (nextval('subcategory_id_seq'), 1, 'Subcategory11', false);
 insert into subcategory (id, category_id, name, archived) values (nextval('subcategory_id_seq'), 1, 'Subcategory12', false);
 insert into subcategory (id, category_id, name, archived) values (nextval('subcategory_id_seq'), 2, 'Subcategory21', false);
