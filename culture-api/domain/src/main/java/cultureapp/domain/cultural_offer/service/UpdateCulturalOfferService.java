@@ -1,5 +1,6 @@
 package cultureapp.domain.cultural_offer.service;
 
+import cultureapp.domain.core.EmailSender;
 import cultureapp.domain.cultural_offer.CulturalOffer;
 import cultureapp.domain.cultural_offer.CulturalOfferRepository;
 import cultureapp.domain.cultural_offer.command.UpdateCulturalOfferUseCase;
@@ -10,11 +11,14 @@ import cultureapp.domain.image.exception.ImageNotFoundException;
 import cultureapp.domain.subcategory.Subcategory;
 import cultureapp.domain.subcategory.SubcategoryRepository;
 import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
+import cultureapp.domain.user.RegularUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -22,6 +26,7 @@ public class UpdateCulturalOfferService implements UpdateCulturalOfferUseCase {
     private final CulturalOfferRepository repository;
     private final SubcategoryRepository subcategoryRepository;
     private final ImageRepository imageRepository;
+    private final EmailSender emailSender;
 
     @Override
     public void updateCulturalOffer(UpdateCulturalOfferCommand command) throws CulturalOfferNotFoundException, SubcategoryNotFoundException, ImageNotFoundException {
@@ -43,6 +48,7 @@ public class UpdateCulturalOfferService implements UpdateCulturalOfferUseCase {
         }
 
         repository.save(offer);
+        notifySubscribers(offer);
     }
 
     private boolean updateSubcategory(CulturalOffer offer, Long categoryId, Long subcategoryId) {
@@ -60,5 +66,17 @@ public class UpdateCulturalOfferService implements UpdateCulturalOfferUseCase {
             images.add(image);
         }
         return images;
+    }
+
+    private void notifySubscribers(CulturalOffer culturalOffer) {
+        emailSender.notifySubscribers(
+                mapSubscribers(culturalOffer.getSubscribers()),
+                culturalOffer.getId());
+    }
+
+    private List<EmailSender.SubscriberDTO> mapSubscribers(Set<RegularUser> users) {
+        return users.stream()
+                .map(EmailSender.SubscriberDTO::of)
+                .collect(Collectors.toList());
     }
 }
