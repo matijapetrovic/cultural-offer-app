@@ -16,7 +16,6 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.Set;
@@ -45,7 +44,6 @@ public class CulturalOfferControllerIntegrationTest {
     // subscribe()
 
     @Test
-    @Transactional
     public void givenRegularUserIsLoggedInAndRequestIsValidThenSubscriptionPostWillSucceed() {
         String token = ControllerIntegrationTestUtil.login(restTemplate, EXISTING_REGULAR_USER_EMAIL, EXISTING_REGULAR_USER_PASSWORD);
         HttpHeaders headers = ControllerIntegrationTestUtil.getHeaders(token);
@@ -77,7 +75,6 @@ public class CulturalOfferControllerIntegrationTest {
     }
 
     @Test
-    @Transactional
     public void givenCulturalOfferDoesNotExistThenSubscriptionsPostWillReturnNotFound() {
         String token = ControllerIntegrationTestUtil.login(restTemplate, EXISTING_REGULAR_USER_EMAIL, EXISTING_REGULAR_USER_PASSWORD);
         HttpHeaders headers = ControllerIntegrationTestUtil.getHeaders(token);
@@ -144,7 +141,6 @@ public class CulturalOfferControllerIntegrationTest {
     }
 
     @Test
-    @Transactional
     public void givenSubscriptionAlreadyExistsThenSubscriptionsPostWillReturnConflict() {
         String token = ControllerIntegrationTestUtil.login(restTemplate, EXISTING_REGULAR_USER_EMAIL, EXISTING_REGULAR_USER_PASSWORD);
         HttpHeaders headers = ControllerIntegrationTestUtil.getHeaders(token);
@@ -170,7 +166,6 @@ public class CulturalOfferControllerIntegrationTest {
 
     // unsubscribe
     @Test
-    @Transactional
     public void givenRegularUserIsLoggedInAndRequestIsValidThenSubscriptionDeleteWillSucceed() {
         String token = ControllerIntegrationTestUtil.login(restTemplate, EXISTING_REGULAR_USER_EMAIL2, EXISTING_REGULAR_USER_PASSWORD2);
         HttpHeaders headers = ControllerIntegrationTestUtil.getHeaders(token);
@@ -205,7 +200,6 @@ public class CulturalOfferControllerIntegrationTest {
     }
 
     @Test
-    @Transactional
     public void givenCulturalOfferDoesNotExistThenSubscriptionsDeleteWillReturnNotFound() {
         String token = ControllerIntegrationTestUtil.login(restTemplate, EXISTING_REGULAR_USER_EMAIL2, EXISTING_REGULAR_USER_PASSWORD2);
         HttpHeaders headers = ControllerIntegrationTestUtil.getHeaders(token);
@@ -267,7 +261,6 @@ public class CulturalOfferControllerIntegrationTest {
     }
 
     @Test
-    @Transactional
     public void givenSubscriptionAlreadyExistsThenSubscriptionsDeleteWillReturnNotFound() {
         String token = ControllerIntegrationTestUtil.login(restTemplate, EXISTING_REGULAR_USER_EMAIL2, EXISTING_REGULAR_USER_PASSWORD2);
         HttpHeaders headers = ControllerIntegrationTestUtil.getHeaders(token);

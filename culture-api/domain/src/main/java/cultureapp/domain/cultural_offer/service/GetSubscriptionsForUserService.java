@@ -12,6 +12,7 @@ import cultureapp.domain.subcategory.SubcategoryRepository;
 import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.constraints.Positive;
 import java.util.List;

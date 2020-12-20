@@ -4,7 +4,6 @@ import cultureapp.domain.account.Account;
 import cultureapp.domain.core.AuthenticationService;
 import cultureapp.domain.cultural_offer.CulturalOffer;
 import cultureapp.domain.cultural_offer.CulturalOfferRepository;
-import cultureapp.domain.cultural_offer.command.SubscribeToCulturalOfferNewsUseCase;
 import cultureapp.domain.cultural_offer.command.UnsubscribeFromCulturalOfferNewsUseCase;
 import cultureapp.domain.cultural_offer.exception.CulturalOfferNotFoundException;
 import cultureapp.domain.cultural_offer.exception.SubscriptionAlreadyExistsException;
