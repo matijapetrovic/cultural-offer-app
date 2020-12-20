@@ -33,4 +33,20 @@ export class CulturalOffersService {
         catchError(this.handleError<CulturalOffer>('getCulturalOffer'))
       );
   }
+
+  subscribeToCulturalOffer(id: number): Observable<{}> {
+    const url = `${this.culturalOffersUrl}/${id}/subscriptions`;
+    return this.http.post(url, null, httpOptions)
+      .pipe(
+        catchError(this.handleError('subscribeToCulturalOffer'))
+      );
+  }
+
+  unsubscribeFromCulturalOffer(id: number): Observable<{}> {
+    const url = `${this.culturalOffersUrl}/${id}/subscriptions`;
+    return this.http.delete(url, httpOptions)
+      .pipe(
+        catchError(this.handleError('unsubscribeFromCulturalOffer'))
+      );
+  }
 }

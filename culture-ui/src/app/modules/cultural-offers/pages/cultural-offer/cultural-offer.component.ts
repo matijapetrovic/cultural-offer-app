@@ -73,4 +73,12 @@ export class CulturalOfferComponent implements OnInit {
     this.currentNewsPage--;
     this.getNews();
   }
+
+  subscribe(): void {
+    this.culturalOffersService.subscribeToCulturalOffer(this.culturalOfferId).subscribe(() => {this.culturalOffer.subscribed = true;});
+  }
+
+  unsubscribe(): void {
+    this.culturalOffersService.unsubscribeFromCulturalOffer(this.culturalOfferId).subscribe(() => {this.culturalOffer.subscribed = false;});
+  }
 }

@@ -4,5 +4,6 @@ export interface CulturalOffer {
   description: string,
   images: Array<string>,
   latitude: number,
-  longitude: number
+  longitude: number,
+  subscribed?: boolean
 }

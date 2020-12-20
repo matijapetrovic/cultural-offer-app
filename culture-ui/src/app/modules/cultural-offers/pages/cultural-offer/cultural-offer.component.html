@@ -20,6 +20,18 @@
   </div>
   <div fxFlex="calc(60% - 25px)">
     <h2>News</h2>
+    <button 
+      *ngIf="culturalOffer.subscribed === true"
+      (click)="unsubscribe()"
+      mat-raised-button 
+      color="warn"
+      >Unsubscribe</button>
+    <button 
+      *ngIf="culturalOffer.subscribed === false"
+      (click)="subscribe()"
+      mat-raised-button 
+      color="accent" 
+      >Subscribe</button>
     <div *ngIf="newsPage">
       <app-pagination-bar
           [hasPrev]="newsPage.links.prev"

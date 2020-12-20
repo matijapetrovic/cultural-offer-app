@@ -36,6 +36,10 @@ public class RegularUser extends User {
         return culturalOffers.remove(culturalOffer);
     }
 
+    public boolean isSubscribedTo(CulturalOffer culturalOffer) {
+        return culturalOffers.stream().anyMatch(culturalOffer::equals);
+    }
+
     private RegularUser(
             Long id,
             String firstName,
