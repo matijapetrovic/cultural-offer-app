@@ -23,6 +23,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
@@ -51,7 +52,7 @@ public class ReviewService implements
                 .findByAccountId(account.getId())
                 .orElseThrow(() -> new RegularUserNotFoundException(account.getEmail()));
         CulturalOffer culturalOffer =
-                        culturalOfferRepository.findById(command.getCulturalOfferId())
+                        culturalOfferRepository.findByIdAndArchivedFalse(command.getCulturalOfferId())
                         .orElseThrow(() -> new CulturalOfferNotFoundException(command.getCulturalOfferId()));
         List<Image> images = loadImages(command.getImages());
         LocalDateTime date = dateTimeProvider.now();
@@ -75,6 +76,7 @@ public class ReviewService implements
         reviewRepository.save(review);
     }
 
+    @Transactional
     @Override
     public GetReviewByIdDTO getReview(@Positive Long id, @Positive Long culturalOfferId) throws ReviewNotFoundException {
         Review review =
@@ -83,11 +85,11 @@ public class ReviewService implements
         return GetReviewByIdDTO.of(review);
     }
 
-
+    @Transactional
     @Override
     public Slice<GetReviewsQueryDTO> getReviewsDTO(@Positive Long culturalOfferId, @PositiveOrZero Integer page, @Positive Integer limit) throws CulturalOfferNotFoundException {
         CulturalOffer culturalOffer =
-                culturalOfferRepository.findById(culturalOfferId)
+                culturalOfferRepository.findByIdAndArchivedFalse(culturalOfferId)
                         .orElseThrow(() -> new CulturalOfferNotFoundException(culturalOfferId));
         Pageable pageRequest = PageRequest.of(page, limit, Sort.by("date"));
 

@@ -37,7 +37,7 @@ public class Review {
     @Column(name="rating")
     private BigDecimal rating;
 
-    @OneToMany(cascade = CascadeType.REMOVE)
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Image> images;
 
     @OneToOne(fetch = FetchType.EAGER)
@@ -63,6 +63,8 @@ public class Review {
     public void archive() {
         this.archived = true;
     }
+
+    public void unarchive() { this.archived = false; }
 
     public static Review withId(
             Long id,

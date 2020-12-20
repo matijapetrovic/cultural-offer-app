@@ -12,6 +12,7 @@ import cultureapp.domain.review.query.GetReviewsQuery;
 import cultureapp.rest.core.PaginatedResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Slice;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,7 +30,7 @@ public class ReviewController {
 
     @PostMapping("")
     @PreAuthorize("hasRole('ROLE_USER')")
-    public void addReview(@PathVariable Long culturalOfferId,
+    public ResponseEntity<Void> addReview(@PathVariable Long culturalOfferId,
                           @RequestBody ReviewRequest request) throws CulturalOfferNotFoundException, ImageNotFoundException, RegularUserNotFoundException {
         AddReviewUseCase.AddReviewCommand command =
                 new AddReviewUseCase.AddReviewCommand(
@@ -39,6 +40,7 @@ public class ReviewController {
                         request.getImages()
                 );
         addReviewUseCase.addReview(command);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping(value = "", params = { "page", "limit" })
@@ -62,9 +64,9 @@ public class ReviewController {
     }
 
     @DeleteMapping("/{id}")
-    // TODO: pogledati da li treba uradti ovaj delete
-    public void deleteReview(@PathVariable Long culturalOfferId,
+    public ResponseEntity<Void> deleteReview(@PathVariable Long culturalOfferId,
                              @PathVariable Long id) throws CulturalOfferNotFoundException, ReviewNotFoundException {
         deleteReviewUseCase.deleteReviewByCulturalOfferId(id, culturalOfferId);
+        return ResponseEntity.noContent().build();
     }
 }
