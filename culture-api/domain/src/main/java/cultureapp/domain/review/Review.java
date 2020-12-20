@@ -55,7 +55,7 @@ public class Review {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id", referencedColumnName = "id")
-    private RegularUser user;
+    private RegularUser author;
 
     @Column(name="date")
     LocalDateTime date;

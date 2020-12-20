@@ -21,7 +21,8 @@ public class RegularUser extends User {
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
-    })
+    },
+    fetch = FetchType.EAGER)
     @JoinTable(name = "subscription",
         joinColumns = @JoinColumn(name="user_id"),
         inverseJoinColumns = @JoinColumn(name = "offer_id"))
@@ -33,6 +34,10 @@ public class RegularUser extends User {
 
     public boolean unsubscribe(CulturalOffer culturalOffer) {
         return culturalOffers.remove(culturalOffer);
+    }
+
+    public boolean isSubscribedTo(CulturalOffer culturalOffer) {
+        return culturalOffers.stream().anyMatch(culturalOffer::equals);
     }
 
     private RegularUser(

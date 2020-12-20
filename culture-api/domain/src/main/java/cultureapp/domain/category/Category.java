@@ -1,9 +1,6 @@
 package cultureapp.domain.category;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,10 +9,12 @@ import javax.persistence.*;
 @Getter
 @Table(name="category")
 @Entity
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Category {
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
 
     @Column(name="name", nullable = false, unique = true)
@@ -25,6 +24,8 @@ public class Category {
     private boolean archived;
 
     public void archive() { this.archived = true; }
+
+    public void unarchive() { this.archived = false; };
 
     public boolean update(String name) {
         boolean changed = false;

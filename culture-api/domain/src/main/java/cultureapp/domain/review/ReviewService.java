@@ -16,7 +16,7 @@ import cultureapp.domain.review.command.AddReviewUseCase;
 import cultureapp.domain.review.command.DeleteReviewUseCase;
 import cultureapp.domain.review.exception.ReviewNotFoundException;
 import cultureapp.domain.review.query.GetReviewByIdQuery;
-import cultureapp.domain.review.query.GetReviewsQuery;
+import cultureapp.domain.review.query.GetReviewsForOfferQuery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -37,7 +37,7 @@ public class ReviewService implements
         AddReviewUseCase,
         DeleteReviewUseCase,
         GetReviewByIdQuery,
-        GetReviewsQuery {
+        GetReviewsForOfferQuery {
     private final ReviewRepository reviewRepository;
     private final ImageRepository imageRepository;
     private final CulturalOfferRepository culturalOfferRepository;
@@ -87,7 +87,7 @@ public class ReviewService implements
 
     @Transactional
     @Override
-    public Slice<GetReviewsQueryDTO> getReviewsDTO(@Positive Long culturalOfferId, @PositiveOrZero Integer page, @Positive Integer limit) throws CulturalOfferNotFoundException {
+    public Slice<GetReviewsForOfferQueryDTO> getReviewsForOffer(@Positive Long culturalOfferId, @PositiveOrZero Integer page, @Positive Integer limit) throws CulturalOfferNotFoundException {
         CulturalOffer culturalOffer =
                 culturalOfferRepository.findByIdAndArchivedFalse(culturalOfferId)
                         .orElseThrow(() -> new CulturalOfferNotFoundException(culturalOfferId));
@@ -96,7 +96,7 @@ public class ReviewService implements
         Slice<Review> reviews = reviewRepository
                 .findAllByCulturalOfferIdAndArchivedFalse(culturalOfferId, pageRequest);
 
-        return reviews.map(GetReviewsQueryDTO::of);
+        return reviews.map(GetReviewsForOfferQueryDTO::of);
     }
 
 

@@ -8,7 +8,7 @@ import cultureapp.domain.review.command.AddReviewUseCase;
 import cultureapp.domain.review.command.DeleteReviewUseCase;
 import cultureapp.domain.review.exception.ReviewNotFoundException;
 import cultureapp.domain.review.query.GetReviewByIdQuery;
-import cultureapp.domain.review.query.GetReviewsQuery;
+import cultureapp.domain.review.query.GetReviewsForOfferQuery;
 import cultureapp.rest.core.PaginatedResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Slice;
@@ -25,7 +25,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class ReviewController {
     private final AddReviewUseCase addReviewUseCase;
     private final GetReviewByIdQuery getReviewByIdQuery;
-    private final GetReviewsQuery getReviewsQuery;
+    private final GetReviewsForOfferQuery getReviewsForOfferQuery;
     private final DeleteReviewUseCase deleteReviewUseCase;
 
     @PostMapping("")
@@ -44,14 +44,14 @@ public class ReviewController {
     }
 
     @GetMapping(value = "", params = { "page", "limit" })
-    public ResponseEntity<PaginatedResponse<GetReviewsQuery.GetReviewsQueryDTO>> getReviews(
+    public ResponseEntity<PaginatedResponse<GetReviewsForOfferQuery.GetReviewsForOfferQueryDTO>> getReviews(
             @PathVariable Long culturalOfferId,
             @RequestParam(required = false) Integer page,
             @RequestParam(required = false) Integer limit,
             UriComponentsBuilder uriBuilder
     ) throws CulturalOfferNotFoundException {
-        Slice<GetReviewsQuery.GetReviewsQueryDTO> result =
-                getReviewsQuery.getReviewsDTO(culturalOfferId, page, limit);
+        Slice<GetReviewsForOfferQuery.GetReviewsForOfferQueryDTO> result =
+                getReviewsForOfferQuery.getReviewsForOffer(culturalOfferId, page, limit);
         String resourceUri = String.format("/api/cultural-offers/%s/reviews", culturalOfferId);
         uriBuilder.path(resourceUri);
         return ResponseEntity.ok((PaginatedResponse.of(result, uriBuilder)));

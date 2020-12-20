@@ -36,6 +36,12 @@ public class Account {
             inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
     private List<Authority> authorities;
 
+    public boolean hasRole(String role) {
+        return authorities
+                .stream()
+                .anyMatch(authority -> role.equals(authority.getName()));
+    }
+
     public static Account withId(
             Long id,
             String email,

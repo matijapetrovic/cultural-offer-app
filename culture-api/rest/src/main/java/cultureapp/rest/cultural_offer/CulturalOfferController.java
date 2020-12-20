@@ -13,11 +13,14 @@ import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
 import cultureapp.rest.core.PaginatedResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Slice;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import javax.servlet.http.HttpServletResponse;
 
 @RequiredArgsConstructor
 @RestController
@@ -33,22 +36,25 @@ public class CulturalOfferController {
     private final GetCulturalOffersQuery getCulturalOffersQuery;
     private final GetCulturalOfferByIdQuery getCulturalOfferByIdQuery;
 
+
     @PostMapping("/{id}/subscriptions")
     @PreAuthorize("hasRole('ROLE_USER')")
-    public void subscribe(@PathVariable Long id)
+    public ResponseEntity<Void> subscribe(@PathVariable Long id)
             throws CulturalOfferNotFoundException, RegularUserNotFoundException, SubscriptionAlreadyExistsException {
         SubscribeToCulturalOfferNewsUseCase.SubscribeToCulturalOfferNewsCommand command =
                 new SubscribeToCulturalOfferNewsUseCase.SubscribeToCulturalOfferNewsCommand(id);
         subscribeToCulturalOfferNewsUseCase.subscribe(command);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @DeleteMapping("/{id}/subscriptions")
     @PreAuthorize("hasRole('ROLE_USER')")
-    public void unsubscribe(@PathVariable Long id)
+    public ResponseEntity<Void> unsubscribe(@PathVariable Long id)
             throws CulturalOfferNotFoundException, RegularUserNotFoundException, SubscriptionNotFoundException {
         UnsubscribeFromCulturalOfferNewsUseCase.UnsubscribeFromCulturalOfferNewsCommand command =
                 new UnsubscribeFromCulturalOfferNewsUseCase.UnsubscribeFromCulturalOfferNewsCommand(id);
         unsubscribeFromCulturalOfferNewsUseCase.unsubscribe(command);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @PostMapping("")
@@ -105,7 +111,7 @@ public class CulturalOfferController {
 
     @GetMapping("/{id}")
     public ResponseEntity<GetCulturalOfferByIdQuery.GetCulturalOfferByIdDTO> getCulturalOffer(@PathVariable Long id)
-            throws CulturalOfferNotFoundException {
+            throws CulturalOfferNotFoundException, RegularUserNotFoundException {
         return ResponseEntity.ok(getCulturalOfferByIdQuery.getCulturalOffer(id));
     }
 }

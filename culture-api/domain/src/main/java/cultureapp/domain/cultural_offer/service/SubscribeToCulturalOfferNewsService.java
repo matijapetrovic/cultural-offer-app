@@ -12,6 +12,7 @@ import cultureapp.domain.user.RegularUserRepository;
 import cultureapp.domain.user.exception.RegularUserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
@@ -21,8 +22,10 @@ public class SubscribeToCulturalOfferNewsService implements SubscribeToCulturalO
     private final CulturalOfferRepository culturalOfferRepository;
 
     @Override
-    public void subscribe(SubscribeToCulturalOfferNewsCommand command) throws RegularUserNotFoundException,
-            CulturalOfferNotFoundException, SubscriptionAlreadyExistsException {
+    public void subscribe(SubscribeToCulturalOfferNewsCommand command) throws
+            RegularUserNotFoundException,
+            CulturalOfferNotFoundException,
+            SubscriptionAlreadyExistsException {
         Account authenticated = authenticationService.getAuthenticated();
         RegularUser user = regularUserRepository.findByAccountId(authenticated.getId())
                 .orElseThrow(() -> new RegularUserNotFoundException("Zasto email?"));
