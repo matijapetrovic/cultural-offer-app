@@ -13,6 +13,7 @@ import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
 import cultureapp.rest.core.PaginatedResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Slice;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -35,20 +36,22 @@ public class CulturalOfferController {
 
     @PostMapping("/{id}/subscriptions")
     @PreAuthorize("hasRole('ROLE_USER')")
-    public void subscribe(@PathVariable Long id)
+    public ResponseEntity<Void> subscribe(@PathVariable Long id)
             throws CulturalOfferNotFoundException, RegularUserNotFoundException, SubscriptionAlreadyExistsException {
         SubscribeToCulturalOfferNewsUseCase.SubscribeToCulturalOfferNewsCommand command =
                 new SubscribeToCulturalOfferNewsUseCase.SubscribeToCulturalOfferNewsCommand(id);
         subscribeToCulturalOfferNewsUseCase.subscribe(command);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @DeleteMapping("/{id}/subscriptions")
     @PreAuthorize("hasRole('ROLE_USER')")
-    public void unsubscribe(@PathVariable Long id)
+    public ResponseEntity<Void> unsubscribe(@PathVariable Long id)
             throws CulturalOfferNotFoundException, RegularUserNotFoundException, SubscriptionNotFoundException {
         UnsubscribeFromCulturalOfferNewsUseCase.UnsubscribeFromCulturalOfferNewsCommand command =
                 new UnsubscribeFromCulturalOfferNewsUseCase.UnsubscribeFromCulturalOfferNewsCommand(id);
         unsubscribeFromCulturalOfferNewsUseCase.unsubscribe(command);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @PostMapping("")
