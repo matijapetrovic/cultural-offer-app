@@ -94,7 +94,7 @@ public class ReviewServiceUnitTest {
                         EXISTING_REGULAR_USER_EMAIL,
                         EXISTING_REGULAR_USER_PASSWORD,
                         true,
-                        List.of(Authority.of("REGULAR_USER")))
+                        Set.of(Authority.of("REGULAR_USER")))
         );
         validLocation = Location.of(
                 VALID_CULTURAL_OFFER_LONGITUDE,
@@ -125,7 +125,7 @@ public class ReviewServiceUnitTest {
                         EXISTING_REGULAR_USER_EMAIL,
                         EXISTING_REGULAR_USER_PASSWORD,
                         true,
-                        List.of(Authority.of("ROLE_USER"))));
+                        Set.of(Authority.of("ROLE_USER"))));
         given(regularUserRepository.findByAccountId(EXISTING_REGULAR_USER_ACCOUNT_ID))
                 .willReturn(Optional.of(validRegularUser));
         given(culturalOfferRepository.findByIdAndArchivedFalse(EXISTING_CULTURAL_OFFER_ID))
@@ -153,7 +153,7 @@ public class ReviewServiceUnitTest {
                         EXISTING_REGULAR_USER_EMAIL,
                         EXISTING_REGULAR_USER_PASSWORD,
                         true,
-                        List.of(Authority.of("ROLE_USER"))));
+                        Set.of(Authority.of("ROLE_USER"))));
         given(regularUserRepository.findByAccountId(EXISTING_REGULAR_USER_ACCOUNT_ID))
                 .willReturn(Optional.of(validRegularUser));
         given(culturalOfferRepository.findByIdAndArchivedFalse(EXISTING_CULTURAL_OFFER_ID))

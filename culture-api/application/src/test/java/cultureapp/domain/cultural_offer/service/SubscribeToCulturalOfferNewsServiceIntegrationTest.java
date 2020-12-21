@@ -59,7 +59,6 @@ public class SubscribeToCulturalOfferNewsServiceIntegrationTest {
     }
 
     @Test(expected = SubscriptionAlreadyExistsException.class)
-    @Transactional
     public void givenSubscriptionAlreadyExistsThenSubscribeFails() throws CulturalOfferNotFoundException, RegularUserNotFoundException, SubscriptionAlreadyExistsException {
         authenticationService.authenticate(EXISTING_REGULAR_USER_EMAIL, EXISTING_REGULAR_USER_PASSWORD);
 
@@ -69,7 +68,7 @@ public class SubscribeToCulturalOfferNewsServiceIntegrationTest {
 
         Account account = authenticationService.getAuthenticated();
         assertNotNull(account);
-        RegularUser user = userRepository.findByAccountId(account.getId()).orElse(null);
+        RegularUser user = userRepository.findByAccountIdWithSubscriptions(account.getId()).orElse(null);
         assertNotNull(user);
 
         Set<CulturalOffer> culturalOffers = user.getCulturalOffers();
@@ -78,7 +77,6 @@ public class SubscribeToCulturalOfferNewsServiceIntegrationTest {
     }
 
     @Test
-    @Transactional
     public void givenValidCulturalOfferIdAndAuthenticatedUserThenSubscribeSucceeds() throws CulturalOfferNotFoundException, RegularUserNotFoundException, SubscriptionAlreadyExistsException {
         authenticationService.authenticate(EXISTING_REGULAR_USER_EMAIL, EXISTING_REGULAR_USER_PASSWORD);
 
@@ -88,7 +86,7 @@ public class SubscribeToCulturalOfferNewsServiceIntegrationTest {
 
         Account account = authenticationService.getAuthenticated();
         assertNotNull(account);
-        RegularUser user = userRepository.findByAccountId(account.getId()).orElse(null);
+        RegularUser user = userRepository.findByAccountIdWithSubscriptions(account.getId()).orElse(null);
         assertNotNull(user);
 
         Set<CulturalOffer> culturalOffers = user.getCulturalOffers();

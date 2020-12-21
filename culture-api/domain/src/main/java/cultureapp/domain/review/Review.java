@@ -27,7 +27,7 @@ public class Review {
     private Long id;
 
     @Id
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="cultural_offer_id", insertable = false, updatable = false)
     private CulturalOffer culturalOffer;
 
@@ -37,10 +37,10 @@ public class Review {
     @Column(name="rating")
     private BigDecimal rating;
 
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<Image> images;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.LAZY)
     private Reply reply;
 
     @Column(name="archived", nullable = false)
@@ -53,7 +53,7 @@ public class Review {
         return true;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="user_id", referencedColumnName = "id")
     private RegularUser author;
 

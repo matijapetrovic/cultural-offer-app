@@ -23,7 +23,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
@@ -76,7 +75,6 @@ public class ReviewService implements
         reviewRepository.save(review);
     }
 
-    @Transactional
     @Override
     public GetReviewByIdDTO getReview(@Positive Long id, @Positive Long culturalOfferId) throws ReviewNotFoundException {
         Review review =
@@ -85,7 +83,6 @@ public class ReviewService implements
         return GetReviewByIdDTO.of(review);
     }
 
-    @Transactional
     @Override
     public Slice<GetReviewsForOfferQueryDTO> getReviewsForOffer(@Positive Long culturalOfferId, @PositiveOrZero Integer page, @Positive Integer limit) throws CulturalOfferNotFoundException {
         CulturalOffer culturalOffer =

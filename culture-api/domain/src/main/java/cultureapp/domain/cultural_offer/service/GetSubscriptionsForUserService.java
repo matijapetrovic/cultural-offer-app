@@ -30,7 +30,7 @@ public class GetSubscriptionsForUserService implements GetSubscriptionsForUserQu
             @Positive Long categoryId,
             @Positive Long subcategoryId) throws RegularUserNotFoundException, SubcategoryNotFoundException {
         Account authenticated = authenticationService.getAuthenticated();
-        RegularUser user = regularUserRepository.findByAccountId(authenticated.getId())
+        RegularUser user = regularUserRepository.findByAccountIdWithSubscriptions(authenticated.getId())
                 .orElseThrow(() -> new RegularUserNotFoundException("Zasto email?"));
 
         Subcategory subcategory = subcategoryRepository.findById(SubcategoryId.of(categoryId, subcategoryId))
