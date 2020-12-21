@@ -59,7 +59,7 @@ public class CulturalOfferControllerIntegrationTest {
 
         Account account = accountRepository.findByEmail(EXISTING_REGULAR_USER_EMAIL).orElse(null);
         assertNotNull(account);
-        RegularUser user = userRepository.findByAccountId(account.getId()).orElse(null);
+        RegularUser user = userRepository.findByAccountIdWithSubscriptions(account.getId()).orElse(null);
         assertNotNull(user);
 
         Set<CulturalOffer> culturalOffers = user.getCulturalOffers();
@@ -90,7 +90,7 @@ public class CulturalOfferControllerIntegrationTest {
 
         Account account = accountRepository.findByEmail(EXISTING_REGULAR_USER_EMAIL).orElse(null);
         assertNotNull(account);
-        RegularUser user = userRepository.findByAccountId(account.getId()).orElse(null);
+        RegularUser user = userRepository.findByAccountIdWithSubscriptions(account.getId()).orElse(null);
         assertNotNull(user);
 
         Set<CulturalOffer> culturalOffers = user.getCulturalOffers();
@@ -156,7 +156,7 @@ public class CulturalOfferControllerIntegrationTest {
 
         Account account = accountRepository.findByEmail(EXISTING_REGULAR_USER_EMAIL).orElse(null);
         assertNotNull(account);
-        RegularUser user = userRepository.findByAccountId(account.getId()).orElse(null);
+        RegularUser user = userRepository.findByAccountIdWithSubscriptions(account.getId()).orElse(null);
         assertNotNull(user);
 
         Set<CulturalOffer> culturalOffers = user.getCulturalOffers();
@@ -182,7 +182,7 @@ public class CulturalOfferControllerIntegrationTest {
 
         Account account = accountRepository.findByEmail(EXISTING_REGULAR_USER_EMAIL2).orElse(null);
         assertNotNull(account);
-        RegularUser user = userRepository.findByAccountId(account.getId()).orElse(null);
+        RegularUser user = userRepository.findByAccountIdWithSubscriptions(account.getId()).orElse(null);
         assertNotNull(user);
 
         Set<CulturalOffer> culturalOffers = user.getCulturalOffers();

@@ -25,7 +25,7 @@ public class UnsubscribeFromCulturalOfferNewsService implements UnsubscribeFromC
     @Override
     public void unsubscribe(UnsubscribeFromCulturalOfferNewsCommand command) throws RegularUserNotFoundException, CulturalOfferNotFoundException, SubscriptionNotFoundException {
         Account authenticated = authenticationService.getAuthenticated();
-        RegularUser user = regularUserRepository.findByAccountId(authenticated.getId())
+        RegularUser user = regularUserRepository.findByAccountIdWithSubscriptions(authenticated.getId())
                 .orElseThrow(() -> new RegularUserNotFoundException("Zasto email?"));
 
         CulturalOffer offer = culturalOfferRepository.findByIdAndArchivedFalse(command.getCulturalOfferId())

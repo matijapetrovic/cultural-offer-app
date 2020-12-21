@@ -27,7 +27,7 @@ public class SubscribeToCulturalOfferNewsService implements SubscribeToCulturalO
             CulturalOfferNotFoundException,
             SubscriptionAlreadyExistsException {
         Account authenticated = authenticationService.getAuthenticated();
-        RegularUser user = regularUserRepository.findByAccountId(authenticated.getId())
+        RegularUser user = regularUserRepository.findByAccountIdWithSubscriptions(authenticated.getId())
                 .orElseThrow(() -> new RegularUserNotFoundException("Zasto email?"));
 
         CulturalOffer offer = culturalOfferRepository.findByIdAndArchivedFalse(command.getCulturalOfferId())

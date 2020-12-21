@@ -18,6 +18,7 @@ import cultureapp.domain.user.RegularUser;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class DomainUnitTestsUtil {
 
@@ -41,7 +42,7 @@ public class DomainUnitTestsUtil {
                 VALID_REGULAR_USER_ACCOUNT_EMAIL,
                 VALID_REGULAR_USER_ACCOUNT_PASSWORD,
                 true,
-                List.of(Authority.of("ROLE_USER")));
+                Set.of(Authority.of("ROLE_USER")));
     }
 
     public static RegularUser validRegularUserWithAccount(Account account) {

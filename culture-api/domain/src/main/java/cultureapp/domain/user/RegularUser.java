@@ -22,7 +22,7 @@ public class RegularUser extends User {
             CascadeType.PERSIST,
             CascadeType.MERGE
     },
-    fetch = FetchType.EAGER)
+    fetch = FetchType.LAZY)
     @JoinTable(name = "subscription",
         joinColumns = @JoinColumn(name="user_id"),
         inverseJoinColumns = @JoinColumn(name = "offer_id"))

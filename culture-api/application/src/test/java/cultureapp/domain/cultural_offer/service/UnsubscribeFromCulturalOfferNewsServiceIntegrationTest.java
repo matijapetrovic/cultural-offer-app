@@ -82,7 +82,6 @@ public class UnsubscribeFromCulturalOfferNewsServiceIntegrationTest {
     }
 
     @Test
-    @Transactional
     public void givenValidCulturalOfferIdAndAuthenticatedUserThenUnsubscribeSucceeds() throws CulturalOfferNotFoundException, RegularUserNotFoundException, SubscriptionAlreadyExistsException, SubscriptionNotFoundException {
         authenticationService.authenticate(EXISTING_REGULAR_USER_EMAIL2, EXISTING_REGULAR_USER_PASSWORD2);
 
@@ -92,7 +91,7 @@ public class UnsubscribeFromCulturalOfferNewsServiceIntegrationTest {
 
         Account account = authenticationService.getAuthenticated();
         assertNotNull(account);
-        RegularUser user = userRepository.findByAccountId(account.getId()).orElse(null);
+        RegularUser user = userRepository.findByAccountIdWithSubscriptions(account.getId()).orElse(null);
         assertNotNull(user);
 
         Set<CulturalOffer> culturalOffers = user.getCulturalOffers();
