@@ -19,7 +19,6 @@ import java.util.Optional;
 import static cultureapp.common.CategoryTestData.*;
 import static cultureapp.common.CategoryTestData.INVALID_CATEGORY_ID;
 import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.notNull;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)

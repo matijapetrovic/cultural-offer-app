@@ -23,7 +23,7 @@ import cultureapp.domain.image.exception.ImageNotFoundException;
 import cultureapp.domain.review.command.AddReviewUseCase;
 import cultureapp.domain.review.exception.ReviewNotFoundException;
 import cultureapp.domain.review.query.GetReviewByIdQuery;
-import cultureapp.domain.review.query.GetReviewsQuery;
+import cultureapp.domain.review.query.GetReviewsForOfferQuery;
 import cultureapp.domain.subcategory.Subcategory;
 import cultureapp.domain.user.RegularUser;
 import cultureapp.domain.user.RegularUserRepository;
@@ -189,12 +189,12 @@ public class ReviewServiceUnitTest {
     public void givenCulturalOfferDoesntExistThenGetReviewsWillFail() throws CulturalOfferNotFoundException {
         given(culturalOfferRepository.findByIdAndArchivedFalse(VALID_CULTURAL_OFFER_ID))
                 .willReturn(Optional.empty());
-        reviewService.getReviewsDTO(VALID_CULTURAL_OFFER_ID, 0, 2);
+        reviewService.getReviewsForOffer(VALID_CULTURAL_OFFER_ID, 0, 2);
     }
 
     @Test(expected = CulturalOfferNotFoundException.class)
     public void givenCulturalOfferIdInvalidThenGetReviewsWillFail() throws CulturalOfferNotFoundException {
-        reviewService.getReviewsDTO(INVALID_CULTURAL_OFFER_ID, 0, 2);
+        reviewService.getReviewsForOffer(INVALID_CULTURAL_OFFER_ID, 0, 2);
     }
 
 
@@ -222,8 +222,8 @@ public class ReviewServiceUnitTest {
         given(culturalOfferRepository.findByIdAndArchivedFalse(EXISTING_CULTURAL_OFFER_ID)).willReturn(Optional.of(validCulturalOffer));
         given(reviewRepository.findAllByCulturalOfferIdAndArchivedFalse(notNull(), notNull())).willReturn(slice);
 
-        Slice<GetReviewsQuery.GetReviewsQueryDTO> result =
-                reviewService.getReviewsDTO(EXISTING_CULTURAL_OFFER_ID, 0, 2);
+        Slice<GetReviewsForOfferQuery.GetReviewsForOfferQueryDTO> result =
+                reviewService.getReviewsForOffer(EXISTING_CULTURAL_OFFER_ID, 0, 2);
 
         then(reviewRepository)
                 .should()

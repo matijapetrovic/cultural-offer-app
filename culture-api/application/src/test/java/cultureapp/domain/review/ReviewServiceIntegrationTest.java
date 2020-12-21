@@ -7,7 +7,7 @@ import cultureapp.domain.image.exception.ImageNotFoundException;
 import cultureapp.domain.review.command.AddReviewUseCase;
 import cultureapp.domain.review.exception.ReviewNotFoundException;
 import cultureapp.domain.review.query.GetReviewByIdQuery;
-import cultureapp.domain.review.query.GetReviewsQuery;
+import cultureapp.domain.review.query.GetReviewsForOfferQuery;
 import cultureapp.domain.user.exception.RegularUserNotFoundException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,6 +20,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.validation.ConstraintViolationException;
 
 import java.util.List;
+import java.util.Optional;
 
 import static cultureapp.common.AuthenticationTestData.*;
 import static cultureapp.common.CulturalOfferTestData.*;
@@ -99,8 +100,8 @@ public class ReviewServiceIntegrationTest {
 
     @Test
     public void givenCulturalOfferIdIsValidAndPageIsFirstThenGetReviewsWillReturnNonEmpty() throws CulturalOfferNotFoundException {
-        Slice<GetReviewsQuery.GetReviewsQueryDTO> result =
-                reviewService.getReviewsDTO(EXISTING_CULTURAL_OFFER_ID, FIRST_PAGE_FOR_CULTURAL_OFFER_ID_1, REVIEW_PAGE_SIZE);
+        Slice<GetReviewsForOfferQuery.GetReviewsForOfferQueryDTO> result =
+                reviewService.getReviewsForOffer(EXISTING_CULTURAL_OFFER_ID, FIRST_PAGE_FOR_CULTURAL_OFFER_ID_1, REVIEW_PAGE_SIZE);
 
         assertEquals(FIRST_PAGE_NUM_REVIEWS_FOR_CULTURAL_OFFER_ID_1, result.getNumberOfElements());
         assertTrue(result.hasNext());
@@ -109,8 +110,8 @@ public class ReviewServiceIntegrationTest {
 
     @Test
     public void givenCulturalOfferIdIsValidAndPageIsLastThenGetReviewsWillReturnNonEmpty() throws CulturalOfferNotFoundException {
-        Slice<GetReviewsQuery.GetReviewsQueryDTO> result =
-                reviewService.getReviewsDTO(EXISTING_CULTURAL_OFFER_ID, LAST_PAGE_FOR_CULTURAL_OFFER_ID_1, REVIEW_PAGE_SIZE);
+        Slice<GetReviewsForOfferQuery.GetReviewsForOfferQueryDTO> result =
+                reviewService.getReviewsForOffer(EXISTING_CULTURAL_OFFER_ID, LAST_PAGE_FOR_CULTURAL_OFFER_ID_1, REVIEW_PAGE_SIZE);
 
         assertEquals(LAST_PAGE_NUM_REVIEWS_FOR_CULTURAL_OFFER_ID_1, result.getNumberOfElements());
         assertFalse(result.hasNext());
@@ -119,7 +120,7 @@ public class ReviewServiceIntegrationTest {
 
     @Test(expected = CulturalOfferNotFoundException.class)
     public void givenCulturalOfferDoesntExistThenGetReviewsWillFail() throws CulturalOfferNotFoundException {
-        reviewService.getReviewsDTO(NON_EXISTING_CULTURAL_OFFER_ID, FIRST_PAGE_FOR_CULTURAL_OFFER_ID_1, REVIEW_PAGE_SIZE);
+        reviewService.getReviewsForOffer(NON_EXISTING_CULTURAL_OFFER_ID, FIRST_PAGE_FOR_CULTURAL_OFFER_ID_1, REVIEW_PAGE_SIZE);
     }
 
     /*
@@ -152,6 +153,11 @@ public class ReviewServiceIntegrationTest {
     @Test
     public void givenValidReviewCommandThenDeleteReviewWillSucceed() throws ReviewNotFoundException {
         reviewService.deleteReviewByCulturalOfferId(EXISTING_REVIEW_ID_FOR_CULTURAL_OFFER_ID_1, EXISTING_CULTURAL_OFFER_ID);
+
+        Review review = reviewRepository.findById(
+                ReviewId.of(EXISTING_REVIEW_ID_FOR_CULTURAL_OFFER_ID_1, EXISTING_CULTURAL_OFFER_ID)).orElseThrow();
+        review.unarchive();
+        reviewRepository.save(review);
     }
 
     @Test(expected = ReviewNotFoundException.class)

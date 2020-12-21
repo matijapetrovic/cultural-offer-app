@@ -52,7 +52,7 @@ public class ReviewController {
     ) throws CulturalOfferNotFoundException {
         Slice<GetReviewsForOfferQuery.GetReviewsForOfferQueryDTO> result =
                 getReviewsForOfferQuery.getReviewsForOffer(culturalOfferId, page, limit);
-        String resourceUri = String.format("/api/cultural-offers/%s/reviews", culturalOfferId);
+        String resourceUri = String.format("/api/cultural-offers/%d/reviews", culturalOfferId);
         uriBuilder.path(resourceUri);
         return ResponseEntity.ok((PaginatedResponse.of(result, uriBuilder)));
     }
