@@ -2,6 +2,7 @@ package cultureapp.infrastructure.image_upload_service;
 
 import com.cloudinary.utils.ObjectUtils;
 import cultureapp.domain.core.ImageUploader;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.cloudinary.Cloudinary;
@@ -14,15 +15,21 @@ import java.util.stream.Collectors;
 
 @Component
 public class CloudinaryImageUploader implements ImageUploader {
-    private final Cloudinary cloudinary = new Cloudinary(
-            ObjectUtils.asMap(
-                    "cloud_name", "culture-app",
-                    "api_key", "369175885537818",
-                    "api_secret", "DVzanMBkXgLSPO6F1H0ltb1MYRs"
-            )
-    );
+    @Value("${CLOUDINARY_CLOUD_NAME}")
+    private String cloudName;
+
+    @Value("${CLOUDINARY_API_KEY}")
+    private String apiKey;
+
+    @Value("${CLOUDINARY_API_SECRET}")
+    private String apiSecret;
+
+    private Cloudinary cloudinary;
+
     @Override
     public List<String> uploadImages(List<byte[]> images) {
+        if (cloudinary == null)
+            initCloudinary();
         return images
                 .stream()
                 .map(image ->
@@ -30,8 +37,21 @@ public class CloudinaryImageUploader implements ImageUploader {
                 .collect(Collectors.toList());
     }
 
+    private void initCloudinary() {
+        cloudinary = new Cloudinary(
+                ObjectUtils.asMap(
+                        "cloud_name", cloudName,
+                        "api_key", apiKey,
+                        "api_secret", apiSecret
+                )
+        );
+    }
+
+
     private String uploadImage(byte[] image) throws IOException {
-        Map result = cloudinary.uploader().upload(image, ObjectUtils.emptyMap());
+        Map result = cloudinary
+                .uploader()
+                .upload(image, ObjectUtils.emptyMap());
         return (String) result.get("url");
     }
 

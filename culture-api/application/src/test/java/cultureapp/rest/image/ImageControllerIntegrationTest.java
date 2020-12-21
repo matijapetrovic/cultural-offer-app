@@ -37,8 +37,6 @@ public class ImageControllerIntegrationTest {
     @Test
     public void givenAuthorizedUserAndValidImagesThenImagesPostWillSucceed() {
         long count = imageRepository.count();
-
-
         MultiValueMap<String, Object> params = new LinkedMultiValueMap<>();
 
         List<String> images = List.of("test-image.jpg", "test-image.jpg");

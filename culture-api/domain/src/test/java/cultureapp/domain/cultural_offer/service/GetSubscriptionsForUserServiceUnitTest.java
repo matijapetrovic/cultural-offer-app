@@ -59,7 +59,7 @@ public class GetSubscriptionsForUserServiceUnitTest {
         given(authenticationService.getAuthenticated()).willReturn(account);
 
         RegularUser user = validRegularUserWithAccount(account);
-        given(regularUserRepository.findByAccountId(account.getId())).willReturn(Optional.of(user));
+        given(regularUserRepository.findByAccountIdWithSubscriptions(account.getId())).willReturn(Optional.of(user));
 
         given(subcategoryRepository.findById(notNull())).willReturn(Optional.empty());
 
@@ -78,7 +78,7 @@ public class GetSubscriptionsForUserServiceUnitTest {
 
         RegularUser user = validRegularUserWithAccount(account);
         user.subscribe(culturalOffer);
-        given(regularUserRepository.findByAccountId(account.getId())).willReturn(Optional.of(user));
+        given(regularUserRepository.findByAccountIdWithSubscriptions(account.getId())).willReturn(Optional.of(user));
 
         List<GetSubscriptionsForUserQuery.GetSubscriptionsForUserDTO> result =
                 getSubscriptionsService.getSubscriptions(subcategory.getCategory().getId(), subcategory.getId());

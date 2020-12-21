@@ -16,7 +16,9 @@ public class ImageTestData {
 
     public static List<String> INVALID_MIME_TYPES = List.of(INVALID_MIME_TYPE, INVALID_MIME_TYPE);
 
-
     public static final Long EXISTING_IMAGE_ID_1 = 1L;
     public static final Long EXISTING_IMAGE_ID_2 = 2L;
+
+    public static List<String> EXISTING_CLASSPATH_IMAGES = List.of("test-image.jpg", "test-image.jpg");
+    public static List<String> EXISTING_CLASSPATH_IMAGES_TYPES = List.of("image/jpg", "image/jpg");
 }
