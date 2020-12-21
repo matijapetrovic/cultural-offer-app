@@ -59,7 +59,7 @@ public class SubscribeToCulturalOfferNewsServiceUnitTest {
         given(authenticationService.getAuthenticated()).willReturn(account);
 
         RegularUser user = validRegularUserWithAccount(account);
-        given(regularUserRepository.findByAccountId(account.getId())).willReturn(Optional.of(user));
+        given(regularUserRepository.findByAccountIdWithSubscriptions(account.getId())).willReturn(Optional.of(user));
 
         given(culturalOfferRepository.findByIdAndArchivedFalse(VALID_CULTURAL_OFFER_ID)).willReturn(Optional.empty());
 
@@ -73,7 +73,7 @@ public class SubscribeToCulturalOfferNewsServiceUnitTest {
         given(authenticationService.getAuthenticated()).willReturn(account);
 
         RegularUser user = validRegularUserWithAccount(account);
-        given(regularUserRepository.findByAccountId(account.getId())).willReturn(Optional.of(user));
+        given(regularUserRepository.findByAccountIdWithSubscriptions(account.getId())).willReturn(Optional.of(user));
 
         CulturalOffer culturalOffer = validCulturalOfferWithSubcategory(validSubcategoryWithCategory(validCategory()));
         user.subscribe(culturalOffer);
@@ -89,7 +89,7 @@ public class SubscribeToCulturalOfferNewsServiceUnitTest {
         given(authenticationService.getAuthenticated()).willReturn(account);
 
         RegularUser user = validRegularUserWithAccount(account);
-        given(regularUserRepository.findByAccountId(account.getId())).willReturn(Optional.of(user));
+        given(regularUserRepository.findByAccountIdWithSubscriptions(account.getId())).willReturn(Optional.of(user));
 
         CulturalOffer culturalOffer = validCulturalOfferWithSubcategory(validSubcategoryWithCategory(validCategory()));
         given(culturalOfferRepository.findByIdAndArchivedFalse(culturalOffer.getId())).willReturn(Optional.of(culturalOffer));

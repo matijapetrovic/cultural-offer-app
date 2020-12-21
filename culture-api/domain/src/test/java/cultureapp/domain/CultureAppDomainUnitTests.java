@@ -1,5 +1,6 @@
 package cultureapp.domain;
 
+import cultureapp.domain.image.ImageServiceUnitTest;
 import cultureapp.domain.review.ReviewServiceUnitTest;
 import cultureapp.domain.cultural_offer.service.GetSubscriptionsForUserServiceUnitTest;
 import cultureapp.domain.cultural_offer.service.SubscribeToCulturalOfferNewsServiceUnitTest;
@@ -16,7 +17,8 @@ import org.junit.runners.Suite;
         SubscribeToCulturalOfferNewsServiceUnitTest.class,
         UnsubscribeFromCulturalOfferNewsServiceUnitTest.class,
         GetSubscriptionsForUserServiceUnitTest.class,
-        CategoryServiceUnitTest.class
+        CategoryServiceUnitTest.class,
+        ImageServiceUnitTest.class
 })
 public class CultureAppDomainUnitTests {
 }
