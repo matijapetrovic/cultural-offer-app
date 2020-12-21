@@ -51,7 +51,7 @@ public class ReviewService implements
                 .findByAccountId(account.getId())
                 .orElseThrow(() -> new RegularUserNotFoundException(account.getEmail()));
         CulturalOffer culturalOffer =
-                        culturalOfferRepository.findById(command.getCulturalOfferId())
+                        culturalOfferRepository.findByIdAndArchivedFalse(command.getCulturalOfferId())
                         .orElseThrow(() -> new CulturalOfferNotFoundException(command.getCulturalOfferId()));
         List<Image> images = loadImages(command.getImages());
         LocalDateTime date = dateTimeProvider.now();
@@ -83,11 +83,10 @@ public class ReviewService implements
         return GetReviewByIdDTO.of(review);
     }
 
-
     @Override
     public Slice<GetReviewsForOfferQueryDTO> getReviewsForOffer(@Positive Long culturalOfferId, @PositiveOrZero Integer page, @Positive Integer limit) throws CulturalOfferNotFoundException {
         CulturalOffer culturalOffer =
-                culturalOfferRepository.findById(culturalOfferId)
+                culturalOfferRepository.findByIdAndArchivedFalse(culturalOfferId)
                         .orElseThrow(() -> new CulturalOfferNotFoundException(culturalOfferId));
         Pageable pageRequest = PageRequest.of(page, limit, Sort.by("date"));
 

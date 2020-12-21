@@ -36,7 +36,7 @@ public class CulturalOffer {
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<Image> images;
 
-    @ManyToMany(mappedBy = "culturalOffers", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "culturalOffers", fetch = FetchType.LAZY)
     private Set<RegularUser> subscribers;
 
     @ManyToOne
