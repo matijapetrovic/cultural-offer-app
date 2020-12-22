@@ -7,8 +7,8 @@ import static cultureapp.common.CulturalOfferTestData.*;
 import cultureapp.domain.review.Review;
 import cultureapp.domain.review.ReviewId;
 import cultureapp.domain.review.ReviewRepository;
-import cultureapp.domain.review.query.GetReviewByIdQuery;
-import cultureapp.domain.review.query.GetReviewsForOfferQuery;
+import cultureapp.domain.review.query.GetReviewByIdQueryHandler;
+import cultureapp.domain.review.query.GetReviewsForOfferQueryHandler;
 import cultureapp.rest.ControllerIntegrationTestUtil;
 import cultureapp.rest.core.PaginatedResponse;
 import org.junit.Test;
@@ -128,7 +128,7 @@ public class ReviewControllerIntegrationTest {
 
     @Test
     public void givenValidCulturalOfferIdAndFirstPageThenReviewGetWillReturnNonEmpty() {
-        ResponseEntity<PaginatedResponse<GetReviewsForOfferQuery.GetReviewsForOfferQueryDTO>> response =
+        ResponseEntity<PaginatedResponse<GetReviewsForOfferQueryHandler.GetReviewsForOfferQueryDTO>> response =
                 restTemplate.exchange(
                         String.format("/api/cultural-offers/%d/reviews?page=%d&limit=%d",
                                 EXISTING_CULTURAL_OFFER_ID,
@@ -152,7 +152,7 @@ public class ReviewControllerIntegrationTest {
 
     @Test
     public void givenValidCulturalOfferIdAndLastPageThenReviewsWillReturnNonEmpty() {
-        ResponseEntity<PaginatedResponse<GetReviewsForOfferQuery.GetReviewsForOfferQueryDTO>> response =
+        ResponseEntity<PaginatedResponse<GetReviewsForOfferQueryHandler.GetReviewsForOfferQueryDTO>> response =
                 restTemplate.exchange(
                         String.format("/api/cultural-offers/%d/reviews?page=%d&limit=%d",
                                 EXISTING_CULTURAL_OFFER_ID,
@@ -177,7 +177,7 @@ public class ReviewControllerIntegrationTest {
 
     @Test
     public void givenCulturalOfferDoesntExistThenReviewsGetWillReturnNotFound() {
-        ResponseEntity<PaginatedResponse<GetReviewsForOfferQuery.GetReviewsForOfferQueryDTO>> response =
+        ResponseEntity<PaginatedResponse<GetReviewsForOfferQueryHandler.GetReviewsForOfferQueryDTO>> response =
                 restTemplate.exchange(
                         String.format("/api/cultural-offers/%d/reviews?page=%d&limit=%d",
                                 NON_EXISTING_CULTURAL_OFFER_ID,
@@ -192,7 +192,7 @@ public class ReviewControllerIntegrationTest {
 
     @Test
     public void givenPageDoesntExistThenReviewsGetWillReturnEmpty() {
-        ResponseEntity<PaginatedResponse<GetReviewsForOfferQuery.GetReviewsForOfferQueryDTO>> response =
+        ResponseEntity<PaginatedResponse<GetReviewsForOfferQueryHandler.GetReviewsForOfferQueryDTO>> response =
                 restTemplate.exchange(
                         String.format("/api/cultural-offers/%d/reviews?page=10&limit=%d",
                                 EXISTING_CULTURAL_OFFER_ID,
@@ -216,14 +216,14 @@ public class ReviewControllerIntegrationTest {
 
     @Test
     public void givenValidCulturalOfferIdAndValidReviewIdThenReviewGetWillSucceed() {
-        ResponseEntity<GetReviewByIdQuery.GetReviewByIdDTO> response =
+        ResponseEntity<GetReviewByIdQueryHandler.GetReviewByIdDTO> response =
                 restTemplate.exchange(
                         String.format("/api/cultural-offers/%d/reviews/%d",
                                 EXISTING_CULTURAL_OFFER_ID,
                                 EXISTING_REVIEW_ID_FOR_CULTURAL_OFFER_ID_1),
                         HttpMethod.GET,
                         null,
-                        GetReviewByIdQuery.GetReviewByIdDTO.class);
+                        GetReviewByIdQueryHandler.GetReviewByIdDTO.class);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
@@ -234,14 +234,14 @@ public class ReviewControllerIntegrationTest {
 
     @Test
     public void givenCulturalOfferDoesntExistThenReviewGetWillReturnNotFound() {
-        ResponseEntity<GetReviewByIdQuery.GetReviewByIdDTO> response =
+        ResponseEntity<GetReviewByIdQueryHandler.GetReviewByIdDTO> response =
                 restTemplate.exchange(
                         String.format("/api/cultural-offers/%d/reviews/%d",
                                 NON_EXISTING_CULTURAL_OFFER_ID,
                                 EXISTING_REVIEW_ID_FOR_CULTURAL_OFFER_ID_1),
                         HttpMethod.GET,
                         null,
-                        GetReviewByIdQuery.GetReviewByIdDTO.class);
+                        GetReviewByIdQueryHandler.GetReviewByIdDTO.class);
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
@@ -259,7 +259,7 @@ public class ReviewControllerIntegrationTest {
         HttpEntity<ReviewRequest> entity =
                 new HttpEntity<>(new ReviewRequest(VALID_REVIEW_COMMENT, VALID_REVIEW_RATING, List.of(1L)), headers);
 
-        ResponseEntity<PaginatedResponse<GetReviewByIdQuery.GetReviewByIdDTO>> response =
+        ResponseEntity<PaginatedResponse<GetReviewByIdQueryHandler.GetReviewByIdDTO>> response =
                 restTemplate.exchange(
                         String.format("/api/cultural-offers/%d/reviews/%d",
                                 EXISTING_CULTURAL_OFFER_ID,
@@ -287,7 +287,7 @@ public class ReviewControllerIntegrationTest {
         HttpEntity<ReviewRequest> entity =
                 new HttpEntity<>(new ReviewRequest(VALID_REVIEW_COMMENT, VALID_REVIEW_RATING, List.of(1L)));
 
-        ResponseEntity<PaginatedResponse<GetReviewByIdQuery.GetReviewByIdDTO>> response =
+        ResponseEntity<PaginatedResponse<GetReviewByIdQueryHandler.GetReviewByIdDTO>> response =
                 restTemplate.exchange(
                         String.format("/api/cultural-offers/%d/reviews/%d",
                                 EXISTING_CULTURAL_OFFER_ID,
@@ -306,7 +306,7 @@ public class ReviewControllerIntegrationTest {
         HttpEntity<ReviewRequest> entity =
                 new HttpEntity<>(new ReviewRequest(VALID_REVIEW_COMMENT, VALID_REVIEW_RATING, List.of(1L)), headers);
 
-        ResponseEntity<PaginatedResponse<GetReviewByIdQuery.GetReviewByIdDTO>> response =
+        ResponseEntity<PaginatedResponse<GetReviewByIdQueryHandler.GetReviewByIdDTO>> response =
                 restTemplate.exchange(
                         String.format("/api/cultural-offers/%d/reviews/%d",
                                 NON_EXISTING_CULTURAL_OFFER_ID,
@@ -324,7 +324,7 @@ public class ReviewControllerIntegrationTest {
         HttpEntity<ReviewRequest> entity =
                 new HttpEntity<>(new ReviewRequest(VALID_REVIEW_COMMENT, VALID_REVIEW_RATING, List.of(1L)), headers);
 
-        ResponseEntity<PaginatedResponse<GetReviewByIdQuery.GetReviewByIdDTO>> response =
+        ResponseEntity<PaginatedResponse<GetReviewByIdQueryHandler.GetReviewByIdDTO>> response =
                 restTemplate.exchange(
                         String.format("/api/cultural-offers/%d/reviews/%d",
                                 EXISTING_CULTURAL_OFFER_ID,

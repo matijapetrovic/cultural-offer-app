@@ -22,8 +22,8 @@ import cultureapp.domain.image.ImageRepository;
 import cultureapp.domain.image.exception.ImageNotFoundException;
 import cultureapp.domain.review.command.AddReviewUseCase;
 import cultureapp.domain.review.exception.ReviewNotFoundException;
-import cultureapp.domain.review.query.GetReviewByIdQuery;
-import cultureapp.domain.review.query.GetReviewsForOfferQuery;
+import cultureapp.domain.review.query.GetReviewByIdQueryHandler;
+import cultureapp.domain.review.query.GetReviewsForOfferQueryHandler;
 import cultureapp.domain.subcategory.Subcategory;
 import cultureapp.domain.user.RegularUser;
 import cultureapp.domain.user.RegularUserRepository;
@@ -189,12 +189,16 @@ public class ReviewServiceUnitTest {
     public void givenCulturalOfferDoesntExistThenGetReviewsWillFail() throws CulturalOfferNotFoundException {
         given(culturalOfferRepository.findByIdAndArchivedFalse(VALID_CULTURAL_OFFER_ID))
                 .willReturn(Optional.empty());
-        reviewService.getReviewsForOffer(VALID_CULTURAL_OFFER_ID, 0, 2);
+
+        GetReviewsForOfferQueryHandler.GetReviewsForOfferQuery query =
+                new GetReviewsForOfferQueryHandler.GetReviewsForOfferQuery(VALID_CULTURAL_OFFER_ID, 0, 2);
+
+        reviewService.handleGetReviews(query);
     }
 
-    @Test(expected = CulturalOfferNotFoundException.class)
-    public void givenCulturalOfferIdInvalidThenGetReviewsWillFail() throws CulturalOfferNotFoundException {
-        reviewService.getReviewsForOffer(INVALID_CULTURAL_OFFER_ID, 0, 2);
+    @Test(expected = ConstraintViolationException.class)
+    public void givenCulturalOfferIdInvalidThenGetReviewsWillFail() {
+        new GetReviewsForOfferQueryHandler.GetReviewsForOfferQuery(INVALID_CULTURAL_OFFER_ID, 0, 2);
     }
 
 
@@ -222,8 +226,11 @@ public class ReviewServiceUnitTest {
         given(culturalOfferRepository.findByIdAndArchivedFalse(EXISTING_CULTURAL_OFFER_ID)).willReturn(Optional.of(validCulturalOffer));
         given(reviewRepository.findAllByCulturalOfferIdAndArchivedFalse(notNull(), notNull())).willReturn(slice);
 
-        Slice<GetReviewsForOfferQuery.GetReviewsForOfferQueryDTO> result =
-                reviewService.getReviewsForOffer(EXISTING_CULTURAL_OFFER_ID, 0, 2);
+        GetReviewsForOfferQueryHandler.GetReviewsForOfferQuery query =
+                new GetReviewsForOfferQueryHandler.GetReviewsForOfferQuery(EXISTING_CULTURAL_OFFER_ID, 0, 2);
+
+        Slice<GetReviewsForOfferQueryHandler.GetReviewsForOfferQueryDTO> result =
+                reviewService.handleGetReviews(query);
 
         then(reviewRepository)
                 .should()
@@ -252,8 +259,14 @@ public class ReviewServiceUnitTest {
         given(reviewRepository.findByIdAndCulturalOfferIdAndArchivedFalse(EXISTING_REVIEW_ID_FOR_CULTURAL_OFFER_ID_1, EXISTING_CULTURAL_OFFER_ID))
                 .willReturn(Optional.of(review));
 
-        GetReviewByIdQuery.GetReviewByIdDTO result =
-                reviewService.getReview(EXISTING_REVIEW_ID_FOR_CULTURAL_OFFER_ID_1, EXISTING_CULTURAL_OFFER_ID);
+        GetReviewByIdQueryHandler.GetReviewByIdQuery query =
+                new GetReviewByIdQueryHandler.GetReviewByIdQuery(
+                        EXISTING_REVIEW_ID_FOR_CULTURAL_OFFER_ID_1,
+                        EXISTING_CULTURAL_OFFER_ID
+                );
+
+        GetReviewByIdQueryHandler.GetReviewByIdDTO result =
+                reviewService.handleGetReview(query);
 
         assertNotNull(result);
         assertEquals(EXISTING_REVIEW_ID_FOR_CULTURAL_OFFER_ID_1, result.getId());
@@ -265,7 +278,13 @@ public class ReviewServiceUnitTest {
         given(reviewRepository.findByIdAndCulturalOfferIdAndArchivedFalse(VALID_CULTURAL_OFFER_ID, VALID_REVIEW_ID))
                 .willReturn(Optional.empty());
 
-        reviewService.getReview(VALID_CULTURAL_OFFER_ID, VALID_REVIEW_ID);
+        GetReviewByIdQueryHandler.GetReviewByIdQuery query =
+                new GetReviewByIdQueryHandler.GetReviewByIdQuery(
+                        VALID_REVIEW_ID,
+                        VALID_CULTURAL_OFFER_ID
+                );
+
+        reviewService.handleGetReview(query);
     }
 
     /*

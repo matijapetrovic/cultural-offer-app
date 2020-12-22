@@ -1,7 +1,7 @@
 package cultureapp.rest.subscription;
 
 
-import cultureapp.domain.cultural_offer.query.GetSubscriptionsForUserQuery;
+import cultureapp.domain.cultural_offer.query.GetSubscriptionsForUserQueryHandler;
 import cultureapp.domain.user.exception.RegularUserNotFoundException;
 import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -19,15 +19,18 @@ import java.util.List;
 @RestController
 @RequestMapping(value="/api/subscriptions", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SubscriptionController {
-    private final GetSubscriptionsForUserQuery getSubscriptionsForUserQuery;
+    private final GetSubscriptionsForUserQueryHandler getSubscriptionsForUserQueryHandler;
 
     @GetMapping(value = "", params = {"categoryId", "subcategoryId"})
     @PreAuthorize(value="hasRole('ROLE_USER')")
-    public ResponseEntity<List<GetSubscriptionsForUserQuery.GetSubscriptionsForUserDTO>> getSubscriptions(
+    public ResponseEntity<List<GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserDTO>> getSubscriptions(
             @RequestParam(name = "categoryId") Long categoryId,
             @RequestParam(name = "subcategoryId") Long subcategoryId)
             throws SubcategoryNotFoundException, RegularUserNotFoundException {
-        return ResponseEntity.ok(getSubscriptionsForUserQuery.getSubscriptions(categoryId, subcategoryId));
+        GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserQuery query =
+                new GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserQuery(categoryId, subcategoryId);
+
+        return ResponseEntity.ok(getSubscriptionsForUserQueryHandler.handleGetSubscriptions(query));
     }
 
 

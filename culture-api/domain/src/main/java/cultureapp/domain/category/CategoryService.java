@@ -5,8 +5,8 @@ import cultureapp.domain.category.command.DeleteCategoryUseCase;
 import cultureapp.domain.category.command.UpdateCategoryUseCase;
 import cultureapp.domain.category.exception.CategoryAlreadyExistsException;
 import cultureapp.domain.category.exception.CategoryNotFoundException;
-import cultureapp.domain.category.query.GetCategoriesQuery;
-import cultureapp.domain.category.query.GetCategoryByIdQuery;
+import cultureapp.domain.category.query.GetCategoriesQueryHandler;
+import cultureapp.domain.category.query.GetCategoryByIdQueryHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
@@ -24,8 +24,8 @@ public class CategoryService implements
         AddCategoryUseCase,
         DeleteCategoryUseCase,
         UpdateCategoryUseCase,
-        GetCategoriesQuery,
-        GetCategoryByIdQuery {
+        GetCategoriesQueryHandler,
+        GetCategoryByIdQueryHandler {
     private final CategoryRepository categoryRepository;
 
     @Override
@@ -35,17 +35,16 @@ public class CategoryService implements
     }
 
     @Override
-    public GetCategoryByIdDTO getCategory(@Positive Long id) throws CategoryNotFoundException {
-        Category category = categoryRepository.findByIdAndArchivedFalse(id)
-                .orElseThrow(() -> new CategoryNotFoundException(id));
+    public GetCategoryByIdDTO handleGetCategory(GetCategoryByIdQuery query) throws CategoryNotFoundException {
+        Category category = categoryRepository.findByIdAndArchivedFalse(query.getId())
+                .orElseThrow(() -> new CategoryNotFoundException(query.getId()));
         return GetCategoryByIdDTO.of(category);
     }
 
     @Override
-    public Slice<GetCategoriesDTO> getCategories(@PositiveOrZero Integer page,
-                                                 @Positive Integer limit) {
+    public Slice<GetCategoriesDTO> handleGetCategories(GetCategoriesQuery query) {
 
-        Pageable pageRequest = PageRequest.of(page, limit, Sort.by("name"));
+        Pageable pageRequest = PageRequest.of(query.getPage(), query.getLimit(), Sort.by("name"));
         Slice<Category> categories =
                 categoryRepository.findAllByArchivedFalse(pageRequest);
         return categories.map(GetCategoriesDTO::of);

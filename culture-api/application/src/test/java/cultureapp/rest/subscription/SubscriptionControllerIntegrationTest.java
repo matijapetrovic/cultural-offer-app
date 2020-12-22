@@ -9,7 +9,7 @@ import static cultureapp.common.CulturalOfferTestData.*;
 
 import static org.junit.Assert.*;
 
-import cultureapp.domain.cultural_offer.query.GetSubscriptionsForUserQuery;
+import cultureapp.domain.cultural_offer.query.GetSubscriptionsForUserQueryHandler;
 import cultureapp.rest.ControllerIntegrationTestUtil;
 
 import org.junit.Test;
@@ -37,12 +37,12 @@ public class SubscriptionControllerIntegrationTest {
         HttpEntity<Void> entity =
                 new HttpEntity<>(headers);
 
-        ResponseEntity<GetSubscriptionsForUserQuery.GetSubscriptionsForUserDTO[]> response =
+        ResponseEntity<GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserDTO[]> response =
                 restTemplate.exchange(
                         String.format("/api/subscriptions?categoryId=%d&subcategoryId=%d", EXISTING_CATEGORY_ID, EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1),
                         HttpMethod.GET,
                         entity,
-                        GetSubscriptionsForUserQuery.GetSubscriptionsForUserDTO[].class);
+                        GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserDTO[].class);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
@@ -75,12 +75,12 @@ public class SubscriptionControllerIntegrationTest {
         HttpEntity<Void> entity =
                 new HttpEntity<>(headers);
 
-        ResponseEntity<GetSubscriptionsForUserQuery.GetSubscriptionsForUserDTO[]> response =
+        ResponseEntity<GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserDTO[]> response =
                 restTemplate.exchange(
                         String.format("/api/subscriptions?categoryId=%d&subcategoryId=%d", EXISTING_CATEGORY_ID, 7L),
                         HttpMethod.GET,
                         entity,
-                        GetSubscriptionsForUserQuery.GetSubscriptionsForUserDTO[].class);
+                        GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserDTO[].class);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
 

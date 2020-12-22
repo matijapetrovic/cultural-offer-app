@@ -8,8 +8,8 @@ import cultureapp.domain.subcategory.command.DeleteSubcategoryUseCase;
 import cultureapp.domain.subcategory.command.UpdateSubcategoryUseCase;
 import cultureapp.domain.subcategory.exception.SubcategoryAlreadyExistsException;
 import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
-import cultureapp.domain.subcategory.query.GetSubcategoriesQuery;
-import cultureapp.domain.subcategory.query.GetSubcategoryByIdQuery;
+import cultureapp.domain.subcategory.query.GetSubcategoriesQueryHandler;
+import cultureapp.domain.subcategory.query.GetSubcategoryByIdQueryHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
@@ -25,8 +25,8 @@ import javax.validation.constraints.PositiveOrZero;
 @Service
 public class SubcategoryService implements
         AddSubcategoryUseCase,
-        GetSubcategoriesQuery,
-        GetSubcategoryByIdQuery,
+        GetSubcategoriesQueryHandler,
+        GetSubcategoryByIdQueryHandler,
         UpdateSubcategoryUseCase,
         DeleteSubcategoryUseCase {
     private final SubcategoryRepository subcategoryRepository;
@@ -43,13 +43,10 @@ public class SubcategoryService implements
     }
 
     @Override
-    public Slice<GetSubcategoriesDTO> getSubcategories(
-            @Positive Long categoryId,
-            @PositiveOrZero Integer page,
-            @Positive Integer limit) throws CategoryNotFoundException {
-        Category category = categoryRepository.findByIdAndArchivedFalse(categoryId)
-                .orElseThrow(() -> new CategoryNotFoundException(categoryId));
-        Pageable pageRequest = PageRequest.of(page, limit, Sort.by("name"));
+    public Slice<GetSubcategoriesDTO> handleGetSubcategories(GetSubcategoriesQuery query) throws CategoryNotFoundException {
+        Category category = categoryRepository.findByIdAndArchivedFalse(query.getCategoryId())
+                .orElseThrow(() -> new CategoryNotFoundException(query.getCategoryId()));
+        Pageable pageRequest = PageRequest.of(query.getPage(), query.getLimit(), Sort.by("name"));
 
         Slice<Subcategory> subcategories = subcategoryRepository
                 .findAllByCategoryIdAndArchivedFalse(category.getId(), pageRequest);
@@ -58,10 +55,10 @@ public class SubcategoryService implements
     }
 
     @Override
-    public GetSubcategoryByIdDTO getSubcategory(@Positive Long id, @Positive Long categoryId)
-            throws SubcategoryNotFoundException {
-        Subcategory subcategory = subcategoryRepository.findByIdAndCategoryIdAndArchivedFalse(id, categoryId)
-                .orElseThrow(() -> new SubcategoryNotFoundException(id, categoryId));
+    public GetSubcategoryByIdDTO handleGetSubcategory(GetSubcategoryByIdQuery query) throws
+            SubcategoryNotFoundException {
+        Subcategory subcategory = subcategoryRepository.findByIdAndCategoryIdAndArchivedFalse(query.getId(), query.getCategoryId())
+                .orElseThrow(() -> new SubcategoryNotFoundException(query.getId(), query.getCategoryId()));
         return GetSubcategoryByIdDTO.of(subcategory);
     }
 
