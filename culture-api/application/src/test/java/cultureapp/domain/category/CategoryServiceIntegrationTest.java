@@ -36,6 +36,7 @@ public class CategoryServiceIntegrationTest {
     POST
     -----------------------
     */
+
     @Test
     public void givenAddCategoryCommandIsValidThenAddCategoryWillSucceed() throws CategoryAlreadyExistsException {
         long categoryCount = categoryRepository.count();
