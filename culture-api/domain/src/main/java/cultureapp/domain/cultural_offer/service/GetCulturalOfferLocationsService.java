@@ -10,7 +10,6 @@ import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 @RequiredArgsConstructor

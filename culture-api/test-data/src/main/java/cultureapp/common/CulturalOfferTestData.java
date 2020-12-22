@@ -18,6 +18,13 @@ public class CulturalOfferTestData {
     public static final Long NON_EXISTING_SUBSCRIPTION_ID_FOR_USER_1 = 2L;
     public static final Long EXISTING_SUBSCRIPTION_ID_FOR_USER_1 = 1L;
 
+    public static final int EXISTING_CULTURAL_OFFERS_FOR_SUBCATEGORY_1_1 = 2;
+
+    public static final Double EXISTING_LATITUDE_RANGE_FROM = 14.0;
+    public static final Double EXISTING_LATITUDE_RANGE_TO = 31.0;
+    public static final Double EXISTING_LONGITUDE_RANGE_FROM = 14.0;
+    public static final Double EXISTING_LONGITUDE_RANGE_TO = 31.0;
+
     public static final int NUMBER_OF_SUBSCRIPTIONS_FOR_USER_2 = 1;
     public static final Long NON_EXISTING_SUBSCRIPTION_ID_FOR_USER_2= 1L;
     public static final Long EXISTING_SUBSCRIPTION_ID_FOR_USER_2 = 2L;
@@ -30,4 +37,20 @@ public class CulturalOfferTestData {
     public static final double VALID_LOCATION_LATITUDE = 45.0;
     public static final double VALID_LOCATION_LONGITUDE = 45.0;
     public static final String VALID_LOCATION_ADDRESS = "Address 1";
+
+
+    public static final Double VALID_LATITUDE_RANGE_FROM = -15.0;
+    public static final Double VALID_LATITUDE_RANGE_TO = 15.0;
+    public static final Double VALID_LONGITUDE_RANGE_FROM = -15.0;
+    public static final Double VALID_LONGITUDE_RANGE_TO = 15.0;
+    public static final Long VALID_FILTER_CATEGORY_ID = 1L;
+    public static final Long VALID_FILTER_SUBCATEGORY_ID = 1L;
+
+    public static final Double INVALID_LATITUDE_RANGE_FROM = 30.0;
+    public static final Double INVALID_LATITUDE_RANGE_TO = 20.0;
+    public static final Double INVALID_LONGITUDE_RANGE_FROM = 30.0;
+    public static final Double INVALID_LONGITUDE_RANGE_TO = 30.0;
+
+    public static final Long INVALID_FILTER_CATEGORY_ID = null;
+    public static final Long INVALID_FILTER_SUBCATEGORY_ID = 1L;
 }
