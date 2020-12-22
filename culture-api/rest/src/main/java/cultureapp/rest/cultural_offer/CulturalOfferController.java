@@ -1,11 +1,14 @@
 package cultureapp.rest.cultural_offer;
 
 
+import cultureapp.domain.category.exception.CategoryNotFoundException;
 import cultureapp.domain.cultural_offer.command.*;
+import cultureapp.domain.cultural_offer.exception.CulturalOfferLocationsFilterException;
 import cultureapp.domain.cultural_offer.exception.CulturalOfferNotFoundException;
 import cultureapp.domain.cultural_offer.exception.SubscriptionAlreadyExistsException;
 import cultureapp.domain.cultural_offer.exception.SubscriptionNotFoundException;
 import cultureapp.domain.cultural_offer.query.GetCulturalOfferByIdQueryHandler;
+import cultureapp.domain.cultural_offer.query.GetCulturalOfferLocationsQueryHandler;
 import cultureapp.domain.cultural_offer.query.GetCulturalOffersQueryHandler;
 import cultureapp.domain.image.exception.ImageNotFoundException;
 import cultureapp.domain.user.exception.RegularUserNotFoundException;
@@ -19,6 +22,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -34,6 +39,30 @@ public class CulturalOfferController {
     private final GetCulturalOffersQueryHandler getCulturalOffersQueryHandler;
     private final GetCulturalOfferByIdQueryHandler getCulturalOfferByIdQueryHandler;
 
+    private final GetCulturalOfferLocationsQueryHandler getCulturalOfferLocationsQueryHandler;
+
+
+    @GetMapping("/locations")
+    public ResponseEntity<List<GetCulturalOfferLocationsQueryHandler.GetCulturalOfferLocationsDTO>> getLocations(
+            @RequestParam(value = "latitudeFrom") Double latitudeFrom,
+            @RequestParam(value = "latitudeTo") Double latitudeTo,
+            @RequestParam(value = "longitudeFrom") Double longitudeFrom,
+            @RequestParam(value = "longitudeTo") Double longitudeTo,
+            @RequestParam(value = "categoryId", required = false) Long categoryId,
+            @RequestParam(value = "subcategoryId", required = false) Long subcategoryId) throws
+            CategoryNotFoundException,
+            SubcategoryNotFoundException,
+            CulturalOfferLocationsFilterException {
+        GetCulturalOfferLocationsQueryHandler.GetCulturalOfferLocationsQuery query =
+                new GetCulturalOfferLocationsQueryHandler.GetCulturalOfferLocationsQuery(
+                        latitudeFrom,
+                        latitudeTo,
+                        longitudeFrom,
+                        longitudeTo,
+                        categoryId,
+                        subcategoryId);
+        return ResponseEntity.ok(getCulturalOfferLocationsQueryHandler.handleGetCulturalOfferLocations(query));
+    }
 
     @PostMapping("/{id}/subscriptions")
     @PreAuthorize("hasRole('ROLE_USER')")
