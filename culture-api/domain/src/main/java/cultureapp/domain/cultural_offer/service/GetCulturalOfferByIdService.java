@@ -5,7 +5,7 @@ import cultureapp.domain.core.AuthenticationService;
 import cultureapp.domain.cultural_offer.CulturalOffer;
 import cultureapp.domain.cultural_offer.CulturalOfferRepository;
 import cultureapp.domain.cultural_offer.exception.CulturalOfferNotFoundException;
-import cultureapp.domain.cultural_offer.query.GetCulturalOfferByIdQuery;
+import cultureapp.domain.cultural_offer.query.GetCulturalOfferByIdQueryHandler;
 import cultureapp.domain.user.RegularUser;
 import cultureapp.domain.user.RegularUserRepository;
 import cultureapp.domain.user.exception.RegularUserNotFoundException;
@@ -14,16 +14,16 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class GetCulturalOfferByIdService implements GetCulturalOfferByIdQuery {
+public class GetCulturalOfferByIdService implements GetCulturalOfferByIdQueryHandler {
     private final CulturalOfferRepository repository;
     private final AuthenticationService authenticationService;
     private final RegularUserRepository regularUserRepository;
 
-    @Override
-    public GetCulturalOfferByIdDTO getCulturalOffer(Long id) throws
+    public GetCulturalOfferByIdDTO handleGetCulturalOffer(GetCulturalOfferByIdQuery query) throws
             CulturalOfferNotFoundException,
             RegularUserNotFoundException {
-        CulturalOffer offer = repository.findByIdAndArchivedFalse(id).orElseThrow(() -> new CulturalOfferNotFoundException(id));
+        CulturalOffer offer = repository.findByIdAndArchivedFalse(query.getId())
+                .orElseThrow(() -> new CulturalOfferNotFoundException(query.getId()));
         Account account = authenticationService.getAuthenticated();
 
         Boolean subscribed = null;

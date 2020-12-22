@@ -1,19 +1,37 @@
 package cultureapp.domain.news.query;
 
+import cultureapp.domain.core.validation.SelfValidating;
+import cultureapp.domain.image.Image;
 import cultureapp.domain.news.News;
 import cultureapp.domain.news.exception.NewsNotFoundException;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public interface GetNewsByIdQuery {
-    GetNewsByIdDTO getNewsById(@Positive Long id, @Positive Long culturalOfferId) throws NewsNotFoundException;
+public interface GetNewsByIdQueryHandler {
+    GetNewsByIdDTO handleGetNewsById(GetNewsByIdQuery query) throws NewsNotFoundException;
+
+    @Value
+    @EqualsAndHashCode(callSuper = false)
+    class GetNewsByIdQuery extends SelfValidating<GetNewsByIdQuery> {
+        @Positive
+        Long id;
+
+        @Positive
+        Long culturalOfferId;
+
+        public GetNewsByIdQuery(
+                Long id,
+                Long culturalOfferId
+        ) {
+            this.id = id;
+            this.culturalOfferId = culturalOfferId;
+            this.validateSelf();
+        }
+    }
 
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @Getter
@@ -38,7 +56,7 @@ public interface GetNewsByIdQuery {
                     news.getText(),
                     news.getImages()
                             .stream()
-                            .map(image -> image.getUrl())
+                            .map(Image::getUrl)
                             .collect(Collectors.toList())
             );
         }

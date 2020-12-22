@@ -6,7 +6,8 @@ import cultureapp.domain.category.command.AddCategoryUseCase;
 import cultureapp.domain.category.command.UpdateCategoryUseCase;
 import cultureapp.domain.category.exception.CategoryAlreadyExistsException;
 import cultureapp.domain.category.exception.CategoryNotFoundException;
-import cultureapp.domain.category.query.GetCategoriesQuery;
+import cultureapp.domain.category.query.GetCategoriesQueryHandler;
+import cultureapp.domain.category.query.GetCategoryByIdQueryHandler;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -72,23 +73,32 @@ public class CategoryServiceUnitTest {
 
         given(categoryRepository.findByIdAndArchivedFalse(VALID_CATEGORY_ID)).willReturn(Optional.of(category));
 
-        categoryService.getCategory(VALID_CATEGORY_ID);
+        GetCategoryByIdQueryHandler.GetCategoryByIdQuery query =
+                new GetCategoryByIdQueryHandler.GetCategoryByIdQuery(VALID_CATEGORY_ID);
+
+        categoryService.handleGetCategory(query);
     }
 
     @Test(expected = CategoryNotFoundException.class)
     public void givenCategoryIdIsInvalidThenGetCategoryWillFail() throws CategoryNotFoundException {
-        given(categoryRepository.findByIdAndArchivedFalse(INVALID_CATEGORY_ID)).willReturn(Optional.empty());
+        given(categoryRepository.findByIdAndArchivedFalse(VALID_CATEGORY_ID)).willReturn(Optional.empty());
 
-        categoryService.getCategory(INVALID_CATEGORY_ID);
+        GetCategoryByIdQueryHandler.GetCategoryByIdQuery query =
+                new GetCategoryByIdQueryHandler.GetCategoryByIdQuery(VALID_CATEGORY_ID);
+
+        categoryService.handleGetCategory(query);
     }
 
     @Test
     public void givenGetCategoriesExistThenGetCategoriesSucceed() {
         int page = 0;
 
+        GetCategoriesQueryHandler.GetCategoriesQuery query =
+                new GetCategoriesQueryHandler.GetCategoriesQuery(page, CATEGORY_PAGE_SIZE);
+
         given(categoryRepository.findAllByArchivedFalse(PageRequest.of(page, CATEGORY_PAGE_SIZE, Sort.by("name")))).willReturn(
                 new SliceImpl<>(List.of(Category.of("Category1"), Category.of("Category2"))));
-        Slice<GetCategoriesQuery.GetCategoriesDTO> categories = categoryService.getCategories(page, CATEGORY_PAGE_SIZE);
+        Slice<GetCategoriesQueryHandler.GetCategoriesDTO> categories = categoryService.handleGetCategories(query);
 
         assertEquals(categories.getContent().size(), 2);
         assertNotEquals(categories.getContent().size(), 0);
@@ -99,9 +109,12 @@ public class CategoryServiceUnitTest {
         int page = 0;
         int limit = 3;
 
+        GetCategoriesQueryHandler.GetCategoriesQuery query =
+                new GetCategoriesQueryHandler.GetCategoriesQuery(page, limit);
+
         given(categoryRepository.findAllByArchivedFalse(PageRequest.of(page, limit, Sort.by("name")))).willReturn(
                 new SliceImpl<>(Collections.emptyList()));
-        Slice<GetCategoriesQuery.GetCategoriesDTO> categories = categoryService.getCategories(page, limit);
+        Slice<GetCategoriesQueryHandler.GetCategoriesDTO> categories = categoryService.handleGetCategories(query);
 
         assertEquals(categories.getContent().size(), 0);
     }

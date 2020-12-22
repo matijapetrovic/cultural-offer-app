@@ -1,13 +1,11 @@
 package cultureapp.domain.news.query;
 
+import cultureapp.domain.core.validation.SelfValidating;
 import cultureapp.domain.cultural_offer.exception.CulturalOfferNotFoundException;
 import cultureapp.domain.image.Image;
 import cultureapp.domain.news.News;
 import cultureapp.domain.user.Administrator;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.domain.Slice;
 
 import javax.validation.constraints.Positive;
@@ -16,11 +14,32 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public interface GetNewsForOfferQuery {
-    Slice<GetNewsForOfferDTO> getNews(
-            @Positive Long offerId,
-            @PositiveOrZero Integer page,
-            @Positive Integer limit) throws CulturalOfferNotFoundException;
+public interface GetNewsForOfferQueryHandler {
+    Slice<GetNewsForOfferDTO> handleGetNewsForOffer(GetNewsForOfferQuery query) throws CulturalOfferNotFoundException;
+
+    @Value
+    @EqualsAndHashCode(callSuper = false)
+    class GetNewsForOfferQuery extends SelfValidating<GetNewsForOfferQuery> {
+        @Positive
+        Long culturalOfferId;
+
+        @PositiveOrZero
+        Integer page;
+
+        @Positive
+        Integer limit;
+
+        public GetNewsForOfferQuery(
+                Long culturalOfferId,
+                Integer page,
+                Integer limit
+        ) {
+            this.culturalOfferId = culturalOfferId;
+            this.page = page;
+            this.limit = limit;
+            this.validateSelf();
+        }
+    }
 
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @Getter

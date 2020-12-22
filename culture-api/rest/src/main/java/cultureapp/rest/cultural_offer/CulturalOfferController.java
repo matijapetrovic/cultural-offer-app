@@ -5,8 +5,8 @@ import cultureapp.domain.cultural_offer.command.*;
 import cultureapp.domain.cultural_offer.exception.CulturalOfferNotFoundException;
 import cultureapp.domain.cultural_offer.exception.SubscriptionAlreadyExistsException;
 import cultureapp.domain.cultural_offer.exception.SubscriptionNotFoundException;
-import cultureapp.domain.cultural_offer.query.GetCulturalOfferByIdQuery;
-import cultureapp.domain.cultural_offer.query.GetCulturalOffersQuery;
+import cultureapp.domain.cultural_offer.query.GetCulturalOfferByIdQueryHandler;
+import cultureapp.domain.cultural_offer.query.GetCulturalOffersQueryHandler;
 import cultureapp.domain.image.exception.ImageNotFoundException;
 import cultureapp.domain.user.exception.RegularUserNotFoundException;
 import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
@@ -20,8 +20,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.servlet.http.HttpServletResponse;
-
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value="/api/cultural-offers", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -33,8 +31,8 @@ public class CulturalOfferController {
     private final DeleteCulturalOfferUseCase deleteCulturalOfferUseCase;
     private final UpdateCulturalOfferUseCase updateCulturalOfferUseCase;
 
-    private final GetCulturalOffersQuery getCulturalOffersQuery;
-    private final GetCulturalOfferByIdQuery getCulturalOfferByIdQuery;
+    private final GetCulturalOffersQueryHandler getCulturalOffersQueryHandler;
+    private final GetCulturalOfferByIdQueryHandler getCulturalOfferByIdQueryHandler;
 
 
     @PostMapping("/{id}/subscriptions")
@@ -99,20 +97,25 @@ public class CulturalOfferController {
     }
 
     @GetMapping(value = "", params = {"page", "limit"})
-    public ResponseEntity<PaginatedResponse<GetCulturalOffersQuery.GetCulturalOffersDTO>> getCulturalOffers(
+    public ResponseEntity<PaginatedResponse<GetCulturalOffersQueryHandler.GetCulturalOffersDTO>> getCulturalOffers(
             @RequestParam(name = "page", required = true) Integer page,
             @RequestParam(name = "limit", required = true) Integer limit,
             UriComponentsBuilder uriBuilder
     ) {
-        Slice<GetCulturalOffersQuery.GetCulturalOffersDTO> result = getCulturalOffersQuery.getCulturalOffers(page, limit);
+        GetCulturalOffersQueryHandler.GetCulturalOffersQuery query =
+                new GetCulturalOffersQueryHandler.GetCulturalOffersQuery(page, limit);
+        Slice<GetCulturalOffersQueryHandler.GetCulturalOffersDTO> result =
+                getCulturalOffersQueryHandler.handleGetCulturalOffers(query);
         uriBuilder.path("/api/cultural-offers");
         return ResponseEntity.ok(PaginatedResponse.of(result, uriBuilder));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<GetCulturalOfferByIdQuery.GetCulturalOfferByIdDTO> getCulturalOffer(@PathVariable Long id)
+    public ResponseEntity<GetCulturalOfferByIdQueryHandler.GetCulturalOfferByIdDTO> getCulturalOffer(@PathVariable Long id)
             throws CulturalOfferNotFoundException, RegularUserNotFoundException {
-        return ResponseEntity.ok(getCulturalOfferByIdQuery.getCulturalOffer(id));
+        GetCulturalOfferByIdQueryHandler.GetCulturalOfferByIdQuery query =
+                new GetCulturalOfferByIdQueryHandler.GetCulturalOfferByIdQuery(id);
+        return ResponseEntity.ok(getCulturalOfferByIdQueryHandler.handleGetCulturalOffer(query));
     }
 }
 

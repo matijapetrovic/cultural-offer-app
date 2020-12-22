@@ -9,8 +9,8 @@ import cultureapp.domain.subcategory.command.AddSubcategoryUseCase;
 import cultureapp.domain.subcategory.command.UpdateSubcategoryUseCase;
 import cultureapp.domain.subcategory.exception.SubcategoryAlreadyExistsException;
 import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
-import cultureapp.domain.subcategory.query.GetSubcategoriesQuery;
-import cultureapp.domain.subcategory.query.GetSubcategoryByIdQuery;
+import cultureapp.domain.subcategory.query.GetSubcategoriesQueryHandler;
+import cultureapp.domain.subcategory.query.GetSubcategoryByIdQueryHandler;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,8 +75,14 @@ public class SubcategoryServiceIntegrationTest {
 
     @Test
     public void givenCategoryIdIsValidAndPageIsFirstThenGetSubcategoriesWillReturnNonEmpty() throws CategoryNotFoundException {
-        Slice<GetSubcategoriesQuery.GetSubcategoriesDTO> result =
-                subcategoryService.getSubcategories(EXISTING_CATEGORY_ID, FIRST_PAGE_FOR_CATEGORY_ID_1, SUBCATEGORY_PAGE_SIZE);
+        GetSubcategoriesQueryHandler.GetSubcategoriesQuery query =
+                new GetSubcategoriesQueryHandler.GetSubcategoriesQuery(
+                        EXISTING_CATEGORY_ID,
+                        FIRST_PAGE_FOR_CATEGORY_ID_1,
+                        SUBCATEGORY_PAGE_SIZE);
+
+        Slice<GetSubcategoriesQueryHandler.GetSubcategoriesDTO> result =
+                subcategoryService.handleGetSubcategories(query);
 
         assertEquals(FIRST_PAGE_NUM_SUBCATEGORIES_FOR_CATEGORY_ID_1, result.getNumberOfElements());
         assertTrue(result.hasNext());
@@ -85,8 +91,14 @@ public class SubcategoryServiceIntegrationTest {
 
     @Test
     public void givenCategoryIdIsValidAndPageIsLastThenGetSubcategoriesWillReturnNonEmpty() throws CategoryNotFoundException {
-        Slice<GetSubcategoriesQuery.GetSubcategoriesDTO> result =
-                subcategoryService.getSubcategories(EXISTING_CATEGORY_ID, LAST_PAGE_FOR_CATEGORY_ID_1, SUBCATEGORY_PAGE_SIZE);
+        GetSubcategoriesQueryHandler.GetSubcategoriesQuery query =
+                new GetSubcategoriesQueryHandler.GetSubcategoriesQuery(
+                        EXISTING_CATEGORY_ID,
+                        LAST_PAGE_FOR_CATEGORY_ID_1,
+                        SUBCATEGORY_PAGE_SIZE);
+
+        Slice<GetSubcategoriesQueryHandler.GetSubcategoriesDTO> result =
+                subcategoryService.handleGetSubcategories(query);
 
         assertEquals(LAST_PAGE_NUM_SUBCATEGORIES_FOR_CATEGORY_ID_1, result.getNumberOfElements());
         assertFalse(result.hasNext());
@@ -95,7 +107,13 @@ public class SubcategoryServiceIntegrationTest {
 
     @Test(expected = CategoryNotFoundException.class)
     public void givenCategoryDoesntExistThenGetSubcategoriesWillFail() throws CategoryNotFoundException {
-        subcategoryService.getSubcategories(NON_EXISTING_CATEGORY_ID, FIRST_PAGE_FOR_CATEGORY_ID_1, SUBCATEGORY_PAGE_SIZE);
+        GetSubcategoriesQueryHandler.GetSubcategoriesQuery query =
+                new GetSubcategoriesQueryHandler.GetSubcategoriesQuery(
+                        NON_EXISTING_CATEGORY_ID,
+                        FIRST_PAGE_FOR_CATEGORY_ID_1,
+                        SUBCATEGORY_PAGE_SIZE);
+
+        subcategoryService.handleGetSubcategories(query);
     }
 
 
@@ -103,8 +121,13 @@ public class SubcategoryServiceIntegrationTest {
 
     @Test
     public void givenSubcategoryExistsThenGetSubcategoryWillSucceed() throws SubcategoryNotFoundException {
-        GetSubcategoryByIdQuery.GetSubcategoryByIdDTO result =
-                subcategoryService.getSubcategory(EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1, EXISTING_CATEGORY_ID);
+        GetSubcategoryByIdQueryHandler.GetSubcategoryByIdQuery query =
+                new GetSubcategoryByIdQueryHandler.GetSubcategoryByIdQuery(
+                        EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1,
+                        EXISTING_CATEGORY_ID);
+
+        GetSubcategoryByIdQueryHandler.GetSubcategoryByIdDTO result =
+                subcategoryService.handleGetSubcategory(query);
 
         assertNotNull(result);
         assertEquals(EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1, result.getId());
@@ -114,12 +137,22 @@ public class SubcategoryServiceIntegrationTest {
 
     @Test(expected = SubcategoryNotFoundException.class)
     public void givenSubcategoryDoesntExistThenGetSubcategoryWillFail() throws SubcategoryNotFoundException {
-        subcategoryService.getSubcategory(NON_EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1, EXISTING_CATEGORY_ID);
+        GetSubcategoryByIdQueryHandler.GetSubcategoryByIdQuery query =
+                new GetSubcategoryByIdQueryHandler.GetSubcategoryByIdQuery(
+                        NON_EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1,
+                        EXISTING_CATEGORY_ID);
+
+        subcategoryService.handleGetSubcategory(query);
     }
 
     @Test(expected = SubcategoryNotFoundException.class)
     public void givenCategoryDoesntExistThenGetSubcategoryWillFail() throws SubcategoryNotFoundException {
-        subcategoryService.getSubcategory(EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1, NON_EXISTING_CATEGORY_ID);
+        GetSubcategoryByIdQueryHandler.GetSubcategoryByIdQuery query =
+                new GetSubcategoryByIdQueryHandler.GetSubcategoryByIdQuery(
+                        EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1,
+                        NON_EXISTING_CATEGORY_ID);
+
+        subcategoryService.handleGetSubcategory(query);
     }
 
     // update

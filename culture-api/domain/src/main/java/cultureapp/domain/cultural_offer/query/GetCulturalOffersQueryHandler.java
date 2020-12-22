@@ -1,17 +1,37 @@
 package cultureapp.domain.cultural_offer.query;
 
+import cultureapp.domain.core.validation.SelfValidating;
 import cultureapp.domain.cultural_offer.CulturalOffer;
 import cultureapp.domain.image.Image;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.*;
 import org.springframework.data.domain.Slice;
 
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public interface GetCulturalOffersQuery {
-    Slice<GetCulturalOffersDTO> getCulturalOffers(Integer page, Integer limit);
+public interface GetCulturalOffersQueryHandler {
+    Slice<GetCulturalOffersDTO> handleGetCulturalOffers(GetCulturalOffersQuery query);
+
+    @Value
+    @EqualsAndHashCode(callSuper = false)
+    class GetCulturalOffersQuery extends SelfValidating<GetCulturalOffersQuery> {
+        @PositiveOrZero
+        Integer page;
+
+        @Positive
+        Integer limit;
+
+        public GetCulturalOffersQuery(
+                Integer page,
+                Integer limit
+        ) {
+            this.page = page;
+            this.limit = limit;
+            this.validateSelf();
+        }
+    }
 
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @Getter

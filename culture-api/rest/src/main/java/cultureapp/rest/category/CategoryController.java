@@ -5,8 +5,8 @@ import cultureapp.domain.category.command.DeleteCategoryUseCase;
 import cultureapp.domain.category.command.UpdateCategoryUseCase;
 import cultureapp.domain.category.exception.CategoryAlreadyExistsException;
 import cultureapp.domain.category.exception.CategoryNotFoundException;
-import cultureapp.domain.category.query.GetCategoriesQuery;
-import cultureapp.domain.category.query.GetCategoryByIdQuery;
+import cultureapp.domain.category.query.GetCategoriesQueryHandler;
+import cultureapp.domain.category.query.GetCategoryByIdQueryHandler;
 import cultureapp.domain.subcategory.exception.SubcategoryAlreadyExistsException;
 import cultureapp.rest.core.PaginatedResponse;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +23,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequestMapping(value="/api/categories", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CategoryController {
     private final AddCategoryUseCase addCategoryUseCase;
-    private final GetCategoriesQuery getCategoriesQuery;
-    private final GetCategoryByIdQuery getCategoryByIdQuery;
+    private final GetCategoriesQueryHandler getCategoriesQueryHandler;
+    private final GetCategoryByIdQueryHandler getCategoryByIdQueryHandler;
     private final UpdateCategoryUseCase updateCategoryUseCase;
     private final DeleteCategoryUseCase deleteCategoryUseCase;
 
@@ -38,13 +38,14 @@ public class CategoryController {
     }
 
     @GetMapping(value = "", params = { "page", "limit" })
-    public ResponseEntity<PaginatedResponse<GetCategoriesQuery.GetCategoriesDTO>> getCategories(
+    public ResponseEntity<PaginatedResponse<GetCategoriesQueryHandler.GetCategoriesDTO>> getCategories(
             @RequestParam(required = false) Integer page,
             @RequestParam(required = false) Integer limit,
             UriComponentsBuilder uriBuilder) throws CategoryNotFoundException {
-
-        Slice<GetCategoriesQuery.GetCategoriesDTO> result =
-                getCategoriesQuery.getCategories(page, limit);
+        GetCategoriesQueryHandler.GetCategoriesQuery query =
+                new GetCategoriesQueryHandler.GetCategoriesQuery(page, limit);
+        Slice<GetCategoriesQueryHandler.GetCategoriesDTO> result =
+                getCategoriesQueryHandler.handleGetCategories(query);
         String resourceUri = "/api/categories";
         uriBuilder.path(resourceUri);
         return ResponseEntity.ok(PaginatedResponse.of(result, uriBuilder));
@@ -52,7 +53,9 @@ public class CategoryController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getCategory(@PathVariable Long id) throws CategoryNotFoundException {
-        return ResponseEntity.ok(getCategoryByIdQuery.getCategory(id));
+        GetCategoryByIdQueryHandler.GetCategoryByIdQuery query =
+                new GetCategoryByIdQueryHandler.GetCategoryByIdQuery(id);
+        return ResponseEntity.ok(getCategoryByIdQueryHandler.handleGetCategory(query));
     }
 
     @PutMapping("/{id}")

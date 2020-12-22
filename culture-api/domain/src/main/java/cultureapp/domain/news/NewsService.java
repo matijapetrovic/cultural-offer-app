@@ -16,8 +16,8 @@ import cultureapp.domain.news.command.DeleteNewsUseCase;
 import cultureapp.domain.news.command.UpdateNewsUseCase;
 import cultureapp.domain.news.exception.NewsAlreadyExistException;
 import cultureapp.domain.news.exception.NewsNotFoundException;
-import cultureapp.domain.news.query.GetNewsByIdQuery;
-import cultureapp.domain.news.query.GetNewsForOfferQuery;
+import cultureapp.domain.news.query.GetNewsByIdQueryHandler;
+import cultureapp.domain.news.query.GetNewsForOfferQueryHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -37,8 +37,8 @@ public class NewsService implements
         AddNewsUseCase,
         DeleteNewsUseCase,
         UpdateNewsUseCase,
-        GetNewsForOfferQuery,
-        GetNewsByIdQuery {
+        GetNewsForOfferQueryHandler,
+        GetNewsByIdQueryHandler {
     private final NewsRepository newsRepository;
     private final CulturalOfferRepository culturalOfferRepository;
     private final AdministratorRepository administratorRepository;
@@ -83,7 +83,7 @@ public class NewsService implements
         notifySubscribers(offer);
     }
 
-    // TODO autor ove metode da je procita par puta i obrati paznju na culturalOfferId i update pomocu njega
+    // TODO autor ove metode da je procita par puta i obrati paznju na culturalOfferId i update pomocu njega :)
     @Override
     public void updateNews(UpdateNewsCommand command)
             throws NewsNotFoundException,
@@ -123,24 +123,23 @@ public class NewsService implements
         return !news.getAuthor().getId().equals(adminId);
     }
 
-    @Override
-    public Slice<GetNewsForOfferDTO> getNews(Long offerId, Integer page, Integer limit) throws CulturalOfferNotFoundException {
+    public Slice<GetNewsForOfferDTO> handleGetNewsForOffer(GetNewsForOfferQuery query) throws CulturalOfferNotFoundException {
 
-        CulturalOffer offer = culturalOfferRepository.findByIdAndArchivedFalse(offerId)
-                .orElseThrow(() -> new CulturalOfferNotFoundException(offerId));
+        CulturalOffer offer = culturalOfferRepository.findByIdAndArchivedFalse(query.getCulturalOfferId())
+                .orElseThrow(() -> new CulturalOfferNotFoundException(query.getCulturalOfferId()));
 
-        Pageable pageRequest = PageRequest.of(page, limit, Sort.by("title"));
+        Pageable pageRequest = PageRequest.of(query.getPage(), query.getLimit(), Sort.by("title"));
 
-        Slice<News> news = newsRepository.findAllByCulturalOfferIdAndArchivedFalse(offerId, pageRequest);
+        Slice<News> news = newsRepository.findAllByCulturalOfferIdAndArchivedFalse(query.getCulturalOfferId(), pageRequest);
 
         return news.map(GetNewsForOfferDTO::of);
 
     }
 
     @Override
-    public GetNewsByIdDTO getNewsById(@Positive Long id, @Positive Long culturalOfferId) throws NewsNotFoundException {
-        News news = newsRepository.findByIdAndCulturalOfferIdAndArchivedFalse(id, culturalOfferId)
-                .orElseThrow(() -> new NewsNotFoundException(id, culturalOfferId));
+    public GetNewsByIdDTO handleGetNewsById(GetNewsByIdQuery query) throws NewsNotFoundException {
+        News news = newsRepository.findByIdAndCulturalOfferIdAndArchivedFalse(query.getId(), query.getCulturalOfferId())
+                .orElseThrow(() -> new NewsNotFoundException(query.getId(), query.getCulturalOfferId()));
 
         return GetNewsByIdDTO.of(news);
     }

@@ -6,8 +6,8 @@ import static org.junit.Assert.*;
 
 import cultureapp.domain.category.Category;
 import cultureapp.domain.category.CategoryRepository;
-import cultureapp.domain.category.query.GetCategoriesQuery;
-import cultureapp.domain.category.query.GetCategoryByIdQuery;
+import cultureapp.domain.category.query.GetCategoriesQueryHandler;
+import cultureapp.domain.category.query.GetCategoryByIdQueryHandler;
 import cultureapp.rest.ControllerIntegrationTestUtil;
 import cultureapp.rest.core.PaginatedResponse;
 import cultureapp.rest.subcategory.SubcategoryRequest;
@@ -139,7 +139,7 @@ public class CategoryControllerIntegrationTest {
 
     @Test
     public void givenFirstPageThenCategoriesGetWillReturnNonEmpty() {
-        ResponseEntity<PaginatedResponse<GetCategoriesQuery.GetCategoriesDTO>> response =
+        ResponseEntity<PaginatedResponse<GetCategoriesQueryHandler.GetCategoriesDTO>> response =
                 restTemplate.exchange(
                         String.format("/api/categories?page=%d&limit=%d",
                                 CATEGORY_FIRST_PAGE,
@@ -162,7 +162,7 @@ public class CategoryControllerIntegrationTest {
 
     @Test
     public void givenLastPageThenCategoriesGetWillReturnNonEmpty() {
-        ResponseEntity<PaginatedResponse<GetCategoriesQuery.GetCategoriesDTO>> response =
+        ResponseEntity<PaginatedResponse<GetCategoriesQueryHandler.GetCategoriesDTO>> response =
                 restTemplate.exchange(
                         String.format("/api/categories?page=%d&limit=%d",
                                 CATEGORY_LAST_PAGE,
@@ -185,7 +185,7 @@ public class CategoryControllerIntegrationTest {
 
     @Test
     public void givenPageDoesntExistThenCategoriesGetWillReturnEmpty() {
-        ResponseEntity<PaginatedResponse<GetCategoriesQuery.GetCategoriesDTO>> response =
+        ResponseEntity<PaginatedResponse<GetCategoriesQueryHandler.GetCategoriesDTO>> response =
                 restTemplate.exchange(
                         String.format("/api/categories?page=10&limit=%d",
                                 CATEGORY_PAGE_SIZE),
@@ -208,7 +208,7 @@ public class CategoryControllerIntegrationTest {
 
     @Test
     public void givenValidCategoryIdThenCategoryGetWillSucceed() {
-        ResponseEntity<GetCategoryByIdQuery.GetCategoryByIdDTO> response =
+        ResponseEntity<GetCategoryByIdQueryHandler.GetCategoryByIdDTO> response =
                 restTemplate.exchange(
                         String.format("/api/categories/%d",
                                 EXISTING_CATEGORY_ID),
@@ -224,7 +224,7 @@ public class CategoryControllerIntegrationTest {
 
     @Test
     public void givenCategoryDoesntExistThenCategoryGetWillReturnNotFound() {
-        ResponseEntity<PaginatedResponse<GetCategoriesQuery.GetCategoriesDTO>> response =
+        ResponseEntity<PaginatedResponse<GetCategoriesQueryHandler.GetCategoriesDTO>> response =
                 restTemplate.exchange(
                         String.format("/api/categories/%d",
                                 NON_EXISTING_CATEGORY_ID),
