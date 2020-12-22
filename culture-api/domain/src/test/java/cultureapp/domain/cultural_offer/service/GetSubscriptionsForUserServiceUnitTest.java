@@ -7,7 +7,7 @@ import static cultureapp.domain.DomainUnitTestsUtil.*;
 import cultureapp.domain.account.Account;
 import cultureapp.domain.core.AuthenticationService;
 import cultureapp.domain.cultural_offer.CulturalOffer;
-import cultureapp.domain.cultural_offer.query.GetSubscriptionsForUserQuery;
+import cultureapp.domain.cultural_offer.query.GetSubscriptionsForUserQueryHandler;
 import cultureapp.domain.subcategory.Subcategory;
 import cultureapp.domain.subcategory.SubcategoryRepository;
 import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
@@ -48,7 +48,13 @@ public class GetSubscriptionsForUserServiceUnitTest {
 
         given(regularUserRepository.findByAccountId(account.getId())).willReturn(Optional.empty());
 
-        getSubscriptionsService.getSubscriptions(VALID_CATEGORY_ID, VALID_SUBCATEGORY_ID);
+        GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserQuery query =
+                new GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserQuery(
+                        VALID_CATEGORY_ID,
+                        VALID_SUBCATEGORY_ID
+                );
+
+        getSubscriptionsService.handleGetSubscriptions(query);
     }
 
     @Test(expected = SubcategoryNotFoundException.class)
@@ -59,11 +65,17 @@ public class GetSubscriptionsForUserServiceUnitTest {
         given(authenticationService.getAuthenticated()).willReturn(account);
 
         RegularUser user = validRegularUserWithAccount(account);
-        given(regularUserRepository.findByAccountId(account.getId())).willReturn(Optional.of(user));
+        given(regularUserRepository.findByAccountIdWithSubscriptions(account.getId())).willReturn(Optional.of(user));
 
         given(subcategoryRepository.findById(notNull())).willReturn(Optional.empty());
 
-        getSubscriptionsService.getSubscriptions(VALID_CATEGORY_ID, VALID_SUBCATEGORY_ID);
+        GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserQuery query =
+                new GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserQuery(
+                        VALID_CATEGORY_ID,
+                        VALID_SUBCATEGORY_ID
+                );
+
+        getSubscriptionsService.handleGetSubscriptions(query);
     }
 
     @Test
@@ -78,10 +90,16 @@ public class GetSubscriptionsForUserServiceUnitTest {
 
         RegularUser user = validRegularUserWithAccount(account);
         user.subscribe(culturalOffer);
-        given(regularUserRepository.findByAccountId(account.getId())).willReturn(Optional.of(user));
+        given(regularUserRepository.findByAccountIdWithSubscriptions(account.getId())).willReturn(Optional.of(user));
 
-        List<GetSubscriptionsForUserQuery.GetSubscriptionsForUserDTO> result =
-                getSubscriptionsService.getSubscriptions(subcategory.getCategory().getId(), subcategory.getId());
+        GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserQuery query =
+                new GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserQuery(
+                        subcategory.getCategory().getId(),
+                        subcategory.getId()
+                );
+
+        List<GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserDTO> result =
+                getSubscriptionsService.handleGetSubscriptions(query);
 
         assertEquals(user.getCulturalOffers().size(), result.size());
         assertEquals(culturalOffer.getId(), result.get(0).getId());

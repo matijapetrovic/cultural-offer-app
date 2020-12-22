@@ -10,8 +10,8 @@ import cultureapp.domain.subcategory.command.AddSubcategoryUseCase;
 import cultureapp.domain.subcategory.command.UpdateSubcategoryUseCase;
 import cultureapp.domain.subcategory.exception.SubcategoryAlreadyExistsException;
 import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
-import cultureapp.domain.subcategory.query.GetSubcategoriesQuery;
-import cultureapp.domain.subcategory.query.GetSubcategoryByIdQuery;
+import cultureapp.domain.subcategory.query.GetSubcategoriesQueryHandler;
+import cultureapp.domain.subcategory.query.GetSubcategoryByIdQueryHandler;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -98,13 +98,16 @@ public class SubcategoryServiceUnitTest {
     @Test(expected = CategoryNotFoundException.class)
     public void givenCategoryDoesntExistThenGetSubcategoriesWillFail() throws CategoryNotFoundException {
         given(categoryRepository.findByIdAndArchivedFalse(VALID_CATEGORY_ID)).willReturn(Optional.empty());
-        subcategoryService.getSubcategories(VALID_CATEGORY_ID, 0, 2);
+
+        GetSubcategoriesQueryHandler.GetSubcategoriesQuery query =
+                new GetSubcategoriesQueryHandler.GetSubcategoriesQuery(VALID_CATEGORY_ID, 0, 2);
+
+        subcategoryService.handleGetSubcategories(query);
     }
 
-    @Ignore
     @Test(expected = ConstraintViolationException.class)
-    public void givenCategoryIdIsInvalidThenGetSubcategoriesWillFail() throws CategoryNotFoundException {
-        subcategoryService.getSubcategories(INVALID_CATEGORY_ID, 0, 2);
+    public void givenCategoryIdIsInvalidThenGetSubcategoriesWillFail() {
+                new GetSubcategoriesQueryHandler.GetSubcategoriesQuery(INVALID_CATEGORY_ID, 0, 2);
     }
 
     @Test
@@ -118,8 +121,11 @@ public class SubcategoryServiceUnitTest {
         given(categoryRepository.findByIdAndArchivedFalse(VALID_CATEGORY_ID)).willReturn(Optional.of(category));
         given(subcategoryRepository.findAllByCategoryIdAndArchivedFalse(notNull(), notNull())).willReturn(slice);
 
-        Slice<GetSubcategoriesQuery.GetSubcategoriesDTO> result =
-                subcategoryService.getSubcategories(VALID_CATEGORY_ID, 0, 2);
+        GetSubcategoriesQueryHandler.GetSubcategoriesQuery query =
+                new GetSubcategoriesQueryHandler.GetSubcategoriesQuery(VALID_CATEGORY_ID, 0, 2);
+
+        Slice<GetSubcategoriesQueryHandler.GetSubcategoriesDTO> result =
+                subcategoryService.handleGetSubcategories(query);
 
         then(subcategoryRepository)
                 .should()
@@ -135,7 +141,10 @@ public class SubcategoryServiceUnitTest {
         given(subcategoryRepository.findByIdAndCategoryIdAndArchivedFalse(VALID_SUBCATEGORY_ID, VALID_CATEGORY_ID))
                 .willReturn(Optional.empty());
 
-        subcategoryService.getSubcategory(VALID_SUBCATEGORY_ID, VALID_CATEGORY_ID);
+        GetSubcategoryByIdQueryHandler.GetSubcategoryByIdQuery query =
+                new GetSubcategoryByIdQueryHandler.GetSubcategoryByIdQuery(VALID_SUBCATEGORY_ID, VALID_CATEGORY_ID);
+
+        subcategoryService.handleGetSubcategory(query);
     }
 
     @Test
@@ -145,8 +154,11 @@ public class SubcategoryServiceUnitTest {
         given(subcategoryRepository.findByIdAndCategoryIdAndArchivedFalse(VALID_SUBCATEGORY_ID, VALID_CATEGORY_ID))
                 .willReturn(Optional.of(subcategory));
 
-        GetSubcategoryByIdQuery.GetSubcategoryByIdDTO result =
-                subcategoryService.getSubcategory(VALID_SUBCATEGORY_ID, VALID_CATEGORY_ID);
+        GetSubcategoryByIdQueryHandler.GetSubcategoryByIdQuery query =
+                new GetSubcategoryByIdQueryHandler.GetSubcategoryByIdQuery(VALID_SUBCATEGORY_ID, VALID_CATEGORY_ID);
+
+        GetSubcategoryByIdQueryHandler.GetSubcategoryByIdDTO result =
+                subcategoryService.handleGetSubcategory(query);
 
         assertNotNull(result);
         assertEquals(VALID_SUBCATEGORY_ID, result.getId());

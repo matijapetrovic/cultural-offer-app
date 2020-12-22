@@ -1,7 +1,7 @@
 package cultureapp.domain.cultural_offer.service;
 
 import cultureapp.domain.core.AuthenticationService;
-import cultureapp.domain.cultural_offer.query.GetSubscriptionsForUserQuery;
+import cultureapp.domain.cultural_offer.query.GetSubscriptionsForUserQueryHandler;
 import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
 import cultureapp.domain.user.exception.RegularUserNotFoundException;
 import org.junit.Test;
@@ -37,7 +37,13 @@ public class GetSubscriptionsForUserServiceIntegrationTest {
             SubcategoryNotFoundException {
         authenticationService.authenticate(EXISTING_ADMINISTRATOR_EMAIL, EXISTING_ADMINISTRATOR_PASSWORD);
 
-        getSubscriptionsService.getSubscriptions(EXISTING_CATEGORY_ID, EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1);
+        GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserQuery query =
+                new GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserQuery(
+                        EXISTING_CATEGORY_ID,
+                        EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1
+                );
+
+        getSubscriptionsService.handleGetSubscriptions(query);
     }
 
     @Test(expected = SubcategoryNotFoundException.class)
@@ -46,15 +52,26 @@ public class GetSubscriptionsForUserServiceIntegrationTest {
             SubcategoryNotFoundException {
         authenticationService.authenticate(EXISTING_REGULAR_USER_EMAIL, EXISTING_REGULAR_USER_PASSWORD);
 
-        getSubscriptionsService.getSubscriptions(EXISTING_CATEGORY_ID, NON_EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1);
+        GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserQuery query =
+                new GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserQuery(
+                        EXISTING_CATEGORY_ID,
+                        NON_EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1);
+
+        getSubscriptionsService.handleGetSubscriptions(query);
     }
 
     @Test
     public void givenSubcategoryExistsAndAuthenticatedUserThenGetSubscriptionsSucceeds() throws RegularUserNotFoundException, SubcategoryNotFoundException {
         authenticationService.authenticate(EXISTING_REGULAR_USER_EMAIL, EXISTING_REGULAR_USER_PASSWORD);
 
-        List<GetSubscriptionsForUserQuery.GetSubscriptionsForUserDTO> result =
-                getSubscriptionsService.getSubscriptions(EXISTING_CATEGORY_ID, EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1);
+        GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserQuery query =
+                new GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserQuery(
+                        EXISTING_CATEGORY_ID,
+                        EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1
+                );
+
+        List<GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserDTO> result =
+                getSubscriptionsService.handleGetSubscriptions(query);
 
         assertEquals(NUMBER_OF_SUBSCRIPTIONS_FOR_USER_1_AND_SUBCATEGORY_1_1, result.size());
         assertEquals(EXISTING_CULTURAL_OFFER_ID, result.get(0).getId());

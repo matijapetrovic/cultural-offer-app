@@ -7,8 +7,8 @@ import static cultureapp.common.AuthenticationTestData.*;
 import cultureapp.domain.subcategory.Subcategory;
 import cultureapp.domain.subcategory.SubcategoryId;
 import cultureapp.domain.subcategory.SubcategoryRepository;
-import cultureapp.domain.subcategory.query.GetSubcategoriesQuery;
-import cultureapp.domain.subcategory.query.GetSubcategoryByIdQuery;
+import cultureapp.domain.subcategory.query.GetSubcategoriesQueryHandler;
+import cultureapp.domain.subcategory.query.GetSubcategoryByIdQueryHandler;
 import cultureapp.rest.ControllerIntegrationTestUtil;
 import cultureapp.rest.core.PaginatedResponse;
 import org.junit.Test;
@@ -151,7 +151,7 @@ public class SubcategoryControllerIntegrationTest {
 
     @Test
     public void givenValidCategoryIdAndFirstPageThenSubcategoriesGetWillReturnNonEmpty() {
-        ResponseEntity<PaginatedResponse<GetSubcategoriesQuery.GetSubcategoriesDTO>> response =
+        ResponseEntity<PaginatedResponse<GetSubcategoriesQueryHandler.GetSubcategoriesDTO>> response =
                 restTemplate.exchange(
                         String.format("/api/categories/%d/subcategories?page=%d&limit=%d",
                                 EXISTING_CATEGORY_ID,
@@ -175,7 +175,7 @@ public class SubcategoryControllerIntegrationTest {
 
     @Test
     public void givenValidCategoryIdAndLastPageThenSubcategoriesGetWillReturnNonEmpty() {
-        ResponseEntity<PaginatedResponse<GetSubcategoriesQuery.GetSubcategoriesDTO>> response =
+        ResponseEntity<PaginatedResponse<GetSubcategoriesQueryHandler.GetSubcategoriesDTO>> response =
                 restTemplate.exchange(
                         String.format("/api/categories/%d/subcategories?page=%d&limit=%d",
                                 EXISTING_CATEGORY_ID,
@@ -199,7 +199,7 @@ public class SubcategoryControllerIntegrationTest {
 
     @Test
     public void givenMissingQueryParamsThenSubcategoriesGetWillReturnBadRequest() {
-        ResponseEntity<PaginatedResponse<GetSubcategoriesQuery.GetSubcategoriesDTO>> response =
+        ResponseEntity<PaginatedResponse<GetSubcategoriesQueryHandler.GetSubcategoriesDTO>> response =
                 restTemplate.exchange(
                         String.format("/api/categories/%d/subcategories", EXISTING_CATEGORY_ID),
                         HttpMethod.GET,
@@ -211,7 +211,7 @@ public class SubcategoryControllerIntegrationTest {
 
     @Test
     public void givenCategoryDoesntExistThenSubcategoriesGetWillReturnNotFound() {
-        ResponseEntity<PaginatedResponse<GetSubcategoriesQuery.GetSubcategoriesDTO>> response =
+        ResponseEntity<PaginatedResponse<GetSubcategoriesQueryHandler.GetSubcategoriesDTO>> response =
                 restTemplate.exchange(
                         String.format("/api/categories/%d/subcategories/?page=0&limit=2", NON_EXISTING_CATEGORY_ID),
                         HttpMethod.GET,
@@ -223,7 +223,7 @@ public class SubcategoryControllerIntegrationTest {
 
     @Test
     public void givenPageDoesntExistThenSubcategoriesGetWillReturnEmpty() {
-        ResponseEntity<PaginatedResponse<GetSubcategoriesQuery.GetSubcategoriesDTO>> response =
+        ResponseEntity<PaginatedResponse<GetSubcategoriesQueryHandler.GetSubcategoriesDTO>> response =
                 restTemplate.exchange(
                         String.format("/api/categories/%d/subcategories?page=10&limit=2", EXISTING_CATEGORY_ID),
                         HttpMethod.GET,
@@ -242,7 +242,7 @@ public class SubcategoryControllerIntegrationTest {
 
     @Test
     public void givenValidCategoryIdAndValidSubcategoryIdThenSubcategoryGetWillSucceed() {
-        ResponseEntity<GetSubcategoryByIdQuery.GetSubcategoryByIdDTO> response =
+        ResponseEntity<GetSubcategoryByIdQueryHandler.GetSubcategoryByIdDTO> response =
                 restTemplate.exchange(
                         String.format(
                                 "/api/categories/%d/subcategories/%d",
@@ -250,7 +250,7 @@ public class SubcategoryControllerIntegrationTest {
                                 EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1),
                         HttpMethod.GET,
                         null,
-                        GetSubcategoryByIdQuery.GetSubcategoryByIdDTO.class);
+                        GetSubcategoryByIdQueryHandler.GetSubcategoryByIdDTO.class);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
@@ -263,7 +263,7 @@ public class SubcategoryControllerIntegrationTest {
 
     @Test
     public void givenSubcategoryDoesntExistThenSubcategoryGetWillReturnNotFound() {
-        ResponseEntity<GetSubcategoryByIdQuery.GetSubcategoryByIdDTO> response =
+        ResponseEntity<GetSubcategoryByIdQueryHandler.GetSubcategoryByIdDTO> response =
                 restTemplate.exchange(
                         String.format(
                                 "/api/categories/%d/subcategories/%d",
@@ -271,14 +271,14 @@ public class SubcategoryControllerIntegrationTest {
                                 NON_EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1),
                         HttpMethod.GET,
                         null,
-                        GetSubcategoryByIdQuery.GetSubcategoryByIdDTO.class);
+                        GetSubcategoryByIdQueryHandler.GetSubcategoryByIdDTO.class);
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
     @Test
     public void givenCategoryDoesntExistThenSubcategoryGetWillReturnNotFound() {
-        ResponseEntity<GetSubcategoryByIdQuery.GetSubcategoryByIdDTO> response =
+        ResponseEntity<GetSubcategoryByIdQueryHandler.GetSubcategoryByIdDTO> response =
                 restTemplate.exchange(
                         String.format(
                                 "/api/categories/%d/subcategories/%d",
@@ -286,7 +286,7 @@ public class SubcategoryControllerIntegrationTest {
                                 EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1),
                         HttpMethod.GET,
                         null,
-                        GetSubcategoryByIdQuery.GetSubcategoryByIdDTO.class);
+                        GetSubcategoryByIdQueryHandler.GetSubcategoryByIdDTO.class);
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }

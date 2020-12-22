@@ -4,8 +4,8 @@ import cultureapp.domain.category.command.AddCategoryUseCase;
 import cultureapp.domain.category.command.UpdateCategoryUseCase;
 import cultureapp.domain.category.exception.CategoryAlreadyExistsException;
 import cultureapp.domain.category.exception.CategoryNotFoundException;
-import cultureapp.domain.category.query.GetCategoriesQuery;
-import cultureapp.domain.category.query.GetCategoryByIdQuery;
+import cultureapp.domain.category.query.GetCategoriesQueryHandler;
+import cultureapp.domain.category.query.GetCategoryByIdQueryHandler;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +14,7 @@ import org.springframework.data.domain.Slice;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.validation.ConstraintViolationException;
 import java.util.Optional;
 
 import static cultureapp.common.CategoryTestData.*;
@@ -68,23 +69,31 @@ public class CategoryServiceIntegrationTest {
     */
     @Test
     public void givenCategoryIdExistsThenGetCategoryWillReturnNotEmpty() throws CategoryNotFoundException {
-        GetCategoryByIdQuery.GetCategoryByIdDTO result =
-                categoryService.getCategory(EXISTING_CATEGORY_ID);
+        GetCategoryByIdQueryHandler.GetCategoryByIdQuery query =
+                new GetCategoryByIdQueryHandler.GetCategoryByIdQuery(EXISTING_CATEGORY_ID);
+
+        GetCategoryByIdQueryHandler.GetCategoryByIdDTO result =
+                categoryService.handleGetCategory(query);
 
         assertEquals(result.getId(), EXISTING_CATEGORY_ID);
     }
 
-    @Test(expected = CategoryNotFoundException.class)
+    @Test(expected = ConstraintViolationException.class)
     public void givenCategoryIdIsInvalidThenGetCategoryWillFail() throws CategoryNotFoundException {
+        GetCategoryByIdQueryHandler.GetCategoryByIdQuery query =
+                new GetCategoryByIdQueryHandler.GetCategoryByIdQuery(INVALID_CATEGORY_ID);
 
-        categoryService.getCategory(INVALID_CATEGORY_ID);
+        categoryService.handleGetCategory(query);
     }
 
     @Test
     public void givenGetCategoriesForFirstPageExistThenGetCategoriesSucceed() {
         int page  = 0;
 
-        Slice<GetCategoriesQuery.GetCategoriesDTO> result = categoryService.getCategories(page, CATEGORY_PAGE_SIZE);
+        GetCategoriesQueryHandler.GetCategoriesQuery query =
+                new GetCategoriesQueryHandler.GetCategoriesQuery(page, CATEGORY_PAGE_SIZE);
+
+        Slice<GetCategoriesQueryHandler.GetCategoriesDTO> result = categoryService.handleGetCategories(query);
 
         assertEquals(result.getContent().size(), 2);
         assertNotEquals(result.getContent().size(), 0);
@@ -96,7 +105,10 @@ public class CategoryServiceIntegrationTest {
     public void givenGetCategoriesForLastPageExistThenGetCategoriesSucceed() {
         int page  = 1;
 
-        Slice<GetCategoriesQuery.GetCategoriesDTO> result = categoryService.getCategories(page, CATEGORY_PAGE_SIZE);
+        GetCategoriesQueryHandler.GetCategoriesQuery query =
+                new GetCategoriesQueryHandler.GetCategoriesQuery(page, CATEGORY_PAGE_SIZE);
+
+        Slice<GetCategoriesQueryHandler.GetCategoriesDTO> result = categoryService.handleGetCategories(query);
 
         assertEquals(result.getContent().size(), 2);
         assertNotEquals(result.getContent().size(), 0);

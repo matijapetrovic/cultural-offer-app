@@ -4,6 +4,7 @@ import cultureapp.domain.account.Account;
 import cultureapp.domain.account.AccountRepository;
 import cultureapp.domain.cultural_offer.CulturalOffer;
 import cultureapp.domain.cultural_offer.CulturalOfferRepository;
+import cultureapp.domain.cultural_offer.query.GetCulturalOfferLocationsQueryHandler;
 import cultureapp.domain.user.RegularUser;
 import cultureapp.domain.user.RegularUserRepository;
 import cultureapp.rest.ControllerIntegrationTestUtil;
@@ -13,15 +14,22 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 import static cultureapp.common.AuthenticationTestData.*;
+import static cultureapp.common.CategoryTestData.EXISTING_CATEGORY_ID;
+import static cultureapp.common.CategoryTestData.NON_EXISTING_CATEGORY_ID;
 import static cultureapp.common.CulturalOfferTestData.*;
+import static cultureapp.common.SubcategoryTestData.EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1;
+import static cultureapp.common.SubcategoryTestData.NON_EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1;
 import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
@@ -275,5 +283,94 @@ public class CulturalOfferControllerIntegrationTest {
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
 
+    }
+
+    // getLocations()
+
+    @Test
+    public void givenValidQueryParamsGetCulturalOfferLocationsWillReturnNotEmpty() {
+        UriComponentsBuilder builder = UriComponentsBuilder.fromPath("/api/cultural-offers/locations")
+                .queryParam("latitudeFrom", EXISTING_LATITUDE_RANGE_FROM)
+                .queryParam("latitudeTo", EXISTING_LATITUDE_RANGE_TO)
+                .queryParam("longitudeFrom", EXISTING_LONGITUDE_RANGE_FROM)
+                .queryParam("longitudeTo", EXISTING_LONGITUDE_RANGE_TO)
+                .queryParam("categoryId", EXISTING_CATEGORY_ID)
+                .queryParam("subcategoryId", EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1);
+
+        ResponseEntity<List<GetCulturalOfferLocationsQueryHandler.GetCulturalOfferLocationsDTO>> response =
+                restTemplate.exchange(
+                        builder.toUriString(),
+                        HttpMethod.GET,
+                        null,
+                        new ParameterizedTypeReference<>() {}
+                );
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody());
+        assertEquals(EXISTING_CULTURAL_OFFERS_FOR_SUBCATEGORY_1_1, response.getBody().size());
+    }
+
+    @Test
+    public void givenInvalidQueryParamsGetCulturalOfferLocationsWillReturnBadRequest() {
+        UriComponentsBuilder builder = UriComponentsBuilder.fromPath("/api/cultural-offers/locations")
+                .queryParam("latitudeFrom", INVALID_LATITUDE_RANGE_FROM)
+                .queryParam("latitudeTo", INVALID_LATITUDE_RANGE_TO)
+                .queryParam("longitudeFrom", EXISTING_LONGITUDE_RANGE_FROM)
+                .queryParam("longitudeTo", EXISTING_LONGITUDE_RANGE_TO)
+                .queryParam("categoryId", EXISTING_CATEGORY_ID)
+                .queryParam("subcategoryId", EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1);
+
+        ResponseEntity<Object> response =
+                restTemplate.exchange(
+                        builder.toUriString(),
+                        HttpMethod.GET,
+                        null,
+                        Object.class
+                );
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+    }
+
+    @Test
+    public void givenCategoryDoesntExistGetCulturalOfferLocationsWillReturnNotFound() {
+        UriComponentsBuilder builder = UriComponentsBuilder.fromPath("/api/cultural-offers/locations")
+                .queryParam("latitudeFrom", EXISTING_LATITUDE_RANGE_FROM)
+                .queryParam("latitudeTo", EXISTING_LATITUDE_RANGE_TO)
+                .queryParam("longitudeFrom", EXISTING_LONGITUDE_RANGE_FROM)
+                .queryParam("longitudeTo", EXISTING_LONGITUDE_RANGE_TO)
+                .queryParam("categoryId", NON_EXISTING_CATEGORY_ID);
+
+        ResponseEntity<Object> response =
+                restTemplate.exchange(
+                        builder.toUriString(),
+                        HttpMethod.GET,
+                        null,
+                        Object.class
+                );
+
+
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
+
+    @Test
+    public void givenSubcategoryDoesntExistGetCulturalOfferLocationsWillReturnNotFound() {
+        UriComponentsBuilder builder = UriComponentsBuilder.fromPath("/api/cultural-offers/locations")
+                .queryParam("latitudeFrom", EXISTING_LATITUDE_RANGE_FROM)
+                .queryParam("latitudeTo", EXISTING_LATITUDE_RANGE_TO)
+                .queryParam("longitudeFrom", EXISTING_LONGITUDE_RANGE_FROM)
+                .queryParam("longitudeTo", EXISTING_LONGITUDE_RANGE_TO)
+                .queryParam("categoryId", EXISTING_CATEGORY_ID)
+                .queryParam("subcategoryId", NON_EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1);
+
+        ResponseEntity<Object> response =
+                restTemplate.exchange(
+                        builder.toUriString(),
+                        HttpMethod.GET,
+                        null,
+                        Object.class
+                );
+
+
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 }

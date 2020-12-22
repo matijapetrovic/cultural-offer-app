@@ -1,19 +1,37 @@
 package cultureapp.domain.review.query;
 
+import cultureapp.domain.core.validation.SelfValidating;
 import cultureapp.domain.image.Image;
 import cultureapp.domain.review.Review;
 import cultureapp.domain.review.exception.ReviewNotFoundException;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.*;
 
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public interface GetReviewByIdQuery {
-    GetReviewByIdDTO getReview(@Positive Long id, @Positive Long culturalOfferId) throws ReviewNotFoundException;
+public interface GetReviewByIdQueryHandler {
+    GetReviewByIdDTO handleGetReview(GetReviewByIdQuery query) throws ReviewNotFoundException;
+
+    @Value
+    @EqualsAndHashCode(callSuper = false)
+    class GetReviewByIdQuery extends SelfValidating<GetReviewByIdQuery> {
+        @Positive
+        Long id;
+
+        @Positive
+        Long culturalOfferId;
+
+        public GetReviewByIdQuery(
+                Long id,
+                Long culturalOfferId
+        ) {
+            this.id = id;
+            this.culturalOfferId = culturalOfferId;
+            this.validateSelf();
+        }
+    }
 
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @Getter

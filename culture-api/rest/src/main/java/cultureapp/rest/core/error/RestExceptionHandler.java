@@ -3,6 +3,7 @@ import cultureapp.domain.account.exception.AccountAlreadyActivatedException;
 import cultureapp.domain.account.exception.AccountAlreadyExistsException;
 import cultureapp.domain.account.exception.AccountNotFoundException;
 import cultureapp.domain.authentication.exception.AccountNotActivatedException;
+import cultureapp.domain.cultural_offer.exception.CulturalOfferLocationsFilterException;
 import cultureapp.domain.user.exception.AdminNotFoundException;
 import cultureapp.domain.category.exception.CategoryAlreadyExistsException;
 import cultureapp.domain.category.exception.CategoryNotFoundException;
@@ -30,6 +31,14 @@ import java.io.IOException;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice("cultureapp.rest")
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
+    @ExceptionHandler(CulturalOfferLocationsFilterException.class)
+    protected ResponseEntity<Object> handleCulturalOfferLocationsFilterException(
+            CulturalOfferLocationsFilterException ex
+    ) {
+        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getMessage(), ex);
+        return buildResponse(apiError);
+    }
+
     @ExceptionHandler(SubscriptionNotFoundException.class)
     protected ResponseEntity<Object> handleSubscriptionNotFound(
             SubscriptionNotFoundException ex) {
