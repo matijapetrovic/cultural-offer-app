@@ -1,5 +1,6 @@
 package cultureapp.domain;
 
+import cultureapp.domain.authentication.LoginServiceIntegrationTest;
 import cultureapp.domain.review.ReviewServiceIntegrationTest;
 import cultureapp.domain.cultural_offer.service.GetSubscriptionsForUserServiceIntegrationTest;
 import cultureapp.domain.cultural_offer.service.SubscribeToCulturalOfferNewsServiceIntegrationTest;
@@ -16,7 +17,8 @@ import org.junit.runners.Suite;
         GetSubscriptionsForUserServiceIntegrationTest.class,
         SubscribeToCulturalOfferNewsServiceIntegrationTest.class,
         UnsubscribeFromCulturalOfferNewsServiceIntegrationTest.class,
-        CategoryServiceIntegrationTest.class
+        CategoryServiceIntegrationTest.class,
+        LoginServiceIntegrationTest.class
 })
 public class CultureAppServiceIntegrationTests {
 }

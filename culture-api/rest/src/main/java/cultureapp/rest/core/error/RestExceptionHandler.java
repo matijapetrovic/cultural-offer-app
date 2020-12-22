@@ -1,5 +1,8 @@
 package cultureapp.rest.core.error;
+import cultureapp.domain.account.exception.AccountAlreadyActivatedException;
 import cultureapp.domain.account.exception.AccountAlreadyExistsException;
+import cultureapp.domain.account.exception.AccountNotFoundException;
+import cultureapp.domain.authentication.exception.AccountNotActivatedException;
 import cultureapp.domain.user.exception.AdminNotFoundException;
 import cultureapp.domain.category.exception.CategoryAlreadyExistsException;
 import cultureapp.domain.category.exception.CategoryNotFoundException;
@@ -77,8 +80,29 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(AccountAlreadyExistsException.class)
-    protected ResponseEntity<Object> handleUserAlreadyExists(
+    protected ResponseEntity<Object> handleAccountAlreadyExists(
             AccountAlreadyExistsException ex) {
+        ApiError apiError = new ApiError(HttpStatus.CONFLICT, ex.getMessage(), ex);
+        return buildResponse(apiError);
+    }
+
+    @ExceptionHandler(AccountNotActivatedException.class)
+    protected ResponseEntity<Object> handleAccountNotActivated(
+            AccountNotActivatedException ex) {
+        ApiError apiError = new ApiError(HttpStatus.CONFLICT, ex.getMessage(), ex);
+        return buildResponse(apiError);
+    }
+
+    @ExceptionHandler(AccountNotFoundException.class)
+    protected ResponseEntity<Object> handleAccountNotFound(
+            AccountNotFoundException ex) {
+        ApiError apiError = new ApiError(HttpStatus.CONFLICT, ex.getMessage(), ex);
+        return buildResponse(apiError);
+    }
+
+    @ExceptionHandler(AccountAlreadyActivatedException.class)
+    protected ResponseEntity<Object> handleAccountAlreadyActivated(
+            AccountAlreadyActivatedException ex) {
         ApiError apiError = new ApiError(HttpStatus.CONFLICT, ex.getMessage(), ex);
         return buildResponse(apiError);
     }

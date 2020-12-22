@@ -4,6 +4,7 @@ insert into authority (name) values ('ROLE_USER');
 insert into account (email, password, activated) values ('admin1@gmail.com', '$2a$10$o0TztuG9xNJB9uB0M9PNDuiU2c5EJPs/8M82eJIOfZBX9i9vgfSvu', true);
 insert into account (email, password, activated) values ('user1@gmail.com', '$2a$10$o0TztuG9xNJB9uB0M9PNDuiU2c5EJPs/8M82eJIOfZBX9i9vgfSvu', true);
 insert into account (email, password, activated) values ('user2@gmail.com', '$2a$10$o0TztuG9xNJB9uB0M9PNDuiU2c5EJPs/8M82eJIOfZBX9i9vgfSvu', true);
+insert into account (email, password, activated) values ('user3@gmail.com', '$2a$10$o0TztuG9xNJB9uB0M9PNDuiU2c5EJPs/8M82eJIOfZBX9i9vgfSvu', false);
 
 insert into account_authority (account_id, authority_id) values (1, 1);
 insert into account_authority (account_id, authority_id) values (2, 2);
