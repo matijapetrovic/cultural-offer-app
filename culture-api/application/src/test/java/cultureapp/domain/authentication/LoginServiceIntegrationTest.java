@@ -1,7 +1,6 @@
 package cultureapp.domain.authentication;
 
 import static cultureapp.common.AuthenticationTestData.*;
-import static cultureapp.common.RegularUserTestData.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 

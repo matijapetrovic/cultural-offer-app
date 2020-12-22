@@ -7,6 +7,7 @@ import cultureapp.domain.cultural_offer.service.SubscribeToCulturalOfferNewsServ
 import cultureapp.domain.cultural_offer.service.UnsubscribeFromCulturalOfferNewsServiceIntegrationTest;
 import cultureapp.domain.category.CategoryServiceIntegrationTest;
 import cultureapp.domain.subcategory.SubcategoryServiceIntegrationTest;
+import cultureapp.domain.user.RegularUserServiceIntegrationTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -18,7 +19,8 @@ import org.junit.runners.Suite;
         SubscribeToCulturalOfferNewsServiceIntegrationTest.class,
         UnsubscribeFromCulturalOfferNewsServiceIntegrationTest.class,
         CategoryServiceIntegrationTest.class,
-        LoginServiceIntegrationTest.class
+        LoginServiceIntegrationTest.class,
+        RegularUserServiceIntegrationTest.class
 })
 public class CultureAppServiceIntegrationTests {
 }

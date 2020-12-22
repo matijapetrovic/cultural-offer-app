@@ -21,6 +21,12 @@ public class RegularUserRepositoryIntegrationTest {
     @Autowired
     private RegularUserRepository regularUserRepository;
 
+    /*
+    -----------------------
+    findByAccountIdWithSubscriptions
+    -----------------------
+    */
+
     @Test
     public void givenUserExistsFindWillReturnNotEmpty() {
         Optional<RegularUser> regularUser = regularUserRepository.findByAccountIdWithSubscriptions(3L);
@@ -33,4 +39,40 @@ public class RegularUserRepositoryIntegrationTest {
         assertTrue(regularUser.isEmpty());
     }
 
+
+    /*
+    -----------------------
+    findById
+    -----------------------
+    */
+
+    @Test
+    public void givenUserExistsFindByIdWillReturnNotEmpty() {
+        Optional<RegularUser> regularUser = regularUserRepository.findById(1L);
+        assertFalse(regularUser.isEmpty());
+    }
+
+    @Test
+    public void givenUserDoesntExistsFindByIdWillReturnNotEmpty() {
+        Optional<RegularUser> regularUser = regularUserRepository.findById(5L);
+        assertTrue(regularUser.isEmpty());
+    }
+
+    /*
+    -----------------------
+    findByEmail
+    -----------------------
+    */
+
+    @Test
+    public void givenUserExistsFindByEmailWillReturnNotEmpty() {
+        Optional<RegularUser> regularUser = regularUserRepository.findByAccountEmail(EXISTING_REGULAR_USER_EMAIL);
+        assertFalse(regularUser.isEmpty());
+    }
+
+    @Test
+    public void givenUserDoesntExistsFindByEmailWillReturnNotEmpty() {
+        Optional<RegularUser> regularUser = regularUserRepository.findByAccountEmail(NON_EXISTING_REGULAR_USER_EMAIL);
+        assertTrue(regularUser.isEmpty());
+    }
 }
