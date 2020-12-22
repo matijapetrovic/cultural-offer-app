@@ -9,6 +9,7 @@ import cultureapp.domain.authentication.command.LoginUseCase;
 import cultureapp.domain.authentication.exception.AccountNotActivatedException;
 import cultureapp.domain.user.command.RegisterRegularUserUseCase;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -34,12 +35,13 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public void register(@RequestBody RegisterRequest request)
+    public ResponseEntity<Void> register(@RequestBody RegisterRequest request)
             throws AccountAlreadyExistsException {
         RegisterRegularUserUseCase.RegisterRegularUserCommand command =
                 new RegisterRegularUserUseCase.RegisterRegularUserCommand(
                         request.getFirstName(), request.getLastName(), request.getEmail(), request.getPassword());
         registerRegularUserUseCase.addRegularUser(command);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
 //    @PostMapping(value = "/refresh")
@@ -60,27 +62,28 @@ public class AuthenticationController {
 //        }
 //    }
 
-    @PostMapping("/password")
-    public ResponseEntity<Map<String, String>> changePassword(@RequestBody PasswordRequest request)
-            throws AccountNotFoundException {
-        ChangePasswordUseCase.ChangePasswordCommand command =
-                new ChangePasswordUseCase.ChangePasswordCommand(request.getOldPassword(), request.getNewPassword());
-        boolean changed = changePasswordUseCase.changePassword(command);
-        if (changed) {
-            return ResponseEntity
-                    .accepted()
-                    .body(Map.of("message", "Password successfully changed"));
-        }
-        else {
-            return ResponseEntity
-                    .badRequest()
-                    .body(Map.of("message", "New password cannot be same as old password"));
-        }
-    }
+//    @PostMapping("/password")
+//    public ResponseEntity<Map<String, String>> changePassword(@RequestBody PasswordRequest request)
+//            throws AccountNotFoundException {
+//        ChangePasswordUseCase.ChangePasswordCommand command =
+//                new ChangePasswordUseCase.ChangePasswordCommand(request.getOldPassword(), request.getNewPassword());
+//        boolean changed = changePasswordUseCase.changePassword(command);
+//        if (changed) {
+//            return ResponseEntity
+//                    .accepted()
+//                    .body(Map.of("message", "Password successfully changed"));
+//        }
+//        else {
+//            return ResponseEntity
+//                    .badRequest()
+//                    .body(Map.of("message", "New password cannot be same as old password"));
+//        }
+//    }
 
     @PostMapping("/activate/{accountId}")
-    public void activate(@PathVariable Long accountId)
+    public ResponseEntity<Void> activate(@PathVariable Long accountId)
             throws AccountNotFoundException, AccountAlreadyActivatedException {
         activateAccountUseCase.activateAccount(accountId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
