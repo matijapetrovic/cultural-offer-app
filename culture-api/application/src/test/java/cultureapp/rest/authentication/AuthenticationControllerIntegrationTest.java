@@ -63,7 +63,7 @@ public class AuthenticationControllerIntegrationTest {
         ResponseEntity<LoginUseCase.LoginDTO> response =
                 restTemplate.postForEntity("/api/auth/login", request, LoginUseCase.LoginDTO.class);
 
-        assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
+        assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
     }
 
     @Test

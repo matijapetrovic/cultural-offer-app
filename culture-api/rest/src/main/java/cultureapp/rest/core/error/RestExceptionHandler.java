@@ -98,7 +98,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(AccountNotActivatedException.class)
     protected ResponseEntity<Object> handleAccountNotActivated(
             AccountNotActivatedException ex) {
-        ApiError apiError = new ApiError(HttpStatus.CONFLICT, ex.getMessage(), ex);
+        ApiError apiError = new ApiError(HttpStatus.UNAUTHORIZED, ex.getMessage(), ex);
         return buildResponse(apiError);
     }
 
