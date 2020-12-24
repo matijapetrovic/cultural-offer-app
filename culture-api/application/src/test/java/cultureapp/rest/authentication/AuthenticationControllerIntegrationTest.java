@@ -85,7 +85,7 @@ public class AuthenticationControllerIntegrationTest {
         RegisterRequest request = new RegisterRequest(
             VALID_REGULAR_USER_FIRST_NAME,
                 VALID_REGULAR_USER_LAST_NAME,
-                NON_EXISTING_ADMINISTRATOR_EMAIL,
+                NON_EXISTING_REGULAR_USER_EMAIL,
                 VALID_PASSWORD
         );
         ResponseEntity<Void> response =
@@ -93,14 +93,14 @@ public class AuthenticationControllerIntegrationTest {
 
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
 
-        Optional<RegularUser> regularUserOptional = regularUserRepository.findByAccountEmail(NON_EXISTING_ADMINISTRATOR_EMAIL);
+        Optional<RegularUser> regularUserOptional = regularUserRepository.findByAccountEmail(NON_EXISTING_REGULAR_USER_EMAIL);
 
         assertFalse(regularUserOptional.isEmpty());
 
         RegularUser regularUser = regularUserOptional.get();
         assertEquals(VALID_REGULAR_USER_FIRST_NAME, regularUser.getFirstName());
         assertEquals(VALID_REGULAR_USER_LAST_NAME, regularUser.getLastName());
-        assertEquals(NON_EXISTING_ADMINISTRATOR_EMAIL, regularUser.getEmail());
+        assertEquals(NON_EXISTING_REGULAR_USER_EMAIL, regularUser.getEmail());
 
         regularUserRepository.delete(regularUser);
     }
