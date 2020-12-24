@@ -44,42 +44,6 @@ public class AuthenticationController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-//    @PostMapping(value = "/refresh")
-//    public ResponseEntity<UserTokenStateDTO> refreshAuthenticationToken(HttpServletRequest request) {
-//
-//        String token = tokenUtils.getToken(request);
-//        String username = this.tokenUtils.getUsernameFromToken(token);
-//        User user = (User) this.userDetailsService.loadUserByUsername(username);
-//
-//        if (this.tokenUtils.canTokenBeRefreshed(token, user.getLastPasswordResetDate())) {
-//            String refreshedToken = tokenUtils.refreshToken(token);
-//            int expiresIn = tokenUtils.getExpiredIn();
-//
-//            return ResponseEntity.ok(new UserTokenStateDTO(refreshedToken, expiresIn));
-//        } else {
-//            UserTokenStateDTO userTokenState = new UserTokenStateDTO();
-//            return ResponseEntity.badRequest().body(userTokenState);
-//        }
-//    }
-
-//    @PostMapping("/password")
-//    public ResponseEntity<Map<String, String>> changePassword(@RequestBody PasswordRequest request)
-//            throws AccountNotFoundException {
-//        ChangePasswordUseCase.ChangePasswordCommand command =
-//                new ChangePasswordUseCase.ChangePasswordCommand(request.getOldPassword(), request.getNewPassword());
-//        boolean changed = changePasswordUseCase.changePassword(command);
-//        if (changed) {
-//            return ResponseEntity
-//                    .accepted()
-//                    .body(Map.of("message", "Password successfully changed"));
-//        }
-//        else {
-//            return ResponseEntity
-//                    .badRequest()
-//                    .body(Map.of("message", "New password cannot be same as old password"));
-//        }
-//    }
-
     @PostMapping("/activate/{accountId}")
     public ResponseEntity<Void> activate(@PathVariable Long accountId)
             throws AccountNotFoundException, AccountAlreadyActivatedException {
