@@ -5,6 +5,10 @@ public class CulturalOfferTestData {
     public static final Double VALID_CULTURAL_OFFER_LATITUDE = 1.0;
     public static final String VALID_CULTURAL_OFFER_ADDRESS = "Non-empty-string";
 
+    public static final Double INVALID_CULTURAL_OFFER_LONGITUDE = 400.0;
+    public static final Double INVALID_CULTURAL_OFFER_LATITUDE = 400.0;
+    public static final String INVALID_CULTURAL_OFFER_DESCRIPTION = "";
+
     public static Long EXISTING_CULTURAL_OFFER_ID = 1L;
     public static Long NON_EXISTING_CULTURAL_OFFER_ID = 5L;
     public static final String EXISTING_CULTURAL_OFFER_NAME = "CulturalOffer1";
@@ -53,4 +57,9 @@ public class CulturalOfferTestData {
 
     public static final Long INVALID_FILTER_CATEGORY_ID = null;
     public static final Long INVALID_FILTER_SUBCATEGORY_ID = 1L;
+
+    public static final Integer VALID_PAGE_NUMBER = 0;
+    public static final Integer VALID_LIMIT_NUMBER = 2;
+    public static final Integer INVALID_PAGE_NUMBER = -1;
+    public static final Integer INVALID_LIMIT_NUMBER = 0;
 }

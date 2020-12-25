@@ -4,7 +4,6 @@ import cultureapp.domain.image.Image;
 import cultureapp.domain.user.RegularUser;
 import cultureapp.domain.subcategory.Subcategory;
 import lombok.*;
-import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import java.util.List;
@@ -66,6 +65,17 @@ public class CulturalOffer {
                 regularUsers,
                 subcategory,
                 false);
+    }
+
+    public static CulturalOffer of(
+            String name,
+            String description,
+            Location location,
+            List<Image> images,
+            Set<RegularUser> regularUsers,
+            Subcategory subcategory
+    ) {
+        return withId(null, name, description, location, images, regularUsers, subcategory);
     }
 
     public void archive() {

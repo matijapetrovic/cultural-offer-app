@@ -17,7 +17,7 @@ public class DeleteCulturalOfferService implements DeleteCulturalOfferUseCase {
     @Override
     public void deleteCulturalOffer(@Positive Long id) throws CulturalOfferNotFoundException {
         // TODO: ERROR -> should be AndArchivedFalse and ALL delete methods should be idempotent
-        CulturalOffer offer = repository.findById(id)
+        CulturalOffer offer = repository.findByIdAndArchivedFalse(id)
                 .orElseThrow(() -> new CulturalOfferNotFoundException(id));
 
         offer.archive();

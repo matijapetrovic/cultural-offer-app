@@ -7,6 +7,7 @@ import cultureapp.domain.cultural_offer.CulturalOffer;
 import cultureapp.domain.cultural_offer.CulturalOfferRepository;
 import cultureapp.domain.cultural_offer.exception.CulturalOfferLocationsFilterException;
 import cultureapp.domain.cultural_offer.query.GetCulturalOfferLocationsQueryHandler;
+import cultureapp.domain.cultural_offer.service.GetCulturalOfferLocationsService;
 import cultureapp.domain.subcategory.Subcategory;
 import cultureapp.domain.subcategory.SubcategoryRepository;
 import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
