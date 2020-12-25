@@ -35,7 +35,7 @@ public class NewsRepositoryIntegrationTest {
      * news id           valid
      * cultural offer id valid
      * news              not archived
-     * expected          success
+     * expected          add new news
      */
     @Test
     public void whenIdAndCulturalOfferIdAreValidAndNotArchivedThenFindShouldSucceed() {
@@ -106,7 +106,7 @@ public class NewsRepositoryIntegrationTest {
      * testing find all
      * cultural offer id  valid
      * page               valid - 1
-     * expected           success
+     * expected           non empty result
      */
     @Test
     public void whenCulturalOfferIdIsValidAndPageIsFirstThenFindShouldReturnNonEmpty() {

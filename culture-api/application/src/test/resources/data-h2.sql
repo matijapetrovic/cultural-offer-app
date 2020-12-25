@@ -6,14 +6,22 @@ insert into account (email, password, activated) values ('user1@gmail.com', '$2a
 insert into account (email, password, activated) values ('user2@gmail.com', '$2a$10$o0TztuG9xNJB9uB0M9PNDuiU2c5EJPs/8M82eJIOfZBX9i9vgfSvu', true);
 insert into account (email, password, activated) values ('user3@gmail.com', '$2a$10$o0TztuG9xNJB9uB0M9PNDuiU2c5EJPs/8M82eJIOfZBX9i9vgfSvu', false);
 
+insert into account (email, password, activated) values ('admin2@gmail.com', '$2a$10$o0TztuG9xNJB9uB0M9PNDuiU2c5EJPs/8M82eJIOfZBX9i9vgfSvu', true);
+
+
 insert into account_authority (account_id, authority_id) values (1, 1);
 insert into account_authority (account_id, authority_id) values (2, 2);
 insert into account_authority (account_id, authority_id) values (3, 2);
+
+insert into account_authority (account_id, authority_id) values (5, 1);
+
+
 
 insert into regular_user (id, first_name, last_name, account_id) values (nextval('user_id_seq'), 'firstName1', 'lastName1', 2);
 insert into regular_user (id, first_name, last_name, account_id) values (nextval('user_id_seq'), 'firstName2', 'lastName2', 3);
 
 insert into administrator (id, first_name, last_name, account_id) values (nextval('user_id_seq'), 'adminName1', 'adminSurname2', 1);
+insert into administrator (id, first_name, last_name, account_id) values (nextval('user_id_seq'), 'adminName2', 'adminSurname2', 1);
 
 
 insert into category (name, archived) values ('Category1', false);
@@ -55,5 +63,31 @@ insert into review (id, cultural_offer_id, comment, rating, reply_cultural_offer
 insert into review (id, cultural_offer_id, comment, rating, reply_cultural_offer_id, reply_id, archived, user_id, date) values (nextval('review_id_seq'), 1, 'comment', 3.22, null, null, false, 2, '2020-05-24 08:34:34');
 insert into review (id, cultural_offer_id, comment, rating, reply_cultural_offer_id, reply_id, archived, user_id, date) values (nextval('review_id_seq'), 1, 'comment', 4.55, null, null, false, 1, '2020-02-05 08:34:34');
 
+
 insert into image (url) values ('http://res.cloudinary.com/culture-app/image/upload/v1607733078/us15fniqaebg9n5w6rp0.jpg');
 insert into image (url) values ('http://res.cloudinary.com/culture-app/image/upload/v1607733081/lm4lerjb1z6ufk4w1dev.jpg');
+
+-- IMAGES FOR NEWS
+---------------------
+-- Free News Images
+insert into image (url) values ('http://res.cloudinary.com/culture-app/image/upload/v1607733078/us15fniqaebg9n5w6rp0.jpg');
+insert into image (url) values ('http://res.cloudinary.com/culture-app/image/upload/v1607733081/lm4lerjb1z6ufk4w1dev.jpg');
+
+
+insert into image (url) values ('http://res.cloudinary.com/culture-app/image/upload/v1607733078/us15fniqaebg9n5w6rp0.jpg');
+insert into image (url) values ('http://res.cloudinary.com/culture-app/image/upload/v1607733081/lm4lerjb1z6ufk4w1dev.jpg');
+insert into image (url) values ('http://res.cloudinary.com/culture-app/image/upload/v1607733078/us15fniqaebg9n5w6rp0.jpg');
+insert into image (url) values ('http://res.cloudinary.com/culture-app/image/upload/v1607733081/lm4lerjb1z6ufk4w1dev.jpg');
+
+
+-- Taken News Images
+insert into image (url) values ('http://res.cloudinary.com/culture-app/image/upload/v1607733078/us15fniqaebg9n5w6rp0.jpg');
+insert into image (url) values ('http://res.cloudinary.com/culture-app/image/upload/v1607733081/lm4lerjb1z6ufk4w1dev.jpg');
+
+
+
+insert into news_images (news_id, news_cultural_offer_id, images_id) values (1, 1, 9);
+insert into news_images (news_id, news_cultural_offer_id, images_id) values (2, 1, 10);
+---------------------
+---------------------
+
