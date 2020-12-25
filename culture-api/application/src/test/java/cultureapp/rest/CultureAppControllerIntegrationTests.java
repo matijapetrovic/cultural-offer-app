@@ -1,6 +1,7 @@
 package cultureapp.rest;
 
 import cultureapp.rest.authentication.AuthenticationControllerIntegrationTest;
+import cultureapp.rest.news.NewsControllerIntegrationTest;
 import cultureapp.rest.review.ReviewControllerIntegrationTest;
 import cultureapp.rest.cultural_offer.CulturalOfferControllerIntegrationTest;
 import cultureapp.rest.category.CategoryControllerIntegrationTest;
@@ -16,7 +17,8 @@ import org.junit.runners.Suite;
         CulturalOfferControllerIntegrationTest.class,
         SubscriptionControllerIntegrationTest.class,
         CategoryControllerIntegrationTest.class,
-        AuthenticationControllerIntegrationTest.class
+        AuthenticationControllerIntegrationTest.class,
+        NewsControllerIntegrationTest.class
 })
 public class CultureAppControllerIntegrationTests {
 }
