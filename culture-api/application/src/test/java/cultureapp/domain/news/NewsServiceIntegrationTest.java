@@ -1,9 +1,7 @@
 package cultureapp.domain.news;
 
-import cultureapp.domain.cultural_offer.CulturalOfferRepository;
 import cultureapp.domain.cultural_offer.exception.CulturalOfferNotFoundException;
 import cultureapp.domain.image.Image;
-import cultureapp.domain.image.ImageRepository;
 import cultureapp.domain.image.exception.ImageNotFoundException;
 import cultureapp.domain.news.command.AddNewsUseCase;
 import cultureapp.domain.news.command.UpdateNewsUseCase;
@@ -12,7 +10,6 @@ import cultureapp.domain.news.exception.NewsNotFoundException;
 import cultureapp.domain.news.query.GetNewsByIdQueryHandler;
 import cultureapp.domain.news.query.GetNewsForOfferQueryHandler;
 import cultureapp.domain.user.Administrator;
-import cultureapp.domain.user.AdministratorRepository;
 import cultureapp.domain.user.exception.AdminNotFoundException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -57,15 +54,6 @@ public class NewsServiceIntegrationTest {
 
     @Autowired
     private NewsRepository newsRepository;
-
-    @Autowired
-    private CulturalOfferRepository culturalOfferRepository;
-
-    @Autowired
-    private AdministratorRepository administratorRepository;
-
-    @Autowired
-    private ImageRepository imageRepository;
 
     /*
     * add news
@@ -162,7 +150,7 @@ public class NewsServiceIntegrationTest {
      * expected          exception
      */
     @Test(expected = ConstraintViolationException.class)
-    public void givenBlankTitleThenAddNewsShouldFail() throws AdminNotFoundException, ImageNotFoundException, CulturalOfferNotFoundException, NewsAlreadyExistException {
+    public void givenBlankTitleThenAddNewsShouldFail() {
         AddNewsUseCase.AddNewsCommand command = new AddNewsUseCase.AddNewsCommand(
                 EXISTING_CULTURAL_OFFER_ID,
                 INVALID_NEWS_TITLE,
@@ -181,7 +169,7 @@ public class NewsServiceIntegrationTest {
      * expected          exception
      */
     @Test(expected = ConstraintViolationException.class)
-    public void givenNullTitleThenAddNewsShouldFail() throws AdminNotFoundException, ImageNotFoundException, CulturalOfferNotFoundException, NewsAlreadyExistException {
+    public void givenNullTitleThenAddNewsShouldFail() {
         AddNewsUseCase.AddNewsCommand command = new AddNewsUseCase.AddNewsCommand(
                 EXISTING_CULTURAL_OFFER_ID,
                 null,
@@ -199,7 +187,7 @@ public class NewsServiceIntegrationTest {
      * expected          exception
      */
     @Test(expected = ConstraintViolationException.class)
-    public void givenNullLocalDateTimeThenAddNewsShouldFail() throws AdminNotFoundException, ImageNotFoundException, CulturalOfferNotFoundException, NewsAlreadyExistException {
+    public void givenNullLocalDateTimeThenAddNewsShouldFail() {
         AddNewsUseCase.AddNewsCommand command = new AddNewsUseCase.AddNewsCommand(
                 EXISTING_CULTURAL_OFFER_ID,
                 VALID_NEWS_TITLE,
@@ -236,7 +224,7 @@ public class NewsServiceIntegrationTest {
      * expected          exception
      */
     @Test(expected = ConstraintViolationException.class)
-    public void givenNullAdminIdThenAddNewsShouldFail() throws AdminNotFoundException, ImageNotFoundException, CulturalOfferNotFoundException, NewsAlreadyExistException {
+    public void givenNullAdminIdThenAddNewsShouldFail() {
         AddNewsUseCase.AddNewsCommand command = new AddNewsUseCase.AddNewsCommand(
                 EXISTING_CULTURAL_OFFER_ID,
                 VALID_NEWS_TITLE,
@@ -254,7 +242,7 @@ public class NewsServiceIntegrationTest {
      * expected          exception
      */
     @Test(expected = ConstraintViolationException.class)
-    public void givenInvalidNewsTextThenAddNewsShouldFail() throws AdminNotFoundException, ImageNotFoundException, CulturalOfferNotFoundException, NewsAlreadyExistException {
+    public void givenInvalidNewsTextThenAddNewsShouldFail() {
         AddNewsUseCase.AddNewsCommand command = new AddNewsUseCase.AddNewsCommand(
                 EXISTING_CULTURAL_OFFER_ID,
                 VALID_NEWS_TITLE,
@@ -272,7 +260,7 @@ public class NewsServiceIntegrationTest {
      * expected          exception
      */
     @Test(expected = ConstraintViolationException.class)
-    public void givenNullNewsTextThenAddNewsShouldFail() throws AdminNotFoundException, ImageNotFoundException, CulturalOfferNotFoundException, NewsAlreadyExistException {
+    public void givenNullNewsTextThenAddNewsShouldFail() {
         AddNewsUseCase.AddNewsCommand command = new AddNewsUseCase.AddNewsCommand(
                 EXISTING_CULTURAL_OFFER_ID,
                 VALID_NEWS_TITLE,
@@ -394,15 +382,13 @@ public class NewsServiceIntegrationTest {
      * expected                  exception
      */
     @Test(expected = ConstraintViolationException.class)
-    public void givenNullOfferIdAndFirstPageThenGetAllShouldFail() throws CulturalOfferNotFoundException {
+    public void givenNullOfferIdAndFirstPageThenGetAllShouldFail() {
         GetNewsForOfferQueryHandler.GetNewsForOfferQuery query =
                 new GetNewsForOfferQueryHandler.GetNewsForOfferQuery(
                         null,
                         FIRST_PAGE,
                         SIZE
                 );
-
-        Slice<GetNewsForOfferQueryHandler.GetNewsForOfferDTO> result = newsService.handleGetNewsForOffer(query);
     }
 
     /*
@@ -411,15 +397,13 @@ public class NewsServiceIntegrationTest {
      * expected                  exception
      */
     @Test(expected = ConstraintViolationException.class)
-    public void givenNullPageThenGetAllShouldFail() throws CulturalOfferNotFoundException {
+    public void givenNullPageThenGetAllShouldFail() {
         GetNewsForOfferQueryHandler.GetNewsForOfferQuery query =
                 new GetNewsForOfferQueryHandler.GetNewsForOfferQuery(
                         EXISTING_CULTURAL_OFFER_ID,
                         null,
                         SIZE
                 );
-
-        Slice<GetNewsForOfferQueryHandler.GetNewsForOfferDTO> result = newsService.handleGetNewsForOffer(query);
     }
 
     /*
@@ -428,15 +412,13 @@ public class NewsServiceIntegrationTest {
      * expected                  exception
      */
     @Test(expected = ConstraintViolationException.class)
-    public void givenNullSizeThenGetAllShouldFail() throws CulturalOfferNotFoundException {
+    public void givenNullSizeThenGetAllShouldFail() {
         GetNewsForOfferQueryHandler.GetNewsForOfferQuery query =
                 new GetNewsForOfferQueryHandler.GetNewsForOfferQuery(
                         EXISTING_CULTURAL_OFFER_ID,
                         FIRST_PAGE,
                         null
                 );
-
-        Slice<GetNewsForOfferQueryHandler.GetNewsForOfferDTO> result = newsService.handleGetNewsForOffer(query);
     }
 
     //////////////////////////////////////////////////////////////////////////////////////
@@ -501,14 +483,12 @@ public class NewsServiceIntegrationTest {
      * expected                  exception
      */
     @Test(expected = ConstraintViolationException.class)
-    public void givenNullOfferIdThenGetShouldRaiseException() throws NewsNotFoundException {
+    public void givenNullOfferIdThenGetShouldRaiseException() {
         GetNewsByIdQueryHandler.GetNewsByIdQuery query =
                 new GetNewsByIdQueryHandler.GetNewsByIdQuery(
                         EXISTING_NEWS_ID_1_FOR_OFFER_ID_1,
                         null
                 );
-
-        GetNewsByIdQueryHandler.GetNewsByIdDTO result = newsService.handleGetNewsById(query);
     }
 
     /*
@@ -517,14 +497,12 @@ public class NewsServiceIntegrationTest {
      * expected                  exception
      */
     @Test(expected = ConstraintViolationException.class)
-    public void givenNullNewsIdThenGetShouldRaiseException() throws NewsNotFoundException {
+    public void givenNullNewsIdThenGetShouldRaiseException() {
         GetNewsByIdQueryHandler.GetNewsByIdQuery query =
                 new GetNewsByIdQueryHandler.GetNewsByIdQuery(
                         null,
                         EXISTING_CULTURAL_OFFER_ID
                 );
-
-        GetNewsByIdQueryHandler.GetNewsByIdDTO result = newsService.handleGetNewsById(query);
     }
 
     //////////////////////////////////////////////////////////////////////////////////////
@@ -586,7 +564,7 @@ public class NewsServiceIntegrationTest {
      * expected                  exception
      */
     @Test(expected = ConstraintViolationException.class)
-    public void givenInvalidNewsTitleThenUpdateShouldRaiseException() throws NewsNotFoundException, ImageNotFoundException, AdminNotFoundException, CulturalOfferNotFoundException, NewsAlreadyExistException {
+    public void givenInvalidNewsTitleThenUpdateShouldRaiseException() {
         UpdateNewsUseCase.UpdateNewsCommand command =
                 new UpdateNewsUseCase.UpdateNewsCommand(
                         EXISTING_NEWS_ID_1_FOR_OFFER_ID_1,          // news id
@@ -608,7 +586,7 @@ public class NewsServiceIntegrationTest {
      * expected                  exception
      */
     @Test(expected = ConstraintViolationException.class)
-    public void givenNullTitleThenUpdateShouldRaiseException() throws NewsNotFoundException, ImageNotFoundException, AdminNotFoundException, CulturalOfferNotFoundException, NewsAlreadyExistException {
+    public void givenNullTitleThenUpdateShouldRaiseException() {
         UpdateNewsUseCase.UpdateNewsCommand command =
                 new UpdateNewsUseCase.UpdateNewsCommand(
                         EXISTING_NEWS_ID_1_FOR_OFFER_ID_1,          // news id
@@ -674,7 +652,7 @@ public class NewsServiceIntegrationTest {
      * expected                  exception
      */
     @Test(expected = ConstraintViolationException.class)
-    public void givenNullPostedDateThenUpdateShouldRaiseException() throws NewsNotFoundException, ImageNotFoundException, AdminNotFoundException, CulturalOfferNotFoundException, NewsAlreadyExistException {
+    public void givenNullPostedDateThenUpdateShouldRaiseException() {
         UpdateNewsUseCase.UpdateNewsCommand command =
                 new UpdateNewsUseCase.UpdateNewsCommand(
                         EXISTING_NEWS_ID_1_FOR_OFFER_ID_1,          // news id
@@ -742,7 +720,6 @@ public class NewsServiceIntegrationTest {
     @Test(expected = AdminNotFoundException.class)
     public void givenInvalidAuthorThenUpdateShouldRaiseException() throws NewsNotFoundException, ImageNotFoundException, AdminNotFoundException, CulturalOfferNotFoundException, NewsAlreadyExistException {
         News rollBackNews = getRollBackNews(EXISTING_NEWS_ID_1_FOR_OFFER_ID_1, EXISTING_CULTURAL_OFFER_ID);
-        Administrator rollBackAuthor = rollBackNews.getAuthor();
 
         UpdateNewsUseCase.UpdateNewsCommand command =
                 new UpdateNewsUseCase.UpdateNewsCommand(
@@ -766,7 +743,7 @@ public class NewsServiceIntegrationTest {
      * expected                  exception
      */
     @Test(expected = ConstraintViolationException.class)
-    public void givenNullAuthorThenUpdateShouldRaiseException() throws NewsNotFoundException, ImageNotFoundException, AdminNotFoundException, CulturalOfferNotFoundException, NewsAlreadyExistException {
+    public void givenNullAuthorThenUpdateShouldRaiseException() {
         UpdateNewsUseCase.UpdateNewsCommand command =
                 new UpdateNewsUseCase.UpdateNewsCommand(
                         EXISTING_NEWS_ID_1_FOR_OFFER_ID_1,                       // news id
@@ -832,7 +809,7 @@ public class NewsServiceIntegrationTest {
      * expected                  exception
      */
     @Test(expected = ConstraintViolationException.class)
-    public void givenInvalidTextThenUpdateShouldSucceed() throws NewsNotFoundException, ImageNotFoundException, AdminNotFoundException, CulturalOfferNotFoundException, NewsAlreadyExistException {
+    public void givenInvalidTextThenUpdateShouldSucceed() {
         UpdateNewsUseCase.UpdateNewsCommand command =
                 new UpdateNewsUseCase.UpdateNewsCommand(
                         EXISTING_NEWS_ID_1_FOR_OFFER_ID_1,                       // news id
@@ -854,7 +831,7 @@ public class NewsServiceIntegrationTest {
      * expected                  exception
      */
     @Test(expected = ConstraintViolationException.class)
-    public void givenNullTextThenUpdateShouldSucceed() throws NewsNotFoundException, ImageNotFoundException, AdminNotFoundException, CulturalOfferNotFoundException, NewsAlreadyExistException {
+    public void givenNullTextThenUpdateShouldSucceed() {
         UpdateNewsUseCase.UpdateNewsCommand command =
                 new UpdateNewsUseCase.UpdateNewsCommand(
                         EXISTING_NEWS_ID_1_FOR_OFFER_ID_1,                       // news id
@@ -941,7 +918,7 @@ public class NewsServiceIntegrationTest {
      * expected                  exception
      */
     @Test(expected = ConstraintViolationException.class)
-    public void givenNullImagesThenUpdateShouldRaiseException() throws NewsNotFoundException, ImageNotFoundException, AdminNotFoundException, CulturalOfferNotFoundException, NewsAlreadyExistException {
+    public void givenNullImagesThenUpdateShouldRaiseException() {
         UpdateNewsUseCase.UpdateNewsCommand command =
                 new UpdateNewsUseCase.UpdateNewsCommand(
                         EXISTING_NEWS_ID_1_FOR_OFFER_ID_1,                       // news id
@@ -967,7 +944,7 @@ public class NewsServiceIntegrationTest {
      * expected                  success
      */
     @Test
-    public void givenNewsIdAndCulturalOfferIdAreValidThenDeleteShouldSucceed() throws NewsNotFoundException, ImageNotFoundException, AdminNotFoundException, CulturalOfferNotFoundException, NewsAlreadyExistException {
+    public void givenNewsIdAndCulturalOfferIdAreValidThenDeleteShouldSucceed() {
         Pageable pageable = PageRequest.of(FIRST_PAGE, SIZE);
         int countBefore = newsRepository.findAllByCulturalOfferIdAndArchivedFalse(EXISTING_CULTURAL_OFFER_ID, pageable).getNumberOfElements();
 
@@ -996,7 +973,7 @@ public class NewsServiceIntegrationTest {
      * expected                  success
      */
     @Test
-    public void givenInvalidNewsIdThenDeleteShouldRaiseException() throws NewsNotFoundException, ImageNotFoundException, AdminNotFoundException, CulturalOfferNotFoundException, NewsAlreadyExistException {
+    public void givenInvalidNewsIdThenDeleteShouldRaiseException() {
         Optional<News> newsToDeleteOptional = newsRepository.findByIdAndCulturalOfferIdAndArchivedFalse(NON_EXISTING_NEWS_ID_FOR_OFFER_ID_1, EXISTING_CULTURAL_OFFER_ID);
         assertTrue(newsToDeleteOptional.isEmpty());
     }
@@ -1008,7 +985,7 @@ public class NewsServiceIntegrationTest {
      * expected                  success
      */
     @Test
-    public void givenInvalidOfferIdThenDeleteShouldRaiseException() throws NewsNotFoundException, ImageNotFoundException, AdminNotFoundException, CulturalOfferNotFoundException, NewsAlreadyExistException {
+    public void givenInvalidOfferIdThenDeleteShouldRaiseException() {
         Optional<News> newsToDeleteOptional = newsRepository.findByIdAndCulturalOfferIdAndArchivedFalse(EXISTING_NEWS_ID_1_FOR_OFFER_ID_1, NON_EXISTING_CULTURAL_OFFER_ID);
         assertTrue(newsToDeleteOptional.isEmpty());
     }
@@ -1020,7 +997,7 @@ public class NewsServiceIntegrationTest {
      * expected                  success
      */
     @Test
-    public void givenNullNewsIdThenDeleteShouldRaiseException() throws NewsNotFoundException, ImageNotFoundException, AdminNotFoundException, CulturalOfferNotFoundException, NewsAlreadyExistException {
+    public void givenNullNewsIdThenDeleteShouldRaiseException() {
         Optional<News> newsToDeleteOptional = newsRepository.findByIdAndCulturalOfferIdAndArchivedFalse(null, EXISTING_CULTURAL_OFFER_ID);
         assertTrue(newsToDeleteOptional.isEmpty());
     }
@@ -1032,7 +1009,7 @@ public class NewsServiceIntegrationTest {
      * expected                  success
      */
     @Test
-    public void givenNullOfferIdThenDeleteShouldRaiseException() throws NewsNotFoundException, ImageNotFoundException, AdminNotFoundException, CulturalOfferNotFoundException, NewsAlreadyExistException {
+    public void givenNullOfferIdThenDeleteShouldRaiseException() {
         Optional<News> newsToDeleteOptional = newsRepository.findByIdAndCulturalOfferIdAndArchivedFalse(EXISTING_NEWS_ID_1_FOR_OFFER_ID_1, null);
         assertTrue(newsToDeleteOptional.isEmpty());
     }
