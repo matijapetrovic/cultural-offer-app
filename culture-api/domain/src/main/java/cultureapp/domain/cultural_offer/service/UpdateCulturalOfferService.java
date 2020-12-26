@@ -30,7 +30,7 @@ public class UpdateCulturalOfferService implements UpdateCulturalOfferUseCase {
 
     @Override
     public void updateCulturalOffer(UpdateCulturalOfferCommand command) throws CulturalOfferNotFoundException, SubcategoryNotFoundException, ImageNotFoundException {
-        CulturalOffer offer = repository.findByIdAndArchivedFalse(command.getId())
+        CulturalOffer offer = repository.findByOfferIdWithSubscriptions(command.getId())
                 .orElseThrow(() -> new CulturalOfferNotFoundException(command.getId()));
 
         List<Image> images = loadImages(command.getImages());
@@ -41,21 +41,12 @@ public class UpdateCulturalOfferService implements UpdateCulturalOfferUseCase {
         offer.getLocation().setLongitude(command.getLongitude());
         offer.getLocation().setLatitude(command.getLatitude());
 
-        if(updateSubcategory(offer, command.getCategoryId(), command.getSubcategoryId())) {
-            Subcategory subcategory = subcategoryRepository.findByIdAndCategoryIdAndArchivedFalse(command.getSubcategoryId(), command.getCategoryId())
-                    .orElseThrow(() -> new SubcategoryNotFoundException(command.getSubcategoryId(), command.getCategoryId()));
-            offer.setSubcategory(subcategory);
-        }
+        Subcategory subcategory = subcategoryRepository.findByIdAndCategoryIdAndArchivedFalse(command.getSubcategoryId(), command.getCategoryId())
+                .orElseThrow(() -> new SubcategoryNotFoundException(command.getSubcategoryId(), command.getCategoryId()));
+        offer.setSubcategory(subcategory);
 
         repository.save(offer);
         notifySubscribers(offer);
-    }
-
-    private boolean updateSubcategory(CulturalOffer offer, Long categoryId, Long subcategoryId) {
-        if(offer.getSubcategory().getCategory().getId() != categoryId || offer.getSubcategory().getId() != subcategoryId) {
-            return true;
-        }
-        return false;
     }
 
     private List<Image> loadImages(List<Long> imageIds) throws ImageNotFoundException {

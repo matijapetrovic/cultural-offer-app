@@ -1,11 +1,10 @@
 package cultureapp.domain;
 
+import cultureapp.domain.cultural_offer.service.*;
 import cultureapp.domain.cultural_offer.service.GetCulturalOfferLocationsServiceUnitTest;
+import cultureapp.domain.cultural_offer.service.GetSubscriptionsForUserServiceUnitTest;
 import cultureapp.domain.image.ImageServiceUnitTest;
 import cultureapp.domain.review.ReviewServiceUnitTest;
-import cultureapp.domain.cultural_offer.service.GetSubscriptionsForUserServiceUnitTest;
-import cultureapp.domain.cultural_offer.service.SubscribeToCulturalOfferNewsServiceUnitTest;
-import cultureapp.domain.cultural_offer.service.UnsubscribeFromCulturalOfferNewsServiceUnitTest;
 import cultureapp.domain.category.CategoryServiceUnitTest;
 import cultureapp.domain.subcategory.SubcategoryServiceUnitTest;
 import org.junit.runner.RunWith;
@@ -20,7 +19,12 @@ import org.junit.runners.Suite;
         GetSubscriptionsForUserServiceUnitTest.class,
         CategoryServiceUnitTest.class,
         ImageServiceUnitTest.class,
-        GetCulturalOfferLocationsServiceUnitTest.class
+        GetCulturalOfferLocationsServiceUnitTest.class,
+        AddCulturalOfferServiceUnitTest.class,
+        DeleteCulturalOfferServiceUnitTest.class,
+        UpdateCulturalOfferServiceUnitTest.class,
+        GetCulturalOffersServiceUnitTest.class,
+        GetCulturalOfferByIdServiceUnitTest.class
 })
 public class CultureAppDomainUnitTests {
 }

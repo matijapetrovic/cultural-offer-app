@@ -21,6 +21,11 @@ import org.junit.runners.Suite;
         LoginServiceIntegrationTest.class,
         RegularUserServiceIntegrationTest.class,
         GetCulturalOfferLocationsServiceIntegrationTest.class,
+        AddCulturalOfferServiceIntegrationTest.class,
+        UpdateCulturalOfferServiceIntegrationTest.class,
+        DeleteCulturalOffersServiceIntegrationTest.class,
+        GetCulturalOffersServiceIntegrationTest.class,
+        GetCulturalOfferByIdServiceIntegrationTest.class,
         NewsServiceIntegrationTest.class
 })
 public class CultureAppServiceIntegrationTests {

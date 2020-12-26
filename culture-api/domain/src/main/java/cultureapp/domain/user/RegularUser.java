@@ -3,10 +3,7 @@ package cultureapp.domain.user;
 
 import cultureapp.domain.account.Account;
 import cultureapp.domain.cultural_offer.CulturalOffer;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -14,6 +11,7 @@ import java.util.Set;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Setter
 @Entity
 @Table(name = "regular_user")
 public class RegularUser extends User {

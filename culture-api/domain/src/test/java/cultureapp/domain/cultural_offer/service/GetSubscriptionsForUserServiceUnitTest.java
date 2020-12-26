@@ -8,6 +8,7 @@ import cultureapp.domain.account.Account;
 import cultureapp.domain.core.AuthenticationService;
 import cultureapp.domain.cultural_offer.CulturalOffer;
 import cultureapp.domain.cultural_offer.query.GetSubscriptionsForUserQueryHandler;
+import cultureapp.domain.cultural_offer.service.GetSubscriptionsForUserService;
 import cultureapp.domain.subcategory.Subcategory;
 import cultureapp.domain.subcategory.SubcategoryRepository;
 import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
