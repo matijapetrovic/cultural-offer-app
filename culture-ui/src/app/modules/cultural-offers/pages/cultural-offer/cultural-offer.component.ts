@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ConfirmationService } from 'primeng/api';
 import { CulturalOffersService } from 'src/app/modules/cultural-offers/cultural-offers.service';
 import { NewsPage } from 'src/app/modules/news/news';
 import { NewsService } from 'src/app/modules/news/news.service';
@@ -29,7 +30,8 @@ export class CulturalOfferComponent implements OnInit {
     private culturalOffersService : CulturalOffersService,
     private reviewsService: ReviewsService,
     private newsService: NewsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private confirmationService: ConfirmationService
   ) {
     this.currentReviewsPage = 0;
     this.currentNewsPage = 0;
@@ -72,6 +74,32 @@ export class CulturalOfferComponent implements OnInit {
   getPrevNews(): void {
     this.currentNewsPage--;
     this.getNews();
+  }
+
+  confirmSubscribe(event: Event) {
+    this.confirmationService.confirm({
+        target: event.target,
+        message: 'Are you sure that you want to subscribe to this offer?',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+            this.subscribe();
+        },
+        reject: () => {
+        }
+    });
+  }
+
+  confirmUnsubscribe(event: Event) {
+    this.confirmationService.confirm({
+      target: event.target,
+      message: 'Are you sure that you want to unsubscribe from this offer?',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+          this.unsubscribe();
+      },
+      reject: () => {
+      }
+    });
   }
 
   subscribe(): void {

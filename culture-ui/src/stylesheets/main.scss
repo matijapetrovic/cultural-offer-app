@@ -1,5 +1,9 @@
-.container {
+.container.p-grid {
   width: 100%;
   max-width: 960px;
   margin: 0 auto;
+}
+
+body {
+  background-color: #f8f9fa;
 }

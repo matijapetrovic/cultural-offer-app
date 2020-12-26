@@ -1,12 +1,21 @@
-<div *ngIf="culturalOffer" fxLayout="row wrap" fxFlexFill fxLayoutGap="25px" class="container">
-  <div fxFlex="calc(25% - 25px)">
-      <h1>{{ culturalOffer.name }}</h1>
-  </div>
-  <div fxFlex="calc(75% - 25px)">
-    <p>{{ culturalOffer.description }}</p>
-  </div>
-  <div fxFlex="calc(40% - 25px)">
-      <h2>Reviews</h2>
+<div *ngIf="culturalOffer" class="container p-grid">
+  <p-card [header]="culturalOffer.name" class="p-col-12">
+    <div class="p-grid">
+      <div class="p-col-5">
+      </div>
+      <div class="p-col-7">
+        <p-scrollPanel [style]="{width: '100%', height: '200px'}" styleClass="custombar1">  
+          <p>{{ culturalOffer.description }}</p>
+        </p-scrollPanel>
+        <p-carousel [value]="culturalOffer.images" class="offer-images">
+          <ng-template let-image pTemplate="item">
+              <img [src]="image" alt="Cultural offer image">
+          </ng-template>
+        </p-carousel>
+      </div>
+    </div>
+  </p-card>
+  <p-card header="Reviews" class="p-col-5">
       <div *ngIf="reviewPage">
         <app-pagination-bar
           [hasPrev]="reviewPage.links.prev"
@@ -17,21 +26,23 @@
         ></app-pagination-bar>
         <app-offer-reviews [reviews]="reviewPage.data"></app-offer-reviews>
       </div>
-  </div>
-  <div fxFlex="calc(60% - 25px)">
-    <h2>News</h2>
+  </p-card>
+  <p-card header="News" class="p-col-7">
+    <p-confirmPopup></p-confirmPopup>
     <button 
       *ngIf="culturalOffer.subscribed === true"
-      (click)="unsubscribe()"
-      mat-raised-button 
-      color="warn"
-      >Unsubscribe</button>
+      (click)="confirmUnsubscribe($event)"
+      pButton
+      label="Unsubscribe"
+      icon="pi pi-times"
+      class="p-button-warning"></button>
     <button 
       *ngIf="culturalOffer.subscribed === false"
-      (click)="subscribe()"
-      mat-raised-button 
-      color="accent" 
-      >Subscribe</button>
+      (click)="confirmSubscribe($event)"
+      pButton 
+      label="Subscribe"
+      icon="pi pi-check"
+      class="p-button-primary"></button>
     <div *ngIf="newsPage">
       <app-pagination-bar
           [hasPrev]="newsPage.links.prev"
@@ -42,5 +53,5 @@
         ></app-pagination-bar>
       <app-offer-news [news]="newsPage.data"></app-offer-news>
     </div>
-  </div>
+  </p-card>
 </div>
