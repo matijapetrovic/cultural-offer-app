@@ -31,7 +31,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.BDDMockito.given;
 
-public class GetCulturalOfferByIdUnitTest {
+public class GetCulturalOfferByIdServiceUnitTest {
 
     private final CulturalOfferRepository culturalOfferRepository =
             Mockito.mock(CulturalOfferRepository.class);
@@ -66,6 +66,7 @@ public class GetCulturalOfferByIdUnitTest {
                 VALID_REGULAR_USER_LAST_NAME,
                 account
         );
+        regularUser.setCulturalOffers(new HashSet<>());
     }
 
     @Test(expected = ConstraintViolationException.class)

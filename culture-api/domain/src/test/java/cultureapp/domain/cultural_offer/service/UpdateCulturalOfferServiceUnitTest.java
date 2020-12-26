@@ -201,7 +201,7 @@ public class UpdateCulturalOfferServiceUnitTest {
     @Test(expected = CulturalOfferNotFoundException.class)
     public void GivenCulturalOfferDoesntExistThenUpdateCulturalOfferWillFail() throws SubcategoryNotFoundException, ImageNotFoundException, CulturalOfferNotFoundException {
         given(culturalOfferRepository
-                .findByIdAndArchivedFalse(VALID_CULTURAL_OFFER_ID))
+                .findByOfferIdWithSubscriptions(VALID_CULTURAL_OFFER_ID))
                 .willReturn(Optional.empty());
 
         given(subcategoryRepository
@@ -222,7 +222,7 @@ public class UpdateCulturalOfferServiceUnitTest {
     @Test(expected = SubcategoryNotFoundException.class)
     public void GivenSubcategoryDoesntExistThenUpdateCulturalOfferWillFail() throws SubcategoryNotFoundException, ImageNotFoundException, CulturalOfferNotFoundException {
         given(culturalOfferRepository
-                .findByIdAndArchivedFalse(VALID_CULTURAL_OFFER_ID))
+                .findByOfferIdWithSubscriptions(VALID_CULTURAL_OFFER_ID))
                 .willReturn(Optional.of(valid_offer));
 
         given(subcategoryRepository
@@ -251,7 +251,7 @@ public class UpdateCulturalOfferServiceUnitTest {
                 .willReturn(Optional.of(Image.of("path2")));
 
         given(culturalOfferRepository
-                .findByIdAndArchivedFalse(VALID_CULTURAL_OFFER_ID))
+                .findByOfferIdWithSubscriptions(VALID_CULTURAL_OFFER_ID))
                 .willReturn(Optional.of(valid_offer));
 
         given(subcategoryRepository
@@ -276,7 +276,7 @@ public class UpdateCulturalOfferServiceUnitTest {
                 .willReturn(Optional.of(Image.of("path2")));
 
         given(culturalOfferRepository
-                .findByIdAndArchivedFalse(VALID_CULTURAL_OFFER_ID))
+                .findByOfferIdWithSubscriptions(VALID_CULTURAL_OFFER_ID))
                 .willReturn(Optional.of(valid_offer));
 
         given(subcategoryRepository

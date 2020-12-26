@@ -23,8 +23,8 @@ import org.junit.runners.Suite;
         AddCulturalOfferServiceUnitTest.class,
         DeleteCulturalOfferServiceUnitTest.class,
         UpdateCulturalOfferServiceUnitTest.class,
-        GetCulturalOffersQueryHandlerUnitTest.class,
-        GetCulturalOffersQueryHandlerUnitTest.class
+        GetCulturalOffersServiceUnitTest.class,
+        GetCulturalOfferByIdServiceUnitTest.class
 })
 public class CultureAppDomainUnitTests {
 }

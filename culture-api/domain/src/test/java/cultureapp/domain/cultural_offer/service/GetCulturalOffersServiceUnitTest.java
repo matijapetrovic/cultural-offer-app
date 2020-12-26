@@ -26,7 +26,7 @@ import static org.mockito.ArgumentMatchers.notNull;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 
-public class GetCulturalOffersQueryHandlerUnitTest {
+public class GetCulturalOffersServiceUnitTest {
 
     private final CulturalOfferRepository culturalOfferRepository =
             Mockito.mock(CulturalOfferRepository.class);
