@@ -30,15 +30,15 @@ public class NewsTestData {
     public static final String INVALID_NEWS_TITLE = "";
     public static final String INVALID_NEWS_TEXT = "";
 
-    public static final Long FREE_NEWS_IMAGE_FOR_ADD_ID_3 = 3L;
-    public static final Long FREE_NEWS_IMAGE_FOR_ADD_ID_4 = 4L;
-    public static final Long FREE_NEWS_IMAGE_ID_5 = 5L;
-    public static final Long FREE_NEWS_IMAGE_ID_6 = 6L;
-    public static final Long FREE_NEWS_IMAGE_FOR_UPDATE_ID_7 = 7L;
-    public static final Long FREE_NEWS_IMAGE_FOR_UPDATE_ID_8 = 8L;
+    public static final Long FREE_NEWS_IMAGE_FOR_ADD_ID_7 = 7L;
+    public static final Long FREE_NEWS_IMAGE_FOR_ADD_ID_8 = 8L;
+    public static final Long FREE_NEWS_IMAGE_ID_9 = 9L;
+    public static final Long FREE_NEWS_IMAGE_ID_10 = 10L;
+    public static final Long FREE_NEWS_IMAGE_FOR_UPDATE_ID_11 = 11L;
+    public static final Long FREE_NEWS_IMAGE_FOR_UPDATE_ID_12 = 12L;
 
-    public static final Long TAKEN_NEWS_IMAGE_ID_9 = 9L;
-    public static final Long TAKEN_NEWS_IMAGE_ID_10 = 10L;
+    public static final Long TAKEN_NEWS_IMAGE_ID_13 = 13L;
+    public static final Long TAKEN_NEWS_IMAGE_ID_14 = 14L;
 
     public static final LocalDateTime PRESENT_LOCAL_DATE_TIME = LocalDateTime.now();
 }

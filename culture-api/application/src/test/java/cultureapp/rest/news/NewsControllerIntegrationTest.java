@@ -69,7 +69,7 @@ public class NewsControllerIntegrationTest {
                                 NON_EXISTING_NEWS_TITLE,
                                 EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
-                                List.of(FREE_NEWS_IMAGE_ID_6)
+                                List.of(FREE_NEWS_IMAGE_ID_10)
                         ),
                         headers
                 );
@@ -108,7 +108,7 @@ public class NewsControllerIntegrationTest {
                                 NON_EXISTING_NEWS_TITLE,
                                 EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
-                                List.of(FREE_NEWS_IMAGE_ID_5)
+                                List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
                         headers
                 );
@@ -139,7 +139,7 @@ public class NewsControllerIntegrationTest {
                                 INVALID_NEWS_TITLE,
                                 EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
-                                List.of(FREE_NEWS_IMAGE_ID_5)
+                                List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
                         headers
                 );
@@ -170,7 +170,7 @@ public class NewsControllerIntegrationTest {
                                 null,
                                 EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
-                                List.of(FREE_NEWS_IMAGE_ID_5)
+                                List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
                         headers
                 );
@@ -201,7 +201,7 @@ public class NewsControllerIntegrationTest {
                                 NON_EXISTING_NEWS_TEXT,
                                 NON_EXISTING_ADMIN_ID_10,
                                 NON_EXISTING_NEWS_TEXT,
-                                List.of(FREE_NEWS_IMAGE_ID_5)
+                                List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
                         headers
                 );
@@ -232,7 +232,7 @@ public class NewsControllerIntegrationTest {
                                 NON_EXISTING_NEWS_TEXT,
                                 null,
                                 NON_EXISTING_NEWS_TEXT,
-                                List.of(FREE_NEWS_IMAGE_ID_5)
+                                List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
                         headers
                 );
@@ -263,7 +263,7 @@ public class NewsControllerIntegrationTest {
                                 NON_EXISTING_NEWS_TEXT,
                                 EXISTING_ADMIN_ID_3,
                                 INVALID_NEWS_TEXT,
-                                List.of(FREE_NEWS_IMAGE_ID_5)
+                                List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
                         headers
                 );
@@ -294,7 +294,7 @@ public class NewsControllerIntegrationTest {
                                 NON_EXISTING_NEWS_TEXT,
                                 EXISTING_ADMIN_ID_3,
                                 null,
-                                List.of(FREE_NEWS_IMAGE_ID_5)
+                                List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
                         headers
                 );
@@ -356,7 +356,7 @@ public class NewsControllerIntegrationTest {
                                 NON_EXISTING_NEWS_TEXT,
                                 EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
-                                List.of(FREE_NEWS_IMAGE_ID_5)
+                                List.of(FREE_NEWS_IMAGE_ID_9)
                         )
                 );
 
@@ -390,7 +390,7 @@ public class NewsControllerIntegrationTest {
                                 NON_EXISTING_NEWS_TEXT,
                                 EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
-                                List.of(FREE_NEWS_IMAGE_ID_5)
+                                List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
                         headers
                 );
@@ -781,7 +781,7 @@ public class NewsControllerIntegrationTest {
                                 NON_EXISTING_NEWS_TITLE,
                                 EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
-                                List.of(FREE_NEWS_IMAGE_ID_5)
+                                List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
                         headers
                 );
@@ -837,7 +837,7 @@ public class NewsControllerIntegrationTest {
                                 NON_EXISTING_NEWS_TITLE,
                                 EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
-                                List.of(FREE_NEWS_IMAGE_ID_5)
+                                List.of(FREE_NEWS_IMAGE_ID_9)
                         )
                 );
 
@@ -875,7 +875,7 @@ public class NewsControllerIntegrationTest {
                                 NON_EXISTING_NEWS_TITLE,
                                 EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
-                                List.of(FREE_NEWS_IMAGE_ID_5)
+                                List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
                         headers
                 );
@@ -913,7 +913,7 @@ public class NewsControllerIntegrationTest {
                                 NON_EXISTING_NEWS_TITLE,
                                 EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
-                                List.of(FREE_NEWS_IMAGE_ID_5)
+                                List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
                         headers
                 );
@@ -951,7 +951,7 @@ public class NewsControllerIntegrationTest {
                                 NON_EXISTING_NEWS_TITLE,
                                 EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
-                                List.of(FREE_NEWS_IMAGE_ID_5)
+                                List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
                         headers
                 );
@@ -989,7 +989,7 @@ public class NewsControllerIntegrationTest {
                                 NON_EXISTING_NEWS_TITLE,
                                 EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
-                                List.of(FREE_NEWS_IMAGE_ID_5)
+                                List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
                         headers
                 );
@@ -1027,7 +1027,7 @@ public class NewsControllerIntegrationTest {
                                 NON_EXISTING_NEWS_TITLE,
                                 EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
-                                List.of(FREE_NEWS_IMAGE_ID_5)
+                                List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
                         headers
                 );
@@ -1065,7 +1065,7 @@ public class NewsControllerIntegrationTest {
                                 INVALID_NEWS_TITLE,
                                 EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
-                                List.of(FREE_NEWS_IMAGE_ID_5)
+                                List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
                         headers
                 );
@@ -1103,7 +1103,7 @@ public class NewsControllerIntegrationTest {
                                 null,
                                 EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
-                                List.of(FREE_NEWS_IMAGE_ID_5)
+                                List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
                         headers
                 );
@@ -1141,7 +1141,7 @@ public class NewsControllerIntegrationTest {
                                 NON_EXISTING_NEWS_TITLE,
                                 NON_EXISTING_ADMIN_ID_10,
                                 NON_EXISTING_NEWS_TEXT,
-                                List.of(FREE_NEWS_IMAGE_ID_5)
+                                List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
                         headers
                 );
@@ -1179,7 +1179,7 @@ public class NewsControllerIntegrationTest {
                                 NON_EXISTING_NEWS_TITLE,
                                 null,
                                 NON_EXISTING_NEWS_TEXT,
-                                List.of(FREE_NEWS_IMAGE_ID_5)
+                                List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
                         headers
                 );
@@ -1217,7 +1217,7 @@ public class NewsControllerIntegrationTest {
                                 NON_EXISTING_NEWS_TITLE,
                                 EXISTING_ADMIN_ID_3,
                                 INVALID_NEWS_TEXT,
-                                List.of(FREE_NEWS_IMAGE_ID_5)
+                                List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
                         headers
                 );
@@ -1255,7 +1255,7 @@ public class NewsControllerIntegrationTest {
                                 NON_EXISTING_NEWS_TITLE,
                                 EXISTING_ADMIN_ID_3,
                                 null,
-                                List.of(FREE_NEWS_IMAGE_ID_5)
+                                List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
                         headers
                 );
