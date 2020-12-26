@@ -21,18 +21,22 @@ public interface AddNewsUseCase {
     @Value
     @EqualsAndHashCode(callSuper = false)
     class AddNewsCommand extends SelfValidating<AddNewsCommand> {
+        @NotNull
         @Positive
         Long culturalOfferID;
 
+        @NotNull
         @NotBlank
         String name;
 
         @NotNull
         LocalDateTime postedDate;
 
+        @NotNull
         @Positive
         Long authorID;
 
+        @NotNull
         @NotBlank
         String text;
 

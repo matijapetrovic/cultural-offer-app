@@ -2,6 +2,7 @@ package cultureapp.domain;
 
 import cultureapp.domain.cultural_offer.service.AddCulturalOfferServiceIntegrationTest;
 import cultureapp.domain.cultural_offer.service.CulturalOfferRepositoryIntegrationTest;
+import cultureapp.domain.news.NewsRepositoryIntegrationTest;
 import cultureapp.domain.review.ReviewRepositoryIntegrationTest;
 import cultureapp.domain.category.CategoryRepositoryIntegrationTest;
 import cultureapp.domain.subcategory.SubcategoryRepositoryIntegrationTest;
@@ -16,7 +17,8 @@ import org.junit.runners.Suite;
         ReviewRepositoryIntegrationTest.class,
         CategoryRepositoryIntegrationTest.class,
         RegularUserRepositoryIntegrationTest.class,
-        CulturalOfferRepositoryIntegrationTest.class
+        CulturalOfferRepositoryIntegrationTest.class,
+        NewsRepositoryIntegrationTest.class
 })
 public class CultureAppRepositoryIntegrationTests {
 }

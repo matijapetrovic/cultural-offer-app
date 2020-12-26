@@ -2,6 +2,7 @@ package cultureapp.domain;
 
 import cultureapp.domain.authentication.LoginServiceIntegrationTest;
 import cultureapp.domain.cultural_offer.service.*;
+import cultureapp.domain.news.NewsServiceIntegrationTest;
 import cultureapp.domain.review.ReviewServiceIntegrationTest;
 import cultureapp.domain.category.CategoryServiceIntegrationTest;
 import cultureapp.domain.subcategory.SubcategoryServiceIntegrationTest;
@@ -24,7 +25,8 @@ import org.junit.runners.Suite;
         UpdateCulturalOfferServiceIntegrationTest.class,
         DeleteCulturalOffersServiceIntegrationTest.class,
         GetCulturalOffersServiceIntegrationTest.class,
-        GetCulturalOfferByIdServiceIntegrationTest.class
+        GetCulturalOfferByIdServiceIntegrationTest.class,
+        NewsServiceIntegrationTest.class
 })
 public class CultureAppServiceIntegrationTests {
 }

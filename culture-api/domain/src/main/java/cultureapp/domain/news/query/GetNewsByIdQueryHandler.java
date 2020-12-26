@@ -6,6 +6,7 @@ import cultureapp.domain.news.News;
 import cultureapp.domain.news.exception.NewsNotFoundException;
 import lombok.*;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,9 +18,11 @@ public interface GetNewsByIdQueryHandler {
     @Value
     @EqualsAndHashCode(callSuper = false)
     class GetNewsByIdQuery extends SelfValidating<GetNewsByIdQuery> {
+        @NotNull
         @Positive
         Long id;
 
+        @NotNull
         @Positive
         Long culturalOfferId;
 
