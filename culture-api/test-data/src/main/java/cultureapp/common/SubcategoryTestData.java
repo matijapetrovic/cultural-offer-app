@@ -8,6 +8,8 @@ public class SubcategoryTestData {
     public static final Long EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1 = 1L;
     public static final Long NON_EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1 = 5L;
 
+    public static final Long EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_2 = 3L;
+
 
     public static final int SUBCATEGORY_PAGE_SIZE = 2;
     public static final int FIRST_PAGE_FOR_CATEGORY_ID_1 = 0;

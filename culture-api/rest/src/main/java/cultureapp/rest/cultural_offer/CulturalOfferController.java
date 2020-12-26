@@ -86,7 +86,7 @@ public class CulturalOfferController {
 
     @PostMapping("")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void addCulturalOffer(@RequestBody CulturalOfferRequest request)
+    public ResponseEntity<Void> addCulturalOffer(@RequestBody CulturalOfferRequest request)
             throws SubcategoryNotFoundException, ImageNotFoundException {
         AddCulturalOfferUseCase.AddCulturalOfferCommand command
                 = new AddCulturalOfferUseCase.AddCulturalOfferCommand(
@@ -99,6 +99,7 @@ public class CulturalOfferController {
                 request.getSubcategoryId());
 
         addCulturalOfferUseCase.addCulturalOffer(command);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @DeleteMapping("/{id}")
@@ -109,7 +110,7 @@ public class CulturalOfferController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void updateCulturalOffer(@PathVariable(required = true) Long id,
+    public ResponseEntity<Void> updateCulturalOffer(@PathVariable(required = true) Long id,
                                     @RequestBody CulturalOfferRequest request)
             throws CulturalOfferNotFoundException, SubcategoryNotFoundException, ImageNotFoundException {
         UpdateCulturalOfferUseCase.UpdateCulturalOfferCommand command = new UpdateCulturalOfferUseCase.UpdateCulturalOfferCommand(
@@ -123,6 +124,7 @@ public class CulturalOfferController {
                 request.getImages());
 
         updateCulturalOfferUseCase.updateCulturalOffer(command);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping(value = "", params = {"page", "limit"})

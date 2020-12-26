@@ -4,6 +4,7 @@ public class CategoryTestData {
     public static final String EXISTING_CATEGORY_NAME_FOR_ID_1 = "Category1";
     public static final String EXISTING_CATEGORY_NAME_FOR_ID_2 = "Category2";
     public static final Long EXISTING_CATEGORY_ID = 1L;
+    public static final Long EXISTING_CATEGORY_ID_2 = 2L;
     public static final Long EXISTING_CATEGORY_ID_WITHOUT_SUBCATEGORY = 4L;
 
     public static final String NON_EXISTING_CATEGORY_NAME = "Category5";

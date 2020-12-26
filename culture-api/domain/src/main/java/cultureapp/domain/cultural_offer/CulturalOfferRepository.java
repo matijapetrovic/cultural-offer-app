@@ -1,6 +1,7 @@
 package cultureapp.domain.cultural_offer;
 
 import cultureapp.domain.cultural_offer.query.GetCulturalOfferLocationsQueryHandler;
+import cultureapp.domain.user.RegularUser;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -34,4 +35,7 @@ public interface CulturalOfferRepository extends JpaRepository<CulturalOffer, Lo
             @Param(value="categoryId") Long categoryId,
             @Param(value="subcategoryId") Long subcategoryId
     );
+
+    @Query("select co from CulturalOffer co left outer join fetch co.subscribers su where co.id = :offerId and co.archived = false")
+    Optional<CulturalOffer> findByOfferIdWithSubscriptions(@Param(value="offerId") Long offerId);
 }

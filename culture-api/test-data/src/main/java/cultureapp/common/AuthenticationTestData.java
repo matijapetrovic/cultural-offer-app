@@ -29,4 +29,5 @@ public class AuthenticationTestData {
     public static final Long NON_VALID_ID = -1L;
 
     public static final String VALID_PASSWORD = "password1234";
+
 }

@@ -14,6 +14,7 @@ import cultureapp.domain.news.query.GetNewsForOfferQueryHandler;
 import cultureapp.rest.core.PaginatedResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Slice;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -41,7 +42,7 @@ public class NewsController {
 
     @PostMapping("")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void addNews(@PathVariable Long culturalOfferId, @RequestBody NewsRequest request) throws CulturalOfferNotFoundException, AdminNotFoundException, NewsAlreadyExistException, ImageNotFoundException {
+    public ResponseEntity<Void> addNews(@PathVariable Long culturalOfferId, @RequestBody NewsRequest request) throws CulturalOfferNotFoundException, AdminNotFoundException, NewsAlreadyExistException, ImageNotFoundException {
         LocalDateTime now = LocalDateTime.now();
 
         AddNewsUseCase.AddNewsCommand command = new AddNewsUseCase.AddNewsCommand(
@@ -54,12 +55,15 @@ public class NewsController {
         );
 
         addNews.addNews(command);
+
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void deleteNews(@PathVariable Long culturalOfferId, @PathVariable Long id) throws NewsNotFoundException, CulturalOfferNotFoundException {
+    public ResponseEntity<Void> deleteNews(@PathVariable Long culturalOfferId, @PathVariable Long id) throws NewsNotFoundException, CulturalOfferNotFoundException {
         deleteNews.deleteNews(culturalOfferId, id);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping(value = "", params = { "page", "limit" })
@@ -91,7 +95,7 @@ public class NewsController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void updateNews(@PathVariable Long id,
+    public ResponseEntity<Void> updateNews(@PathVariable Long id,
                            @PathVariable Long culturalOfferId,
                            @RequestBody NewsRequest request) throws CulturalOfferNotFoundException, NewsNotFoundException, AdminNotFoundException, NewsAlreadyExistException, ImageNotFoundException {
         UpdateNewsUseCase.UpdateNewsCommand command = new UpdateNewsUseCase.UpdateNewsCommand(
@@ -104,5 +108,6 @@ public class NewsController {
                 request.getImages());
 
         updateNews.updateNews(command);
+        return ResponseEntity.ok().build();
     }
 }
