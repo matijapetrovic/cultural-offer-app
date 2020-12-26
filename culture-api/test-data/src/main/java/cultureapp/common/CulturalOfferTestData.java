@@ -11,8 +11,8 @@ public class CulturalOfferTestData {
 
     public static Long EXISTING_CULTURAL_OFFER_ID = 1L;
     public static Long NON_EXISTING_CULTURAL_OFFER_ID = 5L;
-    public static final String EXISTING_CULTURAL_OFFER_NAME = "CulturalOffer1";
-    public static final String NON_EXISTING_CULTURAL_OFFER_NAME = "CulturalOffer5";
+    public static final String EXISTING_CULTURAL_OFFER_NAME = "Culturaloffer1";
+    public static final String NON_EXISTING_CULTURAL_OFFER_NAME = "Culturaloffer5";
 
     public static final long NUMBER_OF_CULTURAL_OFFERS_FOR_SUBCATEGORY_1_1 = 2;
     public static final long NUMBER_OF_CULTURAL_OFFERS_FOR_SUBCATEGORY_1_2 = 1;
@@ -62,4 +62,19 @@ public class CulturalOfferTestData {
     public static final Integer VALID_LIMIT_NUMBER = 2;
     public static final Integer INVALID_PAGE_NUMBER = -1;
     public static final Integer INVALID_LIMIT_NUMBER = 0;
+
+
+    public static final int FIRST_PAGE_CULTURAL_OFFERS = 0;
+    public static final int LAST_PAGE_CULTURAL_OFFERS = 1;
+    public static final int CULTURAL_OFFER_PAGE_SIZE = 2;
+
+    public static final int FIRST_PAGE_NUM_CULTURAL_OFFERS = 2;
+    public static final int LAST_PAGE_NUM_CULTURAL_OFFERS = 1;
+
+    public static final Long EXISTING_ADD_CULTURAL_OFFER_IMAGE_1 = 3L;
+    public static final Long EXISTING_ADD_CULTURAL_OFFER_IMAGE_2 = 4L;
+
+    public static final Long EXISTING_UPDATE_CULTURAL_OFFER_IMAGE_1 = 5L;
+    public static final Long EXISTING_UPDATE_CULTURAL_OFFER_IMAGE_2 = 6L;
+
 }

@@ -30,7 +30,7 @@ public class UpdateCulturalOfferService implements UpdateCulturalOfferUseCase {
 
     @Override
     public void updateCulturalOffer(UpdateCulturalOfferCommand command) throws CulturalOfferNotFoundException, SubcategoryNotFoundException, ImageNotFoundException {
-        CulturalOffer offer = repository.findByIdAndArchivedFalse(command.getId())
+        CulturalOffer offer = repository.findByOfferIdWithSubscriptions(command.getId())
                 .orElseThrow(() -> new CulturalOfferNotFoundException(command.getId()));
 
         List<Image> images = loadImages(command.getImages());

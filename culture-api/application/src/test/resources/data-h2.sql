@@ -43,3 +43,11 @@ insert into review (id, cultural_offer_id, comment, rating, reply_cultural_offer
 
 insert into image (url) values ('http://res.cloudinary.com/culture-app/image/upload/v1607733078/us15fniqaebg9n5w6rp0.jpg');
 insert into image (url) values ('http://res.cloudinary.com/culture-app/image/upload/v1607733081/lm4lerjb1z6ufk4w1dev.jpg');
+
+/* Cultural offer add images */
+insert into image (url) values ('http://res.cloudinary.com/culture-app/image/upload/v1607733078/us15fniqaebg9n5w6rp0.jpg');
+insert into image (url) values ('http://res.cloudinary.com/culture-app/image/upload/v1607733081/lm4lerjb1z6ufk4w1dev.jpg');
+
+/* Cultural offer update images */
+insert into image (url) values ('http://res.cloudinary.com/culture-app/image/upload/v1607733078/us15fniqaebg9n5w6rp0.jpg');
+insert into image (url) values ('http://res.cloudinary.com/culture-app/image/upload/v1607733081/lm4lerjb1z6ufk4w1dev.jpg');
