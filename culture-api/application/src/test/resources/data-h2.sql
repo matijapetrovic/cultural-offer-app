@@ -93,8 +93,8 @@ insert into image (url) values ('http://res.cloudinary.com/culture-app/image/upl
 
 
 
-insert into news_images (news_id, news_cultural_offer_id, images_id) values (1, 1, 9);
-insert into news_images (news_id, news_cultural_offer_id, images_id) values (2, 1, 10);
+insert into news_images (news_id, news_cultural_offer_id, images_id) values (1, 1, 13);
+insert into news_images (news_id, news_cultural_offer_id, images_id) values (2, 1, 14);
 ---------------------
 ---------------------
 

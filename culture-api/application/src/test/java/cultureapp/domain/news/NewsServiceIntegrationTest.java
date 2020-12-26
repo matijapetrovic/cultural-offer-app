@@ -70,7 +70,7 @@ public class NewsServiceIntegrationTest {
                 PRESENT_LOCAL_DATE_TIME,
                 EXISTING_ADMIN_ID_3,
                 VALID_NEWS_TEXT,
-                List.of(FREE_NEWS_IMAGE_FOR_ADD_ID_3, FREE_NEWS_IMAGE_FOR_ADD_ID_4)
+                List.of(FREE_NEWS_IMAGE_FOR_ADD_ID_7, FREE_NEWS_IMAGE_FOR_ADD_ID_8)
         );
         newsService.addNews(command);
         assertEquals(newsCount + 1, newsRepository.count());
@@ -100,7 +100,7 @@ public class NewsServiceIntegrationTest {
                 EXISTING_ADMIN_ID_3,
                 VALID_NEWS_TEXT,
                 // slike nece biti obrisane iz baze ovom operacijom
-                List.of(FREE_NEWS_IMAGE_ID_5, FREE_NEWS_IMAGE_ID_6)
+                List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)
         );
         newsService.addNews(command);
     }
@@ -119,7 +119,7 @@ public class NewsServiceIntegrationTest {
                 EXISTING_ADMIN_ID_3,
                 VALID_NEWS_TEXT,
                 // slike nece biti obrisane iz baze ovom operacijom
-                List.of(FREE_NEWS_IMAGE_ID_5, FREE_NEWS_IMAGE_ID_6)
+                List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)
         );
         newsService.addNews(command);
     }
@@ -138,7 +138,7 @@ public class NewsServiceIntegrationTest {
                 EXISTING_ADMIN_ID_3,
                 VALID_NEWS_TEXT,
                 // slike nece biti obrisane iz baze ovom operacijom
-                List.of(FREE_NEWS_IMAGE_ID_5, FREE_NEWS_IMAGE_ID_6)
+                List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)
         );
         newsService.addNews(command);
     }
@@ -158,7 +158,7 @@ public class NewsServiceIntegrationTest {
                 EXISTING_ADMIN_ID_3,
                 VALID_NEWS_TEXT,
                 // slike nece biti obrisane iz baze ovom operacijom
-                List.of(FREE_NEWS_IMAGE_ID_5, FREE_NEWS_IMAGE_ID_6)
+                List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)
         );
     }
 
@@ -177,7 +177,7 @@ public class NewsServiceIntegrationTest {
                 EXISTING_ADMIN_ID_3,
                 VALID_NEWS_TEXT,
                 // slike nece biti obrisane iz baze ovom operacijom
-                List.of(FREE_NEWS_IMAGE_ID_5, FREE_NEWS_IMAGE_ID_6)
+                List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)
         );
     }
 
@@ -195,7 +195,7 @@ public class NewsServiceIntegrationTest {
                 EXISTING_ADMIN_ID_3,
                 VALID_NEWS_TEXT,
                 // slike nece biti obrisane iz baze ovom operacijom
-                List.of(FREE_NEWS_IMAGE_ID_5, FREE_NEWS_IMAGE_ID_6)
+                List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)
         );
     }
 
@@ -213,7 +213,7 @@ public class NewsServiceIntegrationTest {
                 NON_EXISTING_ADMIN_ID_10,
                 VALID_NEWS_TEXT,
                 // slike nece biti obrisane iz baze ovom operacijom
-                List.of(FREE_NEWS_IMAGE_ID_5, FREE_NEWS_IMAGE_ID_6)
+                List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)
         );
         newsService.addNews(command);
     }
@@ -232,7 +232,7 @@ public class NewsServiceIntegrationTest {
                 null,
                 VALID_NEWS_TEXT,
                 // slike nece biti obrisane iz baze ovom operacijom
-                List.of(FREE_NEWS_IMAGE_ID_5, FREE_NEWS_IMAGE_ID_6)
+                List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)
         );
     }
 
@@ -250,7 +250,7 @@ public class NewsServiceIntegrationTest {
                 EXISTING_ADMIN_ID_3,
                 INVALID_NEWS_TEXT,
                 // slike nece biti obrisane iz baze ovom operacijom
-                List.of(FREE_NEWS_IMAGE_ID_5, FREE_NEWS_IMAGE_ID_6)
+                List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)
         );
     }
 
@@ -268,7 +268,7 @@ public class NewsServiceIntegrationTest {
                 EXISTING_ADMIN_ID_3,
                 null,
                 // slike nece biti obrisane iz baze ovom operacijom
-                List.of(FREE_NEWS_IMAGE_ID_5, FREE_NEWS_IMAGE_ID_6)
+                List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)
         );
     }
 
@@ -287,7 +287,7 @@ public class NewsServiceIntegrationTest {
                 VALID_NEWS_TEXT,
 
                 // exception here
-                List.of(TAKEN_NEWS_IMAGE_ID_9, TAKEN_NEWS_IMAGE_ID_10)
+                List.of(TAKEN_NEWS_IMAGE_ID_13, TAKEN_NEWS_IMAGE_ID_14)
         );
         newsService.addNews(command);
         newsRepository.count();
@@ -576,7 +576,7 @@ public class NewsServiceIntegrationTest {
                         PRESENT_LOCAL_DATE_TIME,                    // localDateTime
                         EXISTING_ADMIN_ID_3,                        // author id
                         EXISTING_NEWS_TEXT,                         // news text
-                        List.of(FREE_NEWS_IMAGE_ID_5, FREE_NEWS_IMAGE_ID_6)                    // images
+                        List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)                    // images
                 );
     }
 
@@ -598,7 +598,7 @@ public class NewsServiceIntegrationTest {
                         PRESENT_LOCAL_DATE_TIME,                    // localDateTime
                         EXISTING_ADMIN_ID_3,                        // author id
                         EXISTING_NEWS_TEXT,                         // news text
-                        List.of(FREE_NEWS_IMAGE_ID_5, FREE_NEWS_IMAGE_ID_6)                    // images
+                        List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)                    // images
                 );
     }
 
@@ -664,7 +664,7 @@ public class NewsServiceIntegrationTest {
 
                         EXISTING_ADMIN_ID_3,                        // author id
                         EXISTING_NEWS_TEXT,                         // news text
-                        List.of(FREE_NEWS_IMAGE_ID_5, FREE_NEWS_IMAGE_ID_6)                    // images
+                        List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)                    // images
                 );
     }
 
@@ -755,7 +755,7 @@ public class NewsServiceIntegrationTest {
                         null,                        // author id
 
                         EXISTING_NEWS_TEXT,                     // news text
-                        List.of(FREE_NEWS_IMAGE_ID_5, FREE_NEWS_IMAGE_ID_6)
+                        List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)
                 );
     }
 
@@ -821,7 +821,7 @@ public class NewsServiceIntegrationTest {
                         // exception here
                         INVALID_NEWS_TEXT,                     // news text
 
-                        List.of(FREE_NEWS_IMAGE_ID_5, FREE_NEWS_IMAGE_ID_6)
+                        List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)
                 );
     }
 
@@ -843,7 +843,7 @@ public class NewsServiceIntegrationTest {
                         // exception here
                         null,                     // news text
 
-                        List.of(FREE_NEWS_IMAGE_ID_5, FREE_NEWS_IMAGE_ID_6)
+                        List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)
                 );
     }
 
@@ -865,7 +865,7 @@ public class NewsServiceIntegrationTest {
                         rollBackNews.getPostedDate(),               // localDateTime
                         rollBackNews.getAuthor().getId(),           // author id
                         rollBackNews.getText(),                     // news text
-                        List.of(FREE_NEWS_IMAGE_FOR_UPDATE_ID_7, FREE_NEWS_IMAGE_FOR_UPDATE_ID_8)                    // images
+                        List.of(FREE_NEWS_IMAGE_FOR_UPDATE_ID_11, FREE_NEWS_IMAGE_FOR_UPDATE_ID_12)                    // images
                 );
         newsService.updateNews(command);
 
@@ -880,8 +880,8 @@ public class NewsServiceIntegrationTest {
 
         assertEquals(rollBackNews.getId(), updatedNews.getId());
         assertEquals(rollBackNews.getCulturalOffer().getId(), updatedNews.getCulturalOffer().getId());
-        assertEquals(FREE_NEWS_IMAGE_FOR_UPDATE_ID_7, updatedNews.getImages().get(0).getId());
-        assertEquals(FREE_NEWS_IMAGE_FOR_UPDATE_ID_8, updatedNews.getImages().get(1).getId());
+        assertEquals(FREE_NEWS_IMAGE_FOR_UPDATE_ID_11, updatedNews.getImages().get(0).getId());
+        assertEquals(FREE_NEWS_IMAGE_FOR_UPDATE_ID_12, updatedNews.getImages().get(1).getId());
 
 
         // Rollback
@@ -906,7 +906,7 @@ public class NewsServiceIntegrationTest {
                         EXISTING_NEWS_TEXT,                     // news text
 
                         // Exception here
-                        List.of(TAKEN_NEWS_IMAGE_ID_9, TAKEN_NEWS_IMAGE_ID_10)              // images
+                        List.of(TAKEN_NEWS_IMAGE_ID_13, TAKEN_NEWS_IMAGE_ID_14)              // images
                 );
         newsService.updateNews(command);
         newsRepository.count();
