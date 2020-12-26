@@ -6,6 +6,7 @@ public class CulturalOfferTestData {
     public static final String VALID_CULTURAL_OFFER_ADDRESS = "Non-empty-string";
 
     public static Long EXISTING_CULTURAL_OFFER_ID = 1L;
+    public static Long EXISTING_CULTURAL_OFFER_ID_2 = 2L;
     public static Long NON_EXISTING_CULTURAL_OFFER_ID = 5L;
     public static final String EXISTING_CULTURAL_OFFER_NAME = "CulturalOffer1";
     public static final String NON_EXISTING_CULTURAL_OFFER_NAME = "CulturalOffer5";

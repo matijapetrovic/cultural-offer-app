@@ -8,6 +8,7 @@ import cultureapp.domain.user.Administrator;
 import lombok.*;
 import org.springframework.data.domain.Slice;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import java.time.LocalDateTime;
@@ -20,12 +21,15 @@ public interface GetNewsForOfferQueryHandler {
     @Value
     @EqualsAndHashCode(callSuper = false)
     class GetNewsForOfferQuery extends SelfValidating<GetNewsForOfferQuery> {
+        @NotNull
         @Positive
         Long culturalOfferId;
 
+        @NotNull
         @PositiveOrZero
         Integer page;
 
+        @NotNull
         @Positive
         Integer limit;
 

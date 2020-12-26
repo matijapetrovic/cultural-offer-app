@@ -84,6 +84,7 @@ public class NewsService implements
     }
 
     // TODO autor ove metode da je procita par puta i obrati paznju na culturalOfferId i update pomocu njega :)
+    // TODO: autor ove metoje ju je pročitao jednom i obratio pažnju na culturalOfferId i update pomoću njega ;)
     @Override
     public void updateNews(UpdateNewsCommand command)
             throws NewsNotFoundException,
@@ -101,9 +102,9 @@ public class NewsService implements
         news.setText(command.getText());
         CulturalOffer offer = culturalOfferRepository.findByIdAndArchivedFalse(command.getCulturalOfferID())
                 .orElseThrow(() -> new CulturalOfferNotFoundException(command.getCulturalOfferID()));
-        if (updateCulturalOffer(news, command.getCulturalOfferID())) {
-            news.setCulturalOffer(offer);
-        }
+//        if (updateCulturalOffer(news, command.getCulturalOfferID())) {
+//            news.setCulturalOffer(offer);
+//        }
 
         if (updateAuthor(news, command.getAuthorID())) {
             Administrator admin = administratorRepository.findById(command.getAuthorID())
