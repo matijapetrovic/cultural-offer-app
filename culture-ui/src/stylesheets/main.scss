@@ -1,9 +1,16 @@
 .container.p-grid {
   width: 100%;
-  max-width: 960px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
 body {
   background-color: #f8f9fa;
+}
+
+.p-rating {
+  .p-rating-icon {
+    margin-left: 0.25rem !important;
+    font-size: 1rem !important;
+  }
 }

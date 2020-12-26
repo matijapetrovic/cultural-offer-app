@@ -1,13 +1,7 @@
 <div class="offer-review p-grid">
   <div class="review-rating" class="p-d-flex p-flex-column p-jc-center p-col-3">
     <div class="rating-number">{{ review.rating }}</div>
-    <star-rating
-    style="width:100%"
-      [starType]="'svg'" 
-      [rating]="review.rating" 
-      [showHalfStars]="true" 
-      [readOnly]="true">
-    </star-rating>
+    <p-rating [ngModel]="review.rating | round" readonly="true" [cancel]="false" class="rating"></p-rating>
   </div>
   <div class="review-content p-col-9">
     <span class="review-author">{{ review.author.firstName }} {{ review.author.lastName }}</span>
