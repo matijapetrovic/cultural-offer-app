@@ -1,38 +1,60 @@
-<!-- <div class="col-md-6 offset-md-3 mt-5">
-  <div class="alert alert-info">
-    <strong>Normal User</strong> - U: user P: user<br />
-    <strong>Administrator</strong> - U: admin P: admin
-  </div>
-  <div class="card">
-    <h4 class="card-header">Angular 8 Role Based Auth Example</h4>
-    <div class="card-body">
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-          <label for="username">Username</label>
-          <input type="text" formControlName="username" class="form-control"
-            [ngClass]="submitted && f.username.errors" />
-          <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-            <div *ngIf="f.username.errors.required">Username is required</div>
+<div class="p-grid p-mt-6 p-justify-center centered-grid"></div>
+<div class="p-grid p-mt-6 p-justify-center centered-grid"></div>
+<div class="p-grid p-mt-6 p-justify-center centered-grid">
+  <div class="p-col p-sm-5 p-md-6 p-lg-3">
+    <p-card class="flat-card">
+      <div>
+        <div class="p-card-header">
+          <div class="p-grid p-justify-center">
+            <h1>
+              <strong>
+                Login
+              </strong>
+            </h1>
           </div>
         </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" formControlName="password" class="form-control"
-            [ngClass]="submitted && f.password.errors" />
-          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-            <div *ngIf="f.password.errors.required">Password is required</div>
-          </div>
+        <div class="p-card-content">
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="p-grid p-px-6 form-group">
+              <div class="p-px-5"></div>
+              <div class="p-col p-mt-5">
+                <span class="p-float-label">
+                  <input type="email" autocomplete="off" pInputText formControlName="username" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.username.errors}">
+                  <label *ngIf="!f.username.value" for="username">
+                    Username
+                  </label>
+                </span>
+                <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                  <div *ngIf="f.username.errors.required || f.username.errors">
+                    <small id="username-help" class="p-invalid">{{usernameMessage()}}</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="p-grid p-px-6 form-group">
+              <div class="p-px-5"></div>
+              <div class="p-col p-mt-5">
+                <span class="p-float-label">
+                  <input type="password" autocomplete="off" pInputText formControlName="password" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+                  <label *ngIf="!f.password.value" for="password">
+                    Password
+                  </label>
+                </span>
+                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                  <div *ngIf="f.password.errors.required">
+                    <small id="password-help" class="p-invalid">Password is required!</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="p-grid p-px-5 p-mt-6 p-justify-center">
+              <button type="submit" class="p-button" label="Submit" pButton></button>
+            </div>
+          </form>
         </div>
-        <button [disabled]="loading" class="btn btn-primary">
-          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-          Login
-        </button>
-        <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error.status}}</div>
-      </form>
-    </div>
+      </div>
+    </p-card>
   </div>
-</div> -->
-
-<p-card>
-  aaa
-</p-card>
+</div>

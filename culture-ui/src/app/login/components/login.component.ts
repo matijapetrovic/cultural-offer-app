@@ -24,7 +24,6 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService
   ) {
-    // redirect to home if already logged in
     if (this.authenticationService.currentUserValue) {
       this.router.navigate(['/']);
     }
@@ -32,10 +31,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
+      username: ['', [Validators.required, Validators.pattern("^[^\s@]+@[^\s@]+\.[^\s@]+$")]],
+      password: ['', Validators.required],
     });
-
+    
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
@@ -44,7 +43,8 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
-    if (this.loginForm.invalid) {
+    if (this.isInvalidEmailForm()) {
+      this.removeFormInputs();
       return;
     }
 
@@ -61,4 +61,54 @@ export class LoginComponent implements OnInit {
         });
   }
 
+  usernameMessage() {
+    if (this.isInvalidEmailFormat()){
+      return "Wrong email format!";
+    } else if (this.isEmptyEmail()) {
+      return "Email is required!"
+    }
+  }
+
+  isEmptyEmail() {
+    if (this.f.username.value === "") {
+      return true;
+    }
+    return false;
+  }
+
+  emailIsValid(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+  }
+
+  isInvalidEmailFormat() {
+    if (!this.emailIsValid(this.f.username.value) && !this.isEmptyEmail()) { 
+      return true;
+    }
+    return false;
+  }
+
+  isInvalidEmailForm() {
+    if (this.isInvalidEmailFormat() || this.isEmptyEmail()) {
+      return true;
+    }
+    return false;
+  }
+
+  isInvalidPassword() {
+    if(this.f.password.value === "") {
+      return true;
+    }
+    return false;
+  }
+
+  isFormValid() {
+    if (!this.isInvalidEmailForm && !this.isInvalidPassword()){
+      return true;
+    }
+    return false;
+  }
+
+  removeFormInputs() {
+    this.loginForm.reset();
+  }
 }
