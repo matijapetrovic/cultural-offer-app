@@ -1,3 +1,17 @@
-<button mat-button [disabled]="!hasPrev" (click)="navigatePrevious()">Previous</button>
-<span class="page-number">{{ currentPage + 1 }}</span>
-<button mat-button [disabled]="!hasNext" (click)="navigateNext()">Next</button>
+<div>
+    <button 
+        pButton 
+        [disabled]="!hasPrev" 
+        (click)="navigatePrevious()"
+        label="Previous"
+        class="p-button-text p-button-secondary"
+    ></button>
+    <p class="page-number">{{ currentPage + 1 }}</p>
+    <button 
+        pButton 
+        [disabled]="!hasNext" 
+        (click)="navigateNext()"
+        label="Next"
+        class="p-button-text p-button-secondary"
+    ></button>
+</div>

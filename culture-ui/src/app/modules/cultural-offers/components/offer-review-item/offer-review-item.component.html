@@ -1,27 +1,19 @@
-<div fxLayout="row">
-  <div class="review-rating" fxFlex="25" fxLayout="row" gdAlignRows="center center" gdAlignColumns="center center">
-    <span class="rating-number">{{ review.rating }}</span>
-    <star-rating 
-      [starType]="'svg'" 
-      [rating]="review.rating" 
-      [showHalfStars]="true" 
-      [readOnly]="true">
-    </star-rating>
+<div class="offer-review p-grid">
+  <div class="review-rating" class="p-d-flex p-flex-column p-jc-center p-col-3">
+    <div class="rating-number">{{ review.rating }}</div>
+    <p-rating [ngModel]="review.rating | round" readonly="true" [cancel]="false" class="rating"></p-rating>
   </div>
-  <div class="review-content" fxFlex="75">
+  <div class="review-content p-col-9">
     <span class="review-author">{{ review.author.firstName }} {{ review.author.lastName }}</span>
-    <p class="review-comment">{{ review.comment }}</p>
-    <div class="review-images">
-      <div fxFlex="calc(33% - 10px)">
-        <img [src]="review.images[0]" alt="">
-      </div>
-      <div fxFlex="calc(33% - 10px)">
-        <img [src]="review.images[1]" alt="">
-      </div>
-      <div fxFlex="calc(33% - 10px)">
-        <img [src]="review.images[2]" alt="">
-      </div>
+    <p-scrollPanel [style]="{width: '100%', height: '200px'}">  
+      <p class="review-comment">{{ review.comment }}</p>
+    </p-scrollPanel>
+    
+    <div class="review-images" class="p-grid">
+      <img class="p-col-4" [src]="review.images[0]" alt="">
+      <img class="p-col-4" [src]="review.images[1]" alt="">
+      <img class="p-col-4" [src]="review.images[2]" alt="">
     </div>
-    <button mat-flat-button color="primary">Reply</button>
+    <button pButton class="p-button-secondary" label="Reply"></button>
   </div>
 </div>
