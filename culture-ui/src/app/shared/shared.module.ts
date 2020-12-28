@@ -19,7 +19,7 @@ import { SliceTextPipe } from './pipes/slice-text.pipe';
 import {GMapModule} from 'primeng/gmap';
 import {RatingModule} from 'primeng/rating';
 import { RoundPipe } from './pipes/round.pipe';
-
+import { TableModule } from 'primeng/table';
 
 @NgModule({
     declarations: [
@@ -38,7 +38,8 @@ import { RoundPipe } from './pipes/round.pipe';
         ScrollPanelModule,
         CardModule,
         GMapModule,
-        RatingModule
+        RatingModule,
+        TableModule
     ],
     exports: [
         PaginationBarComponent,
@@ -54,7 +55,8 @@ import { RoundPipe } from './pipes/round.pipe';
         ScrollPanelModule,
         CardModule,
         GMapModule,
-        RatingModule
+        RatingModule,
+        TableModule
     ],
     providers: [
         ConfirmationService
