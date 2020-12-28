@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { CommonModule } from '@angular/common';
 import { PaginationBarComponent } from './components/pagination-bar/pagination-bar.component';
@@ -18,6 +18,7 @@ import {CardModule} from 'primeng/card';
 import { SliceTextPipe } from './pipes/slice-text.pipe';
 import {GMapModule} from 'primeng/gmap';
 import {RatingModule} from 'primeng/rating';
+import {DropdownModule} from 'primeng/dropdown';
 import { RoundPipe } from './pipes/round.pipe';
 
 
@@ -30,6 +31,7 @@ import { RoundPipe } from './pipes/round.pipe';
     imports: [
         CommonModule,
         FormsModule,
+        ReactiveFormsModule,
         FlexLayoutModule,
         MatButtonModule,
         ButtonModule,
@@ -38,11 +40,13 @@ import { RoundPipe } from './pipes/round.pipe';
         ScrollPanelModule,
         CardModule,
         GMapModule,
-        RatingModule
+        RatingModule,
+        DropdownModule
     ],
     exports: [
         PaginationBarComponent,
         FormsModule,
+        ReactiveFormsModule,
         LocalDatePipe,
         SliceTextPipe,
         RoundPipe,
@@ -54,7 +58,8 @@ import { RoundPipe } from './pipes/round.pipe';
         ScrollPanelModule,
         CardModule,
         GMapModule,
-        RatingModule
+        RatingModule,
+        DropdownModule
     ],
     providers: [
         ConfirmationService

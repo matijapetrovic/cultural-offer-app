@@ -1,1 +1,18 @@
-<p>cultural-offer-map works!</p>
+<div class="p-grid" style="width:100%; height: 100vh">
+  <div class="p-col-6">
+    <app-offer-map
+      *ngIf="culturalOffers"
+      [culturalOffers]="culturalOffers"
+      (onMapBoundsChanged)="updateLocations($event)"
+    ></app-offer-map>
+  </div>
+  <div class="p-col-6">
+    <app-offer-map-filter-form
+      [categories]="categories"
+      [subcategories]="subcategories"
+      (onSubcategorySelected)="getSubcategories($event)"
+      (onSubmit)="updateFilters($event)"
+    >
+    </app-offer-map-filter-form>
+  </div>
+</div>

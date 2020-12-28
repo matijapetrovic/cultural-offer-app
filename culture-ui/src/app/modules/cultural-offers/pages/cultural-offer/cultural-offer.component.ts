@@ -26,10 +26,6 @@ export class CulturalOfferComponent implements OnInit {
   private currentNewsPage: number;
   private newsLimit: number = 3;
 
-  mapOptions: any;
-  mapOverlays: any;
-  mapInfoWindow: any;
-
   constructor(
     private culturalOffersService : CulturalOffersService,
     private reviewsService: ReviewsService,
@@ -46,35 +42,13 @@ export class CulturalOfferComponent implements OnInit {
     this.getCulturalOffer();
     this.getReviews();
     this.getNews();
-    this.mapInfoWindow = new google.maps.InfoWindow();
+    
   }
 
   getCulturalOffer(): void {
-    this.culturalOffersService.getCulturalOffer(this.culturalOfferId).subscribe(culturalOffer =>  
-      {
-        this.culturalOffer = culturalOffer; 
-        this.mapOptions = {
-          center: {lat: culturalOffer.latitude, lng: culturalOffer.longitude},
-          zoom: 9
-        };
-        this.mapOverlays = [
-          new google.maps.Marker({
-            position: {lat: culturalOffer.latitude, lng:culturalOffer.longitude },
-            title: culturalOffer.name
-          })
-        ]
-      });
+    this.culturalOffersService.getCulturalOffer(this.culturalOfferId).subscribe(culturalOffer =>  this.culturalOffer = culturalOffer);
   }
-  // prebaci mapu u posebnu komponentu
-  handleOverlayClick(event: any): void {
-    let isMarker = event.overlay.getTitle != undefined;
 
-    if (isMarker) {
-      let title = event.overlay.getTitle();
-      this.mapInfoWindow.setContent('' + title + '');
-      this.mapInfoWindow.open(event.map, event.overlay);
-    }
-  }
 
   getReviews(): void {
     this.reviewsService.getReviews(this.culturalOfferId, this.currentReviewsPage, this.reviewsLimit).subscribe(reviewPage => this.reviewPage = reviewPage);

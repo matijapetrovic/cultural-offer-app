@@ -1,0 +1,30 @@
+<form [formGroup]="filterForm" (ngSubmit)="emitOnSubmit()" novalidate>
+  <p-dropdown
+    [options]="categories"
+    formControlName="category"
+    optionLabel="name"
+    (onChange)="emitSubcategorySelected($event)"
+  >
+
+  </p-dropdown>
+
+  <p-dropdown
+    [disabled]="!subcategories"
+    [options]="subcategories"
+    formControlName="subcategory"
+    optionLabel="name"
+  ></p-dropdown>
+
+  <p-button
+    [disabled]="filterForm.pristine"
+    label="Filter"
+  ></p-button>
+
+  <p-button
+    [disabled]="filterForm.pristine"
+    (click)="revert()"
+    label="Reset"
+  ></p-button>
+
+</form>
+
