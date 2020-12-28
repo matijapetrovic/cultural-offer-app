@@ -20,7 +20,7 @@ import {GMapModule} from 'primeng/gmap';
 import {RatingModule} from 'primeng/rating';
 import {DropdownModule} from 'primeng/dropdown';
 import { RoundPipe } from './pipes/round.pipe';
-
+import { TableModule } from 'primeng/table';
 
 @NgModule({
     declarations: [
@@ -41,7 +41,8 @@ import { RoundPipe } from './pipes/round.pipe';
         CardModule,
         GMapModule,
         RatingModule,
-        DropdownModule
+        DropdownModule,
+        TableModule
     ],
     exports: [
         PaginationBarComponent,
@@ -59,7 +60,8 @@ import { RoundPipe } from './pipes/round.pipe';
         CardModule,
         GMapModule,
         RatingModule,
-        DropdownModule
+        DropdownModule,
+        TableModule
     ],
     providers: [
         ConfirmationService
