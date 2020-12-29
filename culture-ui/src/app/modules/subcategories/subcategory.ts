@@ -3,3 +3,8 @@ export interface Subcategory {
   categoryId: number,
   name: string
 };
+
+export interface SubcategoriesPage {
+  data: Subcategory[],
+  links: Map<String, String>
+}

@@ -6,12 +6,14 @@
       (onMapBoundsChanged)="updateLocations($event)"
     ></app-offer-map>
   </div>
-  <div class="p-col-6">
+  <div class="p-col-6 p-d-flex p-ai-center">
     <app-offer-map-filter-form
+    style="width:100%"
       [categories]="categories"
       [subcategories]="subcategories"
       (onSubcategorySelected)="getSubcategories($event)"
       (onSubmit)="updateFilters($event)"
+      (onReset)="resetFilters()"
     >
     </app-offer-map-filter-form>
   </div>

@@ -11,5 +11,6 @@ import java.util.Optional;
 @Repository
 public interface SubcategoryRepository extends JpaRepository<Subcategory, SubcategoryId> {
     Slice<Subcategory> findAllByCategoryIdAndArchivedFalse(Long categoryId, Pageable pageable);
+    List<Subcategory> findAllByCategoryIdAndArchivedFalse(Long categoryId);
     Optional<Subcategory> findByIdAndCategoryIdAndArchivedFalse(Long id, Long categoryId);
 }

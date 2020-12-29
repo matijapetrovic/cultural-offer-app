@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HandleError, HttpErrorHandler } from 'src/app/core/services/http-error-handler.service';
 import { environment } from 'src/environments/environment';
-import { Subcategory } from './subcategory';
+import { SubcategoriesPage, Subcategory } from './subcategory';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -24,11 +24,19 @@ export class SubcategoriesService {
     this.handleError = httpErrorHandler.createHandleError('SubcategoriesService');
   }
 
-  getSubcategories(categoryId: number): Observable<Subcategory[]> {
-    let url = this.subcategoriesUrl + `/${categoryId}/subcategories`;
+  getSubcategories(categoryId: number, page: number, limit: number): Observable<SubcategoriesPage> {
+    let url = `${this.subcategoriesUrl}/${categoryId}/subcategories?page=${page}&limit=${limit}`;
+    return this.http.get<SubcategoriesPage>(url, httpOptions)
+      .pipe(
+        catchError(this.handleError<SubcategoriesPage>('getSubcategories'))
+      );
+  }
+
+  getSubcategoryNames(categoryId: number): Observable<Subcategory[]> {
+    let url = `${this.subcategoriesUrl}/${categoryId}/subcategories/names`;
     return this.http.get<Subcategory[]>(url, httpOptions)
       .pipe(
-        catchError(this.handleError('getSubcategories', []))
+        catchError(this.handleError('getSubcategoryNames', []))
       );
   }
 }

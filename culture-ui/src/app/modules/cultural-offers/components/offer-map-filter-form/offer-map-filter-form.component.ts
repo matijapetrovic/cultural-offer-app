@@ -20,6 +20,9 @@ export class OfferMapFilterFormComponent implements OnInit {
   @Output()
   onSubmit = new EventEmitter<CulturalOfferLocationsFilter>();
 
+  @Output()
+  onReset = new EventEmitter<void>();
+
   filterForm: FormGroup;
 
   constructor() {
@@ -29,23 +32,29 @@ export class OfferMapFilterFormComponent implements OnInit {
   createFormGroup(): FormGroup {
     return new FormGroup({
       category: new FormControl(),
-      subcategory: new FormControl()
+      subcategory: new FormControl({value: null, disabled:true})
     });
   }
 
   ngOnInit(): void {
   }
 
+  // resetuj van komponente 
   revert(): void {
     this.filterForm.reset();
+    this.filterForm.controls['subcategory'].disable();
+    this.onReset.emit();
   }
 
   emitSubcategorySelected(event: any): void {
+    this.filterForm.controls['subcategory'].reset();
+    this.filterForm.controls['subcategory'].enable();
     this.onSubcategorySelected.emit(event.value);
   }
 
   emitOnSubmit(): void {
     //deep copy
+    console.log("uso");
     const result: CulturalOfferLocationsFilter = Object.assign({}, this.filterForm.value);
     result.category = Object.assign({}, result.category);
     result.subcategory = Object.assign({}, result.subcategory);

@@ -49,11 +49,11 @@ export class CulturalOfferMapComponent implements OnInit {
   }
 
   getCategories(): void {
-    this.categoriesService.getCategories().subscribe(categories => this.categories = categories);
+    this.categoriesService.getCategoryNames().subscribe(categories => this.categories = categories);
   }
 
   getSubcategories(category: Category): void {
-    this.subcategoriesService.getSubcategories(category.id).subscribe(subcategories => this.subcategories = subcategories);
+    this.subcategoriesService.getSubcategoryNames(category.id).subscribe(subcategories => this.subcategories = subcategories);
   }
 
   updateFilters(event: CulturalOfferLocationsFilter) {
@@ -66,6 +66,13 @@ export class CulturalOfferMapComponent implements OnInit {
 
   updateLocations(event: LocationRange): void {
     this.locationRange = event;
+    this.getCulturalOfferLocations();
+  }
+
+  resetFilters(): void {
+    this.categoryId = null;
+    this.subcategoryId = null;
+    this.subcategories = [];
     this.getCulturalOfferLocations();
   }
 

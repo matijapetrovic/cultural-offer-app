@@ -17,22 +17,6 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class CategoriesService {
-<<<<<<< HEAD
-  categoriesUrl = `${environment.apiUrl}/api/categories`
-  private handleError: HandleError;
-
-  constructor(private http: HttpClient, httpErrorHandler: HttpErrorHandler) {
-    this.handleError = httpErrorHandler.createHandleError('CategoriesService');
-  }
-
-  getCategories(): Observable<Category[]> {
-    return this.http.get<Category[]>(this.categoriesUrl, httpOptions)
-      .pipe(
-        catchError(this.handleError('getCategories', []))
-      );
-  }
-
-=======
   categoriesUrl = `${environment.apiUrl}/api/categories`;
   private handleError: HandleError;
 
@@ -55,6 +39,14 @@ export class CategoriesService {
       .pipe(
         catchError(this.handleError<CategoriesPage>('getCategories')
         )
+      );
+  }
+
+  getCategoryNames(): Observable<Category[]> {
+    const url = `${this.categoriesUrl}/names`;
+    return this.http.get<Category[]>(url, httpOptions)
+      .pipe(
+        catchError(this.handleError('getCategoryNames', []))
       );
   }
 
@@ -84,5 +76,4 @@ export class CategoriesService {
         )
       );
   }
->>>>>>> ui/category
 }
