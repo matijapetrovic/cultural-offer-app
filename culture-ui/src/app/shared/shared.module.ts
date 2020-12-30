@@ -21,6 +21,8 @@ import {RatingModule} from 'primeng/rating';
 import {DropdownModule} from 'primeng/dropdown';
 import { RoundPipe } from './pipes/round.pipe';
 import { TableModule } from 'primeng/table';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @NgModule({
     declarations: [
@@ -42,7 +44,9 @@ import { TableModule } from 'primeng/table';
         GMapModule,
         RatingModule,
         DropdownModule,
-        TableModule
+        TableModule,
+        DynamicDialogModule,
+        ConfirmDialogModule
     ],
     exports: [
         PaginationBarComponent,
@@ -61,7 +65,9 @@ import { TableModule } from 'primeng/table';
         GMapModule,
         RatingModule,
         DropdownModule,
-        TableModule
+        TableModule,
+        DynamicDialogModule,
+        ConfirmDialogModule
     ],
     providers: [
         ConfirmationService

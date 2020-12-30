@@ -18,14 +18,14 @@
         type="button"
         class="p-button-raised p-button-rounded p-justify-left"
         label="Add category"
+        (click)="showAddForm()"
       ></button>
       <div class="p-grid p-mt-3 p-justify-center centered-grid"></div>
-      
         <p-table
           #dt 
           *ngIf="categoriesPage"
           [value]="categoriesPage.data"
-          [rows]="10"
+          [editable]="true"  [paginator]="false" [rows]="10" [responsive]="true"
           [showCurrentPageReport]="true"
           styleClass="p-datatable-categoriesPage p-datatable-gridlines"
           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
@@ -46,10 +46,10 @@
             <th>Actions</th>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-product>
-          <tr>
+        <ng-template pTemplate="body" let-category>
+          <tr ng-repeat="(category.name) in categoriesPage.data">
             <td>
-              {{product.name}}
+              {{category.name}}
             </td>
             <td>
               <div class="p-grid p-justify-center">
@@ -58,12 +58,14 @@
                   label="Edit"
                   icon="pi pi-pencil" 
                   class="p-button-secondary p-button-rounded p-justify-left p-button-sm"
+                  (click)="showUpdateForm(category)"
                 ></button>
                 <button 
                   pButton
                   label="Delete"
                   icon="pi pi-trash" 
                   class="p-button-info p-button-rounded p-justify-right p-button-sm"
+                  (click)="showDeleteForm(category.id)"
                 ></button>
               </div>
             </td>
@@ -84,3 +86,5 @@
     </p-card>
   </div>
 </div>
+
+<p-confirmDialog></p-confirmDialog>
