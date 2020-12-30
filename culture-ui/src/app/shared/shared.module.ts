@@ -70,7 +70,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
         ConfirmDialogModule
     ],
     providers: [
-        ConfirmationService
+        ConfirmationService,
     ]
 })
 export class SharedModule { }
