@@ -11,6 +11,10 @@ const routes: Routes = [
     data: { roles: [Role.Admin] }
   },
   {
+    path: 'register',
+    loadChildren: () => import('./registration/registration.module').then(m => m.RegistrationModule),
+  },
+  {
     path: 'login',
     loadChildren: () => import('./login/login.module').then(m => m.CulturalOffersModule),
   },

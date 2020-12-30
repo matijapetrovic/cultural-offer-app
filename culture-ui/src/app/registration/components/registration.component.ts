@@ -1,44 +1,41 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
-
-import { AuthenticationService } from '../../_services/authentication.service';
+import { RegistrationService } from '../registration.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'app-registration',
+  templateUrl: './registration.component.html',
+  styleUrls: ['./registration.component.scss']
 })
-export class LoginComponent implements OnInit {
-
-  loginForm: FormGroup;
+export class RegistrationComponent implements OnInit {
+  registerForm: FormGroup;
   loading = false;
   submitted = false;
   returnUrl: string;
   error = '';
-
+  
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService
-  ) {
-    if (this.authenticationService.currentUserValue) {
-      this.router.navigate(['/']);
-    }
-  }
+    private registrationService: RegistrationService
+    ) {
 
-  ngOnInit() {
-    this.loginForm = this.formBuilder.group({
+     }
+
+  ngOnInit(): void {
+    this.registerForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.pattern("^[^\s@]+@[^\s@]+\.[^\s@]+$")]],
       password: ['', Validators.required],
+      confirmPassword: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
     });
-    
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
-  get f() { return this.loginForm.controls; }
+  get f() { return this.registerForm.controls; }
 
   onSubmit() {
     this.submitted = true;
@@ -48,24 +45,21 @@ export class LoginComponent implements OnInit {
     }
 
     this.loading = true;
-    this.authenticationService.login(this.f.username.value, this.f.password.value)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.router.navigate([this.returnUrl]);
-        },
-        error => {
-          this.error = error;
-          this.loading = false;
-        });
-
+    this.registrationService.register(
+      {
+        firstName: this.f.firstName.value,
+        lastName: this.f.lastName.value,
+        email: this.f.username.value,
+        password: this.f.password.value
+      })
+      .subscribe();
     this.removeFormInputs();
   }
 
   usernameMessage() {
-    if (this.isInvalidEmailFormat()){
+    if (this.isInvalidEmailFormat()) {
       return "Wrong email format!";
-    } else if (this.isEmptyEmail() && this.submitted) {
+    } else if (this.isEmptyEmail()) {
       return "Email is required!"
     }
   }
@@ -82,7 +76,7 @@ export class LoginComponent implements OnInit {
   }
 
   isInvalidEmailFormat() {
-    if (!this.emailIsValid(this.f.username.value) && !this.isEmptyEmail()) { 
+    if (!this.emailIsValid(this.f.username.value) && !this.isEmptyEmail()) {
       return true;
     }
     return false;
@@ -103,13 +97,18 @@ export class LoginComponent implements OnInit {
   }
 
   isFormValid() {
-    if (!this.isInvalidEmailForm && !this.isEmptyPassword()){
+    if (!this.isInvalidEmailForm && !this.isEmptyPassword()) {
       return true;
     }
     return false;
   }
 
-  removeFormInputs() {
-    this.loginForm.reset();
+  arePasswordsSame() {
+    return this.f.password.value === this.f.confirmPassword.value;
   }
+
+  removeFormInputs() {
+    this.registerForm.reset();
+  }
+
 }

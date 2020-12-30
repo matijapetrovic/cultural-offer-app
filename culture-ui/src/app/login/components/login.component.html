@@ -18,16 +18,23 @@
             <div class="p-grid p-px-6 form-group">
               <div class="p-px-5"></div>
               <div class="p-col p-mt-5">
-                <span class="p-float-label">
+                <label
+                  for="username"
+                  class="p-d-inline p-mr-2 p-mb-2"
+                >
+                  <i class="pi pi-envelope"></i>
+                </label>
+                <span class="p-float-label p-d-inline">
                   <input type="email" autocomplete="off" pInputText formControlName="username" class="form-control"
                     [ngClass]="{ 'is-invalid': submitted && f.username.errors}">
                   <label *ngIf="!f.username.value" for="username">
                     Username
                   </label>
                 </span>
-                <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                <div *ngIf="f.username.errors" class="invalid-feedback">
                   <div *ngIf="f.username.errors.required || f.username.errors">
-                    <small id="username-help" class="p-invalid">{{usernameMessage()}}</small>
+                    <div class="p-mr-5 p-mb-3"></div>
+                    <small id="username-help" class="p-invalid p-mb-3">{{usernameMessage()}}</small>
                   </div>
                 </div>
               </div>
@@ -35,7 +42,13 @@
             <div class="p-grid p-px-6 form-group">
               <div class="p-px-5"></div>
               <div class="p-col p-mt-5">
-                <span class="p-float-label">
+                <label
+                  for="password"
+                  class="p-d-inline p-mr-2 p-mb-2"
+                >
+                  <i class="pi pi-lock-open"></i>
+                </label>
+                <span class="p-float-label p-d-inline">
                   <input type="password" autocomplete="off" pInputText formControlName="password" class="form-control"
                     [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
                   <label *ngIf="!f.password.value" for="password">
