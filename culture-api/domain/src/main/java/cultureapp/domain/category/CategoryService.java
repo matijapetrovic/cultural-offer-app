@@ -7,6 +7,7 @@ import cultureapp.domain.category.exception.CategoryAlreadyExistsException;
 import cultureapp.domain.category.exception.CategoryNotFoundException;
 import cultureapp.domain.category.query.GetCategoriesQueryHandler;
 import cultureapp.domain.category.query.GetCategoryByIdQueryHandler;
+import cultureapp.domain.category.query.GetCategoryNamesQueryHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
@@ -17,6 +18,8 @@ import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -25,7 +28,8 @@ public class CategoryService implements
         DeleteCategoryUseCase,
         UpdateCategoryUseCase,
         GetCategoriesQueryHandler,
-        GetCategoryByIdQueryHandler {
+        GetCategoryByIdQueryHandler,
+        GetCategoryNamesQueryHandler {
     private final CategoryRepository categoryRepository;
 
     @Override
@@ -69,6 +73,15 @@ public class CategoryService implements
         }
     }
 
+
+    @Override
+    public List<GetCategoryNamesDTO> getCategoryNames() {
+        return categoryRepository.findAllByArchivedFalse()
+                .stream()
+                .map(GetCategoryNamesDTO::of)
+                .collect(Collectors.toList());
+    }
+
     private void saveCategory(Category category) throws CategoryAlreadyExistsException {
         try {
             categoryRepository.save(category);
@@ -76,4 +89,5 @@ public class CategoryService implements
             throw new CategoryAlreadyExistsException(category.getName());
         }
     }
+
 }

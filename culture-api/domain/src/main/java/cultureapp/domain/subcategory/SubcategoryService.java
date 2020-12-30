@@ -10,6 +10,7 @@ import cultureapp.domain.subcategory.exception.SubcategoryAlreadyExistsException
 import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
 import cultureapp.domain.subcategory.query.GetSubcategoriesQueryHandler;
 import cultureapp.domain.subcategory.query.GetSubcategoryByIdQueryHandler;
+import cultureapp.domain.subcategory.query.GetSubcategoryNamesQueryHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
@@ -20,6 +21,8 @@ import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -27,6 +30,7 @@ public class SubcategoryService implements
         AddSubcategoryUseCase,
         GetSubcategoriesQueryHandler,
         GetSubcategoryByIdQueryHandler,
+        GetSubcategoryNamesQueryHandler,
         UpdateSubcategoryUseCase,
         DeleteSubcategoryUseCase {
     private final SubcategoryRepository subcategoryRepository;
@@ -52,6 +56,14 @@ public class SubcategoryService implements
                 .findAllByCategoryIdAndArchivedFalse(category.getId(), pageRequest);
 
         return subcategories.map(GetSubcategoriesDTO::of);
+    }
+
+    @Override
+    public List<GetSubcategoryNamesDTO> getSubcategoryNames(GetSubcategoryNamesQuery query) {
+        return subcategoryRepository.findAllByCategoryIdAndArchivedFalse(query.getCategoryId())
+                .stream()
+                .map(GetSubcategoryNamesDTO::of)
+                .collect(Collectors.toList());
     }
 
     @Override

@@ -7,8 +7,6 @@ const routes: Routes = [
   {
     path: 'cultural-offers',
     loadChildren: () => import('./modules/cultural-offers/cultural-offers.module').then(m => m.CulturalOffersModule),
-    canActivate: [AuthGuard],
-    data: { roles: [Role.Admin] }
   },
   {
     path: 'register',
@@ -16,22 +14,24 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then(m => m.CulturalOffersModule),
-  },
-  {
-    path: 'home',
-    loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule),
+    loadChildren: () => import('./login/login.module').then(m => m.LoginModule),
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'map',
     pathMatch: "full",
+  },
+  {
+    path: 'map',
+    loadChildren: () => import('./modules/offer-map/offer-map.module').then(m => m.OfferMapModule)
   },
   {
     path: 'categories',
     loadChildren: () => import('./modules/categories/categories.module').then(m => m.CategoriesModule),
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Admin] }
   },
-  { path: '**', redirectTo: 'home' }
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({

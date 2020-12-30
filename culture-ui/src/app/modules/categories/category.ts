@@ -1,7 +1,7 @@
 export interface Category {
-  id: string,
+  id: number,
   name: string
-}
+};
 
 export interface CategoriesPage {
   data: Category[],

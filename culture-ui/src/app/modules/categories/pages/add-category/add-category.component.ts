@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { CategoriesService } from '../../categories.service';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { Category } from '../../category';
 
 @Component({
   selector: 'app-add-category',
@@ -46,11 +47,11 @@ export class AddCategoryComponent implements OnInit {
   }
 
   addCategory() {
-    this.categoryService.addCategory(this.f.name.value)
+    let category: Category = {id: null, name: this.f.name.value};
+    this.categoryService.addCategory(category)
       .pipe(first())
       .subscribe(
-        error => {
-          this.error = error;
+        () => {
           this.loading = false;
         });
   }

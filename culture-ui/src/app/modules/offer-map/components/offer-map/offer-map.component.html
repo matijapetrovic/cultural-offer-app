@@ -1,0 +1,10 @@
+<p-gmap
+  #gmap
+  [options]="mapOptions" 
+  [overlays]="mapOverlays"
+  (onOverlayClick)="handleOverlayClick($event)"
+  (onMapReady)="setMap($event)"
+  (onZoomChanged)="mapBoundsChanged()"
+  (onMapDragEnd)="mapBoundsChanged()"
+  [style]="{'width':'100%','height':'100%'}" ></p-gmap>
+  

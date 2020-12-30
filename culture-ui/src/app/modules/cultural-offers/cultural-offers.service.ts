@@ -4,7 +4,7 @@ import { HandleError, HttpErrorHandler } from '../../core/services/http-error-ha
 
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { CulturalOffer } from './cultural-offer';
+import { CulturalOffer, CulturalOfferLocation, LocationRange } from './cultural-offer';
 import { environment } from 'src/environments/environment';
 
 const httpOptions = {
@@ -31,6 +31,20 @@ export class CulturalOffersService {
     return this.http.get<CulturalOffer>(url, httpOptions)
       .pipe(
         catchError(this.handleError<CulturalOffer>('getCulturalOffer'))
+      );
+  }
+
+  getCulturalOfferLocations(locationRange: LocationRange, categoryId: number, subcategoryId: number): Observable<CulturalOfferLocation[]> {
+    let url = `${this.culturalOffersUrl}/locations`;
+    url += `?latitudeFrom=${locationRange.latitudeFrom}&latitudeTo=${locationRange.latitudeTo}`;
+    url += `&longitudeFrom=${locationRange.longitudeFrom}&longitudeTo=${locationRange.longitudeTo}`;
+    if (categoryId)
+      url += `&categoryId=${categoryId}`;
+    if (subcategoryId)
+      url += `&subcategoryId=${subcategoryId}`;
+    return this.http.get<CulturalOfferLocation[]>(url, httpOptions)
+      .pipe(
+        catchError(this.handleError('getCulturalOfferLocations', []))
       );
   }
 

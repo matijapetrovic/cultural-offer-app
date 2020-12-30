@@ -1,9 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HandleError, HttpErrorHandler } from '../../core/services/http-error-handler.service';
-
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { HandleError, HttpErrorHandler } from 'src/app/core/services/http-error-handler.service';
 import { environment } from 'src/environments/environment';
 import { CategoriesPage, Category } from './category';
 
@@ -43,11 +42,19 @@ export class CategoriesService {
       );
   }
 
-  addCategory(name: string): Observable<string> {
-    const url = `${this.categoriesUrl}`;
-    return this.http.post<string>(url, {name: name},  httpOptions)
+  getCategoryNames(): Observable<Category[]> {
+    const url = `${this.categoriesUrl}/names`;
+    return this.http.get<Category[]>(url, httpOptions)
       .pipe(
-        catchError(this.handleError<string>('postCategory')
+        catchError(this.handleError('getCategoryNames', []))
+      );
+  }
+
+  addCategory(category: Category): Observable<void> {
+    const url = `${this.categoriesUrl}`;
+    return this.http.post<void>(url, category, httpOptions)
+      .pipe(
+        catchError(this.handleError<void>('postCategory')
         )
       );
   }
