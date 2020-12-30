@@ -36,15 +36,16 @@ export class OfferMapComponent implements OnInit, AfterViewInit, OnChanges {
     console.log(this.gmap.nativeElement);
   }
 
-  setMap(event) {
+  setMap(event: any) {
     this.map = event.map;
   }
 
   ngOnInit(): void {
     this.mapOptions = {};
     this.mapInfoWindow = new google.maps.InfoWindow();
-    this.updateCulturalOfferLocations();
     let bounds = new google.maps.LatLngBounds();
+
+    this.updateCulturalOfferLocations();
     this.mapOverlays.forEach(marker => {
       bounds.extend(marker.getPosition());
     });
@@ -56,20 +57,24 @@ export class OfferMapComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   updateCulturalOfferLocations(): void { 
-    this.mapOverlays = this.culturalOffers.map((culturalOffer) => 
-      new google.maps.Marker({
+    this.mapOverlays = this.culturalOffers.map((culturalOffer) => {
+      return new google.maps.Marker({
         position: {lat: culturalOffer.location.latitude, lng:culturalOffer.location.longitude },
         title: culturalOffer.name
       })
-    );
+    });
   }
 
   handleOverlayClick(event: any): void {
-    let isMarker = event.overlay.getTitle != undefined;
+    console.log(event);
+    let isMarker: boolean = event.overlay.getTitle != undefined;
 
     if (isMarker) {
-      let title = event.overlay.getTitle();
-      this.mapInfoWindow.setContent(title);
+      let title: string = event.overlay.getTitle();
+      let latLng: google.maps.LatLng = event.originalEvent.latLng;
+      let offer: CulturalOfferLocation = this.culturalOffers.filter((offer) => offer.location.latitude === latLng.lat() && offer.location.longitude === latLng.lng())[0];
+      
+      this.mapInfoWindow.setContent(`<h3>${title}</h3><p>${offer.location.address}</p><a pButton href='/cultural-offers/${offer.id}'>View page<a>`);
       this.mapInfoWindow.open(event.map, event.overlay);
     }
   }
