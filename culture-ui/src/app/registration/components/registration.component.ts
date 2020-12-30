@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegistrationService } from '../registration.service';
 
 @Component({
@@ -18,8 +17,6 @@ export class RegistrationComponent implements OnInit {
   
   constructor(
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
     private registrationService: RegistrationService
     ) {
 
@@ -28,7 +25,7 @@ export class RegistrationComponent implements OnInit {
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.pattern("^[^\s@]+@[^\s@]+\.[^\s@]+$")]],
-      password: ['', Validators.required],
+      password: ['', Validators.required, ],
       confirmPassword: ['', Validators.required],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -40,7 +37,7 @@ export class RegistrationComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
-    if (this.isInvalidEmailForm()) {
+    if (this.isInvalidEmailForm() || !this.arePasswordsSame()) {
       return;
     }
 
@@ -59,7 +56,7 @@ export class RegistrationComponent implements OnInit {
   usernameMessage() {
     if (this.isInvalidEmailFormat()) {
       return "Wrong email format!";
-    } else if (this.isEmptyEmail()) {
+    } else if (this.isEmptyEmail() && this.submitted) {
       return "Email is required!"
     }
   }
@@ -89,13 +86,6 @@ export class RegistrationComponent implements OnInit {
     return false;
   }
 
-  isEmptyPassword() {
-    if (this.f.password.value === "" || this.f.password.value === null) {
-      return true;
-    }
-    return false;
-  }
-
   isFormValid() {
     if (!this.isInvalidEmailForm && !this.isEmptyPassword()) {
       return true;
@@ -104,11 +94,57 @@ export class RegistrationComponent implements OnInit {
   }
 
   arePasswordsSame() {
-    return this.f.password.value === this.f.confirmPassword.value;
+    return (this.f.password.value === this.f.confirmPassword.value);
+  }
+
+  arePasswordsEmpty() {
+    if(this.isEmptyPassword() && this.isEmptyConfirmPassword()) {
+      return true;
+    }
+    return false;
+  }
+
+  isEmptyPassword() {
+    if (this.f.password.value === "" || this.f.password.value === null) {
+      return true;
+    }
+    return false;
+  }
+
+  isEmptyConfirmPassword() {
+    if (this.f.confirmPassword.value === "" || this.f.confirmPassword.value === null) {
+      return true;
+    }
+    return false;
+  }
+
+  passwordMessage() {
+    if (!this.arePasswordsSame()) {
+      return "Passwords must match!"; 
+    } 
+    else if ((this.f.password.value === '' || this.f.password.value === null) && this.submitted && this.arePasswordErrorsActivated()) {
+      return "Password is required!";
+    }
+  }
+
+  confirmPasswordMessage() {
+    if (!this.arePasswordsSame()) {
+      return "Passwords must match!";
+    }
+    else if ((this.f.confirmPassword.value === '' || this.f.confirmPassword.value === null) && this.submitted && this.areConfirmPasswordErrorsActivated()) {
+      return "Password is required!";
+    }
+  }
+
+  arePasswordErrorsActivated() {
+    return this.f.password.errors.required || this.f.password.errors
+  }
+
+  areConfirmPasswordErrorsActivated() {
+    return this.f.confirmPassword.errors.required || this.f.confirmPassword.errors
   }
 
   removeFormInputs() {
     this.registerForm.reset();
   }
-
 }

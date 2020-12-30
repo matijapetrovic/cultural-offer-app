@@ -82,7 +82,7 @@ export class LoginComponent implements OnInit {
   }
 
   isInvalidEmailFormat() {
-    if (!this.emailIsValid(this.f.username.value) && !this.isEmptyEmail()) { 
+    if (!this.emailIsValid(this.f.username.value) && !this.isEmptyEmail()) {
       return true;
     }
     return false;

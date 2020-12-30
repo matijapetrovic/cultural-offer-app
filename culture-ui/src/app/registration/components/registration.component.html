@@ -77,7 +77,7 @@
                     Username
                   </label>
                 </span>
-                <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                <div *ngIf="f.username.errors" class="invalid-feedback">
                   <div *ngIf="f.username.errors.required || f.username.errors">
                     <small id="username-help" class="p-invalid">{{usernameMessage()}}</small>
                   </div>
@@ -97,10 +97,8 @@
                     Password
                   </label>
                 </span>
-                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                  <div *ngIf="f.password.errors.required || f.password.errors">
-                    <small id="password-help" class="p-invalid">Password is required!</small>
-                  </div>
+                <div class="invalid-feedback">
+                    <small id="password-help" class="p-invalid">{{passwordMessage()}}</small>
                 </div>
               </div>
             </div>
@@ -117,10 +115,8 @@
                     Confirm password
                   </label>
                 </span>
-                <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
-                  <div *ngIf="f.confirmPassword.errors.required || f.confirmPassword.errors">
-                    <small id="confirmPassword-help" class="p-invalid">Password confirmation is required!</small>
-                  </div>
+                <div class="invalid-feedback">
+                    <small id="confirmPassword-help" class="p-invalid">{{confirmPasswordMessage()}}</small>
                 </div>
               </div>
             </div>
