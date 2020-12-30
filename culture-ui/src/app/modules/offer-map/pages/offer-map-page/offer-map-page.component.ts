@@ -3,15 +3,16 @@ import { CategoriesService } from 'src/app/modules/categories/categories.service
 import { Category } from 'src/app/modules/categories/category';
 import { SubcategoriesService } from 'src/app/modules/subcategories/subcategories.service';
 import { Subcategory } from 'src/app/modules/subcategories/subcategory';
-import { CulturalOfferLocation, CulturalOfferLocationsFilter, LocationRange } from '../../cultural-offer';
-import { CulturalOffersService } from '../../cultural-offers.service';
+import { CulturalOfferLocation, CulturalOfferLocationsFilter, LocationRange } from 'src/app/modules/cultural-offers/cultural-offer';
+import { CulturalOffersService } from 'src/app/modules/cultural-offers/cultural-offers.service';
 
 @Component({
-  selector: 'app-cultural-offer-map',
-  templateUrl: './cultural-offer-map.component.html',
-  styleUrls: ['./cultural-offer-map.component.scss']
+  selector: 'app-offer-map-page',
+  templateUrl: './offer-map-page.component.html',
+  styleUrls: ['./offer-map-page.component.scss']
 })
-export class CulturalOfferMapComponent implements OnInit {
+export class OfferMapPageComponent implements OnInit {
+
   culturalOffers: CulturalOfferLocation[];
   categories: Category[] = [];
   subcategories: Subcategory[] = [];

@@ -10,16 +10,16 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then(m => m.CulturalOffersModule),
-  },
-  {
-    path: 'home',
-    loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule),
+    loadChildren: () => import('./login/login.module').then(m => m.LoginModule),
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'map',
     pathMatch: "full",
+  },
+  {
+    path: 'map',
+    loadChildren: () => import('./modules/offer-map/offer-map.module').then(m => m.OfferMapModule)
   },
   {
     path: 'categories',
@@ -27,7 +27,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: [Role.Admin] }
   },
-  { path: '**', redirectTo: 'home' }
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({

@@ -14,4 +14,4 @@ import { SharedModule } from '../shared/shared.module';
     SharedModule
   ]
 })
-export class CulturalOffersModule { }
+export class LoginModule { }

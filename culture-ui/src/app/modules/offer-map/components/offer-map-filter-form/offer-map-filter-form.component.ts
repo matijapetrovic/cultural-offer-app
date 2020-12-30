@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Category } from 'src/app/modules/categories/category';
 import { Subcategory } from 'src/app/modules/subcategories/subcategory';
-import { CulturalOfferLocationsFilter } from '../../cultural-offer';
+import { CulturalOfferLocationsFilter } from '../../../cultural-offers/cultural-offer';
 @Component({
   selector: 'app-offer-map-filter-form',
   templateUrl: './offer-map-filter-form.component.html',
