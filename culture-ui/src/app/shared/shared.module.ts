@@ -19,7 +19,9 @@ import { SliceTextPipe } from './pipes/slice-text.pipe';
 import {GMapModule} from 'primeng/gmap';
 import {RatingModule} from 'primeng/rating';
 import { RoundPipe } from './pipes/round.pipe';
-
+import { TableModule } from 'primeng/table';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @NgModule({
     declarations: [
@@ -38,7 +40,10 @@ import { RoundPipe } from './pipes/round.pipe';
         ScrollPanelModule,
         CardModule,
         GMapModule,
-        RatingModule
+        RatingModule,
+        TableModule,
+        DynamicDialogModule,
+        ConfirmDialogModule
     ],
     exports: [
         PaginationBarComponent,
@@ -54,7 +59,10 @@ import { RoundPipe } from './pipes/round.pipe';
         ScrollPanelModule,
         CardModule,
         GMapModule,
-        RatingModule
+        RatingModule,
+        TableModule,
+        DynamicDialogModule,
+        ConfirmDialogModule
     ],
     providers: [
         ConfirmationService
