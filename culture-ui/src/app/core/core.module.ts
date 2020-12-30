@@ -6,6 +6,7 @@ import { MessageService } from './services/message.service';
 import { HttpErrorHandler } from './services/http-error-handler.service';
 
 import {MenubarModule} from 'primeng/menubar';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import {MenubarModule} from 'primeng/menubar';
     imports: [
         RouterModule,
         CommonModule,
-        MenubarModule
+        MenubarModule,
+        SharedModule
     ],
     providers: [
         HttpErrorHandler,

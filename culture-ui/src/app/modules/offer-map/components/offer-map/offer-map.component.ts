@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, Output, ViewChild, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CulturalOfferLocation, LocationRange } from '../../cultural-offer';
+import { CulturalOfferLocation, LocationRange } from 'src/app/modules/cultural-offers/cultural-offer';
 
 @Component({
   selector: 'app-offer-map',
@@ -66,7 +66,6 @@ export class OfferMapComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   handleOverlayClick(event: any): void {
-    console.log(event);
     let isMarker: boolean = event.overlay.getTitle != undefined;
 
     if (isMarker) {
