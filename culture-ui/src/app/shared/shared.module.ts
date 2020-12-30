@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { CommonModule } from '@angular/common';
 import { PaginationBarComponent } from './components/pagination-bar/pagination-bar.component';
@@ -18,6 +18,7 @@ import {CardModule} from 'primeng/card';
 import { SliceTextPipe } from './pipes/slice-text.pipe';
 import {GMapModule} from 'primeng/gmap';
 import {RatingModule} from 'primeng/rating';
+import {DropdownModule} from 'primeng/dropdown';
 import { RoundPipe } from './pipes/round.pipe';
 import { TableModule } from 'primeng/table';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
@@ -32,6 +33,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     imports: [
         CommonModule,
         FormsModule,
+        ReactiveFormsModule,
         FlexLayoutModule,
         MatButtonModule,
         ButtonModule,
@@ -41,6 +43,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
         CardModule,
         GMapModule,
         RatingModule,
+        DropdownModule,
         TableModule,
         DynamicDialogModule,
         ConfirmDialogModule
@@ -48,6 +51,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     exports: [
         PaginationBarComponent,
         FormsModule,
+        ReactiveFormsModule,
         LocalDatePipe,
         SliceTextPipe,
         RoundPipe,
@@ -60,6 +64,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
         CardModule,
         GMapModule,
         RatingModule,
+        DropdownModule,
         TableModule,
         DynamicDialogModule,
         ConfirmDialogModule

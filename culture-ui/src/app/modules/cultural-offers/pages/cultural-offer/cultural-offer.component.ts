@@ -50,30 +50,19 @@ export class CulturalOfferComponent implements OnInit {
   }
 
   getCulturalOffer(): void {
-    this.culturalOffersService.getCulturalOffer(this.culturalOfferId).subscribe(culturalOffer =>  
-      {
-        this.culturalOffer = culturalOffer; 
-        this.mapOptions = {
-          center: {lat: culturalOffer.latitude, lng: culturalOffer.longitude},
-          zoom: 9
-        };
-        this.mapOverlays = [
-          new google.maps.Marker({
-            position: {lat: culturalOffer.latitude, lng:culturalOffer.longitude },
-            title: culturalOffer.name
-          })
-        ]
-      });
-  }
-  // prebaci mapu u posebnu komponentu
-  handleOverlayClick(event: any): void {
-    let isMarker = event.overlay.getTitle != undefined;
-
-    if (isMarker) {
-      let title = event.overlay.getTitle();
-      this.mapInfoWindow.setContent('' + title + '');
-      this.mapInfoWindow.open(event.map, event.overlay);
-    }
+    this.culturalOffersService.getCulturalOffer(this.culturalOfferId).subscribe(culturalOffer =>  {
+      this.culturalOffer = culturalOffer;
+      this.mapOptions = {
+        center: {lat: culturalOffer.latitude, lng: culturalOffer.longitude},
+        zoom: 9
+      };
+      this.mapOverlays = [
+        new google.maps.Marker({
+          position: {lat: culturalOffer.latitude, lng:culturalOffer.longitude },
+          title: culturalOffer.name
+        })
+      ]
+    });
   }
 
   getReviews(): void {
@@ -102,6 +91,16 @@ export class CulturalOfferComponent implements OnInit {
   getPrevNews(): void {
     this.currentNewsPage--;
     this.getNews();
+  }
+
+  handleOverlayClick(event: any): void {
+    let isMarker = event.overlay.getTitle != undefined;
+
+    if (isMarker) {
+      let title = event.overlay.getTitle();
+      this.mapInfoWindow.setContent('' + title + '');
+      this.mapInfoWindow.open(event.map, event.overlay);
+    }
   }
 
   confirmSubscribe(event: Event) {

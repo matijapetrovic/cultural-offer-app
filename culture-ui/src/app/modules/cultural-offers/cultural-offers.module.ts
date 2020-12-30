@@ -9,10 +9,12 @@ import { OfferReviewsComponent } from './components/offer-reviews/offer-reviews.
 import { OfferReviewItemComponent } from './components/offer-review-item/offer-review-item.component';
 import { OfferNewsComponent } from './components/offer-news/offer-news.component';
 import { OfferNewsItemComponent } from './components/offer-news-item/offer-news-item.component';
+import { OfferMapComponent } from './components/offer-map/offer-map.component';
+import { OfferMapFilterFormComponent } from './components/offer-map-filter-form/offer-map-filter-form.component';
 
 
 @NgModule({
-  declarations: [CulturalOfferComponent, CulturalOfferMapComponent, OfferReviewsComponent, OfferReviewItemComponent, OfferNewsComponent, OfferNewsItemComponent],
+  declarations: [CulturalOfferComponent, CulturalOfferMapComponent, OfferReviewsComponent, OfferReviewItemComponent, OfferNewsComponent, OfferNewsItemComponent, OfferMapComponent, OfferMapFilterFormComponent],
   imports: [
     CommonModule,
     CulturalOffersRoutingModule,

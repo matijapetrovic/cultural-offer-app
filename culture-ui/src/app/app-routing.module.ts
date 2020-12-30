@@ -7,8 +7,6 @@ const routes: Routes = [
   {
     path: 'cultural-offers',
     loadChildren: () => import('./modules/cultural-offers/cultural-offers.module').then(m => m.CulturalOffersModule),
-    canActivate: [AuthGuard],
-    data: { roles: [Role.Admin] }
   },
   {
     path: 'login',
@@ -26,6 +24,8 @@ const routes: Routes = [
   {
     path: 'categories',
     loadChildren: () => import('./modules/categories/categories.module').then(m => m.CategoriesModule),
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Admin] }
   },
   { path: '**', redirectTo: 'home' }
 ];
