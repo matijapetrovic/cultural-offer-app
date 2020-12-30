@@ -5,12 +5,12 @@ import { HandleError, HttpErrorHandler } from '../../core/services/http-error-ha
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { CategoriesPage, Category } from './categories';
+import { CategoriesPage, Category } from './category';
 
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
-    Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjdWx0dXJlLWFwcCIsInN1YiI6InVzZXIxQGdtYWlsLmNvbSIsImF1ZCI6IndlYiIsImlhdCI6MTYwODA0NzQ4MCwiZXhwIjoxNjA5ODQ3NDgwfQ.ueAGubG7bsyVoaxoFUTlFgzWNMZ-9QpTBBdETc9yLv9lWaAav5yLHSUWWCmWtFkpgQIHntZvej1vuENVLbeghg'
+    Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjdWx0dXJlLWFwcCIsInN1YiI6ImFkbWluMUBnbWFpbC5jb20iLCJhdWQiOiJ3ZWIiLCJpYXQiOjE2MDkyNTMzNzcsImV4cCI6MTYxMTA1MzM3N30.f_9B7npSnsKWlD3cKmxeKXa_Nso4PGvSwOxbxt-Gw16fnyZ3Ho1gLNvWPMiuvCWeiBiuEH2Wf1bxuwYunH84eQ'
   })
 };
 
@@ -26,7 +26,7 @@ export class CategoriesService {
   }
 
   getCategory(id: number): Observable<Category> {
-    const url = `${this.categoriesUrl}`;
+    const url = `${this.categoriesUrl}/${id}`;
     return this.http.get<Category>(url, httpOptions)
     .pipe(
       catchError(this.handleError<Category>('getCategory')
@@ -43,30 +43,30 @@ export class CategoriesService {
       );
   }
 
-  postCategory(name: string): Observable<Category> {
+  addCategory(name: string): Observable<string> {
     const url = `${this.categoriesUrl}`;
-    return this.http.post<Category>(url, {name: name},  httpOptions)
+    return this.http.post<string>(url, {name: name},  httpOptions)
       .pipe(
-        catchError(this.handleError<Category>('postCategory')
+        catchError(this.handleError<string>('postCategory')
         )
       );
   }
 
-  updateCategory(id: number, name: string): Observable<Category> {
-    const url = `${this.categoriesUrl}/${id}`;
-    return this.http.put<Category>(url, {id: id, name: name}, httpOptions)
+  updateCategory(category: Category): Observable<Category> {
+    const url = `${this.categoriesUrl}/${category.id}`;
+    return this.http.put<Category>(url, {name: category.name}, httpOptions)
       .pipe(
         catchError(this.handleError<Category>('putCategory')
         )
       );
   }
 
-  deleteCategory(id: number): Observable<Category> {
+  deleteCategory(id: number): Observable<{}> {
     const url = `${this.categoriesUrl}/${id}`;
-    return this.http.delete<Category>(url, httpOptions)
+    return this.http.delete(url, httpOptions)
       .pipe(
-        catchError(this.handleError<Category>('deleteCategory')
-        )
+        catchError(this.handleError('deleteCategory'))
       );
   }
+
 }
