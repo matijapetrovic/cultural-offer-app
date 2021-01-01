@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CategoriesPage } from '../../category';
 import { CategoriesService } from 'src/app/modules/categories/categories.service';
 import { DialogService } from 'primeng/dynamicdialog';
@@ -22,6 +22,8 @@ export class CategoriesComponent implements OnInit {
   private limit: number = 5;
   public ref: DynamicDialogRef;
 
+  private tableChanged = false;
+
   constructor(
     private categoriesService: CategoriesService,
     public dialogService: DialogService,
@@ -40,7 +42,15 @@ export class CategoriesComponent implements OnInit {
 
     this.ref.onDestroy.subscribe(() => {
       // this.messageService.add({ severity: 'info', summary: 'Category updated', detail: 'Name:' + category.name });
-      this.getCategories();
+      if(this.tableChanged) {
+
+        console.log('usao');
+        this.getCategories();
+      }
+    });
+
+    this.ref.onClose.subscribe((submitted: boolean) => {
+      this.tableChanged = submitted;
     });
   }
 
@@ -56,7 +66,9 @@ export class CategoriesComponent implements OnInit {
 
     this.ref.onDestroy.subscribe(() => {
       // this.messageService.add({ severity: 'info', summary: 'Category updated', detail: 'Name:' + category.name });
-      this.getCategories();
+      if (this.tableChanged) {
+        this.getCategories();
+      }
     });
   }
 

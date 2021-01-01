@@ -98,7 +98,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   arePasswordsEmpty() {
-    if(this.isEmptyPassword() && this.isEmptyConfirmPassword()) {
+    if(this.isEmptyPassword() || this.isEmptyConfirmPassword()) {
       return true;
     }
     return false;
@@ -119,19 +119,19 @@ export class RegistrationComponent implements OnInit {
   }
 
   passwordMessage() {
-    if (!this.arePasswordsSame()) {
+    if (!this.arePasswordsSame() && !this.arePasswordsEmpty()) {
       return "Passwords must match!"; 
     } 
-    else if ((this.f.password.value === '' || this.f.password.value === null) && this.submitted && this.arePasswordErrorsActivated()) {
+    else if ((this.f.password.value === '' || this.f.password.value === null) && this.arePasswordErrorsActivated()) {
       return "Password is required!";
     }
   }
 
   confirmPasswordMessage() {
-    if (!this.arePasswordsSame()) {
+    if (!this.arePasswordsSame() && !this.arePasswordsEmpty()) {
       return "Passwords must match!";
     }
-    else if ((this.f.confirmPassword.value === '' || this.f.confirmPassword.value === null) && this.submitted && this.areConfirmPasswordErrorsActivated()) {
+    else if ((this.f.confirmPassword.value === '' || this.f.confirmPassword.value === null) && this.areConfirmPasswordErrorsActivated()) {
       return "Password is required!";
     }
   }

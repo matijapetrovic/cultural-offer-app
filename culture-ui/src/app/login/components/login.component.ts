@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit {
   usernameMessage() {
     if (this.isInvalidEmailFormat()){
       return "Wrong email format!";
-    } else if (this.isEmptyEmail() && this.submitted) {
+    } else if (this.isEmptyEmail()) {
       return "Email is required!"
     }
   }
