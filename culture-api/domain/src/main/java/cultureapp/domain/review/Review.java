@@ -8,6 +8,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -17,6 +18,7 @@ import java.util.List;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Setter
 @Table(name="review")
 @Entity
 @IdClass(ReviewId.class)
@@ -41,7 +43,7 @@ public class Review {
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<Image> images;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.LAZY)
     private Reply reply;
 
     @Column(name="archived", nullable = false)
