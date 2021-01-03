@@ -3,6 +3,7 @@ package cultureapp.domain.review.query;
 import cultureapp.domain.core.validation.SelfValidating;
 import cultureapp.domain.cultural_offer.exception.CulturalOfferNotFoundException;
 import cultureapp.domain.image.Image;
+import cultureapp.domain.reply.Reply;
 import cultureapp.domain.review.Review;
 import cultureapp.domain.user.User;
 import lombok.*;
@@ -52,6 +53,8 @@ public interface GetReviewsForOfferQueryHandler {
         String comment;
         List<String> images;
 
+        ReplyForReviewAllDTO reply;
+
         public static GetReviewsForOfferQueryDTO of(Review review) {
             return new GetReviewsForOfferQueryDTO(
                     review.getId(),
@@ -59,7 +62,8 @@ public interface GetReviewsForOfferQueryHandler {
                     review.getRating(),
                     AuthorDTO.of(review.getAuthor()),
                     review.getComment(),
-                    mapImages(review.getImages())
+                    mapImages(review.getImages()),
+                    review.getReply() != null ? ReplyForReviewAllDTO.of(review.getReply()) : null
             );
         }
 
@@ -81,6 +85,21 @@ public interface GetReviewsForOfferQueryHandler {
                         author.getId(),
                         author.getFirstName(),
                         author.getLastName());
+            }
+        }
+
+
+        @AllArgsConstructor(access = AccessLevel.PRIVATE)
+        @Getter
+        private static class ReplyForReviewAllDTO {
+            private String comment;
+            private AuthorDTO author;
+
+            private static ReplyForReviewAllDTO of(Reply reply) {
+                return new ReplyForReviewAllDTO(
+                        reply.getComment(),
+                        AuthorDTO.of(reply.getAdministrator())
+                );
             }
         }
     }

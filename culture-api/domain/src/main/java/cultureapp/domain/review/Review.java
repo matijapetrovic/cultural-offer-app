@@ -2,6 +2,7 @@ package cultureapp.domain.review;
 
 import cultureapp.domain.cultural_offer.CulturalOffer;
 import cultureapp.domain.image.Image;
+import cultureapp.domain.reply.Reply;
 import cultureapp.domain.user.RegularUser;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -40,7 +41,7 @@ public class Review {
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<Image> images;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     private Reply reply;
 
     @Column(name="archived", nullable = false)
