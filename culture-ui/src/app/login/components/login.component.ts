@@ -44,7 +44,6 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
 
     if (this.isInvalidEmailForm()) {
-      this.removeFormInputs();
       return;
     }
 
@@ -59,6 +58,8 @@ export class LoginComponent implements OnInit {
           this.error = error;
           this.loading = false;
         });
+
+    this.removeFormInputs();
   }
 
   usernameMessage() {
@@ -70,7 +71,7 @@ export class LoginComponent implements OnInit {
   }
 
   isEmptyEmail() {
-    if (this.f.username.value === "") {
+    if (this.f.username.value === "" || this.f.username.value === null) {
       return true;
     }
     return false;
@@ -81,7 +82,7 @@ export class LoginComponent implements OnInit {
   }
 
   isInvalidEmailFormat() {
-    if (!this.emailIsValid(this.f.username.value) && !this.isEmptyEmail()) { 
+    if (!this.emailIsValid(this.f.username.value) && !this.isEmptyEmail()) {
       return true;
     }
     return false;
@@ -94,15 +95,15 @@ export class LoginComponent implements OnInit {
     return false;
   }
 
-  isInvalidPassword() {
-    if(this.f.password.value === "") {
+  isEmptyPassword() {
+    if (this.f.password.value === "" || this.f.password.value === null) {
       return true;
     }
     return false;
   }
 
   isFormValid() {
-    if (!this.isInvalidEmailForm && !this.isInvalidPassword()){
+    if (!this.isInvalidEmailForm && !this.isEmptyPassword()){
       return true;
     }
     return false;

@@ -9,6 +9,10 @@ const routes: Routes = [
     loadChildren: () => import('./modules/cultural-offers/cultural-offers.module').then(m => m.CulturalOffersModule),
   },
   {
+    path: 'register',
+    loadChildren: () => import('./registration/registration.module').then(m => m.RegistrationModule),
+  },
+  {
     path: 'login',
     loadChildren: () => import('./login/login.module').then(m => m.LoginModule),
   },

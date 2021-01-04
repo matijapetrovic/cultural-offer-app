@@ -1,0 +1,131 @@
+<div class="p-grid p-mt-6 p-justify-center centered-grid"></div>
+<div class="p-grid p-mt-6 p-justify-center centered-grid"></div>
+<div class="p-grid p-mt-6 p-justify-center centered-grid">
+  <div class="p-col-12 p-sm-6 p-md-6 p-lg-3">
+    <p-card class="flat-card">
+      <div>
+        <div class="p-card-header">
+          <div class="p-grid p-justify-center">
+            <h1>
+              <strong>
+                Register
+              </strong>
+            </h1>
+          </div>
+        </div>
+        <div class="p-card-content">
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div class="p-grid p-px-6 form-group">
+              <div class="p-px-5"></div>
+              <div class="p-col p-mt-4">
+                <label for="firstName" class="p-d-inline p-mr-2 p-mb-2">
+                  <i class="pi pi-user"></i>
+                </label>
+                <span class="p-float-label p-d-inline">
+                  <input type="text" autocomplete="off" pInputText formControlName="firstName" class="form-control p-mb-2"
+                    [ngClass]="{ 'is-invalid': submitted && f.firstName.errors}">
+                  <label *ngIf="!f.firstName.value" for="firstName">
+                    First name
+                  </label>
+                </span>
+                <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                  <div *ngIf="f.firstName.errors.required || f.firstName.errors">
+                    <small id="firstName-help" class="p-invalid">First name is required!</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="p-grid p-px-6 form-group">
+              <div class="p-px-5"></div>
+              <div class="p-col p-mt-4">
+                <label for="lastName" class="p-d-inline p-mr-2 p-mb-2">
+                  <i class="pi pi-user"></i>
+                </label>
+                <span class="p-float-label p-d-inline">
+                  <input type="text" autocomplete="off" pInputText formControlName="lastName" class="form-control p-mb-2"
+                    [ngClass]="{ 'is-invalid': submitted && f.lastName.errors}">
+                  <label *ngIf="!f.lastName.value" for="lastName">
+                    Last name
+                  </label>
+                </span>
+                <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                  <div *ngIf="f.lastName.errors.required || f.lastName.errors">
+                    <small id="lastName-help" class="p-invalid">Last name is required!</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="p-grid p-px-6 form-group">
+              <div class="p-px-5"></div>
+              <div class="p-col p-mt-4">
+                <label
+                  for="username"
+                  class="p-d-inline p-mr-2 p-mb-2"
+                >
+                  <i class="pi pi-envelope"></i>
+                </label>
+                <span class="p-float-label p-d-inline">
+                  <input
+                  type="email"
+                  autocomplete="off"
+                  pInputText
+                  formControlName="username"
+                  class="form-control p-mb-2"
+                  [ngClass]="{ 'is-invalid': submitted && f.username.errors}"
+                >
+                  <label *ngIf="!f.username.value" for="username">
+                    Username
+                  </label>
+                </span>
+                <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                  <div *ngIf="f.username.errors.required || f.username.errors">
+                    <small id="username-help" class="p-invalid">{{usernameMessage()}}</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="p-grid p-px-6 form-group">
+              <div class="p-px-5"></div>
+              <div class="p-col p-mt-4">
+                <label for="password" class="p-d-inline p-mr-2 p-mb-2">
+                  <i class="pi pi-lock-open"></i>
+                </label>
+                <span class="p-float-label p-d-inline">
+                  <input type="password" autocomplete="off" pInputText formControlName="password" class="form-control p-mb-2"
+                    [ngClass]="{ 'is-invalid': submitted && f.password.errors}">
+                  <label *ngIf="!f.password.value" for="password">
+                    Password
+                  </label>
+                </span>
+                <div *ngIf="submitted" class="invalid-feedback">
+                    <small id="password-help" class="p-invalid">{{passwordMessage()}}</small>
+                </div>
+              </div>
+            </div>
+            <div class="p-grid p-px-6 form-group">
+              <div class="p-px-5"></div>
+              <div class="p-col p-mt-4">
+                <label for="confirmPassword" class="p-d-inline p-mr-2 p-mb-2">
+                  <i class="pi pi-lock"></i>
+                </label>
+                <span class="p-float-label p-d-inline">
+                  <input type="password" autocomplete="off" pInputText formControlName="confirmPassword" class="form-control p-mb-2"
+                    [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors}">
+                  <label *ngIf="!f.confirmPassword.value" for="confirmPassword">
+                    Confirm password
+                  </label>
+                </span>
+                <div *ngIf="submitted" class="invalid-feedback">
+                    <small id="confirmPassword-help" class="p-invalid">{{confirmPasswordMessage()}}</small>
+                </div>
+              </div>
+            </div>
+            <div class="p-grid p-px-5 p-mt-6 p-justify-center">
+              <button type="submit" class="p-button" label="Submit" pButton></button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </p-card>
+  </div>
+</div>
