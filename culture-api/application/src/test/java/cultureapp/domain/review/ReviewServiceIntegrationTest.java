@@ -16,6 +16,7 @@ import org.springframework.data.domain.Slice;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.transaction.Transactional;
 import javax.validation.ConstraintViolationException;
 
 import java.util.List;
@@ -30,6 +31,7 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource("classpath:test.properties")
+@Transactional
 public class ReviewServiceIntegrationTest {
 
     @Autowired
