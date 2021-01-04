@@ -48,6 +48,14 @@ public class ReplyControllerIntegrationTest {
     @Autowired
     private ReviewRepository reviewRepository;
 
+    /*
+     * add reply - post
+     * offer id          valid
+     * review id         valid
+     * ReplyRequest      valid
+     * admin             invalid -> no token
+     * expect            UNAUTHORIZED
+     */
     @Test
     public void givenUnauthenticatedAdminRequestThenPostShouldFail() {
         long replyCount = replyRepository.count();
@@ -73,6 +81,14 @@ public class ReplyControllerIntegrationTest {
         assertEquals(replyCount, replyRepository.count());
     }
 
+    /*
+     * add reply - post
+     * offer id          valid
+     * review id         valid
+     * ReplyRequest      valid
+     * admin             invalid -> not admin
+     * expect            FORBIDDEN
+     */
     @Test
     public void givenNotAdminRequestThenPostShouldFail() {
         long replyCount = replyRepository.count();
@@ -101,6 +117,14 @@ public class ReplyControllerIntegrationTest {
         assertEquals(replyCount, replyRepository.count());
     }
 
+    /*
+     * add reply - post
+     * offer id          invalid -> non existing
+     * review id         valid
+     * ReplyRequest      valid
+     * admin             valid
+     * expect            NOT FOUND
+     */
     @Test
     public void givenInvalidOfferIdThenPostShouldFail() {
         String token = login(restTemplate, EXISTING_ADMINISTRATOR_EMAIL, EXISTING_ADMINISTRATOR_PASSWORD);
@@ -125,6 +149,14 @@ public class ReplyControllerIntegrationTest {
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
+    /*
+     * add reply - post
+     * offer id          invalid -> null id
+     * review id         valid
+     * ReplyRequest      valid
+     * admin             valid
+     * expect            BAD_REQUEST
+     */
     @Test
     public void givenNullOfferIdThenPostShouldFail() {
         String token = login(restTemplate, EXISTING_ADMINISTRATOR_EMAIL, EXISTING_ADMINISTRATOR_PASSWORD);
@@ -149,6 +181,14 @@ public class ReplyControllerIntegrationTest {
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     }
 
+    /*
+     * add reply - post
+     * offer id          valid
+     * review id         invalid -> not in offer
+     * ReplyRequest      valid
+     * admin             valid
+     * expect            NOT FOUND
+     */
     @Test
     public void givenInvalidReviewIdThenPostShouldFail() {
         String token = login(restTemplate, EXISTING_ADMINISTRATOR_EMAIL, EXISTING_ADMINISTRATOR_PASSWORD);
@@ -173,6 +213,14 @@ public class ReplyControllerIntegrationTest {
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
+    /*
+     * add reply - post
+     * offer id          valid
+     * review id         invalid -> null id
+     * ReplyRequest      valid
+     * admin             valid
+     * expect            BAD_REQUEST
+     */
     @Test
     public void givenNullReviewIdThenPostShouldFail() {
         String token = login(restTemplate, EXISTING_ADMINISTRATOR_EMAIL, EXISTING_ADMINISTRATOR_PASSWORD);
@@ -197,6 +245,14 @@ public class ReplyControllerIntegrationTest {
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     }
 
+    /*
+     * add reply - post
+     * offer id          valid
+     * review id         valid
+     * ReplyRequest      invalid -> non existing admin id
+     * admin             valid
+     * expect            NOT FOUND
+     */
     @Test
     public void givenInvalidAdminIdThenPostShouldFail() {
         String token = login(restTemplate, EXISTING_ADMINISTRATOR_EMAIL, EXISTING_ADMINISTRATOR_PASSWORD);
@@ -221,6 +277,14 @@ public class ReplyControllerIntegrationTest {
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
+    /*
+     * add reply - post
+     * offer id          valid
+     * review id         valid
+     * ReplyRequest      invalid -> null admin id
+     * admin             valid
+     * expect            BAD_REQUEST
+     */
     @Test
     public void givenNullAdminIdThenPostShouldFail() {
         String token = login(restTemplate, EXISTING_ADMINISTRATOR_EMAIL, EXISTING_ADMINISTRATOR_PASSWORD);
@@ -245,6 +309,14 @@ public class ReplyControllerIntegrationTest {
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     }
 
+    /*
+     * add reply - post
+     * offer id          valid
+     * review id         valid
+     * ReplyRequest      invalid -> invalid comment
+     * admin             valid
+     * expect            BAD_REQUEST
+     */
     @Test
     public void givenInvalidCommentThenPostShouldFail() {
         String token = login(restTemplate, EXISTING_ADMINISTRATOR_EMAIL, EXISTING_ADMINISTRATOR_PASSWORD);
@@ -269,6 +341,14 @@ public class ReplyControllerIntegrationTest {
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     }
 
+    /*
+     * add reply - post
+     * offer id          valid
+     * review id         valid
+     * ReplyRequest      invalid -> null comment
+     * admin             valid
+     * expect            BAD_REQUEST
+     */
     @Test
     public void givenNullCommentThenPostShouldFail() {
         String token = login(restTemplate, EXISTING_ADMINISTRATOR_EMAIL, EXISTING_ADMINISTRATOR_PASSWORD);
