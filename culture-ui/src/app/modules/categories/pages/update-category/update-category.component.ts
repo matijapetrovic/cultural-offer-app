@@ -45,7 +45,7 @@ export class UpdateCategoryComponent implements OnInit{
 
     this.loading = true;
     this.updateCategory();
-    this.ref.close();
+    this.ref.close(true);
   }
 
   updateCategory() {

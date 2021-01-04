@@ -3,6 +3,7 @@ package cultureapp.domain;
 import cultureapp.domain.authentication.LoginServiceIntegrationTest;
 import cultureapp.domain.cultural_offer.service.*;
 import cultureapp.domain.news.NewsServiceIntegrationTest;
+import cultureapp.domain.reply.ReplyServiceIntegrationTest;
 import cultureapp.domain.review.ReviewServiceIntegrationTest;
 import cultureapp.domain.category.CategoryServiceIntegrationTest;
 import cultureapp.domain.subcategory.SubcategoryServiceIntegrationTest;
@@ -12,6 +13,7 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
+        ReplyServiceIntegrationTest.class,
         SubcategoryServiceIntegrationTest.class,
         ReviewServiceIntegrationTest.class,
         GetSubscriptionsForUserServiceIntegrationTest.class,

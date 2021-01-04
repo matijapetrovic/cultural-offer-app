@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { CategoriesService } from '../../categories.service';
@@ -33,6 +33,7 @@ export class AddCategoryComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+  
 
     if (this.invalidFormInputs()) {
       this.removeFormInputs();
@@ -43,7 +44,7 @@ export class AddCategoryComponent implements OnInit {
     this.addCategory();
 
     this.removeFormInputs();
-    this.ref.close();
+    this.ref.close(true);
   }
 
   addCategory() {
