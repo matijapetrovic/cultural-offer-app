@@ -1,0 +1,24 @@
+version: "3"
+services:
+  api:
+    image: culture-api
+    ports:
+      - "8080:8080"
+    networks:
+      - culture-application
+    depends_on:
+      - db
+ 
+  db:
+    image: postgres:13.1-alpine
+    networks:
+      - culture-application
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=culturedb
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+
+networks:
+  culture-application: 
