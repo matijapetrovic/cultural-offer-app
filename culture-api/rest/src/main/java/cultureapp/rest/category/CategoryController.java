@@ -7,6 +7,7 @@ import cultureapp.domain.category.exception.CategoryAlreadyExistsException;
 import cultureapp.domain.category.exception.CategoryNotFoundException;
 import cultureapp.domain.category.query.GetCategoriesQueryHandler;
 import cultureapp.domain.category.query.GetCategoryByIdQueryHandler;
+import cultureapp.domain.category.query.GetCategoryNamesQueryHandler;
 import cultureapp.domain.subcategory.exception.SubcategoryAlreadyExistsException;
 import cultureapp.rest.core.PaginatedResponse;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value="/api/categories", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -25,6 +28,7 @@ public class CategoryController {
     private final AddCategoryUseCase addCategoryUseCase;
     private final GetCategoriesQueryHandler getCategoriesQueryHandler;
     private final GetCategoryByIdQueryHandler getCategoryByIdQueryHandler;
+    private final GetCategoryNamesQueryHandler getCategoryNamesQueryHandler;
     private final UpdateCategoryUseCase updateCategoryUseCase;
     private final DeleteCategoryUseCase deleteCategoryUseCase;
 
@@ -35,6 +39,11 @@ public class CategoryController {
                 new AddCategoryUseCase.AddCategoryCommand(request.getName());
         addCategoryUseCase.addCategory(command);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @GetMapping("/names")
+    public ResponseEntity<List<GetCategoryNamesQueryHandler.GetCategoryNamesDTO>> getNames() {
+        return ResponseEntity.ok(getCategoryNamesQueryHandler.getCategoryNames());
     }
 
     @GetMapping(value = "", params = { "page", "limit" })

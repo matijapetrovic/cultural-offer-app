@@ -1,0 +1,45 @@
+<p-card header="Cultural offer filter">
+  <form [formGroup]="filterForm" (ngSubmit)="emitOnSubmit()" novalidate>
+    <div class="p-formgrid p-grid" style="width:60%; margin: 0 auto;">
+      <div class="p-field p-col-6">
+        <label for="category">Category</label>
+        <p-dropdown
+          inputId="category"
+          [options]="categories"
+          formControlName="category"
+          optionLabel="name"
+          (onChange)="emitSubcategorySelected($event)"
+          placeholder="Select a category"
+        >
+        </p-dropdown>
+      </div>
+      <div class="p-field p-col-6">
+        <label for="subcategory">Subcategory</label>
+        <p-dropdown
+          inputId="subcategory"
+          [options]="subcategories"
+          formControlName="subcategory"
+          optionLabel="name"
+          placeholder="Select a subcategory"
+        ></p-dropdown>
+      </div>
+      <div class="p-d-flex p-jc-around p-col-12" style="margin-top: 20px;">
+        <button
+          pButton
+          [disabled]="filterForm.pristine"
+          label="Filter"
+          type="submit"
+        ></button>
+      
+        <button
+          pButton
+          type="button"
+          [disabled]="filterForm.pristine"
+          (click)="revert()"
+          label="Reset"
+          class="p-button-danger"
+        ></button>
+      </div>
+    </div>
+  </form>
+</p-card>

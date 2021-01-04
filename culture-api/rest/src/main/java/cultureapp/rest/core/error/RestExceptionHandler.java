@@ -4,6 +4,7 @@ import cultureapp.domain.account.exception.AccountAlreadyExistsException;
 import cultureapp.domain.account.exception.AccountNotFoundException;
 import cultureapp.domain.authentication.exception.AccountNotActivatedException;
 import cultureapp.domain.cultural_offer.exception.CulturalOfferLocationsFilterException;
+import cultureapp.domain.reply.exception.ReplyAlreadyExistException;
 import cultureapp.domain.user.exception.AdminNotFoundException;
 import cultureapp.domain.category.exception.CategoryAlreadyExistsException;
 import cultureapp.domain.category.exception.CategoryNotFoundException;
@@ -64,6 +65,13 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleReviewNotFound(
             ReviewNotFoundException ex) {
         ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage(), ex);
+        return buildResponse(apiError);
+    }
+
+    @ExceptionHandler(ReplyAlreadyExistException.class)
+    protected ResponseEntity<Object> handleReplyAlreadyExist(
+            ReplyAlreadyExistException ex) {
+        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getMessage(), ex);
         return buildResponse(apiError);
     }
 

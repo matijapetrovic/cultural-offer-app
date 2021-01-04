@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CulturalOfferMapComponent } from './cultural-offer-map.component';
+import { OfferMapPageComponent } from './offer-map-page.component';
 
-describe('CulturalOfferMapComponent', () => {
-  let component: CulturalOfferMapComponent;
-  let fixture: ComponentFixture<CulturalOfferMapComponent>;
+describe('OfferMapPageComponent', () => {
+  let component: OfferMapPageComponent;
+  let fixture: ComponentFixture<OfferMapPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CulturalOfferMapComponent ]
+      declarations: [ OfferMapPageComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CulturalOfferMapComponent);
+    fixture = TestBed.createComponent(OfferMapPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -8,6 +8,7 @@ import cultureapp.domain.subcategory.exception.SubcategoryAlreadyExistsException
 import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
 import cultureapp.domain.subcategory.query.GetSubcategoriesQueryHandler;
 import cultureapp.domain.subcategory.query.GetSubcategoryByIdQueryHandler;
+import cultureapp.domain.subcategory.query.GetSubcategoryNamesQueryHandler;
 import cultureapp.rest.core.PaginatedResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Slice;
@@ -18,6 +19,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value="/api/categories/{categoryId}/subcategories", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -25,6 +28,7 @@ public class SubcategoryController {
     private final AddSubcategoryUseCase addSubcategoryUseCase;
     private final GetSubcategoriesQueryHandler getSubcategoriesQueryHandler;
     private final GetSubcategoryByIdQueryHandler getSubcategoryByIdQueryHandler;
+    private final GetSubcategoryNamesQueryHandler getSubcategoryNamesQueryHandler;
     private final UpdateSubcategoryUseCase updateSubcategoryUseCase;
     private final DeleteSubcategoryUseCase deleteSubcategoryUseCase;
 
@@ -53,6 +57,15 @@ public class SubcategoryController {
         String resourceUri = String.format("/api/categories/%d/subcategories", categoryId);
         uriBuilder.path(resourceUri);
         return ResponseEntity.ok(PaginatedResponse.of(result, uriBuilder));
+    }
+
+    @GetMapping("/names")
+    public ResponseEntity<List<GetSubcategoryNamesQueryHandler.GetSubcategoryNamesDTO>> getNames(
+            @PathVariable Long categoryId
+    ) {
+        GetSubcategoryNamesQueryHandler.GetSubcategoryNamesQuery query =
+                new GetSubcategoryNamesQueryHandler.GetSubcategoryNamesQuery(categoryId);
+        return ResponseEntity.ok(getSubcategoryNamesQueryHandler.getSubcategoryNames(query));
     }
 
     @GetMapping("/{id}")

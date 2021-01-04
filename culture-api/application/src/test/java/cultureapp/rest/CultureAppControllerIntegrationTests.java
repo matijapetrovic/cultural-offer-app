@@ -2,6 +2,7 @@ package cultureapp.rest;
 
 import cultureapp.rest.authentication.AuthenticationControllerIntegrationTest;
 import cultureapp.rest.news.NewsControllerIntegrationTest;
+import cultureapp.rest.reply.ReplyControllerIntegrationTest;
 import cultureapp.rest.review.ReviewControllerIntegrationTest;
 import cultureapp.rest.cultural_offer.CulturalOfferControllerIntegrationTest;
 import cultureapp.rest.category.CategoryControllerIntegrationTest;
@@ -12,6 +13,7 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
+        ReplyControllerIntegrationTest.class,
         SubcategoryControllerIntegrationTest.class,
         ReviewControllerIntegrationTest.class,
         CulturalOfferControllerIntegrationTest.class,

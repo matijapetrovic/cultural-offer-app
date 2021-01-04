@@ -1,1 +1,8 @@
-<p>header works!</p>
+<p-menubar [model]="items">
+  <ng-template pTemplate="start">
+    <img src="./../../../../assets/images/logo.png" height="40" class="p-mr-2">
+  </ng-template>
+  <ng-template pTemplate="end">
+    <button  *ngIf="authenticated" pButton label="Logout" icon="pi pi-power-off" class="p-button-secondary" (click)="logout()"></button>
+  </ng-template>
+</p-menubar>

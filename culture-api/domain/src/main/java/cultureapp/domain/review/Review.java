@@ -2,11 +2,13 @@ package cultureapp.domain.review;
 
 import cultureapp.domain.cultural_offer.CulturalOffer;
 import cultureapp.domain.image.Image;
+import cultureapp.domain.reply.Reply;
 import cultureapp.domain.user.RegularUser;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -16,6 +18,7 @@ import java.util.List;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Setter
 @Table(name="review")
 @Entity
 @IdClass(ReviewId.class)
