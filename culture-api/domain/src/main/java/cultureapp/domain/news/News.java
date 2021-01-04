@@ -1,6 +1,6 @@
 package cultureapp.domain.news;
 
-import cultureapp.domain.administrator.Administrator;
+import cultureapp.domain.user.Administrator;
 import cultureapp.domain.cultural_offer.CulturalOffer;
 import cultureapp.domain.image.Image;
 import lombok.AccessLevel;
@@ -28,7 +28,7 @@ public class News {
     private Long id;
 
     @Id
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="cultural_offer_id", insertable = false, updatable = false)
     private CulturalOffer culturalOffer;
 
@@ -48,7 +48,7 @@ public class News {
     @Column(name="archived", nullable = false)
     private Boolean archived;
 
-    @OneToMany(cascade = CascadeType.REMOVE)
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<Image> images;
 
     public static News withId(

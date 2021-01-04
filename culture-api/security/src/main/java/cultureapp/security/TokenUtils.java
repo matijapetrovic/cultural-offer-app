@@ -21,7 +21,7 @@ public class TokenUtils {
     @Value("cultureappsecretkey")
     public String SECRET;
 
-    @Value("1800000") // 5h
+    @Value("1800000000") // 5h = 1800000, trenutno malo jace hehe
     private int EXPIRES_IN;
 
     @Value("Authorization")

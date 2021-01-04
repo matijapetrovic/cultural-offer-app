@@ -3,6 +3,7 @@ package cultureapp.rest.image;
 
 import cultureapp.domain.image.command.UploadImagesUseCase;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class ImageController {
     ResponseEntity<List<Long>> uploadImages(@RequestParam("images") List<MultipartFile> images) throws IOException {
         UploadImagesUseCase.UploadImagesCommand command = createCommand(images);
         List<Long> response = uploadImagesUseCase.uploadImages(command);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     UploadImagesUseCase.UploadImagesCommand createCommand(List<MultipartFile> files) throws IOException {

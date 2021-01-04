@@ -1,23 +1,22 @@
 package cultureapp.domain.review;
 
 import cultureapp.domain.account.Account;
-import cultureapp.domain.authentication.AuthenticationService;
+import cultureapp.domain.core.AuthenticationService;
 import cultureapp.domain.cultural_offer.CulturalOffer;
 import cultureapp.domain.cultural_offer.CulturalOfferRepository;
 import cultureapp.domain.cultural_offer.exception.CulturalOfferNotFoundException;
-import cultureapp.domain.date_time.DateTimeProvider;
+import cultureapp.domain.core.DateTimeProvider;
 import cultureapp.domain.image.Image;
 import cultureapp.domain.image.ImageRepository;
 import cultureapp.domain.image.exception.ImageNotFoundException;
-import cultureapp.domain.regular_user.RegularUser;
-import cultureapp.domain.regular_user.RegularUserRepository;
-import cultureapp.domain.regular_user.RegularUserService;
-import cultureapp.domain.regular_user.exception.RegularUserNotFound;
+import cultureapp.domain.user.RegularUser;
+import cultureapp.domain.user.RegularUserRepository;
+import cultureapp.domain.user.exception.RegularUserNotFoundException;
 import cultureapp.domain.review.command.AddReviewUseCase;
 import cultureapp.domain.review.command.DeleteReviewUseCase;
 import cultureapp.domain.review.exception.ReviewNotFoundException;
-import cultureapp.domain.review.query.GetReviewByIdQuery;
-import cultureapp.domain.review.query.GetReviewsQuery;
+import cultureapp.domain.review.query.GetReviewByIdQueryHandler;
+import cultureapp.domain.review.query.GetReviewsForOfferQueryHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -36,9 +35,8 @@ import java.util.List;
 public class ReviewService implements
         AddReviewUseCase,
         DeleteReviewUseCase,
-        GetReviewByIdQuery,
-        GetReviewsQuery
-{
+        GetReviewByIdQueryHandler,
+        GetReviewsForOfferQueryHandler {
     private final ReviewRepository reviewRepository;
     private final ImageRepository imageRepository;
     private final CulturalOfferRepository culturalOfferRepository;
@@ -47,13 +45,13 @@ public class ReviewService implements
     private final RegularUserRepository regularUserRepository;
 
     @Override
-    public void addReview(AddReviewCommand command) throws CulturalOfferNotFoundException, ImageNotFoundException, RegularUserNotFound {
+    public void addReview(AddReviewCommand command) throws CulturalOfferNotFoundException, ImageNotFoundException, RegularUserNotFoundException {
         Account account = authenticationService.getAuthenticated();
         RegularUser user = regularUserRepository
                 .findByAccountId(account.getId())
-                .orElseThrow(() -> new RegularUserNotFound(account.getEmail()));
+                .orElseThrow(() -> new RegularUserNotFoundException(account.getEmail()));
         CulturalOffer culturalOffer =
-                        culturalOfferRepository.findById(command.getCulturalOfferId())
+                        culturalOfferRepository.findByIdAndArchivedFalse(command.getCulturalOfferId())
                         .orElseThrow(() -> new CulturalOfferNotFoundException(command.getCulturalOfferId()));
         List<Image> images = loadImages(command.getImages());
         LocalDateTime date = dateTimeProvider.now();
@@ -78,25 +76,24 @@ public class ReviewService implements
     }
 
     @Override
-    public GetReviewByIdDTO getReview(@Positive Long id, @Positive Long culturalOfferId) throws ReviewNotFoundException {
+    public GetReviewByIdDTO handleGetReview(GetReviewByIdQuery query) throws ReviewNotFoundException {
         Review review =
-                reviewRepository.findByIdAndCulturalOfferIdAndArchivedFalse(id, culturalOfferId)
-                .orElseThrow(() -> new ReviewNotFoundException(id, culturalOfferId));
+                reviewRepository.findByIdAndCulturalOfferIdAndArchivedFalse(query.getId(), query.getCulturalOfferId())
+                .orElseThrow(() -> new ReviewNotFoundException(query.getId(), query.getCulturalOfferId()));
         return GetReviewByIdDTO.of(review);
     }
 
-
-    @Override
-    public Slice<GetReviewsQueryDTO> getReviewsDTO(@Positive Long culturalOfferId, @PositiveOrZero Integer page, @Positive Integer limit) throws CulturalOfferNotFoundException {
+    public Slice<GetReviewsForOfferQueryDTO> handleGetReviews(GetReviewsForOfferQuery query) throws
+            CulturalOfferNotFoundException {
         CulturalOffer culturalOffer =
-                culturalOfferRepository.findById(culturalOfferId)
-                        .orElseThrow(() -> new CulturalOfferNotFoundException(culturalOfferId));
-        Pageable pageRequest = PageRequest.of(page, limit, Sort.by("date"));
+                culturalOfferRepository.findByIdAndArchivedFalse(query.getCulturalOfferId())
+                        .orElseThrow(() -> new CulturalOfferNotFoundException(query.getCulturalOfferId()));
+        Pageable pageRequest = PageRequest.of(query.getPage(), query.getLimit(), Sort.by("date"));
 
         Slice<Review> reviews = reviewRepository
-                .findAllByCulturalOfferIdAndArchivedFalse(culturalOfferId, pageRequest);
+                .findAllByCulturalOfferIdAndArchivedFalse(query.getCulturalOfferId(), pageRequest);
 
-        return reviews.map(GetReviewsQueryDTO::of);
+        return reviews.map(GetReviewsForOfferQueryDTO::of);
     }
 
 

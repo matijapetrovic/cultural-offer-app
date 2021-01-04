@@ -1,6 +1,6 @@
 package cultureapp.domain.news.command;
 
-import cultureapp.domain.administrator.exception.AdminNotFoundException;
+import cultureapp.domain.user.exception.AdminNotFoundException;
 import cultureapp.domain.core.validation.SelfValidating;
 import cultureapp.domain.core.validation.annotation.IdList;
 import cultureapp.domain.cultural_offer.exception.CulturalOfferNotFoundException;
@@ -21,18 +21,22 @@ public interface AddNewsUseCase {
     @Value
     @EqualsAndHashCode(callSuper = false)
     class AddNewsCommand extends SelfValidating<AddNewsCommand> {
+        @NotNull
         @Positive
         Long culturalOfferID;
 
+        @NotNull
         @NotBlank
         String name;
 
         @NotNull
         LocalDateTime postedDate;
 
+        @NotNull
         @Positive
         Long authorID;
 
+        @NotNull
         @NotBlank
         String text;
 

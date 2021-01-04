@@ -1,8 +1,10 @@
 package cultureapp.domain.news;
 
-import cultureapp.domain.administrator.Administrator;
-import cultureapp.domain.administrator.AdministratorRepository;
-import cultureapp.domain.administrator.exception.AdminNotFoundException;
+import cultureapp.domain.core.EmailSender;
+import cultureapp.domain.user.Administrator;
+import cultureapp.domain.user.AdministratorRepository;
+import cultureapp.domain.user.RegularUser;
+import cultureapp.domain.user.exception.AdminNotFoundException;
 import cultureapp.domain.cultural_offer.CulturalOffer;
 import cultureapp.domain.cultural_offer.CulturalOfferRepository;
 import cultureapp.domain.cultural_offer.exception.CulturalOfferNotFoundException;
@@ -14,8 +16,8 @@ import cultureapp.domain.news.command.DeleteNewsUseCase;
 import cultureapp.domain.news.command.UpdateNewsUseCase;
 import cultureapp.domain.news.exception.NewsAlreadyExistException;
 import cultureapp.domain.news.exception.NewsNotFoundException;
-import cultureapp.domain.news.query.GetNewsByIdQuery;
-import cultureapp.domain.news.query.GetNewsQuery;
+import cultureapp.domain.news.query.GetNewsByIdQueryHandler;
+import cultureapp.domain.news.query.GetNewsForOfferQueryHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +28,8 @@ import org.springframework.stereotype.Service;
 import javax.validation.constraints.Positive;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -33,12 +37,13 @@ public class NewsService implements
         AddNewsUseCase,
         DeleteNewsUseCase,
         UpdateNewsUseCase,
-        GetNewsQuery,
-        GetNewsByIdQuery {
+        GetNewsForOfferQueryHandler,
+        GetNewsByIdQueryHandler {
     private final NewsRepository newsRepository;
     private final CulturalOfferRepository culturalOfferRepository;
     private final AdministratorRepository administratorRepository;
     private final ImageRepository imageRepository;
+    private final EmailSender emailSender;
 
     @Override
     public void addNews(AddNewsCommand command) throws CulturalOfferNotFoundException, AdminNotFoundException, NewsAlreadyExistException, ImageNotFoundException {
@@ -60,22 +65,26 @@ public class NewsService implements
                 images
         );
 
-
-        // TODO: Implement sending mail to subscribed users
-
         newsRepository.save(news);
+        notifySubscribers(offer);
     }
 
     @Override
-    public void deleteNews(@Positive Long culturalOfferId, @Positive Long id) throws NewsNotFoundException {
+    public void deleteNews(@Positive Long culturalOfferId, @Positive Long id) throws NewsNotFoundException, CulturalOfferNotFoundException {
+        CulturalOffer offer = culturalOfferRepository.findByIdAndArchivedFalse(culturalOfferId)
+                .orElseThrow(() -> new CulturalOfferNotFoundException(culturalOfferId));
+
         News news = newsRepository.findByIdAndCulturalOfferIdAndArchivedFalse(id, culturalOfferId)
                 .orElseThrow(() -> new NewsNotFoundException(id, culturalOfferId));
 
         news.setArchived(true);
 
         newsRepository.save(news);
+        notifySubscribers(offer);
     }
 
+    // TODO autor ove metode da je procita par puta i obrati paznju na culturalOfferId i update pomocu njega :)
+    // TODO: autor ove metoje ju je pročitao jednom i obratio pažnju na culturalOfferId i update pomoću njega ;)
     @Override
     public void updateNews(UpdateNewsCommand command)
             throws NewsNotFoundException,
@@ -91,12 +100,11 @@ public class NewsService implements
         news.setTitle(command.getName());
         news.setPostedDate(command.getPostedDate());
         news.setText(command.getText());
-
-        if (updateCulturalOffer(news, command.getCulturalOfferID())) {
-            CulturalOffer offer = culturalOfferRepository.findByIdAndArchivedFalse(command.getCulturalOfferID())
-                    .orElseThrow(() -> new CulturalOfferNotFoundException(command.getCulturalOfferID()));
-            news.setCulturalOffer(offer);
-        }
+        CulturalOffer offer = culturalOfferRepository.findByIdAndArchivedFalse(command.getCulturalOfferID())
+                .orElseThrow(() -> new CulturalOfferNotFoundException(command.getCulturalOfferID()));
+//        if (updateCulturalOffer(news, command.getCulturalOfferID())) {
+//            news.setCulturalOffer(offer);
+//        }
 
         if (updateAuthor(news, command.getAuthorID())) {
             Administrator admin = administratorRepository.findById(command.getAuthorID())
@@ -105,6 +113,7 @@ public class NewsService implements
         }
 
         newsRepository.save(news);
+        notifySubscribers(offer);
     }
 
     private boolean updateCulturalOffer(News news, Long culturalOfferId) {
@@ -115,24 +124,23 @@ public class NewsService implements
         return !news.getAuthor().getId().equals(adminId);
     }
 
-    @Override
-    public Slice<GetNewsDTO> getNews(Long offerId, Integer page, Integer limit) throws CulturalOfferNotFoundException {
+    public Slice<GetNewsForOfferDTO> handleGetNewsForOffer(GetNewsForOfferQuery query) throws CulturalOfferNotFoundException {
 
-        CulturalOffer offer = culturalOfferRepository.findByIdAndArchivedFalse(offerId)
-                .orElseThrow(() -> new CulturalOfferNotFoundException(offerId));
+        CulturalOffer offer = culturalOfferRepository.findByIdAndArchivedFalse(query.getCulturalOfferId())
+                .orElseThrow(() -> new CulturalOfferNotFoundException(query.getCulturalOfferId()));
 
-        Pageable pageRequest = PageRequest.of(page, limit, Sort.by("title"));
+        Pageable pageRequest = PageRequest.of(query.getPage(), query.getLimit(), Sort.by("title"));
 
-        Slice<News> news = newsRepository.findAllByCulturalOfferIdAndArchivedFalse(offerId, pageRequest);
+        Slice<News> news = newsRepository.findAllByCulturalOfferIdAndArchivedFalse(query.getCulturalOfferId(), pageRequest);
 
-        return news.map(GetNewsDTO::of);
+        return news.map(GetNewsForOfferDTO::of);
 
     }
 
     @Override
-    public GetNewsByIdDTO getNewsById(@Positive Long id, @Positive Long culturalOfferId) throws NewsNotFoundException {
-        News news = newsRepository.findByIdAndCulturalOfferIdAndArchivedFalse(id, culturalOfferId)
-                .orElseThrow(() -> new NewsNotFoundException(id, culturalOfferId));
+    public GetNewsByIdDTO handleGetNewsById(GetNewsByIdQuery query) throws NewsNotFoundException {
+        News news = newsRepository.findByIdAndCulturalOfferIdAndArchivedFalse(query.getId(), query.getCulturalOfferId())
+                .orElseThrow(() -> new NewsNotFoundException(query.getId(), query.getCulturalOfferId()));
 
         return GetNewsByIdDTO.of(news);
     }
@@ -146,5 +154,17 @@ public class NewsService implements
             images.add(image);
         }
         return images;
+    }
+
+    private void notifySubscribers(CulturalOffer culturalOffer) {
+        emailSender.notifySubscribers(
+                mapSubscribers(culturalOffer.getSubscribers()),
+                culturalOffer.getId());
+    }
+
+    private List<EmailSender.SubscriberDTO> mapSubscribers(Set<RegularUser> users) {
+        return users.stream()
+                .map(EmailSender.SubscriberDTO::of)
+                .collect(Collectors.toList());
     }
 }

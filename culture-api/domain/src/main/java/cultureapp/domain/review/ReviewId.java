@@ -11,4 +11,8 @@ import java.io.Serializable;
 public class ReviewId implements Serializable {
     private Long culturalOffer;
     private Long id;
+
+    public static ReviewId of(Long culturalOffer, Long id) {
+        return new ReviewId(culturalOffer, id);
+    }
 }

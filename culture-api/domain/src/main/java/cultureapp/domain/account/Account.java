@@ -1,11 +1,13 @@
 package cultureapp.domain.account;
 
+import cultureapp.domain.account.exception.AccountAlreadyActivatedException;
 import cultureapp.domain.authority.Authority;
 import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -33,14 +35,20 @@ public class Account {
     @JoinTable(name = "account_authority",
             joinColumns = @JoinColumn(name = "account_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
-    private List<Authority> authorities;
+    private Set<Authority> authorities;
+
+    public boolean hasRole(String role) {
+        return authorities
+                .stream()
+                .anyMatch(authority -> role.equals(authority.getName()));
+    }
 
     public static Account withId(
             Long id,
             String email,
             String password,
             boolean activated,
-            List<Authority> authorities
+            Set<Authority> authorities
     ) {
         return new Account(
                 id,
@@ -55,7 +63,7 @@ public class Account {
             String email,
             String password,
             boolean activated,
-            List<Authority> authorities
+            Set<Authority> authorities
     ) {
         return withId(null, email, password, activated, authorities);
     }
@@ -68,7 +76,9 @@ public class Account {
         return true;
     }
 
-    public void activate() {
-        this.activated = true;
+    public void activate() throws AccountAlreadyActivatedException {
+        if (activated)
+            throw new AccountAlreadyActivatedException(id);
+        activated = true;
     }
 }

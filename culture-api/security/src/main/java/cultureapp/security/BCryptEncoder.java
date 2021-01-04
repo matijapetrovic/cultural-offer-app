@@ -1,6 +1,6 @@
 package cultureapp.security;
 
-import cultureapp.domain.authentication.PasswordEncoder;
+import cultureapp.domain.core.PasswordEncoder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

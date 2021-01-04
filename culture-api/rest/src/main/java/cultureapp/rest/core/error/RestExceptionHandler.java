@@ -1,14 +1,20 @@
 package cultureapp.rest.core.error;
-import cultureapp.domain.account.exception.AccountAlreadyExists;
-import cultureapp.domain.administrator.exception.AdminNotFoundException;
-import cultureapp.domain.category.exception.CategoryAlreadyExists;
+import cultureapp.domain.account.exception.AccountAlreadyActivatedException;
+import cultureapp.domain.account.exception.AccountAlreadyExistsException;
+import cultureapp.domain.account.exception.AccountNotFoundException;
+import cultureapp.domain.authentication.exception.AccountNotActivatedException;
+import cultureapp.domain.cultural_offer.exception.CulturalOfferLocationsFilterException;
+import cultureapp.domain.user.exception.AdminNotFoundException;
+import cultureapp.domain.category.exception.CategoryAlreadyExistsException;
 import cultureapp.domain.category.exception.CategoryNotFoundException;
-import cultureapp.domain.regular_user.exception.RegularUserAlreadyExists;
+import cultureapp.domain.cultural_offer.exception.SubscriptionAlreadyExistsException;
+import cultureapp.domain.cultural_offer.exception.SubscriptionNotFoundException;
+import cultureapp.domain.user.exception.RegularUserAlreadyExistsException;
 import cultureapp.domain.review.exception.ReviewNotFoundException;
 import cultureapp.domain.image.exception.ImageNotFoundException;
 import cultureapp.domain.cultural_offer.exception.CulturalOfferNotFoundException;
 import cultureapp.domain.news.exception.NewsNotFoundException;
-import cultureapp.domain.subcategory.exception.SubcategoryAlreadyExists;
+import cultureapp.domain.subcategory.exception.SubcategoryAlreadyExistsException;
 import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -25,9 +31,31 @@ import java.io.IOException;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice("cultureapp.rest")
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
-    @ExceptionHandler(RegularUserAlreadyExists.class)
+    @ExceptionHandler(CulturalOfferLocationsFilterException.class)
+    protected ResponseEntity<Object> handleCulturalOfferLocationsFilterException(
+            CulturalOfferLocationsFilterException ex
+    ) {
+        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getMessage(), ex);
+        return buildResponse(apiError);
+    }
+
+    @ExceptionHandler(SubscriptionNotFoundException.class)
+    protected ResponseEntity<Object> handleSubscriptionNotFound(
+            SubscriptionNotFoundException ex) {
+        ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage(), ex);
+        return buildResponse(apiError);
+    }
+
+    @ExceptionHandler(SubscriptionAlreadyExistsException.class)
+    protected ResponseEntity<Object> handleSubscriptionAlreadyExists(
+            SubscriptionAlreadyExistsException ex) {
+        ApiError apiError = new ApiError(HttpStatus.CONFLICT, ex.getMessage(), ex);
+        return buildResponse(apiError);
+    }
+
+    @ExceptionHandler(RegularUserAlreadyExistsException.class)
     protected ResponseEntity<Object> handleRegularUserAlreadyExists(
-            RegularUserAlreadyExists ex) {
+            RegularUserAlreadyExistsException ex) {
         ApiError apiError = new ApiError(HttpStatus.CONFLICT, ex.getMessage(), ex);
         return buildResponse(apiError);
     }
@@ -46,23 +74,44 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponse(apiError);
     }
 
-    @ExceptionHandler(SubcategoryAlreadyExists.class)
+    @ExceptionHandler(SubcategoryAlreadyExistsException.class)
     protected ResponseEntity<Object> handleSubcategoryAlreadyExists(
-            SubcategoryAlreadyExists ex) {
+            SubcategoryAlreadyExistsException ex) {
         ApiError apiError = new ApiError(HttpStatus.CONFLICT, ex.getMessage(), ex);
         return buildResponse(apiError);
     }
 
-    @ExceptionHandler(CategoryAlreadyExists.class)
+    @ExceptionHandler(CategoryAlreadyExistsException.class)
     protected ResponseEntity<Object> handleCategoryAlreadyExists(
-            CategoryAlreadyExists ex) {
+            CategoryAlreadyExistsException ex) {
         ApiError apiError = new ApiError(HttpStatus.CONFLICT, ex.getMessage(), ex);
         return buildResponse(apiError);
     }
 
-    @ExceptionHandler(AccountAlreadyExists.class)
-    protected ResponseEntity<Object> handleUserAlreadyExists(
-            AccountAlreadyExists ex) {
+    @ExceptionHandler(AccountAlreadyExistsException.class)
+    protected ResponseEntity<Object> handleAccountAlreadyExists(
+            AccountAlreadyExistsException ex) {
+        ApiError apiError = new ApiError(HttpStatus.CONFLICT, ex.getMessage(), ex);
+        return buildResponse(apiError);
+    }
+
+    @ExceptionHandler(AccountNotActivatedException.class)
+    protected ResponseEntity<Object> handleAccountNotActivated(
+            AccountNotActivatedException ex) {
+        ApiError apiError = new ApiError(HttpStatus.UNAUTHORIZED, ex.getMessage(), ex);
+        return buildResponse(apiError);
+    }
+
+    @ExceptionHandler(AccountNotFoundException.class)
+    protected ResponseEntity<Object> handleAccountNotFound(
+            AccountNotFoundException ex) {
+        ApiError apiError = new ApiError(HttpStatus.CONFLICT, ex.getMessage(), ex);
+        return buildResponse(apiError);
+    }
+
+    @ExceptionHandler(AccountAlreadyActivatedException.class)
+    protected ResponseEntity<Object> handleAccountAlreadyActivated(
+            AccountAlreadyActivatedException ex) {
         ApiError apiError = new ApiError(HttpStatus.CONFLICT, ex.getMessage(), ex);
         return buildResponse(apiError);
     }

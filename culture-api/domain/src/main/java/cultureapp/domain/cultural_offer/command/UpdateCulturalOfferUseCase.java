@@ -2,6 +2,8 @@ package cultureapp.domain.cultural_offer.command;
 
 import cultureapp.domain.core.validation.SelfValidating;
 import cultureapp.domain.core.validation.annotation.IdList;
+import cultureapp.domain.core.validation.annotation.Latitude;
+import cultureapp.domain.core.validation.annotation.Longitude;
 import cultureapp.domain.cultural_offer.exception.CulturalOfferNotFoundException;
 import cultureapp.domain.image.exception.ImageNotFoundException;
 import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
@@ -27,10 +29,10 @@ public interface UpdateCulturalOfferUseCase {
         @NotBlank
         String description;
 
-        @NotBlank
+        @Longitude
         Double longitude;
 
-        @NotBlank
+        @Latitude
         Double latitude;
 
         @Positive
@@ -54,6 +56,7 @@ public interface UpdateCulturalOfferUseCase {
             this.categoryId = categoryId;
             this.subcategoryId = subcategoryId;
             this.images = images;
+            validateSelf();
         }
     }
 }

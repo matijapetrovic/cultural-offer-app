@@ -1,5 +1,6 @@
 package cultureapp.domain.cultural_offer.service;
 
+import cultureapp.domain.core.EmailSender;
 import cultureapp.domain.cultural_offer.CulturalOffer;
 import cultureapp.domain.cultural_offer.CulturalOfferRepository;
 import cultureapp.domain.cultural_offer.command.UpdateCulturalOfferUseCase;
@@ -10,11 +11,14 @@ import cultureapp.domain.image.exception.ImageNotFoundException;
 import cultureapp.domain.subcategory.Subcategory;
 import cultureapp.domain.subcategory.SubcategoryRepository;
 import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
+import cultureapp.domain.user.RegularUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -22,10 +26,11 @@ public class UpdateCulturalOfferService implements UpdateCulturalOfferUseCase {
     private final CulturalOfferRepository repository;
     private final SubcategoryRepository subcategoryRepository;
     private final ImageRepository imageRepository;
+    private final EmailSender emailSender;
 
     @Override
     public void updateCulturalOffer(UpdateCulturalOfferCommand command) throws CulturalOfferNotFoundException, SubcategoryNotFoundException, ImageNotFoundException {
-        CulturalOffer offer = repository.findByIdAndArchivedFalse(command.getId())
+        CulturalOffer offer = repository.findByOfferIdWithSubscriptions(command.getId())
                 .orElseThrow(() -> new CulturalOfferNotFoundException(command.getId()));
 
         List<Image> images = loadImages(command.getImages());
@@ -36,20 +41,12 @@ public class UpdateCulturalOfferService implements UpdateCulturalOfferUseCase {
         offer.getLocation().setLongitude(command.getLongitude());
         offer.getLocation().setLatitude(command.getLatitude());
 
-        if(updateSubcategory(offer, command.getCategoryId(), command.getSubcategoryId())) {
-            Subcategory subcategory = subcategoryRepository.findByIdAndCategoryIdAndArchivedFalse(command.getSubcategoryId(), command.getCategoryId())
-                    .orElseThrow(() -> new SubcategoryNotFoundException(command.getSubcategoryId(), command.getCategoryId()));
-            offer.setSubcategory(subcategory);
-        }
+        Subcategory subcategory = subcategoryRepository.findByIdAndCategoryIdAndArchivedFalse(command.getSubcategoryId(), command.getCategoryId())
+                .orElseThrow(() -> new SubcategoryNotFoundException(command.getSubcategoryId(), command.getCategoryId()));
+        offer.setSubcategory(subcategory);
 
         repository.save(offer);
-    }
-
-    private boolean updateSubcategory(CulturalOffer offer, Long categoryId, Long subcategoryId) {
-        if(offer.getSubcategory().getCategory().getId() != categoryId || offer.getSubcategory().getId() != subcategoryId) {
-            return true;
-        }
-        return false;
+        notifySubscribers(offer);
     }
 
     private List<Image> loadImages(List<Long> imageIds) throws ImageNotFoundException {
@@ -60,5 +57,17 @@ public class UpdateCulturalOfferService implements UpdateCulturalOfferUseCase {
             images.add(image);
         }
         return images;
+    }
+
+    private void notifySubscribers(CulturalOffer culturalOffer) {
+        emailSender.notifySubscribers(
+                mapSubscribers(culturalOffer.getSubscribers()),
+                culturalOffer.getId());
+    }
+
+    private List<EmailSender.SubscriberDTO> mapSubscribers(Set<RegularUser> users) {
+        return users.stream()
+                .map(EmailSender.SubscriberDTO::of)
+                .collect(Collectors.toList());
     }
 }

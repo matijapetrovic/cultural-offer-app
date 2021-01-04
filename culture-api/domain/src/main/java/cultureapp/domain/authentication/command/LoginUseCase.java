@@ -9,6 +9,7 @@ import lombok.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public interface LoginUseCase {
@@ -34,16 +35,16 @@ public interface LoginUseCase {
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @Getter
     class LoginDTO {
-        String email;
+        String token;
         List<String> role;
+        long expiresIn;
 
-        public static LoginDTO of(Account account) {
-            return new LoginDTO(account.getEmail(), mapRoles(account));
+        public static LoginDTO of(String token, Set<Authority> authorities, long expiresIn) {
+            return new LoginDTO(token, mapRoles(authorities), expiresIn);
         }
 
-        private static List<String> mapRoles(Account account) {
-            return account.
-                    getAuthorities()
+        private static List<String> mapRoles(Set<Authority> authorities) {
+            return authorities
                     .stream()
                     .map(Authority::getName)
                     .collect(Collectors.toList());

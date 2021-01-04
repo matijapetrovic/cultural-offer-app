@@ -12,6 +12,12 @@
     <artifactId>culture-api-domain</artifactId>
     <dependencies>
         <dependency>
+            <groupId>rs.ac.uns.ftn.kts</groupId>
+            <artifactId>culture-api-test-data</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.16</version>

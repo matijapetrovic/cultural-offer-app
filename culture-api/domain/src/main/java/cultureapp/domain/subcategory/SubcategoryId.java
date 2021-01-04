@@ -11,4 +11,8 @@ import java.io.Serializable;
 public class SubcategoryId implements Serializable {
     private Long category;
     private Long id;
+
+    public static SubcategoryId of(Long category, Long id) {
+        return new SubcategoryId(category, id);
+    }
 }

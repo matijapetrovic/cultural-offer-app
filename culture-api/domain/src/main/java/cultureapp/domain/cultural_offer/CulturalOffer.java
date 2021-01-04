@@ -1,10 +1,9 @@
 package cultureapp.domain.cultural_offer;
 
 import cultureapp.domain.image.Image;
-import cultureapp.domain.regular_user.RegularUser;
+import cultureapp.domain.user.RegularUser;
 import cultureapp.domain.subcategory.Subcategory;
 import lombok.*;
-import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import java.util.List;
@@ -16,10 +15,12 @@ import java.util.Set;
 @Setter
 @Table(name="cultural_offer")
 @Entity
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class CulturalOffer {
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
 
     @Column(name="name", nullable = false)
@@ -31,11 +32,11 @@ public class CulturalOffer {
     @Embedded
     private Location location;
 
-    @OneToMany(cascade = CascadeType.REMOVE)
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<Image> images;
 
-    @ManyToMany(mappedBy = "culturalOffers")
-    private Set<RegularUser> regularUsers;
+    @ManyToMany(mappedBy = "culturalOffers", fetch = FetchType.LAZY)
+    private Set<RegularUser> subscribers;
 
     @ManyToOne
     @JoinColumns({
@@ -64,6 +65,17 @@ public class CulturalOffer {
                 regularUsers,
                 subcategory,
                 false);
+    }
+
+    public static CulturalOffer of(
+            String name,
+            String description,
+            Location location,
+            List<Image> images,
+            Set<RegularUser> regularUsers,
+            Subcategory subcategory
+    ) {
+        return withId(null, name, description, location, images, regularUsers, subcategory);
     }
 
     public void archive() {

@@ -11,4 +11,8 @@ import java.io.Serializable;
 public class NewsId implements Serializable {
     private Long culturalOffer;
     private Long id;
+
+    public static NewsId of(Long id, Long culturalOfferId) {
+        return new NewsId(culturalOfferId, id);
+    }
 }

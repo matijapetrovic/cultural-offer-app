@@ -1,0 +1,46 @@
+<div *ngIf="culturalOffer" fxLayout="row wrap" fxFlexFill fxLayoutGap="25px" class="container">
+  <div fxFlex="calc(25% - 25px)">
+      <h1>{{ culturalOffer.name }}</h1>
+  </div>
+  <div fxFlex="calc(75% - 25px)">
+    <p>{{ culturalOffer.description }}</p>
+  </div>
+  <div fxFlex="calc(40% - 25px)">
+      <h2>Reviews</h2>
+      <div *ngIf="reviewPage">
+        <app-pagination-bar
+          [hasPrev]="reviewPage.links.prev"
+          [hasNext]="reviewPage.links.next"
+          [currentPage]="currentReviewsPage"
+          (navigatePrevEvent)="getPrevReviews()"
+          (navigateNextEvent)="getNextReviews()"
+        ></app-pagination-bar>
+        <app-offer-reviews [reviews]="reviewPage.data"></app-offer-reviews>
+      </div>
+  </div>
+  <div fxFlex="calc(60% - 25px)">
+    <h2>News</h2>
+    <button 
+      *ngIf="culturalOffer.subscribed === true"
+      (click)="unsubscribe()"
+      mat-raised-button 
+      color="warn"
+      >Unsubscribe</button>
+    <button 
+      *ngIf="culturalOffer.subscribed === false"
+      (click)="subscribe()"
+      mat-raised-button 
+      color="accent" 
+      >Subscribe</button>
+    <div *ngIf="newsPage">
+      <app-pagination-bar
+          [hasPrev]="newsPage.links.prev"
+          [hasNext]="newsPage.links.next"
+          [currentPage]="currentNewsPage"
+          (navigatePrevEvent)="getPrevNews()"
+          (navigateNextEvent)="getNextNews()"
+        ></app-pagination-bar>
+      <app-offer-news [news]="newsPage.data"></app-offer-news>
+    </div>
+  </div>
+</div>

@@ -5,7 +5,7 @@ import cultureapp.domain.core.validation.annotation.Password;
 import lombok.EqualsAndHashCode;
 import lombok.Value;
 
-import javax.security.auth.login.AccountNotFoundException;
+import cultureapp.domain.account.exception.AccountNotFoundException;
 import javax.validation.constraints.NotNull;
 
 public interface ChangePasswordUseCase {

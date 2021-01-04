@@ -1,6 +1,8 @@
 package cultureapp.rest.core;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Slice;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -9,9 +11,10 @@ import java.util.List;
 import java.util.Map;
 
 @Getter
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PaginatedResponse<T> {
-    private final List<T> data;
-    private final Map<String, String> links;
+    private List<T> data;
+    private Map<String, String> links;
 
     private PaginatedResponse(List<T> data) {
         this.data = data;
