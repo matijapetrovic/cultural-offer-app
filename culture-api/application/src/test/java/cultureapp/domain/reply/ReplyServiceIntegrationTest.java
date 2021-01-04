@@ -5,7 +5,6 @@ import cultureapp.domain.reply.exception.ReplyAlreadyExistException;
 import cultureapp.domain.review.Review;
 import cultureapp.domain.review.ReviewRepository;
 import cultureapp.domain.review.exception.ReviewNotFoundException;
-import cultureapp.domain.user.AdministratorRepository;
 import cultureapp.domain.user.exception.AdminNotFoundException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
