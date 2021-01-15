@@ -44,9 +44,7 @@ public class GetCulturalOfferByIdServiceUnitTest {
 
     private final GetCulturalOfferByIdService getCulturalOfferByIdService =
             new GetCulturalOfferByIdService(
-                    culturalOfferRepository,
-                    authenticationService,
-                    regularUserRepository
+                    culturalOfferRepository
             );
 
     private Account account;

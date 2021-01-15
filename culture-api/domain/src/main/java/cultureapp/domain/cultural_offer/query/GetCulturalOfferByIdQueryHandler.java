@@ -38,9 +38,8 @@ public interface GetCulturalOfferByIdQueryHandler {
         Double latitude;
         String subcategory;
         List<String> images;
-        Boolean subscribed;
 
-        public static GetCulturalOfferByIdDTO of(CulturalOffer offer, Boolean subscribed) {
+        public static GetCulturalOfferByIdDTO of(CulturalOffer offer) {
             return new GetCulturalOfferByIdDTO(
                     offer.getId(),
                     offer.getName(),
@@ -48,8 +47,7 @@ public interface GetCulturalOfferByIdQueryHandler {
                     offer.getLocation().getLongitude(),
                     offer.getLocation().getLatitude(),
                     offer.getSubcategory().getName(),
-                    offer.getImages().stream().map(Image::getUrl).collect(Collectors.toList()),
-                    subscribed);
+                    offer.getImages().stream().map(Image::getUrl).collect(Collectors.toList()));
         }
     }
 }

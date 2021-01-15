@@ -16,23 +16,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class GetCulturalOfferByIdService implements GetCulturalOfferByIdQueryHandler {
     private final CulturalOfferRepository repository;
-    private final AuthenticationService authenticationService;
-    private final RegularUserRepository regularUserRepository;
 
     public GetCulturalOfferByIdDTO handleGetCulturalOffer(GetCulturalOfferByIdQuery query) throws
-            CulturalOfferNotFoundException,
-            RegularUserNotFoundException {
+            CulturalOfferNotFoundException {
         CulturalOffer offer = repository.findByIdAndArchivedFalse(query.getId())
                 .orElseThrow(() -> new CulturalOfferNotFoundException(query.getId()));
-        Account account = authenticationService.getAuthenticated();
 
-        Boolean subscribed = null;
-        if (account != null && account.hasRole("ROLE_USER")) {
-            RegularUser user = regularUserRepository.findByAccountId(account.getId())
-                    .orElseThrow(() -> new RegularUserNotFoundException("emaiL??"));
-            subscribed = user.isSubscribedTo(offer);
-        }
-
-        return GetCulturalOfferByIdDTO.of(offer, subscribed);
+        return GetCulturalOfferByIdDTO.of(offer);
     }
 }

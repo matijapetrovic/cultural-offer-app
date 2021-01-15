@@ -10,6 +10,7 @@ import cultureapp.domain.cultural_offer.exception.SubscriptionNotFoundException;
 import cultureapp.domain.cultural_offer.query.GetCulturalOfferByIdQueryHandler;
 import cultureapp.domain.cultural_offer.query.GetCulturalOfferLocationsQueryHandler;
 import cultureapp.domain.cultural_offer.query.GetCulturalOffersQueryHandler;
+import cultureapp.domain.cultural_offer.query.IsSubscribedToCulturalOfferQueryHandler;
 import cultureapp.domain.image.exception.ImageNotFoundException;
 import cultureapp.domain.user.exception.RegularUserNotFoundException;
 import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
@@ -31,6 +32,7 @@ import java.util.List;
 public class CulturalOfferController {
     private final SubscribeToCulturalOfferNewsUseCase subscribeToCulturalOfferNewsUseCase;
     private final UnsubscribeFromCulturalOfferNewsUseCase unsubscribeFromCulturalOfferNewsUseCase;
+    private final IsSubscribedToCulturalOfferQueryHandler isSubscribedToCulturalOfferQueryHandler;
 
     private final AddCulturalOfferUseCase addCulturalOfferUseCase;
     private final DeleteCulturalOfferUseCase deleteCulturalOfferUseCase;
@@ -62,6 +64,16 @@ public class CulturalOfferController {
                         categoryId,
                         subcategoryId);
         return ResponseEntity.ok(getCulturalOfferLocationsQueryHandler.handleGetCulturalOfferLocations(query));
+    }
+
+    @GetMapping("/{id}/subscriptions")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public ResponseEntity<Boolean> isSubscribed(@PathVariable Long id)
+            throws CulturalOfferNotFoundException, RegularUserNotFoundException {
+        IsSubscribedToCulturalOfferQueryHandler.IsSubscribedToCulturalOfferQuery query =
+                new IsSubscribedToCulturalOfferQueryHandler.IsSubscribedToCulturalOfferQuery(id);
+
+        return ResponseEntity.ok(isSubscribedToCulturalOfferQueryHandler.isSubscribed(query));
     }
 
     @PostMapping("/{id}/subscriptions")
