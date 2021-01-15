@@ -7,8 +7,7 @@ export interface CulturalOffer {
   description: string,
   images: Array<string>,
   latitude: number,
-  longitude: number,
-  subscribed?: boolean
+  longitude: number
 };
 
 export interface CulturalOfferLocation {

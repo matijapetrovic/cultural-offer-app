@@ -4,14 +4,14 @@
       <div class="p-col-5">
         <p-confirmPopup></p-confirmPopup>
         <button 
-          *ngIf="culturalOffer.subscribed === true"
+          *ngIf="subscribed === true"
           (click)="confirmUnsubscribe($event)"
           pButton
           label="Unsubscribe"
           icon="pi pi-times"
           class="p-button-warning"></button>
         <button 
-          *ngIf="culturalOffer.subscribed === false"
+          *ngIf="subscribed === false"
           (click)="confirmSubscribe($event)"
           pButton 
           label="Subscribe"
@@ -56,9 +56,9 @@
           [currentPage]="currentNewsPage" (navigatePrevEvent)="getPrevNews()" (navigateNextEvent)="getNextNews()">
         </app-pagination-bar>
         <app-offer-news [news]="newsPage.data"></app-offer-news>
-        <app-pagination-bar [hasPrev]="reviewPage.links.prev" [hasNext]="reviewPage.links.next"
-          [currentPage]="currentReviewsPage" (navigatePrevEvent)="getPrevReviews()"
-          (navigateNextEvent)="getNextReviews()"></app-pagination-bar>
+        <app-pagination-bar [hasPrev]="newsPage.links.prev" [hasNext]="newsPage.links.next"
+          [currentPage]="currentNewsPage" (navigatePrevEvent)="getPrevNews()"
+          (navigateNextEvent)="getNextNews()"></app-pagination-bar>
       </div>
       <p *ngIf="!newsPage.data.length">There are no news for this cultural offer.</p>
     </div>

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
+import { AuthenticationService } from 'src/app/modules/authentication/authentication.service';
+import { Role } from 'src/app/modules/authentication/role';
+import { User } from 'src/app/modules/authentication/user';
 import { CulturalOffersService } from 'src/app/modules/cultural-offers/cultural-offers.service';
 import { NewsPage } from 'src/app/modules/news/news';
 import { NewsService } from 'src/app/modules/news/news.service';
@@ -15,6 +18,7 @@ import { CulturalOffer } from '../../cultural-offer';
 })
 export class CulturalOfferComponent implements OnInit {
   culturalOffer: CulturalOffer;
+  subscribed: boolean = null;
   reviewPage: ReviewPage;
   newsPage: NewsPage;
 
@@ -35,7 +39,8 @@ export class CulturalOfferComponent implements OnInit {
     private reviewsService: ReviewsService,
     private newsService: NewsService,
     private route: ActivatedRoute,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private authenticationService: AuthenticationService
   ) {
     this.currentReviewsPage = 0;
     this.currentNewsPage = 0;
@@ -47,6 +52,15 @@ export class CulturalOfferComponent implements OnInit {
     this.getReviews();
     this.getNews();
     this.mapInfoWindow = new google.maps.InfoWindow();
+    this.authenticationService.currentUser.subscribe((user) => this.updateSubscribed(user));
+  }
+
+  updateSubscribed(user: User) {
+    if (user == null || user.role == Role.Admin) {
+      this.subscribed = null;
+      return;
+    }
+    this.getSubscribed();
   }
 
   getCulturalOffer(): void {
@@ -130,10 +144,14 @@ export class CulturalOfferComponent implements OnInit {
   }
 
   subscribe(): void {
-    this.culturalOffersService.subscribeToCulturalOffer(this.culturalOfferId).subscribe(() => {this.culturalOffer.subscribed = true;});
+    this.culturalOffersService.subscribeToCulturalOffer(this.culturalOfferId).subscribe(() => {this.subscribed = true;});
   }
 
   unsubscribe(): void {
-    this.culturalOffersService.unsubscribeFromCulturalOffer(this.culturalOfferId).subscribe(() => {this.culturalOffer.subscribed = false;});
+    this.culturalOffersService.unsubscribeFromCulturalOffer(this.culturalOfferId).subscribe(() => {this.subscribed = false;});
+  }
+
+  getSubscribed(): void {
+    this.culturalOffersService.getSubscribed(this.culturalOfferId).subscribe((isSubscribed) => { this.subscribed = isSubscribed });
   }
 }

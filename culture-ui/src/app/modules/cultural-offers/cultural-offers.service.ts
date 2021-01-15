@@ -9,8 +9,7 @@ import { environment } from 'src/environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type':  'application/json',
-    Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjdWx0dXJlLWFwcCIsInN1YiI6InVzZXIxQGdtYWlsLmNvbSIsImF1ZCI6IndlYiIsImlhdCI6MTYwODA0NzQ4MCwiZXhwIjoxNjA5ODQ3NDgwfQ.ueAGubG7bsyVoaxoFUTlFgzWNMZ-9QpTBBdETc9yLv9lWaAav5yLHSUWWCmWtFkpgQIHntZvej1vuENVLbeghg'
+    'Content-Type':  'application/json'
   })
 };
 
@@ -62,5 +61,13 @@ export class CulturalOffersService {
       .pipe(
         catchError(this.handleError('unsubscribeFromCulturalOffer'))
       );
+  }
+
+  getSubscribed(id: number): Observable<boolean> {
+    const url = `${this.culturalOffersUrl}/${id}/subscriptions`;
+    return this.http.get<boolean>(url, httpOptions)
+      .pipe(
+        catchError(this.handleError<boolean>('isSubscribed'))
+      )
   }
 }

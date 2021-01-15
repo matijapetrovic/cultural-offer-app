@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RegistrationService } from '../registration.service';
+import { AuthenticationService } from '../../authentication.service';
 
 @Component({
   selector: 'app-registration',
@@ -17,7 +17,7 @@ export class RegistrationComponent implements OnInit {
   
   constructor(
     private formBuilder: FormBuilder,
-    private registrationService: RegistrationService
+    private authenticationService: AuthenticationService
     ) {
 
      }
@@ -42,7 +42,7 @@ export class RegistrationComponent implements OnInit {
     }
 
     this.loading = true;
-    this.registrationService.register(
+    this.authenticationService.register(
       {
         firstName: this.f.firstName.value,
         lastName: this.f.lastName.value,

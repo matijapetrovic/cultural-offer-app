@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {MenuItem} from 'primeng/api';
-import { Role, User } from 'src/app/_models';
-import { AuthenticationService } from 'src/app/_services';
+import { AuthenticationService } from 'src/app/modules/authentication/authentication.service';
+import { Role } from 'src/app/modules/authentication/role';
+import { User } from 'src/app/modules/authentication/user';
 
 @Component({
   selector: 'app-header',
@@ -52,11 +53,11 @@ export class HeaderComponent implements OnInit {
   unauthenticatedItems: MenuItem[] = [
     {
       label: 'Log in',
-      routerLink: ['/login']
+      routerLink: ['/auth/login']
     },
     {
       label: 'Register',
-      routerLink: ['/register']
+      routerLink: ['/auth/register']
     }
   ];
 
