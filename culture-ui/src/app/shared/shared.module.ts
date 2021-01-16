@@ -23,6 +23,9 @@ import { RoundPipe } from './pipes/round.pipe';
 import { TableModule } from 'primeng/table';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import {InputTextModule} from 'primeng/inputtext';
+import {DataViewModule} from 'primeng/dataview';
+
 
 @NgModule({
     declarations: [
@@ -46,7 +49,9 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
         DropdownModule,
         TableModule,
         DynamicDialogModule,
-        ConfirmDialogModule
+        ConfirmDialogModule,
+        InputTextModule,
+        DataViewModule
     ],
     exports: [
         PaginationBarComponent,
@@ -67,7 +72,9 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
         DropdownModule,
         TableModule,
         DynamicDialogModule,
-        ConfirmDialogModule
+        ConfirmDialogModule,
+        InputTextModule,
+        DataViewModule
     ],
     providers: [
         ConfirmationService,

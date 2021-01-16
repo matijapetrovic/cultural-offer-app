@@ -14,6 +14,11 @@
       <img class="p-col-4" [src]="review.images[1]" alt="">
       <img class="p-col-4" [src]="review.images[2]" alt="">
     </div>
-    <button pButton class="p-button-secondary" label="Reply"></button>
+    <button
+      *ngIf="userIsAdmin"
+      pButton
+      class="p-button-secondary" 
+      label="Reply">
+    </button>
   </div>
 </div>

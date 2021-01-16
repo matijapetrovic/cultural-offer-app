@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { AuthenticationService } from 'src/app/modules/authentication/authentication.service';
+import { Role } from 'src/app/modules/authentication/role';
 import { Review } from 'src/app/modules/reviews/review';
 
 @Component({
@@ -9,9 +11,13 @@ import { Review } from 'src/app/modules/reviews/review';
 export class OfferReviewItemComponent implements OnInit {
   @Input()
   review: Review;
-  constructor() { }
+
+  userIsAdmin: boolean;
+
+  constructor(private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
+    this.authenticationService.currentUser.subscribe((user) => this.userIsAdmin = user && user.role == Role.Admin);
   }
 
 }
