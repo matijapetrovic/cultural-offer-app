@@ -16,4 +16,8 @@ export class OfferMapListComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  generateOfferLink(id: number) {
+    return `['/cultural-offers/${id}']`;
+  }
+
 }

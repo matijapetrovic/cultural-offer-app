@@ -24,6 +24,8 @@ import { TableModule } from 'primeng/table';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import {InputTextModule} from 'primeng/inputtext';
+import {DataViewModule} from 'primeng/dataview';
+
 
 @NgModule({
     declarations: [
@@ -48,7 +50,8 @@ import {InputTextModule} from 'primeng/inputtext';
         TableModule,
         DynamicDialogModule,
         ConfirmDialogModule,
-        InputTextModule
+        InputTextModule,
+        DataViewModule
     ],
     exports: [
         PaginationBarComponent,
@@ -70,7 +73,8 @@ import {InputTextModule} from 'primeng/inputtext';
         TableModule,
         DynamicDialogModule,
         ConfirmDialogModule,
-        InputTextModule
+        InputTextModule,
+        DataViewModule
     ],
     providers: [
         ConfirmationService,

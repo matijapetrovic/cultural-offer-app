@@ -21,15 +21,16 @@
           placeholder="Select a subcategory"
         ></p-dropdown>
       </div>
-      <button
-        class="p-field p-col-12 p-md-5"
-        pButton
-        [disabled]="filterForm.pristine"
-        label="Filter"
-        type="submit"
-      ></button>
-      <button
-        class="p-field p-col-12 p-md-5"
+      <div class="p-col-6 p-offset-3">
+        <button
+          pButton
+          [disabled]="filterForm.pristine"
+          label="Filter"
+          type="submit"
+        ></button>
+      </div>
+      <div class="p-col-6 p-offset-3">
+        <button
           pButton
           type="button"
           [disabled]="filterForm.pristine"
@@ -37,6 +38,9 @@
           label="Reset"
           class="p-button-danger"
         ></button>
+      </div>
+      
+      
     </div>
   </form>
 </p-card>

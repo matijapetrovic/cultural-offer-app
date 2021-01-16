@@ -25,6 +25,8 @@ export class GeolocationService {
       .pipe(
         catchError(this.handleError('geocode')),
         map((result) => {
+          if (!result.results.length)
+            throw new Error('Location not found.');
           const viewport = result.results[0].geometry.viewport;
           const locationRange: LocationRange = {
             latitudeFrom: viewport.southwest.lat,
