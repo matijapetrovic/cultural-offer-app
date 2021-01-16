@@ -31,5 +31,6 @@ export interface LocationRange {
 
 export interface CulturalOfferLocationsFilter {
   category: Category,
-  subcategory: Subcategory 
+  subcategory: Subcategory,
+  location: string
 };

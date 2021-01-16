@@ -54,7 +54,6 @@ export class OfferMapFilterFormComponent implements OnInit {
 
   emitOnSubmit(): void {
     //deep copy
-    console.log("uso");
     const result: CulturalOfferLocationsFilter = Object.assign({}, this.filterForm.value);
     result.category = Object.assign({}, result.category);
     result.subcategory = Object.assign({}, result.subcategory);
