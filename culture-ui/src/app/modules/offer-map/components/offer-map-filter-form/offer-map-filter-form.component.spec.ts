@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 
 import { OfferMapFilterFormComponent } from './offer-map-filter-form.component';
 
@@ -21,5 +21,6 @@ describe('OfferMapFilterFormComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+    expect(component.filterForm).toBeDefined();
   });
 });

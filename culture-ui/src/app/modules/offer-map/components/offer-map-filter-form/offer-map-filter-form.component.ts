@@ -26,11 +26,7 @@ export class OfferMapFilterFormComponent implements OnInit {
   filterForm: FormGroup;
 
   constructor() {
-    this.filterForm = this.createFormGroup();
-  }
-
-  createFormGroup(): FormGroup {
-    return new FormGroup({
+    this.filterForm = new FormGroup({
       category: new FormControl(),
       subcategory: new FormControl({value: null, disabled:true})
     });
@@ -39,7 +35,6 @@ export class OfferMapFilterFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // resetuj van komponente 
   revert(): void {
     this.filterForm.reset();
     this.filterForm.controls['subcategory'].disable();

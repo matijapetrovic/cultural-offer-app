@@ -163,8 +163,23 @@ describe('CulturalOffersService', () => {
 
     const req = httpMock.expectOne(url);
     expect(req.request.method).toBe('GET');
-    req.flush(true);
+    req.flush({}, {status: 204, statusText: 'No Content'});
 
     expect(subscribed).toEqual(true);
+  }));
+
+  it ('getSubscribed() should return false', fakeAsync(() => {
+    const id: number = 1;
+
+    let subscribed: boolean;
+    service.getSubscribed(id).subscribe((result) => subscribed = result);
+
+    let url = `${environment.apiUrl}/api/cultural-offers/${id}/subscriptions`;
+
+    const req = httpMock.expectOne(url);
+    expect(req.request.method).toBe('GET');
+    req.flush({}, {status: 404, statusText: 'Not Found'});
+
+    expect(subscribed).toEqual(false);
   }));
 });
