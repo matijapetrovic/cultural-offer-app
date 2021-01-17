@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -19,9 +19,12 @@ export class GeolocationService {
   }
 
   geocode(location: string): Observable<LocationRange> {
-    const address = location.replace(" ", "%20");
-    const url = `${this.geolocationApiUrl}?address=${address}&key=${environment.mapsApiKey}`;
-    return this.http.get<any>(url)
+    let params: HttpParams = 
+      new HttpParams()
+        .append('address', location)
+        .append('key', environment.mapsApiKey)
+
+    return this.http.get<any>(this.geolocationApiUrl, {params})
       .pipe(
         catchError(this.handleError('geocode')),
         map((result) => {
