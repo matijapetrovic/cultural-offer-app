@@ -5,9 +5,7 @@ import { fakeAsync, tick } from '@angular/core/testing';
 import { CategoriesService } from './categories.service';
 import { Category, CategoriesPage } from './../categories/category';
 import {} from 'jasmine';
-import { from } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { HttpErrorHandler } from 'src/app/core/services/http-error-handler.service';
 
 describe('CategoriesService', () => {
   let injector;
