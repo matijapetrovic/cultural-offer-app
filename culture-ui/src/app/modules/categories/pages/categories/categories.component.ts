@@ -7,6 +7,8 @@ import { MessageService } from 'primeng/api';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ConfirmationService } from 'primeng/api'
 import { UpdateCategoryComponent } from '../update-category/update-category.component';
+import { Observable } from 'rxjs';
+import { fakeAsync, tick } from '@angular/core/testing';
 
 
 @Component({
@@ -22,7 +24,7 @@ export class CategoriesComponent implements OnInit {
   private limit: number = 5;
   public ref: DynamicDialogRef;
 
-  private tableChanged = false;
+  private tableChanged = true;
 
   constructor(
     private categoriesService: CategoriesService,
@@ -43,13 +45,11 @@ export class CategoriesComponent implements OnInit {
     this.ref.onDestroy.subscribe(() => {
       // this.messageService.add({ severity: 'info', summary: 'Category updated', detail: 'Name:' + category.name });
       if(this.tableChanged) {
-
-        console.log('usao');
         this.getCategories();
       }
     });
 
-    this.ref.onClose.subscribe((submitted: boolean) => {
+    this.ref.onClose.subscribe((submitted) => {
       this.tableChanged = submitted;
     });
   }
@@ -66,9 +66,15 @@ export class CategoriesComponent implements OnInit {
 
     this.ref.onDestroy.subscribe(() => {
       // this.messageService.add({ severity: 'info', summary: 'Category updated', detail: 'Name:' + category.name });
-      if (this.tableChanged) {
-        this.getCategories();
-      }
+      setTimeout(() => {
+        if (this.tableChanged) {
+          this.getCategories();
+        }
+      }, 100);
+    });
+
+    this.ref.onClose.subscribe((submitted) => {
+      this.tableChanged = submitted;
     });
   }
 
@@ -80,14 +86,13 @@ export class CategoriesComponent implements OnInit {
       accept: () => {
         //this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' });
         this.deleteCategory(id);
-        this.getCategories();
       },
       reject: () => {
         //this.messageService.add({ severity: 'info', summary: 'Rejected', detail: 'You have rejected' });
       }
     });
   }
-  
+
   ngOnInit(): void {
     this.getCategories();
   }
@@ -97,7 +102,12 @@ export class CategoriesComponent implements OnInit {
   }
 
   deleteCategory(id: number): void {
-    this.categoriesService.deleteCategory(id).subscribe();
+    this.categoriesService.deleteCategory(id)
+    .pipe()
+    .subscribe(
+      () => {
+        this.getCategories();
+      });;
   }
 
   getNextCategories() {

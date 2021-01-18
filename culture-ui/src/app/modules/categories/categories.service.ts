@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HandleError, HttpErrorHandler } from 'src/app/core/services/http-error-handler.service';
 import { environment } from 'src/environments/environment';
@@ -9,7 +9,7 @@ import { CategoriesPage, Category } from './category';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
-    Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjdWx0dXJlLWFwcCIsInN1YiI6ImFkbWluMUBnbWFpbC5jb20iLCJhdWQiOiJ3ZWIiLCJpYXQiOjE2MDkyNTMzNzcsImV4cCI6MTYxMTA1MzM3N30.f_9B7npSnsKWlD3cKmxeKXa_Nso4PGvSwOxbxt-Gw16fnyZ3Ho1gLNvWPMiuvCWeiBiuEH2Wf1bxuwYunH84eQ'
+    observe: 'response'
   })
 };
 
@@ -32,6 +32,12 @@ export class CategoriesService {
       )
     );
   }
+
+  announceChange() {
+    this.RegenerateData.next();
+  }
+  private RegenerateData = new Subject<void>();
+  RegenerateData$ = this.RegenerateData.asObservable();
 
   getCategories(page: number, limit: number): Observable<CategoriesPage> {
     const url = `${this.categoriesUrl}?page=${page}&limit=${limit}`;

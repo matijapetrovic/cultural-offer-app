@@ -4,6 +4,7 @@ import { first } from 'rxjs/operators';
 import { CategoriesService } from '../../categories.service';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { Category } from '../../category';
 
 
 @Component({
@@ -11,10 +12,9 @@ import { DynamicDialogRef } from 'primeng/dynamicdialog';
   templateUrl: './update-category.component.html',
   styleUrls: ['./update-category.component.scss']
 })
-export class UpdateCategoryComponent implements OnInit{
+export class UpdateCategoryComponent implements OnInit {
 
   addForm: FormGroup;
-  error: any;
   loading = false;
   submitted = false;
   category: any;
@@ -38,27 +38,23 @@ export class UpdateCategoryComponent implements OnInit{
 
   onSubmit() {
     this.submitted = true;
-
     if (this.invalidFormInputs()) {
       return;
     }
-
     this.loading = true;
     this.updateCategory();
-    this.ref.close(true);
+    this.ref.close(this.submitted);
   }
 
   updateCategory() {
-    const updatedCategory = {id: this.category.id, name: this.name};
+    let updatedCategory: Category = { id: this.category.id, name: this.name };
     this.categoryService.updateCategory(updatedCategory)
       .pipe(first())
       .subscribe(
-        error => {
-          this.error = error;
+        () => {
           this.loading = false;
         });
   }
-
 
   get f() { return this.addForm.controls; }
 

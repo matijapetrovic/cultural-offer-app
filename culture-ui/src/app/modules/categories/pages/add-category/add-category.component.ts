@@ -13,7 +13,6 @@ import { Category } from '../../category';
 export class AddCategoryComponent implements OnInit {
 
   addForm: FormGroup;
-  error = '';
   loading = false;
   submitted = false;
 
@@ -21,9 +20,7 @@ export class AddCategoryComponent implements OnInit {
     private categoryService: CategoriesService,
     private formBuilder: FormBuilder,
     public ref: DynamicDialogRef
-  ) {
-    
-  }
+  ) { }
 
   ngOnInit(): void {
     this.addForm = this.formBuilder.group({
@@ -33,22 +30,18 @@ export class AddCategoryComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-  
-
     if (this.invalidFormInputs()) {
       this.removeFormInputs();
       return;
     }
-
     this.loading = true;
     this.addCategory();
-
     this.removeFormInputs();
-    this.ref.close(true);
+    this.ref.close(this.submitted);
   }
 
   addCategory() {
-    let category: Category = {id: null, name: this.f.name.value};
+    let category: Category = { id: null, name: this.f.name.value };
     this.categoryService.addCategory(category)
       .pipe(first())
       .subscribe(
@@ -56,7 +49,6 @@ export class AddCategoryComponent implements OnInit {
           this.loading = false;
         });
   }
-
 
   get f() { return this.addForm.controls; }
 
