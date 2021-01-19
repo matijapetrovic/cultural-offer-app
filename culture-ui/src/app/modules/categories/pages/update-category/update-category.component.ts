@@ -14,7 +14,7 @@ import { Category } from '../../category';
 })
 export class UpdateCategoryComponent implements OnInit {
 
-  addForm: FormGroup;
+  updateForm: FormGroup;
   loading = false;
   submitted = false;
   category: any;
@@ -31,7 +31,7 @@ export class UpdateCategoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.addForm = this.formBuilder.group({
+    this.updateForm = this.formBuilder.group({
       name: ['', Validators.required],
     });
   }
@@ -56,7 +56,7 @@ export class UpdateCategoryComponent implements OnInit {
         });
   }
 
-  get f() { return this.addForm.controls; }
+  get f() { return this.updateForm.controls; }
 
   invalidFormInputs() {
     if (this.f.name.value === '' || this.f.name.value === null || this.areNamesSame()) {

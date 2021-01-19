@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HttpClient } from '@angular/common/http'; 
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 
 import { AddCategoryComponent } from './add-category.component';
@@ -9,12 +8,11 @@ import { AddCategoryComponent } from './add-category.component';
 describe('AddCategoryComponent', () => {
   let component: AddCategoryComponent;
   let fixture: ComponentFixture<AddCategoryComponent>;
+  let dialogRefMock = {
+    close: () => { }
+  };
 
   beforeEach(async () => {
-    const dialogRefMock = {
-      close: () => { }
-    };
-
     await TestBed.configureTestingModule({
       declarations: [AddCategoryComponent],
       imports: [

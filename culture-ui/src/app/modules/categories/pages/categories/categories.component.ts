@@ -7,8 +7,6 @@ import { MessageService } from 'primeng/api';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ConfirmationService } from 'primeng/api'
 import { UpdateCategoryComponent } from '../update-category/update-category.component';
-import { Observable } from 'rxjs';
-import { fakeAsync, tick } from '@angular/core/testing';
 
 
 @Component({
@@ -30,7 +28,7 @@ export class CategoriesComponent implements OnInit {
     private categoriesService: CategoriesService,
     public dialogService: DialogService,
     public messageService: MessageService,
-    private confirmationService: ConfirmationService
+    public confirmationService: ConfirmationService
   ) {
     this.page = 0;
   }
