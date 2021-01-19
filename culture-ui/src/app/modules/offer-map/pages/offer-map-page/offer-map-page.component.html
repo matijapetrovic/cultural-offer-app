@@ -18,7 +18,7 @@
       <app-offer-map-filter-form
         [categories]="categories"
         [subcategories]="subcategories"
-        (onSubcategorySelected)="getSubcategories($event)"
+        (onCategorySelected)="getSubcategories($event)"
         (onSubmit)="updateFilters($event)"
         (onReset)="resetFilters()"
       >

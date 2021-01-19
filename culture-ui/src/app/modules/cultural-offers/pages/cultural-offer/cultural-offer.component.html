@@ -1,4 +1,5 @@
 <div *ngIf="culturalOffer" class="container p-grid">
+
   <p-card [header]="culturalOffer.name" class="p-col-12">
     <div class="p-grid">
       <div class="p-col-5">
@@ -9,59 +10,119 @@
           pButton
           label="Unsubscribe"
           icon="pi pi-times"
-          class="p-button-warning"></button>
+          class="p-button-warning">
+        </button>
+
         <button 
           *ngIf="subscribed === false"
           (click)="confirmSubscribe($event)"
           pButton 
           label="Subscribe"
           icon="pi pi-check"
-          class="p-button-primary"></button>
+          class="p-button-primary">
+        </button>
+          
           <p-gmap 
             [options]="mapOptions" 
             [overlays]="mapOverlays"
             (onOverlayClick)="handleOverlayClick($event)" 
-            [style]="{'width':'100%','height':'500px', 'margin-top':'20px'}" ></p-gmap>
+            [style]="{'width':'100%','height':'500px', 'margin-top':'20px'}" >
+          </p-gmap>
+      
       </div>
       <div class="p-col-7">
-        <p-scrollPanel [style]="{width: '100%', height: '200px'}" styleClass="custombar1">
+        
+        <p-scrollPanel 
+          [style]="{width: '100%', height: '200px'}" 
+          styleClass="custombar1">
           <p>{{ culturalOffer.description }}</p>
         </p-scrollPanel>
-        <p-carousel *ngIf="culturalOffer.images.length" [value]="culturalOffer.images" class="offer-images">
+        
+        <p-carousel 
+          *ngIf="culturalOffer.images.length" 
+          [value]="culturalOffer.images" 
+          class="offer-images">
+          
           <ng-template let-image pTemplate="item">
             <img [src]="image" alt="Cultural offer image">
           </ng-template>
+        
         </p-carousel>
       </div>
     </div>
   </p-card>
+
   <p-card header="Reviews" class="p-col-5">
     <div *ngIf="reviewPage">
       <div *ngIf="reviewPage.data.length">
-        <app-pagination-bar [hasPrev]="reviewPage.links.prev" [hasNext]="reviewPage.links.next"
-          [currentPage]="currentReviewsPage" (navigatePrevEvent)="getPrevReviews()"
-          (navigateNextEvent)="getNextReviews()"></app-pagination-bar>
-        <app-offer-reviews [reviews]="reviewPage.data"></app-offer-reviews>
-        <app-pagination-bar [hasPrev]="reviewPage.links.prev" [hasNext]="reviewPage.links.next"
-          [currentPage]="currentReviewsPage" (navigatePrevEvent)="getPrevReviews()"
-          (navigateNextEvent)="getNextReviews()"></app-pagination-bar>
+        
+        <app-pagination-bar 
+          [hasPrev]="reviewPage.links.prev" 
+          [hasNext]="reviewPage.links.next"
+          [currentPage]="currentReviewsPage" 
+          (navigatePrevEvent)="getPrevReviews()"
+          (navigateNextEvent)="getNextReviews()">
+        </app-pagination-bar>
+        
+        <ul class="review-items">
+          <li *ngFor="let review of reviewPage.data">
+            <div style="margin-bottom: 20px">
+              <app-offer-review-item [review]="review"></app-offer-review-item>
+              <hr>
+            </div>
+          </li>
+        </ul>
+        
+        <app-pagination-bar 
+          [hasPrev]="reviewPage.links.prev" 
+          [hasNext]="reviewPage.links.next"
+          [currentPage]="currentReviewsPage" 
+          (navigatePrevEvent)="getPrevReviews()"
+          (navigateNextEvent)="getNextReviews()">
+        </app-pagination-bar>
+      
       </div>
-      <p *ngIf="!reviewPage.data.length">There are no reviews for this cultural offer.</p>
+
+      <p *ngIf="!reviewPage.data.length">
+        There are no reviews for this cultural offer.
+      </p>
     </div>
   </p-card>
+
   <p-card header="News" class="p-col-7">
     <div *ngIf="newsPage">
       <div *ngIf="newsPage.data.length">
-        <app-pagination-bar [hasPrev]="newsPage.links.prev" [hasNext]="newsPage.links.next"
-          [currentPage]="currentNewsPage" (navigatePrevEvent)="getPrevNews()" (navigateNextEvent)="getNextNews()">
+        
+        <app-pagination-bar 
+          [hasPrev]="newsPage.links.prev" 
+          [hasNext]="newsPage.links.next"
+          [currentPage]="currentNewsPage" 
+          (navigatePrevEvent)="getPrevNews()" 
+          (navigateNextEvent)="getNextNews()">
         </app-pagination-bar>
-        <app-offer-news [news]="newsPage.data"></app-offer-news>
-        <app-pagination-bar [hasPrev]="newsPage.links.prev" [hasNext]="newsPage.links.next"
-          [currentPage]="currentNewsPage" (navigatePrevEvent)="getPrevNews()"
-          (navigateNextEvent)="getNextNews()"></app-pagination-bar>
+        
+        <ul class="news-items">
+          <li *ngFor="let newsItem of newsPage.data">
+            <div style="margin-bottom: 20px">
+              <app-offer-news-item [newsItem]="newsItem"></app-offer-news-item>
+              <hr>
+            </div>
+          </li>
+        </ul>
+        
+        <app-pagination-bar 
+          [hasPrev]="newsPage.links.prev" 
+          [hasNext]="newsPage.links.next"
+          [currentPage]="currentNewsPage" 
+          (navigatePrevEvent)="getPrevNews()"
+          (navigateNextEvent)="getNextNews()">
+        </app-pagination-bar>
+      
       </div>
-      <p *ngIf="!newsPage.data.length">There are no news for this cultural offer.</p>
+
+      <p *ngIf="!newsPage.data.length">
+        There are no news for this cultural offer.
+      </p>
     </div>
-    
   </p-card>
 </div>

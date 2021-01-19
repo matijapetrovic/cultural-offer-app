@@ -1,5 +1,4 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, Output, ViewChild, EventEmitter, OnChanges, SimpleChanges, SimpleChange } from '@angular/core';
-import { Observable } from 'rxjs';
 import { CulturalOfferLocation, LocationRange } from 'src/app/modules/cultural-offers/cultural-offer';
 
 @Component({
