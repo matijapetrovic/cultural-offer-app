@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 import { fakeAsync, getTestBed, TestBed, tick } from '@angular/core/testing';
+import { mockReviewPage } from 'src/app/shared/testing/mock-data';
 import { environment } from 'src/environments/environment';
 import { ReviewPage } from './review';
 
@@ -36,36 +37,6 @@ describe('ReviewsService', () => {
     const page: number = 0;
     const limit: number = 2;
 
-    const mockReviews: ReviewPage = {
-      data: [
-        {
-          id: 1,
-          culturalOfferId: culturalOfferId,
-          rating: 3.0,
-          author: {
-            id: 1,
-            firstName: 'First name author',
-            lastName: 'Last name author'
-          },
-          comment: 'Some text',
-          images: ['image1', 'image2']
-        },
-        {
-          id: 2,
-          culturalOfferId: culturalOfferId,
-          rating: 4.0,
-          author: {
-            id: 2,
-            firstName: 'First name author 2',
-            lastName: 'Last name author 2'
-          },
-          comment: 'Some other text',
-          images: ['image1', 'image2']
-        }
-      ],
-      links: new Map([['next', 'next-link'], ['self', 'self-link']])
-    };
-
     let reviewPage: ReviewPage;
     service.getReviews(culturalOfferId, page, limit).subscribe((result) => reviewPage = result);
 
@@ -73,14 +44,14 @@ describe('ReviewsService', () => {
 
     const req = httpMock.expectOne(url);
     expect(req.request.method).toBe('GET');
-    req.flush(mockReviews);
+    req.flush(mockReviewPage);
 
     tick();
 
     expect(reviewPage).toBeDefined();
     
     expect(reviewPage.data).toBeDefined();
-    expect(reviewPage.data.length).toEqual(mockReviews.data.length);
+    expect(reviewPage.data.length).toEqual(mockReviewPage.data.length);
 
     expect(reviewPage.links).toBeDefined();
     expect(reviewPage.links.has('self')).toBeTrue();

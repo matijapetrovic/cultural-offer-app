@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { AuthenticationService } from 'src/app/modules/authentication/authentication.service';
 import { Role } from 'src/app/modules/authentication/role';
 import { User } from 'src/app/modules/authentication/user';
+import { mockAdmin, mockUser } from 'src/app/shared/testing/mock-data';
 
 import { HeaderComponent } from './header.component';
 
@@ -12,23 +13,6 @@ describe('HeaderComponent', () => {
   let authenticationService: AuthenticationService;
 
   beforeEach(async () => {
-    const mockUser: User = {
-      id: 1,
-      username: 'user',
-      password: 'password',
-      firstName: 'name',
-      lastName: 'last name',
-      role: Role.User
-    };
-
-    const mockAdmin: User = {
-      id: 1,
-      username: 'user',
-      password: 'password',
-      firstName: 'name',
-      lastName: 'last name',
-      role: Role.Admin
-    };
     const userSubject = new BehaviorSubject<User>(null);
     const authenticationServiceMock = {
       logout: jasmine.createSpy('logout')

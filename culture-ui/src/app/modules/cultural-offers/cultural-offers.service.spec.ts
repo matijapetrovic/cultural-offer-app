@@ -6,6 +6,7 @@ import { CulturalOffersService } from './cultural-offers.service';
 import { HttpClient } from '@angular/common/http';
 import { CulturalOffer, CulturalOfferLocation, LocationRange } from './cultural-offer';
 import { environment } from 'src/environments/environment';
+import { mockCulturalOffer, mockOfferLocations } from 'src/app/shared/testing/mock-data';
 
 describe('CulturalOffersService', () => {
   let service: CulturalOffersService;
@@ -33,15 +34,6 @@ describe('CulturalOffersService', () => {
   });
 
   it('getCulturalOffer() should return a culturalOffer', fakeAsync(() => {
-    const mockCulturalOffer: CulturalOffer = {
-      id: 1,
-      name: 'Offer 1',
-      description: 'Some description',
-      images: ['1', '2'],
-      latitude: 45.0,
-      longitude: 45.0
-    };
-
     let culturalOffer: CulturalOffer;
     service.getCulturalOffer(mockCulturalOffer.id).subscribe(offer => culturalOffer = offer);
     
@@ -61,27 +53,6 @@ describe('CulturalOffersService', () => {
   }));
 
   it('getCulturalOfferLocations() should return some locations', fakeAsync(() => {
-    const mockOfferLocations: CulturalOfferLocation[] = [
-      {
-        id: 1,
-        name: 'Offer 1',
-        location: {
-          latitude: 40.0,
-          longitude: 40.0,
-          address: 'Address 1'
-        }
-      },
-      {
-        id: 2,
-        name: 'Offer 2',
-        location: {
-          latitude: 41.0,
-          longitude: 41.0,
-          address: 'Address 2'
-        }
-      }
-    ];
-
     const locationRange: LocationRange = {
       latitudeFrom: 39.0,
       longitudeFrom: 39.0,

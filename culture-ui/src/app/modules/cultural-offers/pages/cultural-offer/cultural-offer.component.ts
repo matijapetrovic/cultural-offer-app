@@ -47,7 +47,7 @@ export class CulturalOfferComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.culturalOfferId = +this.route.snapshot.paramMap.get('id');
+    this.culturalOfferId = +this.route.snapshot.params.id;
     this.getCulturalOffer();
     this.getReviews();
     this.getNews();
