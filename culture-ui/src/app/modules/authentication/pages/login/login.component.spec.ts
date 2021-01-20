@@ -47,7 +47,17 @@ describe('LoginComponent', () => {
     component.loginForm.controls['username'].setValue(username);
     let message = component.usernameMessage();
 
-    expect(usernameMessage).toEqual(usernameMessage);
+    expect(message).toEqual(usernameMessage);
+  });
+
+  it(`usernameMessage() should return 'Email is required!!' when email format is empty`, () => {
+    let username = '';
+    let usernameMessage = 'Email is required!';
+
+    component.loginForm.controls['username'].setValue(username);
+    let message = component.usernameMessage();
+
+    expect(message).toEqual(usernameMessage);
   });
 
   it('onSubmit() should submit if form is valid', () => {
@@ -72,16 +82,6 @@ describe('LoginComponent', () => {
 
     expect(component.loginForm.pristine).toBeTrue();
     expect(component.isInvalidEmailForm).toHaveBeenCalled();
-  });
-
-  it(`usernameMessage() should return 'Email is required!!' when email format is empty`, () => {
-    let username = '';
-    let usernameMessage = 'Email is required!!';
-
-    component.loginForm.controls['username'].setValue(username);
-    let message = component.usernameMessage();
-
-    expect(usernameMessage).toEqual(usernameMessage);
   });
 
   it('isEmptyEmail() should return false if email is not empty', () => {
@@ -178,17 +178,5 @@ describe('LoginComponent', () => {
     let isPasswordEmpty = component.isEmptyPassword();
 
     expect(isPasswordEmpty).toBeTrue();
-  });
-
-  it('removeFormInputs() should remove all form inputs', () => {
-    let username = 'username@gmail.com';
-    let password = 'password';
-
-    component.loginForm.controls['username'].setValue(username);
-    component.loginForm.controls['password'].setValue(password);
-
-    component.removeFormInputs();
-
-    expect(component.loginForm.valid).toBeFalsy();
   });
 });

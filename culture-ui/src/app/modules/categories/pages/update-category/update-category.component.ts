@@ -43,16 +43,15 @@ export class UpdateCategoryComponent implements OnInit {
     }
     this.loading = true;
     this.updateCategory();
-    this.ref.close(this.submitted);
   }
 
   updateCategory() {
     let updatedCategory: Category = { id: this.category.id, name: this.name };
     this.categoryService.updateCategory(updatedCategory)
-      .pipe(first())
       .subscribe(
         () => {
           this.loading = false;
+          this.ref.close(this.submitted);
         });
   }
 

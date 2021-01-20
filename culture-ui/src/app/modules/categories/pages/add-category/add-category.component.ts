@@ -36,17 +36,16 @@ export class AddCategoryComponent implements OnInit {
     }
     this.loading = true;
     this.addCategory();
-    this.removeFormInputs();
-    this.ref.close(this.submitted);
   }
 
   addCategory() {
     let category: Category = { id: null, name: this.f.name.value };
     this.categoryService.addCategory(category)
-      .pipe(first())
       .subscribe(
         () => {
           this.loading = false;
+          this.removeFormInputs();
+          this.ref.close(this.submitted);
         });
   }
 

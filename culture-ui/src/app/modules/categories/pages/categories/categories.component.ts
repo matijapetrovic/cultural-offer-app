@@ -40,15 +40,10 @@ export class CategoriesComponent implements OnInit {
       dismissableMask: true
     });
 
-    this.ref.onDestroy.subscribe(() => {
-      // this.messageService.add({ severity: 'info', summary: 'Category updated', detail: 'Name:' + category.name });
-      if(this.tableChanged) {
+    this.ref.onClose.subscribe((submitted) => {
+      if(submitted) {
         this.getCategories();
       }
-    });
-
-    this.ref.onClose.subscribe((submitted) => {
-      this.tableChanged = submitted;
     });
   }
 
@@ -62,17 +57,10 @@ export class CategoriesComponent implements OnInit {
       dismissableMask: true
     });
 
-    this.ref.onDestroy.subscribe(() => {
-      // this.messageService.add({ severity: 'info', summary: 'Category updated', detail: 'Name:' + category.name });
-      setTimeout(() => {
-        if (this.tableChanged) {
-          this.getCategories();
-        }
-      }, 100);
-    });
-
     this.ref.onClose.subscribe((submitted) => {
-      this.tableChanged = submitted;
+      if (submitted) {
+        this.getCategories();
+      }
     });
   }
 
