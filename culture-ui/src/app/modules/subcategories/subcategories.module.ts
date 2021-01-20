@@ -6,9 +6,10 @@ import { CoreModule } from 'src/app/core/core.module';
 import { FlexLayoutModule } from '@angular/flex-layout'; 
 import { ReactiveFormsModule } from '@angular/forms';
 import { SubcategoriesComponent } from './pages/subcategories/subcategories.component';
+import { AddSubcategoryComponent } from './pages/add-subcategory/add-subcategory.component';
 
 @NgModule({
-  declarations: [ SubcategoriesComponent ],
+  declarations: [ SubcategoriesComponent, AddSubcategoryComponent ],
   imports: [
     CommonModule,
     SubcategoriesRoutingModule,

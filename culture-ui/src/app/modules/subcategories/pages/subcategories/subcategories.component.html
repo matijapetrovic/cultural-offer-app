@@ -17,7 +17,7 @@
           inputId="category"
           [options]="categories"
           optionLabel="name"
-          (onChange)="getSubcategories($event.value)"
+          (onChange)="categoryChanged($event.value)"
           placeholder="Select a category"
         >
         </p-dropdown>
@@ -83,12 +83,12 @@
       </p-table>
       <p-footer class="p-grid p-justify-center"> 
       <app-pagination-bar
-        *ngIf="categoriesPage"
-        [hasPrev]="categoriesPage.links.prev"
-        [hasNext]="categoriesPage.links.next"
+        *ngIf="subcategoriesPage"
+        [hasPrev]="subcategoriesPage.links.prev"
+        [hasNext]="subcategoriesPage.links.next"
         [currentPage]="page"
-        (navigatePrevEvent)="getPrevCategories()"
-        (navigateNextEvent)="getNextCategories()"
+        (navigatePrevEvent)="getPrevSubcategories()"
+        (navigateNextEvent)="getNextSubcategories()"
         class="p-justify-center"
       ></app-pagination-bar>
       </p-footer>
