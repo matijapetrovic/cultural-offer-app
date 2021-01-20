@@ -62,13 +62,22 @@ export class UpdateSubcategoryComponent implements OnInit {
     }
 
     get f() { return this.updateForm.controls; }
+    
+   
 
     invalidFormInputs(): boolean {
-        if( this.subcategory.name === '' || this.subcategory.name === null) {
+        if( this.subcategory.name === '' || this.subcategory.name === null || this.nameNotChanged()) {
             return true;
         }
         return false;
     }
+
+    nameNotChanged() {
+        return this.subcategory.name === this.originalSubcategory.name;
+    }
+
+    //Original subcategory so we can know if changes are made
+    get originalSubcategory() { return this.config.data.subcategory }
 
     removeFormInputs() {
         this.updateForm.reset();

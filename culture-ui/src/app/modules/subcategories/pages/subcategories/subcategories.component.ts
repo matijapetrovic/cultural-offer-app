@@ -24,7 +24,7 @@ export class SubcategoriesComponent implements OnInit {
     private limit: number;
     
     //Temproary selected category
-    private tempCategory: Category;
+    public tempCategory: Category;
 
     constructor(
         private subcategoriesService:SubcategoriesService,

@@ -28,6 +28,7 @@
         class="p-button-raised p-button-rounded p-justify-left"
         label="Add subcategory"
         (click)="showAddForm()"
+        [disabled]="tempCategory === null"
       ></button>
       <div class="p-grid p-mt-3 p-justify-center centered-grid"></div>
         <p-table
