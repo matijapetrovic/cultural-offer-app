@@ -3,7 +3,7 @@ export interface News {
   culturalOfferId: number,
   title: String,
   author: NewsAuthor,
-  postedDate: String,
+  postedDate: number[],
   text: String,
   images: String[]
 }

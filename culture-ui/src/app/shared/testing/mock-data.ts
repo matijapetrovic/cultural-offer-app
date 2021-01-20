@@ -1,8 +1,8 @@
 import { Role } from "src/app/modules/authentication/role";
 import { User } from "src/app/modules/authentication/user";
 import { CulturalOffer, CulturalOfferLocation } from "src/app/modules/cultural-offers/cultural-offer";
-import { NewsPage } from "src/app/modules/news/news";
-import { ReviewPage } from "src/app/modules/reviews/review";
+import { News, NewsPage } from "src/app/modules/news/news";
+import { Review, ReviewPage } from "src/app/modules/reviews/review";
 
 const mockCulturalOffer: CulturalOffer = {
     id: 1,
@@ -34,13 +34,27 @@ const mockOfferLocations: CulturalOfferLocation[] = [
     }
   ];
 
+const mockNews: News = {
+    id: 1,
+    culturalOfferId: 1,
+    title: 'Some title',
+    postedDate: [1970, 1, 1],
+    author: {
+        id: 1,
+        firstName: 'First name author',
+        lastName: 'Last name author'
+    },
+    text: 'Some text',
+    images: ['image1', 'image2']
+    };
+
 const mockNewsPage: NewsPage = {
     data: [
         {
         id: 1,
         culturalOfferId: 1,
         title: 'Some title',
-        postedDate: 'date',
+        postedDate: [1970, 1, 1],
         author: {
             id: 1,
             firstName: 'First name author',
@@ -53,7 +67,7 @@ const mockNewsPage: NewsPage = {
         id: 2,
         culturalOfferId: 1,
         title: 'Some title 2',
-        postedDate: 'date 2',
+        postedDate: [1970, 1, 1],
         author: {
             id: 2,
             firstName: 'First name author 2',
@@ -65,6 +79,19 @@ const mockNewsPage: NewsPage = {
     ],
     links: new Map([['next', 'next-link'], ['self', 'self-link']])
 };
+
+const mockReview: Review =  {
+    id: 1,
+    culturalOfferId: 1,
+    rating: 3.0,
+    author: {
+      id: 1,
+      firstName: 'First name author',
+      lastName: 'Last name author'
+    },
+    comment: 'Some text',
+    images: ['image1', 'image2']
+  };
 
 const mockReviewPage: ReviewPage = {
     data: [
@@ -117,6 +144,8 @@ const mockReviewPage: ReviewPage = {
 export { 
     mockCulturalOffer,
     mockOfferLocations,
+    mockNews,
+    mockReview,
     mockNewsPage,
     mockReviewPage,
     mockUser,
