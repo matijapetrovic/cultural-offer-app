@@ -68,6 +68,7 @@ export class OfferMapPageComponent implements OnInit {
   }
 
   updateFilters(event: CulturalOfferLocationsFilter) {
+    console.log(event);
     if (event.category)
       this.categoryId = event.category.id;
     if (event.subcategory)

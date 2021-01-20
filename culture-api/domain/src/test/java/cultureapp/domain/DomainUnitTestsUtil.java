@@ -65,6 +65,8 @@ public class DomainUnitTestsUtil {
                 VALID_CULTURAL_OFFER_ID,
                 VALID_CULTURAL_OFFER_NAME,
                 VALID_CULTURAL_OFFER_DESCRIPTION,
+                VALID_CULTURAL_OFFER_RATING,
+                VALID_CULTURAL_OFFER_REVIEW_COUNT,
                 VALID_CULTURAL_OFFER_LOCATION,
                 new ArrayList<>(),
                 new HashSet<>(),

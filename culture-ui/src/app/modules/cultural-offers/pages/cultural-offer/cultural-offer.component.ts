@@ -18,9 +18,11 @@ import { CulturalOffer } from '../../cultural-offer';
 })
 export class CulturalOfferComponent implements OnInit {
   culturalOffer: CulturalOffer;
-  subscribed: boolean = null;
   reviewPage: ReviewPage;
   newsPage: NewsPage;
+
+  userIsRegular: boolean;
+  subscribed: boolean = null;
 
   private culturalOfferId: number;
 
@@ -52,7 +54,10 @@ export class CulturalOfferComponent implements OnInit {
     this.getReviews();
     this.getNews();
     this.mapInfoWindow = new google.maps.InfoWindow();
-    this.authenticationService.currentUser.subscribe((user) => this.updateSubscribed(user));
+    this.authenticationService.currentUser.subscribe((user) => {
+      this.updateSubscribed(user);
+      this.userIsRegular = user && user.role == Role.User; 
+    });
   }
 
   updateSubscribed(user: User) {

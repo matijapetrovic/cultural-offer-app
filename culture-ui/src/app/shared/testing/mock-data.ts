@@ -8,6 +8,8 @@ const mockCulturalOffer: CulturalOffer = {
     id: 1,
     name: 'Offer 1',
     description: 'Some description',
+    rating: 3.0,
+    reviewCount: 2,
     images: ['1', '2'],
     latitude: 45.0,
     longitude: 45.0

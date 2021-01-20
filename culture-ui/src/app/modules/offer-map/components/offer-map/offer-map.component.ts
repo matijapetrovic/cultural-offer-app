@@ -43,8 +43,9 @@ export class OfferMapComponent implements OnInit, AfterViewInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.mapInitialized) {
-      if (changes['culturalOffers'])
+      if (changes['culturalOffers']) {
         this.updateCulturalOfferLocations();
+      }
       if (changes['bounds'])
         this.updateMapBounds();
     }

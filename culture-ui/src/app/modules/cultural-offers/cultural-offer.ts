@@ -5,6 +5,8 @@ export interface CulturalOffer {
   id: number,
   name: string,
   description: string,
+  rating: number,
+  reviewCount: number,
   images: Array<string>,
   latitude: number,
   longitude: number

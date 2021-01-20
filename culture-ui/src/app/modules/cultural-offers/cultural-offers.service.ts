@@ -34,6 +34,7 @@ export class CulturalOffersService {
   }
 
   getCulturalOfferLocations(locationRange: LocationRange, categoryId: number, subcategoryId: number): Observable<CulturalOfferLocation[]> {
+    console.log(categoryId);
     let params: HttpParams =
       new HttpParams()
         .append('latitudeFrom', locationRange.latitudeFrom.toString())       
@@ -41,9 +42,9 @@ export class CulturalOffersService {
         .append('longitudeFrom', locationRange.longitudeFrom.toString()) 
         .append('longitudeTo', locationRange.longitudeTo.toString());
     if (categoryId)
-      params.append('categoryId', categoryId.toString())
+      params = params.append('categoryId', categoryId.toString())
     if (subcategoryId)
-      params.append('subcategoryId', subcategoryId.toString())
+      params = params.append('subcategoryId', subcategoryId.toString())
 
     const url = `${this.culturalOffersUrl}/locations`;
     return this.http.get<CulturalOfferLocation[]>(url, {...httpOptions, params})

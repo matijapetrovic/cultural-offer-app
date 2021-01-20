@@ -53,6 +53,23 @@
   </p-card>
 
   <p-card header="Reviews" class="p-col-5">
+    <div *ngIf="culturalOffer">
+      <div class="offer-rating" class="p-d-flex p-flex-column p-jc-center p-col-4 p-offset-4">
+        <div class="rating-number">{{ culturalOffer.rating }} <span class="rating-review-count">({{ culturalOffer.reviewCount }})</span></div>
+        <p-rating 
+          [ngModel]="culturalOffer.rating | round" 
+          readonly="true" 
+          [cancel]="false" 
+          class="rating">
+        </p-rating>
+        <button
+          *ngIf="userIsRegular"
+          pButton
+          class="p-button-primary" 
+          label="Add review">
+        </button>
+      </div>
+    </div>
     <div *ngIf="reviewPage">
       <div *ngIf="reviewPage.data.length">
         
