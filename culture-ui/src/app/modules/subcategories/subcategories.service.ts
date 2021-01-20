@@ -24,6 +24,14 @@ export class SubcategoriesService {
     this.handleError = httpErrorHandler.createHandleError('SubcategoriesService');
   }
 
+  deleteSubcategory(subcategory:any): Observable<{}> {
+    const url = `${this.subcategoriesUrl}/${subcategory.categoryId}/subcategories/${subcategory.id}`;
+    return this.http.delete(url, httpOptions)
+    .pipe(
+      catchError(this.handleError('deleteSubcategory'))
+    );
+  }
+
   updateSubcategory(subcategory: Subcategory): Observable<Subcategory> {
     const url = `${this.subcategoriesUrl}/${subcategory.categoryId}/subcategories/${subcategory.id}`;
     return this.http.put<Subcategory>(url, subcategory, httpOptions)

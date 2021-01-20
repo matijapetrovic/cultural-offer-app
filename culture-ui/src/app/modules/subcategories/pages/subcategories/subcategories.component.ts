@@ -7,6 +7,7 @@ import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AddSubcategoryComponent } from 'src/app/modules/subcategories/pages/add-subcategory/add-subcategory.component';
 import { UpdateSubcategoryComponent } from '../update-subcategory/update-subcategory.component';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
     selector: 'app-subcategories',
@@ -29,7 +30,8 @@ export class SubcategoriesComponent implements OnInit {
     constructor(
         private subcategoriesService:SubcategoriesService,
         private categoriesService:CategoriesService,
-        public dialogService:DialogService
+        public dialogService:DialogService,
+        private confirmationService:ConfirmationService
     ) {
         this.page = 0;
         this.limit = 5;
@@ -80,12 +82,32 @@ export class SubcategoriesComponent implements OnInit {
 
     }
 
-    showDeleteForm(id:number): void {
-        
+    showDeleteForm(subcategory:any): void {
+        this.confirmationService.confirm({
+            message: 'Do you want to delete this subcategory?',
+            header: 'Delete Confirmation',
+            icon: 'pi pi-info-circle',
+            accept: () => {
+              //this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' });
+              this.deleteSubcategory(subcategory);
+            },
+            reject: () => {
+              //this.messageService.add({ severity: 'info', summary: 'Rejected', detail: 'You have rejected' });
+            }
+          });
     }
 
     ngOnInit(): void {
         this.getCategories();
+    }
+
+    deleteSubcategory(subcategory:any):void {
+        this.subcategoriesService.deleteSubcategory(subcategory)
+        .pipe()
+        .subscribe(
+            () => {
+                this.getSubcategories();
+        });
     }
 
     getCategories(): void {
