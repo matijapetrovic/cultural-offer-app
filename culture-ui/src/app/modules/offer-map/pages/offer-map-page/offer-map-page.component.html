@@ -1,20 +1,34 @@
-<div class="p-grid" style="width:100%; height: 100vh">
+<div class="p-grid map-page-container">
   <div class="p-col-6">
     <app-offer-map
       *ngIf="culturalOffers"
       [culturalOffers]="culturalOffers"
+      [bounds]="locationRange"
       (onMapBoundsChanged)="updateLocations($event)"
     ></app-offer-map>
   </div>
-  <div class="p-col-6 p-d-flex p-ai-center">
-    <app-offer-map-filter-form
-    style="width:100%"
-      [categories]="categories"
-      [subcategories]="subcategories"
-      (onSubcategorySelected)="getSubcategories($event)"
-      (onSubmit)="updateFilters($event)"
-      (onReset)="resetFilters()"
-    >
-    </app-offer-map-filter-form>
+  <div class="p-col-6 p-d-flex p-flex-column">
+    <div class="p-as-start p-mb-5" style="width:100%">
+      <app-offer-map-search-location
+        (onSubmit)="searchLocation($event)"
+      >
+      </app-offer-map-search-location>
+    </div>
+    <div class="p-as-start p-mb-5" style="width:100%">
+      <app-offer-map-filter-form
+        [categories]="categories"
+        [subcategories]="subcategories"
+        (onSubcategorySelected)="getSubcategories($event)"
+        (onSubmit)="updateFilters($event)"
+        (onReset)="resetFilters()"
+      >
+      </app-offer-map-filter-form>
+    </div>
+    <div class="p-as-start p-mb-5" style="width:100%">
+      <app-offer-map-list
+        [culturalOffers]="culturalOffers"
+      >
+      </app-offer-map-list>
+    </div>
   </div>
 </div>

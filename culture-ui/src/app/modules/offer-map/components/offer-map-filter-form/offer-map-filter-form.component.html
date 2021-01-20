@@ -1,8 +1,7 @@
-<p-card header="Cultural offer filter">
+<p-card header="Filter by category">
   <form [formGroup]="filterForm" (ngSubmit)="emitOnSubmit()" novalidate>
-    <div class="p-formgrid p-grid" style="width:60%; margin: 0 auto;">
-      <div class="p-field p-col-6">
-        <label for="category">Category</label>
+    <div class="p-fluid p-grid">
+      <div class="p-field p-col-12 p-md-6">
         <p-dropdown
           inputId="category"
           [options]="categories"
@@ -13,8 +12,7 @@
         >
         </p-dropdown>
       </div>
-      <div class="p-field p-col-6">
-        <label for="subcategory">Subcategory</label>
+      <div class="p-field p-col-12 p-md-6">
         <p-dropdown
           inputId="subcategory"
           [options]="subcategories"
@@ -23,14 +21,15 @@
           placeholder="Select a subcategory"
         ></p-dropdown>
       </div>
-      <div class="p-d-flex p-jc-around p-col-12" style="margin-top: 20px;">
+      <div class="p-col-6 p-offset-3">
         <button
           pButton
           [disabled]="filterForm.pristine"
           label="Filter"
           type="submit"
         ></button>
-      
+      </div>
+      <div class="p-col-6 p-offset-3">
         <button
           pButton
           type="button"
@@ -40,6 +39,8 @@
           class="p-button-danger"
         ></button>
       </div>
+      
+      
     </div>
   </form>
 </p-card>

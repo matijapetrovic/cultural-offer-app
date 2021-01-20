@@ -1,0 +1,21 @@
+<p-card header="Filter results">
+    <p-dataView
+        #dv
+        [value]="culturalOffers"
+        layout="list" 
+        [paginator]="true" 
+        [rows]="7"
+        filterBy="name"
+    >
+        <ng-template pTemplate="header">
+            <i class="pi pi-search" style="margin-right:10px"></i>
+            <input type="search" pInputText placeholder="Search by Name" (input)="dv.filter($event.target.value)">
+        </ng-template>
+        <ng-template let-offer pTemplate="listItem">
+            <div class="p-col-12" style="font-size: 20px; padding: 10px 0">
+                <a [routerLink]="['/cultural-offers', offer.id]">{{ offer.name }}</a> | {{ offer.location.address }}
+            </div>
+
+        </ng-template>
+    </p-dataView>
+</p-card>

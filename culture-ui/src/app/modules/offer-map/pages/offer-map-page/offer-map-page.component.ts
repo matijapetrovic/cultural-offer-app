@@ -5,6 +5,7 @@ import { SubcategoriesService } from 'src/app/modules/subcategories/subcategorie
 import { Subcategory } from 'src/app/modules/subcategories/subcategory';
 import { CulturalOfferLocation, CulturalOfferLocationsFilter, LocationRange } from 'src/app/modules/cultural-offers/cultural-offer';
 import { CulturalOffersService } from 'src/app/modules/cultural-offers/cultural-offers.service';
+import { GeolocationService } from 'src/app/core/services/geolocation.service';
 
 @Component({
   selector: 'app-offer-map-page',
@@ -17,6 +18,7 @@ export class OfferMapPageComponent implements OnInit {
   categories: Category[] = [];
   subcategories: Subcategory[] = [];
 
+  private mapCenter: Location;
   private locationRange: LocationRange;
   private categoryId: number;
   private subcategoryId: number;
@@ -24,8 +26,9 @@ export class OfferMapPageComponent implements OnInit {
   constructor(
     private culturalOffersService: CulturalOffersService,
     private categoriesService: CategoriesService,
-    private subcategoriesService: SubcategoriesService
-  ) { 
+    private subcategoriesService: SubcategoriesService,
+    private geolocationService: GeolocationService
+  ) {
     this.locationRange = {
       latitudeFrom: 41.0,
       latitudeTo: 47.0,
@@ -55,6 +58,13 @@ export class OfferMapPageComponent implements OnInit {
 
   getSubcategories(category: Category): void {
     this.subcategoriesService.getSubcategoryNames(category.id).subscribe(subcategories => this.subcategories = subcategories);
+  }
+
+  searchLocation(event: string) {
+    this.geolocationService.geocode(event).subscribe((locationRange) => {
+      this.locationRange = locationRange;
+      this.getCulturalOfferLocations();
+    });
   }
 
   updateFilters(event: CulturalOfferLocationsFilter) {
