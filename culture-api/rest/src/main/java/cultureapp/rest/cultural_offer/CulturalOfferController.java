@@ -1,6 +1,7 @@
 package cultureapp.rest.cultural_offer;
 
 
+import com.sun.mail.iap.Response;
 import cultureapp.domain.category.exception.CategoryNotFoundException;
 import cultureapp.domain.cultural_offer.command.*;
 import cultureapp.domain.cultural_offer.exception.CulturalOfferLocationsFilterException;
@@ -68,12 +69,14 @@ public class CulturalOfferController {
 
     @GetMapping("/{id}/subscriptions")
     @PreAuthorize("hasRole('ROLE_USER')")
-    public ResponseEntity<Boolean> isSubscribed(@PathVariable Long id)
+    public ResponseEntity<Void> isSubscribed(@PathVariable Long id)
             throws CulturalOfferNotFoundException, RegularUserNotFoundException {
         IsSubscribedToCulturalOfferQueryHandler.IsSubscribedToCulturalOfferQuery query =
                 new IsSubscribedToCulturalOfferQueryHandler.IsSubscribedToCulturalOfferQuery(id);
 
-        return ResponseEntity.ok(isSubscribedToCulturalOfferQueryHandler.isSubscribed(query));
+        boolean isSubscribed = isSubscribedToCulturalOfferQueryHandler.isSubscribed(query);
+        return isSubscribed ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
+
     }
 
     @PostMapping("/{id}/subscriptions")

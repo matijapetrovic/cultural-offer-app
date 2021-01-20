@@ -1,9 +1,9 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HandleError, HttpErrorHandler } from '../../core/services/http-error-handler.service';
 
-import { Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Observable, of, scheduled } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { CulturalOffer, CulturalOfferLocation, LocationRange } from './cultural-offer';
 import { environment } from 'src/environments/environment';
 
@@ -34,14 +34,19 @@ export class CulturalOffersService {
   }
 
   getCulturalOfferLocations(locationRange: LocationRange, categoryId: number, subcategoryId: number): Observable<CulturalOfferLocation[]> {
-    let url = `${this.culturalOffersUrl}/locations`;
-    url += `?latitudeFrom=${locationRange.latitudeFrom}&latitudeTo=${locationRange.latitudeTo}`;
-    url += `&longitudeFrom=${locationRange.longitudeFrom}&longitudeTo=${locationRange.longitudeTo}`;
+    let params: HttpParams =
+      new HttpParams()
+        .append('latitudeFrom', locationRange.latitudeFrom.toString())       
+        .append('latitudeTo', locationRange.latitudeTo.toString())
+        .append('longitudeFrom', locationRange.longitudeFrom.toString()) 
+        .append('longitudeTo', locationRange.longitudeTo.toString());
     if (categoryId)
-      url += `&categoryId=${categoryId}`;
+      params.append('categoryId', categoryId.toString())
     if (subcategoryId)
-      url += `&subcategoryId=${subcategoryId}`;
-    return this.http.get<CulturalOfferLocation[]>(url, httpOptions)
+      params.append('subcategoryId', subcategoryId.toString())
+
+    const url = `${this.culturalOffersUrl}/locations`;
+    return this.http.get<CulturalOfferLocation[]>(url, {...httpOptions, params})
       .pipe(
         catchError(this.handleError('getCulturalOfferLocations', []))
       );
@@ -65,9 +70,10 @@ export class CulturalOffersService {
 
   getSubscribed(id: number): Observable<boolean> {
     const url = `${this.culturalOffersUrl}/${id}/subscriptions`;
-    return this.http.get<boolean>(url, httpOptions)
+    return this.http.get<void>(url, {...httpOptions, observe: 'response'})
       .pipe(
-        catchError(this.handleError<boolean>('isSubscribed'))
+        map((response) => response.status == 204 ? true : false),
+        catchError((err) => of(false))
       )
   }
 }

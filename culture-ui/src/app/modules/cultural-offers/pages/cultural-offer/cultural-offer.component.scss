@@ -4,6 +4,16 @@
   display: block;
 }
 
+ul.news-items {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+ul.review-items {
+  list-style-type: none;
+  padding-left: 0;
+}
+
 .p-scrollpanel {
   p {
       padding: .5rem;
