@@ -3,9 +3,10 @@ import { Injectable } from '@angular/core';
 import { HandleError, HttpErrorHandler } from '../../core/services/http-error-handler.service';
 
 import { Observable, of, scheduled } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { CulturalOffer, CulturalOfferLocation, LocationRange } from './cultural-offer';
 import { environment } from 'src/environments/environment';
+import { MessageService } from 'primeng/api';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -21,7 +22,7 @@ export class CulturalOffersService {
   culturalOffersUrl = `${environment.apiUrl}/api/cultural-offers`;
   private handleError: HandleError;
 
-  constructor(private http: HttpClient, httpErrorHandler : HttpErrorHandler) {
+  constructor(private http: HttpClient, private messageService: MessageService, httpErrorHandler : HttpErrorHandler) {
     this.handleError = httpErrorHandler.createHandleError('CulturalOffersService');
   }
 

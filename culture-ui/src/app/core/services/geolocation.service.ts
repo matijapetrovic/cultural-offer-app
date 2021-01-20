@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { LocationRange } from 'src/app/modules/cultural-offers/cultural-offer';
 import { environment } from 'src/environments/environment';
@@ -28,8 +28,6 @@ export class GeolocationService {
       .pipe(
         catchError(this.handleError('geocode')),
         map((result) => {
-          if (!result.results.length)
-            throw new Error('Location not found.');
           const viewport = result.results[0].geometry.viewport;
           const locationRange: LocationRange = {
             latitudeFrom: viewport.southwest.lat,
@@ -38,6 +36,9 @@ export class GeolocationService {
             longitudeTo: viewport.northeast.lng
           };
           return locationRange;
+        }),
+        catchError((err) => {
+          return throwError(new Error('Location not found'));
         })
       );
   }

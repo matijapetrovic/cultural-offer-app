@@ -6,6 +6,7 @@ import { Subcategory } from 'src/app/modules/subcategories/subcategory';
 import { CulturalOfferLocation, CulturalOfferLocationsFilter, LocationRange } from 'src/app/modules/cultural-offers/cultural-offer';
 import { CulturalOffersService } from 'src/app/modules/cultural-offers/cultural-offers.service';
 import { GeolocationService } from 'src/app/core/services/geolocation.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-offer-map-page',
@@ -27,7 +28,8 @@ export class OfferMapPageComponent implements OnInit {
     private culturalOffersService: CulturalOffersService,
     private categoriesService: CategoriesService,
     private subcategoriesService: SubcategoriesService,
-    private geolocationService: GeolocationService
+    private geolocationService: GeolocationService,
+    private messageService: MessageService
   ) {
     this.locationRange = {
       latitudeFrom: 41.0,
@@ -61,10 +63,16 @@ export class OfferMapPageComponent implements OnInit {
   }
 
   searchLocation(event: string) {
-    this.geolocationService.geocode(event).subscribe((locationRange) => {
-      this.locationRange = locationRange;
-      this.getCulturalOfferLocations();
-    });
+    this.geolocationService.geocode(event).subscribe(
+      (locationRange) => {
+        this.locationRange = locationRange;
+        this.getCulturalOfferLocations();
+      },
+      (error) => {
+        if (error.message)
+          this.messageService.add({severity: 'warn', summary: 'Error!', detail: error.message});
+          setTimeout(() => this.messageService.clear(), 2000);
+      });
   }
 
   updateFilters(event: CulturalOfferLocationsFilter) {

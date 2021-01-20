@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { AuthenticationService } from 'src/app/modules/authentication/authentication.service';
 import { Role } from 'src/app/modules/authentication/role';
 import { User } from 'src/app/modules/authentication/user';
@@ -42,7 +42,8 @@ export class CulturalOfferComponent implements OnInit {
     private newsService: NewsService,
     private route: ActivatedRoute,
     private confirmationService: ConfirmationService,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private messageService: MessageService
   ) {
     this.currentReviewsPage = 0;
     this.currentNewsPage = 0;
@@ -149,11 +150,19 @@ export class CulturalOfferComponent implements OnInit {
   }
 
   subscribe(): void {
-    this.culturalOffersService.subscribeToCulturalOffer(this.culturalOfferId).subscribe(() => {this.subscribed = true;});
+    this.culturalOffersService.subscribeToCulturalOffer(this.culturalOfferId).subscribe(() => {
+      this.subscribed = true;
+      this.messageService.add({severity: 'success', summary: 'Subscription successful', detail:'You have successfully subscribed to this cultural offer\'s newsletter'})
+      setTimeout(() => this.messageService.clear(), 2000);
+    });
   }
 
   unsubscribe(): void {
-    this.culturalOffersService.unsubscribeFromCulturalOffer(this.culturalOfferId).subscribe(() => {this.subscribed = false;});
+    this.culturalOffersService.unsubscribeFromCulturalOffer(this.culturalOfferId).subscribe(() => {
+      this.subscribed = false;
+      this.messageService.add({severity: 'success', summary: 'Unsubscription successful', detail:'You have successfully unsubscribed to this cultural offer\'s newsletter'});
+      setTimeout(() => this.messageService, 2000);
+    });
   }
 
   getSubscribed(): void {
