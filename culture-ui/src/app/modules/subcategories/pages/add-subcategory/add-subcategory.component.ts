@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SubcategoriesService } from 'src/app/modules/subcategories/subcategories.service'
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -15,8 +15,8 @@ import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 export class AddSubcategoryComponent implements OnInit {
 
     addForm: FormGroup;
-    loading = false;
-    submitted = false;
+    loading: boolean;
+    submitted: boolean;
 
     //Category to which we add subcategory
     category:any;
@@ -28,6 +28,8 @@ export class AddSubcategoryComponent implements OnInit {
         public config: DynamicDialogConfig,
     ) { 
         this.category = this.config.data.category;
+        this.loading = false;
+        this.submitted = false;
     }
 
     ngOnInit(): void {

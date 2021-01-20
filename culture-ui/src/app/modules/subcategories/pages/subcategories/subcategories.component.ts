@@ -6,6 +6,7 @@ import { Category } from 'src/app/modules/categories/category';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AddSubcategoryComponent } from 'src/app/modules/subcategories/pages/add-subcategory/add-subcategory.component';
+import { UpdateSubcategoryComponent } from '../update-subcategory/update-subcategory.component';
 
 @Component({
     selector: 'app-subcategories',
@@ -58,6 +59,24 @@ export class SubcategoriesComponent implements OnInit {
     }
 
     showUpdateForm(subcategory:any): void {
+
+        this.ref = this.dialogService.open(
+            UpdateSubcategoryComponent,
+            {
+                data: {
+                    subcategory: subcategory
+                },
+                header: 'Update category',
+                width: '30%',
+                dismissableMask: true
+            }
+        );
+
+        this.ref.onClose.subscribe(submited => {
+            if(submited) {
+                this.getSubcategories();
+            }
+        })
 
     }
 

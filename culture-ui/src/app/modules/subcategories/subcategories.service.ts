@@ -24,12 +24,19 @@ export class SubcategoriesService {
     this.handleError = httpErrorHandler.createHandleError('SubcategoriesService');
   }
 
+  updateSubcategory(subcategory: Subcategory): Observable<Subcategory> {
+    const url = `${this.subcategoriesUrl}/${subcategory.categoryId}/subcategories/${subcategory.id}`;
+    return this.http.put<Subcategory>(url, subcategory, httpOptions)
+      .pipe(
+        catchError(this.handleError<Subcategory>('putCategory'))
+      );
+  }
+
   addSubcategory(subcategory: Subcategory): Observable<void> {
     const url = `${this.subcategoriesUrl}/${subcategory.categoryId}/subcategories`;
     return this.http.post<void>(url, subcategory, httpOptions)
       .pipe(
-        catchError(this.handleError<void>('postCategory')
-        )
+        catchError(this.handleError<void>('postCategory'))
       );
   }
 
