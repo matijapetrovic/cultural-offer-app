@@ -47,7 +47,6 @@ export class RegistrationComponent implements OnInit {
         password: this.f.password.value
       })
       .subscribe();
-    this.removeFormInputs();
   }
 
   usernameMessage() {
@@ -78,13 +77,6 @@ export class RegistrationComponent implements OnInit {
 
   isInvalidEmailForm() {
     if (this.isInvalidEmailFormat() || this.isEmptyEmail()) {
-      return true;
-    }
-    return false;
-  }
-
-  isFormValid() {
-    if (!this.isInvalidEmailForm && !this.isEmptyPassword()) {
       return true;
     }
     return false;

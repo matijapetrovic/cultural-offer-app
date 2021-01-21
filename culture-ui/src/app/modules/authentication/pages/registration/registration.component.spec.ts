@@ -34,6 +34,23 @@ describe('RegistrationComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('onSubmit() should send request for registration if form inputs are valid', () => {
+    let firstName = 'firstName';
+    let lastName = 'lastName';
+    let username = 'username@gmail.com';
+    let password = 'password';
+    let confirmPassword = 'password';
+
+    spyOn(component.registerForm, 'reset')
+    component.registerForm.controls['firstName'].setValue(firstName);
+    component.registerForm.controls['lastName'].setValue(lastName);
+    component.registerForm.controls['username'].setValue(username);
+    component.registerForm.controls['password'].setValue(password);
+    component.registerForm.controls['confirmPassword'].setValue(confirmPassword);
+
+    expect(component.registerForm.pristine).toBeTrue()
+  });
+
   it('isEmptyEmail() should return true if email is not empty', () => {
     let username = '';
 
@@ -103,32 +120,6 @@ describe('RegistrationComponent', () => {
     let validEmailFormat = component.isInvalidEmailForm();
 
     expect(validEmailFormat).toBeFalse();
-  })
-
-  it('isFormValid() should return true id email and password are valid', () => {
-    let username = 'username@gmail.com';
-    let password = 'password';
-    let confirmPassword = 'password';
-
-    component.registerForm.controls['username'].setValue(username);
-    component.registerForm.controls['password'].setValue(password);
-    component.registerForm.controls['confirmPassword'].setValue(confirmPassword);
-    let formValid = component.isFormValid();
-
-    expect(formValid).toBeTrue();
-  })
-
-  it('isFormValid() should return true id email and password are valid', () => {
-    let username = 'username';
-    let password = 'password';
-    let confirmPassword = 'password';
-
-    component.registerForm.controls['username'].setValue(username);
-    component.registerForm.controls['password'].setValue(password);
-    component.registerForm.controls['confirmPassword'].setValue(confirmPassword);
-    let formValid = component.isFormValid();
-
-    expect(formValid).toBeFalse();
   })
 
   it('arePasswordsSame() should return true if passwords are same', () => {
@@ -234,7 +225,7 @@ describe('RegistrationComponent', () => {
 
   it(`confirmPasswordMessage() should return 'Password is required!' if passwords are empty`, () => {
     let password = '';
-    let confirmPassword = 'password';
+    let confirmPassword = '';
     let errorMessage = 'Password is required!';
 
     spyOn(component.registerForm, 'reset')
@@ -256,25 +247,30 @@ describe('RegistrationComponent', () => {
   it('arePasswordErrorsActivated() should return false if  password input is valid', () => {
     let password = 'password';
 
+    spyOn(component, 'areConfirmPasswordErrorsActivated').and.callFake(() => false);
     component.registerForm.controls['password'].setValue(password);
+    let areActivated = component.areConfirmPasswordErrorsActivated();
 
-    expect(component.arePasswordErrorsActivated()).toBeFalse();
+    expect(areActivated).toBeFalse();
   });
 
   it('areConfirmPasswordErrorsActivated() should return true if confirm password input is empty', () => {
     let confirmPassword = '';
 
     component.registerForm.controls['confirmPassword'].setValue(confirmPassword);
-  
-    expect(component.areConfirmPasswordErrorsActivated()).toBeTrue();
+    let areActivated = component.areConfirmPasswordErrorsActivated();
+
+    expect(areActivated).toBeTrue();
   });
 
   it('areConfirmPasswordErrorsActivated() should return false if confirm password input is valid', () => {
     let confirmPassword = 'password';
 
+    spyOn(component, 'areConfirmPasswordErrorsActivated').and.callFake(() => false);
     component.registerForm.controls['confirmPassword'].setValue(confirmPassword);
+    let areActivated = component.areConfirmPasswordErrorsActivated(); 
 
-    expect(component.areConfirmPasswordErrorsActivated()).toBeFalse();
+    expect(areActivated).toBeFalse();
   });
 
   it('removeFormInputs() should reset form inputs', () => {
