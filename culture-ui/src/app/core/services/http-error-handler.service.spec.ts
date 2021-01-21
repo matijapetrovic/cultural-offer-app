@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { HttpErrorHandler } from './http-error-handler.service';
 
-describe('HttpErrorHandler', () => {
+describe('HttpErrorHandlerService', () => {
   let service: HttpErrorHandler;
 
   beforeEach(() => {

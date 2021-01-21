@@ -8,10 +8,10 @@ import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 describe('UpdateCategoryComponent', () => {
   let component: UpdateCategoryComponent;
   let fixture: ComponentFixture<UpdateCategoryComponent>;
-  let dialogRefMock = {
+  const dialogRefMock = {
     close: () => { }
   };
-  let dialogRefConfigMock = {
+  const dialogRefConfigMock = {
     data: {
       category: {id: 1, name: 'Category'}
     }
@@ -47,10 +47,10 @@ describe('UpdateCategoryComponent', () => {
   });
 
   it('onSubmit() form with vaid inputs should be submitted', () => {
-    let name = 'Category';
+    const name = 'Category';
 
     spyOn(component, 'updateCategory');
-    component.updateForm.controls['name'].setValue(name);
+    component.updateForm.controls.name.setValue(name);
     component.name = name;
     component.onSubmit();
 
@@ -61,7 +61,7 @@ describe('UpdateCategoryComponent', () => {
     const name = '';
 
     spyOn(component, 'invalidFormInputs');
-    component.updateForm.controls['name'].setValue(name);
+    component.updateForm.controls.name.setValue(name);
     component.onSubmit();
 
     expect(component.invalidFormInputs).toHaveBeenCalled();
@@ -71,19 +71,19 @@ describe('UpdateCategoryComponent', () => {
     const name = '';
 
     spyOn(component, 'invalidFormInputs');
-    component.updateForm.controls['name'].setValue(name);
+    component.updateForm.controls.name.setValue(name);
     component.updateCategory();
 
     expect(component.loading).toBeFalse();
   });
 
   it('invalidInputForms() should return false if form inputs are valid', () => {
-    let name = 'Category';
-    let name2 = 'Category2';
+    const name = 'Category';
+    const name2 = 'Category2';
 
     component.name = name;
     component.category.name = name2;
-    component.updateForm.controls['name'].setValue(name);
+    component.updateForm.controls.name.setValue(name);
 
     expect(component.invalidFormInputs()).toBeFalse();
   });
@@ -91,7 +91,7 @@ describe('UpdateCategoryComponent', () => {
   it('invalidInputForms() should return true if form inputs are invalid', () => {
     const name = '';
 
-    component.updateForm.controls['name'].setValue(name);
+    component.updateForm.controls.name.setValue(name);
 
     expect(component.invalidFormInputs()).toBeTrue();
   });
@@ -102,7 +102,7 @@ describe('UpdateCategoryComponent', () => {
     component.name = name;
     component.category.name = name;
 
-    expect(component.areNamesSame()).toBeTrue()
+    expect(component.areNamesSame()).toBeTrue();
   });
 
   it('areNamesSame() should return false when names are not equal', () => {
@@ -112,6 +112,6 @@ describe('UpdateCategoryComponent', () => {
     component.name = name;
     component.category.name = name2;
 
-    expect(component.areNamesSame()).toBeFalse()
+    expect(component.areNamesSame()).toBeFalse();
   });
 });

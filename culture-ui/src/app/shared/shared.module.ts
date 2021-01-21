@@ -74,10 +74,10 @@ import {DataViewModule} from 'primeng/dataview';
         DynamicDialogModule,
         ConfirmDialogModule,
         InputTextModule,
-        DataViewModule
+        DataViewModule,
     ],
     providers: [
-        ConfirmationService,
+        ConfirmationService
     ]
 })
 export class SharedModule { }

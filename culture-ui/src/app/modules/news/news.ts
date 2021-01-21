@@ -1,19 +1,19 @@
 export interface News {
-  id: number,
-  culturalOfferId: number,
-  title: String,
-  author: NewsAuthor,
-  postedDate: String,
-  text: String,
-  images: String[]
+  id: number;
+  culturalOfferId: number;
+  title: string;
+  author: NewsAuthor;
+  postedDate: number[];
+  text: string;
+  images: string[];
 }
 
 export interface NewsAuthor {
-  id: number,
-  firstName: string,
-  lastName: string
+  id: number;
+  firstName: string;
+  lastName: string;
 }
 export interface NewsPage {
-  data: News[],
-  links: Map<String, String>
+  data: News[];
+  links: Map<string, String>;
 }

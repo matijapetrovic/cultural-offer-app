@@ -14,7 +14,7 @@ export class RegistrationComponent implements OnInit {
   submitted = false;
   returnUrl: string;
   error = '';
-  
+
   constructor(
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService
@@ -24,7 +24,7 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
-      username: ['', [Validators.required, Validators.pattern("^[^\s@]+@[^\s@]+\.[^\s@]+$")]],
+      username: ['', [Validators.required, Validators.pattern('^[^\s@]+@[^\s@]+\.[^\s@]+$')]],
       password: ['', Validators.required, ],
       confirmPassword: ['', Validators.required],
       firstName: ['', Validators.required],
@@ -32,9 +32,9 @@ export class RegistrationComponent implements OnInit {
     });
   }
 
-  get f() { return this.registerForm.controls; }
+  get f(): any { return this.registerForm.controls; }
 
-  onSubmit() {
+  onSubmit(): void {
     this.submitted = true;
 
     if (this.isInvalidEmailForm() || !this.arePasswordsSame()) {
@@ -53,98 +53,98 @@ export class RegistrationComponent implements OnInit {
     this.removeFormInputs();
   }
 
-  usernameMessage() {
+  usernameMessage(): string {
     if (this.isInvalidEmailFormat()) {
-      return "Wrong email format!";
+      return 'Wrong email format!';
     } else if (this.isEmptyEmail() && this.submitted) {
-      return "Email is required!"
+      return 'Email is required!';
     }
   }
 
-  isEmptyEmail() {
-    if (this.f.username.value === "" || this.f.username.value === null) {
+  isEmptyEmail(): boolean {
+    if (this.f.username.value === '' || this.f.username.value === null) {
       return true;
     }
     return false;
   }
 
-  emailIsValid(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+  emailIsValid(email): boolean {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   }
 
-  isInvalidEmailFormat() {
+  isInvalidEmailFormat(): boolean {
     if (!this.emailIsValid(this.f.username.value) && !this.isEmptyEmail()) {
       return true;
     }
     return false;
   }
 
-  isInvalidEmailForm() {
+  isInvalidEmailForm(): boolean {
     if (this.isInvalidEmailFormat() || this.isEmptyEmail()) {
       return true;
     }
     return false;
   }
 
-  isFormValid() {
+  isFormValid(): boolean {
     if (!this.isInvalidEmailForm && !this.isEmptyPassword()) {
       return true;
     }
     return false;
   }
 
-  arePasswordsSame() {
+  arePasswordsSame(): boolean {
     return (this.f.password.value === this.f.confirmPassword.value);
   }
 
-  arePasswordsEmpty() {
-    if(this.isEmptyPassword() || this.isEmptyConfirmPassword()) {
+  arePasswordsEmpty(): boolean {
+    if (this.isEmptyPassword() || this.isEmptyConfirmPassword()) {
       return true;
     }
     return false;
   }
 
-  isEmptyPassword() {
-    if (this.f.password.value === "" || this.f.password.value === null) {
+  isEmptyPassword(): boolean {
+    if (this.f.password.value === '' || this.f.password.value === null) {
       return true;
     }
     return false;
   }
 
-  isEmptyConfirmPassword() {
-    if (this.f.confirmPassword.value === "" || this.f.confirmPassword.value === null) {
+  isEmptyConfirmPassword(): boolean {
+    if (this.f.confirmPassword.value === '' || this.f.confirmPassword.value === null) {
       return true;
     }
     return false;
   }
 
-  passwordMessage() {
+  passwordMessage(): string {
     if (!this.arePasswordsSame() && !this.arePasswordsEmpty()) {
-      return "Passwords must match!"; 
-    } 
+      return 'Passwords must match!';
+    }
     else if ((this.f.password.value === '' || this.f.password.value === null) && this.arePasswordErrorsActivated()) {
-      return "Password is required!";
+      return 'Password is required!';
     }
   }
 
-  confirmPasswordMessage() {
+  confirmPasswordMessage(): string {
     if (!this.arePasswordsSame() && !this.arePasswordsEmpty()) {
-      return "Passwords must match!";
+      return 'Passwords must match!';
     }
     else if ((this.f.confirmPassword.value === '' || this.f.confirmPassword.value === null) && this.areConfirmPasswordErrorsActivated()) {
-      return "Password is required!";
+      return 'Password is required!';
     }
   }
 
-  arePasswordErrorsActivated() {
-    return this.f.password.errors.required || this.f.password.errors
+  arePasswordErrorsActivated(): boolean {
+    return this.f.password.errors.required || this.f.password.errors;
   }
 
-  areConfirmPasswordErrorsActivated() {
-    return this.f.confirmPassword.errors.required || this.f.confirmPassword.errors
+  areConfirmPasswordErrorsActivated(): boolean {
+    return this.f.confirmPassword.errors.required || this.f.confirmPassword.errors;
   }
 
-  removeFormInputs() {
+  removeFormInputs(): void {
     this.registerForm.reset();
   }
 }

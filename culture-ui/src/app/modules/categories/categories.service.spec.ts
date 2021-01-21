@@ -12,8 +12,8 @@ describe('CategoriesService', () => {
   let service: CategoriesService;
   let httpMock: HttpTestingController;
   let httpClient: HttpClient;
-  let errorHandler = jasmine.createSpyObj('errorHandler', ['handleError']);
-  let categoriesUrl = `${environment.apiUrl}/api/categories`;
+  const errorHandler = jasmine.createSpyObj('errorHandler', ['handleError']);
+  const categoriesUrl = `${environment.apiUrl}/api/categories`;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -39,9 +39,9 @@ describe('CategoriesService', () => {
     let category: Category;
     const mockCategory: Category = {
       id: 1,
-      name: "Category"
+      name: 'Category'
     };
-    service.getCategory(mockCategory.id).subscribe(data => { category = data});
+    service.getCategory(mockCategory.id).subscribe(data => { category = data; });
 
     const req = httpMock.expectOne(categoriesUrl + `/${mockCategory.id}`);
     expect(req.request.method).toBe('GET');
@@ -56,21 +56,21 @@ describe('CategoriesService', () => {
 
   it('getCategory() should throw exception', fakeAsync(() => {
     let category: Category;
-    let id = -1;
-    let errorMessage = 'Category does not exist';
+    const id = -1;
+    const errorMessage = 'Category does not exist';
 
-    service.getCategory(id).subscribe(data => { category = data });
+    service.getCategory(id).subscribe(data => { category = data; });
 
     const req = httpMock.expectOne(categoriesUrl + `/${id}`);
     expect(req.request.method).toBe('GET');
     req.flush(null);
 
-    errorHandler.handleError.and.callFake(function () {
+    errorHandler.handleError.and.callFake(() => {
       throw errorMessage;
     });
 
     tick();
-    
+
     expect(category).toBeNull();
     expect(errorHandler.handleError).toThrow(errorMessage);
   }));
@@ -78,12 +78,12 @@ describe('CategoriesService', () => {
   it('getCategoryNames() should return valid Category names', fakeAsync(() => {
     let categoryNames: Category[];
     const mockCategoryNames = [
-      { id: 1, name: "Cateogory1" },
-      { id: 2, name: "Cateogory2" },
-      { id: 3, name: "Cateogory3" },
-    ]
+      { id: 1, name: 'Cateogory1' },
+      { id: 2, name: 'Cateogory2' },
+      { id: 3, name: 'Cateogory3' },
+    ];
 
-    service.getCategoryNames().subscribe(data => { categoryNames = data });
+    service.getCategoryNames().subscribe(data => { categoryNames = data; });
 
     const req = httpMock.expectOne(categoriesUrl + `/names`);
     expect(req.request.method).toBe('GET');
@@ -103,9 +103,9 @@ describe('CategoriesService', () => {
   it('getCategoryNames() should return empty Category names', fakeAsync(() => {
     let categoryNames: Category[];
     const mockCategoryNames = [
-    ]
+    ];
 
-    service.getCategoryNames().subscribe(data => { categoryNames = data });
+    service.getCategoryNames().subscribe(data => { categoryNames = data; });
 
     const req = httpMock.expectOne(categoriesUrl + `/names`);
     expect(req.request.method).toBe('GET');
@@ -119,17 +119,17 @@ describe('CategoriesService', () => {
 
   it('getCategories() should return valid Categories', fakeAsync(() => {
     let categoriesPage: CategoriesPage;
-    let page = 0;
-    let limit = 3;
+    const page = 0;
+    const limit = 3;
     const mockCategoriesPage = {
       data: [
-        { id: 1, name: "Cateogory1" },
-        { id: 2, name: "Cateogory2" },
-        { id: 3, name: "Cateogory3" },
+        { id: 1, name: 'Cateogory1' },
+        { id: 2, name: 'Cateogory2' },
+        { id: 3, name: 'Cateogory3' },
       ]
-    }
+    };
 
-    service.getCategories(page, limit).subscribe(data => { categoriesPage = data });
+    service.getCategories(page, limit).subscribe(data => { categoriesPage = data; });
 
     const req = httpMock.expectOne(categoriesUrl + `?page=${page}&limit=${limit}`);
     expect(req.request.method).toBe('GET');
@@ -149,14 +149,14 @@ describe('CategoriesService', () => {
 
   it('getCategories() should empty Categories', fakeAsync(() => {
     let categoriesPage: CategoriesPage;
-    let page = 0;
-    let limit = 3;
+    const page = 0;
+    const limit = 3;
     const mockCategoriesPage = {
       data: [
       ]
-    }
+    };
 
-    service.getCategories(page, limit).subscribe(data => { categoriesPage = data });
+    service.getCategories(page, limit).subscribe(data => { categoriesPage = data; });
 
     const req = httpMock.expectOne(categoriesUrl + `?page=${page}&limit=${limit}`);
     expect(req.request.method).toBe('GET');
@@ -173,9 +173,9 @@ describe('CategoriesService', () => {
     let response: any;
     const mockCategory: Category = {
       id: null,
-      name: "Category"
+      name: 'Category'
     };
-    service.addCategory(mockCategory).subscribe(data => { response = data });
+    service.addCategory(mockCategory).subscribe(data => { response = data; });
 
     const req = httpMock.expectOne(categoriesUrl);
     expect(req.request.method).toBe('POST');
@@ -188,17 +188,17 @@ describe('CategoriesService', () => {
 
   it('addCategory() should throw categiory already exists', fakeAsync(() => {
     let response: any;
-    let errorMessage: string = 'Category already exists!';
+    const errorMessage = 'Category already exists!';
     const mockCategory: Category = {
       id: null,
-      name: "Category"
+      name: 'Category'
     };
-    service.addCategory(mockCategory).subscribe(data => { response = data });
+    service.addCategory(mockCategory).subscribe(data => { response = data; });
 
     const req = httpMock.expectOne(categoriesUrl);
     expect(req.request.method).toBe('POST');
     req.flush(mockCategory);
-    errorHandler.handleError.and.callFake(function () {
+    errorHandler.handleError.and.callFake(() => {
       throw errorMessage;
     });
 
@@ -211,7 +211,7 @@ describe('CategoriesService', () => {
     let category: Category;
     const updatedMockCategory: Category = {
       id: 1,
-      name: "Updated Category"
+      name: 'Updated Category'
     };
 
     service.updateCategory(updatedMockCategory).subscribe();
@@ -232,14 +232,14 @@ describe('CategoriesService', () => {
     expect(category).toBeTruthy();
     expect(category.id).toEqual(updatedMockCategory.id);
     expect(category.name).toEqual(updatedMockCategory.name);
-    
+
   }));
 
   it('updateCategory() should throw category already exists', fakeAsync(() => {
-    let errorMessage = 'Category already exists!';
+    const errorMessage = 'Category already exists!';
     const updatedMockCategory: Category = {
       id: 1,
-      name: "Updated Category"
+      name: 'Updated Category'
     };
 
     service.updateCategory(updatedMockCategory).subscribe();
@@ -247,18 +247,18 @@ describe('CategoriesService', () => {
     const req = httpMock.expectOne(categoriesUrl + `/${updatedMockCategory.id}`);
     expect(req.request.method).toBe('PUT');
     req.flush(updatedMockCategory);
-    errorHandler.handleError.and.callFake(function () {
+    errorHandler.handleError.and.callFake(() => {
       throw errorMessage;
     });
 
     tick();
 
-    expect(errorHandler.handleError).toThrow(errorMessage)
+    expect(errorHandler.handleError).toThrow(errorMessage);
   }));
 
   it('deleteCategory() should delete valid Category', fakeAsync(() => {
-    let id = 1;
-    
+    const id = 1;
+
     service.deleteCategory(id).subscribe();
     const req = httpMock.expectOne(categoriesUrl + `/${id}`);
     expect(req.request.method).toBe('DELETE');
@@ -266,19 +266,19 @@ describe('CategoriesService', () => {
   }));
 
   it('deleteCategory() should throw category does not exist', fakeAsync(() => {
-    let id = -1;
-    let errorMessage = 'Category does not exist!';
+    const id = -1;
+    const errorMessage = 'Category does not exist!';
 
     service.deleteCategory(id).subscribe();
     const req = httpMock.expectOne(categoriesUrl + `/${id}`);
     expect(req.request.method).toBe('DELETE');
     req.flush({});
-    errorHandler.handleError.and.callFake(function () {
+    errorHandler.handleError.and.callFake(() => {
       throw errorMessage;
     });
 
     tick();
 
-    expect(errorHandler.handleError).toThrow(errorMessage)
+    expect(errorHandler.handleError).toThrow(errorMessage);
   }));
 });

@@ -29,18 +29,18 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
+  ngOnInit(): any {
     this.loginForm = this.formBuilder.group({
-      username: ['', [Validators.required, Validators.pattern("^[^\s@]+@[^\s@]+\.[^\s@]+$")]],
+      username: ['', [Validators.required, Validators.pattern('^[^\s@]+@[^\s@]+\.[^\s@]+$')]],
       password: ['', Validators.required],
     });
-    
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
   }
 
-  get f() { return this.loginForm.controls; }
+  get f(): any { return this.loginForm.controls; }
 
-  onSubmit() {
+  onSubmit(): void {
     this.submitted = true;
 
     if (this.isInvalidEmailForm()) {
@@ -60,54 +60,54 @@ export class LoginComponent implements OnInit {
         });
   }
 
-  usernameMessage() {
+  usernameMessage(): string {
     if (this.isInvalidEmailFormat()){
-      return "Wrong email format!";
+      return 'Wrong email format!';
     } else if (this.isEmptyEmail()) {
-      return "Email is required!"
+      return 'Email is required!';
     }
   }
 
-  isEmptyEmail() {
-    if (this.f.username.value === "" || this.f.username.value === null) {
+  isEmptyEmail(): boolean {
+    if (this.f.username.value === '' || this.f.username.value === null) {
       return true;
     }
     return false;
   }
 
-  emailIsValid(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+  emailIsValid(email): boolean {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   }
 
-  isInvalidEmailFormat() {
+  isInvalidEmailFormat(): boolean {
     if (!this.emailIsValid(this.f.username.value) && !this.isEmptyEmail()) {
       return true;
     }
     return false;
   }
 
-  isInvalidEmailForm() {
+  isInvalidEmailForm(): boolean {
     if (this.isInvalidEmailFormat() || this.isEmptyEmail()) {
       return true;
     }
     return false;
   }
 
-  isEmptyPassword() {
-    if (this.f.password.value === "" || this.f.password.value === null) {
+  isEmptyPassword(): boolean {
+    if (this.f.password.value === '' || this.f.password.value === null) {
       return true;
     }
     return false;
   }
 
-  isFormValid() {
+  isFormValid(): boolean {
     if (!this.isInvalidEmailForm && !this.isEmptyPassword()){
       return true;
     }
     return false;
   }
 
-  removeFormInputs() {
+  removeFormInputs(): void {
     this.loginForm.reset();
   }
 }

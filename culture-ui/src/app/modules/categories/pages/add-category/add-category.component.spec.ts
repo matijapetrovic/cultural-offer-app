@@ -8,7 +8,7 @@ import { AddCategoryComponent } from './add-category.component';
 describe('AddCategoryComponent', () => {
   let component: AddCategoryComponent;
   let fixture: ComponentFixture<AddCategoryComponent>;
-  let dialogRefMock = {
+  const dialogRefMock = {
     close: () => { }
   };
 
@@ -16,8 +16,8 @@ describe('AddCategoryComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [AddCategoryComponent],
       imports: [
-        FormsModule, 
-        ReactiveFormsModule, 
+        FormsModule,
+        ReactiveFormsModule,
         HttpClientTestingModule],
       providers: [{ provide: DynamicDialogRef, useValue: dialogRefMock}]
     })
@@ -40,29 +40,29 @@ describe('AddCategoryComponent', () => {
   });
 
   it('onSubmit() form with vaid inputs should be submitted', () => {
-    let name = 'Category';
+    const name = 'Category';
 
-    component.addForm.controls['name'].setValue(name);
+    component.addForm.controls.name.setValue(name);
     component.onSubmit();
 
     expect(component.addForm.pristine).toBeTrue();
   });
 
   it('onSubmit() form with empty inputs should not be submitted', () => {
-    const name: string = '';
+    const name = '';
 
     spyOn(component, 'invalidFormInputs');
-    component.addForm.controls['name'].setValue(name);
+    component.addForm.controls.name.setValue(name);
     component.onSubmit();
 
     expect(component.invalidFormInputs).toHaveBeenCalled();
   });
 
   it('addCategory() form with valid inputs should be added', () => {
-    const name: string = '';
+    const name = '';
 
     spyOn(component, 'invalidFormInputs');
-    component.addForm.controls['name'].setValue(name);
+    component.addForm.controls.name.setValue(name);
     component.addCategory();
 
     expect(component.loading).toBeFalse();
@@ -77,17 +77,17 @@ describe('AddCategoryComponent', () => {
   });
 
   it('invalidInputFarms() should return false if form inputs are valid', () => {
-    const name: string = 'Category';
+    const name = 'Category';
 
-    component.addForm.controls['name'].setValue(name);
+    component.addForm.controls.name.setValue(name);
 
     expect(component.invalidFormInputs()).toBeFalse();
   });
 
   it('invalidInputFarms() should return true if form inputs are invalid', () => {
-    const name: string = '';
+    const name = '';
 
-    component.addForm.controls['name'].setValue(name);
+    component.addForm.controls.name.setValue(name);
 
     expect(component.invalidFormInputs()).toBeTrue();
   });

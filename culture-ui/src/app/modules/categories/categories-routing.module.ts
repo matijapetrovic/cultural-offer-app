@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component: CategoriesComponent
   }
-]
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

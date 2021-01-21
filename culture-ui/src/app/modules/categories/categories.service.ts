@@ -17,12 +17,14 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class CategoriesService {
-  categoriesUrl = `${environment.apiUrl}/api/categories`;
-  private handleError: HandleError;
 
-  constructor(private http: HttpClient, httpErrorHandler: HttpErrorHandler) { 
+  constructor(private http: HttpClient, httpErrorHandler: HttpErrorHandler) {
     this.handleError = httpErrorHandler.createHandleError('CategoryService');
   }
+  categoriesUrl = `${environment.apiUrl}/api/categories`;
+  private handleError: HandleError;
+  private RegenerateData = new Subject<void>();
+  RegenerateData$ = this.RegenerateData.asObservable();
 
   getCategory(id: number): Observable<Category> {
     const url = `${this.categoriesUrl}/${id}`;
@@ -33,11 +35,9 @@ export class CategoriesService {
     );
   }
 
-  announceChange() {
+  announceChange(): void {
     this.RegenerateData.next();
   }
-  private RegenerateData = new Subject<void>();
-  RegenerateData$ = this.RegenerateData.asObservable();
 
   getCategories(page: number, limit: number): Observable<CategoriesPage> {
     const url = `${this.categoriesUrl}?page=${page}&limit=${limit}`;

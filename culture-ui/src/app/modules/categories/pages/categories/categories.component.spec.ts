@@ -2,16 +2,14 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ConfirmationService, Confirmation } from 'primeng/api';
-import { Category } from './../../category';
+import { ConfirmationService } from 'primeng/api';
 
 import { CategoriesComponent } from './categories.component';
 
 describe('CategoriesComponent', () => {
   let component: CategoriesComponent;
   let fixture: ComponentFixture<CategoriesComponent>;
-  let dialogSpy: jasmine.Spy;
-  let dialogRefMock = {
+  const dialogRefMock = {
     close: () => { }
   };
 
@@ -45,7 +43,7 @@ describe('CategoriesComponent', () => {
   });
 
   it('showUpdateForm() should get categories when inputs are added', () => {
-    let category = {
+    const category = {
       id: 1,
       name: 'Category'
     };
@@ -71,12 +69,12 @@ describe('CategoriesComponent', () => {
   });
 
   it('deleteCategories() should delete category', () => {
-    let id = 1;
+    const id = 1;
 
     spyOn(component, 'deleteCategory');
     component.deleteCategory(id);
 
-    expect(component.deleteCategory).toHaveBeenCalled();;
+    expect(component.deleteCategory).toHaveBeenCalled();
   });
 
   it('getNextCategories() should get categories from next page', () => {

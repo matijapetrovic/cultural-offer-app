@@ -28,7 +28,7 @@ export class AddCategoryComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.submitted = true;
     if (this.invalidFormInputs()) {
       this.removeFormInputs();
@@ -38,8 +38,8 @@ export class AddCategoryComponent implements OnInit {
     this.addCategory();
   }
 
-  addCategory() {
-    let category: Category = { id: null, name: this.f.name.value };
+  addCategory(): void {
+    const category: Category = { id: null, name: this.f.name.value };
     this.categoryService.addCategory(category)
       .subscribe(
         () => {
@@ -49,20 +49,20 @@ export class AddCategoryComponent implements OnInit {
         });
   }
 
-  get f() { return this.addForm.controls; }
+  get f(): any { return this.addForm.controls; }
 
-  removeFormInputs() {
+  removeFormInputs(): void {
     this.addForm.reset();
   }
 
-  invalidFormInputs() {
+  invalidFormInputs(): boolean {
     if (this.f.name.value === '' || this.f.name.value === null) {
       return true;
     }
     return false;
   }
 
-  errorMessage() {
-    return "Name is required!"
+  errorMessage(): string {
+    return 'Name is required!';
   }
 }

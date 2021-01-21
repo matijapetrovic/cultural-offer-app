@@ -1,11 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CategoriesPage } from '../../category';
 import { CategoriesService } from 'src/app/modules/categories/categories.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AddCategoryComponent } from '../add-category/add-category.component';
 import { MessageService } from 'primeng/api';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
-import { ConfirmationService } from 'primeng/api'
+import { ConfirmationService } from 'primeng/api';
 import { UpdateCategoryComponent } from '../update-category/update-category.component';
 
 
@@ -19,7 +19,7 @@ export class CategoriesComponent implements OnInit {
   categoriesPage: CategoriesPage;
 
   private page: number;
-  private limit: number = 5;
+  private limit = 5;
   public ref: DynamicDialogRef;
 
   private tableChanged = true;
@@ -33,7 +33,7 @@ export class CategoriesComponent implements OnInit {
     this.page = 0;
   }
 
-  showAddForm() {
+  showAddForm(): void {
     this.ref = this.dialogService.open(AddCategoryComponent, {
       header: 'Add category',
       width: '30%',
@@ -41,16 +41,16 @@ export class CategoriesComponent implements OnInit {
     });
 
     this.ref.onClose.subscribe((submitted) => {
-      if(submitted) {
+      if (submitted) {
         this.getCategories();
       }
     });
   }
 
-  showUpdateForm(category: any) {
+  showUpdateForm(category: any): void {
     this.ref = this.dialogService.open(UpdateCategoryComponent, {
       data: {
-        category: category
+        category
       },
       header: 'Update category',
       width: '30%',
@@ -64,17 +64,17 @@ export class CategoriesComponent implements OnInit {
     });
   }
 
-  showDeleteForm(id: number) {
+  showDeleteForm(id: number): void {
     this.confirmationService.confirm({
       message: 'Do you want to delete this category?',
       header: 'Delete Confirmation',
       icon: 'pi pi-info-circle',
       accept: () => {
-        //this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' });
+        // this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' });
         this.deleteCategory(id);
       },
       reject: () => {
-        //this.messageService.add({ severity: 'info', summary: 'Rejected', detail: 'You have rejected' });
+        // this.messageService.add({ severity: 'info', summary: 'Rejected', detail: 'You have rejected' });
       }
     });
   }
@@ -93,15 +93,15 @@ export class CategoriesComponent implements OnInit {
     .subscribe(
       () => {
         this.getCategories();
-      });;
+      });
   }
 
-  getNextCategories() {
+  getNextCategories(): void {
     this.page++;
     this.getCategories();
   }
 
-  getPrevCategories() {
+  getPrevCategories(): void {
     this.page--;
     this.getCategories();
   }

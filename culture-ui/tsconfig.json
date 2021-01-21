@@ -16,9 +16,6 @@
       "es2018",
       "dom"
     ],
-    "types": ["googlemaps"],
-    "typeRoots": [
-      "node_modules/@types"
-    ],
+    "types": ["jasmine", "googlemaps"]
   }
 }

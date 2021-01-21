@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
-
-import { MessageService } from './message.service';
+import { MessageService } from 'primeng/api';
 
 export type HandleError =
   <T> (operation?: string, result?: T) => (error: HttpErrorResponse) => Observable<T>;
@@ -39,7 +38,7 @@ export class HttpErrorHandler {
        `server returned code ${error.status} with body "${error.error}"`;
 
       // TODO: better job of transforming error for user consumption
-      this.messageService.add(`${serviceName}: ${operation} failed: ${message}`);
+      this.messageService.add({ severity: 'error', summary: 'Error!', detail: `${serviceName}: ${operation} failed: ${message}`});
 
       // Let the app keep running by returning a safe result.
       return of( result );

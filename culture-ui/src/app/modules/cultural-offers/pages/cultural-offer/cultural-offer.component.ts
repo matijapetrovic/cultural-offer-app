@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { AuthenticationService } from 'src/app/modules/authentication/authentication.service';
 import { Role } from 'src/app/modules/authentication/role';
 import { User } from 'src/app/modules/authentication/user';
@@ -18,41 +18,47 @@ import { CulturalOffer } from '../../cultural-offer';
 })
 export class CulturalOfferComponent implements OnInit {
   culturalOffer: CulturalOffer;
-  subscribed: boolean = null;
   reviewPage: ReviewPage;
   newsPage: NewsPage;
+
+  userIsRegular: boolean;
+  subscribed: boolean = null;
 
   private culturalOfferId: number;
 
   private currentReviewsPage: number;
-  private reviewsLimit: number = 3;
+  private reviewsLimit = 3;
 
   private currentNewsPage: number;
-  private newsLimit: number = 3;
+  private newsLimit = 3;
 
   mapOptions: any;
   mapOverlays: any;
   mapInfoWindow: any;
 
   constructor(
-    private culturalOffersService : CulturalOffersService,
+    private culturalOffersService: CulturalOffersService,
     private reviewsService: ReviewsService,
     private newsService: NewsService,
     private route: ActivatedRoute,
     private confirmationService: ConfirmationService,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private messageService: MessageService
   ) {
     this.currentReviewsPage = 0;
     this.currentNewsPage = 0;
   }
 
   ngOnInit(): void {
-    this.culturalOfferId = +this.route.snapshot.paramMap.get('id');
+    this.culturalOfferId = +this.route.snapshot.params.id;
     this.getCulturalOffer();
     this.getReviews();
     this.getNews();
     this.mapInfoWindow = new google.maps.InfoWindow();
-    this.authenticationService.currentUser.subscribe((user) => this.updateSubscribed(user));
+    this.authenticationService.currentUser.subscribe((user) => {
+      this.updateSubscribed(user);
+      this.userIsRegular = user && user.role == Role.User;
+    });
   }
 
   updateSubscribed(user: User) {
@@ -72,10 +78,10 @@ export class CulturalOfferComponent implements OnInit {
       };
       this.mapOverlays = [
         new google.maps.Marker({
-          position: {lat: culturalOffer.latitude, lng:culturalOffer.longitude },
+          position: {lat: culturalOffer.latitude, lng: culturalOffer.longitude },
           title: culturalOffer.name
         })
-      ]
+      ];
     });
   }
 
@@ -108,10 +114,10 @@ export class CulturalOfferComponent implements OnInit {
   }
 
   handleOverlayClick(event: any): void {
-    let isMarker = event.overlay.getTitle != undefined;
+    const isMarker = event.overlay.getTitle != undefined;
 
     if (isMarker) {
-      let title = event.overlay.getTitle();
+      const title = event.overlay.getTitle();
       this.mapInfoWindow.setContent('' + title + '');
       this.mapInfoWindow.open(event.map, event.overlay);
     }
@@ -144,14 +150,22 @@ export class CulturalOfferComponent implements OnInit {
   }
 
   subscribe(): void {
-    this.culturalOffersService.subscribeToCulturalOffer(this.culturalOfferId).subscribe(() => {this.subscribed = true;});
+    this.culturalOffersService.subscribeToCulturalOffer(this.culturalOfferId).subscribe(() => {
+      this.subscribed = true;
+      this.messageService.add({severity: 'success', summary: 'Subscription successful', detail: 'You have successfully subscribed to this cultural offer\'s newsletter'});
+      setTimeout(() => this.messageService.clear(), 2000);
+    });
   }
 
   unsubscribe(): void {
-    this.culturalOffersService.unsubscribeFromCulturalOffer(this.culturalOfferId).subscribe(() => {this.subscribed = false;});
+    this.culturalOffersService.unsubscribeFromCulturalOffer(this.culturalOfferId).subscribe(() => {
+      this.subscribed = false;
+      this.messageService.add({severity: 'success', summary: 'Unsubscription successful', detail: 'You have successfully unsubscribed to this cultural offer\'s newsletter'});
+      setTimeout(() => this.messageService, 2000);
+    });
   }
 
   getSubscribed(): void {
-    this.culturalOffersService.getSubscribed(this.culturalOfferId).subscribe((isSubscribed) => { this.subscribed = isSubscribed });
+    this.culturalOffersService.getSubscribed(this.culturalOfferId).subscribe((isSubscribed) => { this.subscribed = isSubscribed; });
   }
 }

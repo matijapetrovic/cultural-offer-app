@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { LocationRange } from 'src/app/modules/cultural-offers/cultural-offer';
 import { environment } from 'src/environments/environment';
@@ -10,7 +10,7 @@ import { HandleError, HttpErrorHandler } from './http-error-handler.service';
   providedIn: 'root'
 })
 export class GeolocationService {
-  geolocationApiUrl: string = `https://maps.googleapis.com/maps/api/geocode/json`;
+  geolocationApiUrl = `https://maps.googleapis.com/maps/api/geocode/json`;
 
   private handleError: HandleError;
 
@@ -19,14 +19,15 @@ export class GeolocationService {
   }
 
   geocode(location: string): Observable<LocationRange> {
-    const address = location.replace(" ", "%20");
-    const url = `${this.geolocationApiUrl}?address=${address}&key=${environment.mapsApiKey}`;
-    return this.http.get<any>(url)
+    const params: HttpParams =
+      new HttpParams()
+        .append('address', location)
+        .append('key', environment.mapsApiKey);
+
+    return this.http.get<any>(this.geolocationApiUrl, {params})
       .pipe(
         catchError(this.handleError('geocode')),
         map((result) => {
-          if (!result.results.length)
-            throw new Error('Location not found.');
           const viewport = result.results[0].geometry.viewport;
           const locationRange: LocationRange = {
             latitudeFrom: viewport.southwest.lat,
@@ -35,6 +36,9 @@ export class GeolocationService {
             longitudeTo: viewport.northeast.lng
           };
           return locationRange;
+        }),
+        catchError((err) => {
+          return throwError(new Error('Location not found'));
         })
       );
   }

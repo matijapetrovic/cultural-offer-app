@@ -22,12 +22,12 @@ export class ReviewsService {
   reviewsUrl = `${environment.apiUrl}/api/cultural-offers`;
   private handleError: HandleError;
 
-  constructor(private http: HttpClient, httpErrorHandler : HttpErrorHandler) {
+  constructor(private http: HttpClient, httpErrorHandler: HttpErrorHandler) {
     this.handleError = httpErrorHandler.createHandleError('ReviewsService');
   }
 
   getReviews(culturalOfferId: number, page: number, limit: number): Observable<ReviewPage>{
-    let params: HttpParams = 
+    const params: HttpParams =
       new HttpParams()
         .append('page', page.toString())
         .append('limit', limit.toString());

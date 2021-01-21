@@ -36,7 +36,7 @@ export class UpdateCategoryComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.submitted = true;
     if (this.invalidFormInputs()) {
       return;
@@ -45,8 +45,8 @@ export class UpdateCategoryComponent implements OnInit {
     this.updateCategory();
   }
 
-  updateCategory() {
-    let updatedCategory: Category = { id: this.category.id, name: this.name };
+  updateCategory(): void {
+    const updatedCategory: Category = { id: this.category.id, name: this.name };
     this.categoryService.updateCategory(updatedCategory)
       .subscribe(
         () => {
@@ -55,20 +55,20 @@ export class UpdateCategoryComponent implements OnInit {
         });
   }
 
-  get f() { return this.updateForm.controls; }
+  get f(): any { return this.updateForm.controls; }
 
-  invalidFormInputs() {
+  invalidFormInputs(): boolean {
     if (this.f.name.value === '' || this.f.name.value === null || this.areNamesSame()) {
       return true;
     }
     return false;
   }
 
-  areNamesSame() {
+  areNamesSame(): boolean {
     return this.category.name === this.name;
   }
 
-  errorMessage() {
-    return "Name is required!"
+  errorMessage(): string {
+    return 'Name is required!';
   }
 }
