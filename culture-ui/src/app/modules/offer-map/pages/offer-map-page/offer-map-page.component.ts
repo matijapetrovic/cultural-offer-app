@@ -19,7 +19,6 @@ export class OfferMapPageComponent implements OnInit {
   categories: Category[] = [];
   subcategories: Subcategory[] = [];
 
-  private mapCenter: Location;
   private locationRange: LocationRange;
   private categoryId: number;
   private subcategoryId: number;

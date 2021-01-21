@@ -1,8 +1,34 @@
 import { Role } from 'src/app/modules/authentication/role';
 import { User } from 'src/app/modules/authentication/user';
+import { Category } from 'src/app/modules/categories/category';
 import { CulturalOffer, CulturalOfferLocation, LocationRange } from 'src/app/modules/cultural-offers/cultural-offer';
 import { News, NewsPage } from 'src/app/modules/news/news';
 import { Review, ReviewPage } from 'src/app/modules/reviews/review';
+import { Subcategory } from 'src/app/modules/subcategories/subcategory';
+
+const mockCategoryNames: Category[] = [
+  {
+    id: 1,
+    name: 'Cat 1'
+  },
+  {
+    id: 2,
+    name: 'Cat 2'
+  }
+];
+
+const mockSubcategoryNames: Subcategory[] = [
+  {
+    id: 1,
+    name: 'Subcat 1',
+    categoryId: 1,
+  },
+  {
+    id: 1,
+    name: 'Subcat 2',
+    categoryId: 1
+  }
+];
 
 const mockCulturalOffer: CulturalOffer = {
     id: 1,
@@ -143,6 +169,10 @@ const mockAdmin: User = {
   role: Role.Admin
 };
 
+const validLocation = 'Location';
+const invalidLocation = 'Not valid';
+const invalidLocationMessage = { severity: 'warn', summary: 'Error!', detail: 'Location not found' };
+
 const mockMapBounds: google.maps.LatLngBounds =
   new google.maps.LatLngBounds({lat: 30.0, lng: 30.0}, {lat: 45.0, lng: 45.0});
 
@@ -154,6 +184,11 @@ const mockLocationRange: LocationRange = {
 };
 
 export {
+  invalidLocationMessage,
+  validLocation,
+  invalidLocation,
+  mockCategoryNames,
+  mockSubcategoryNames,
   mockCulturalOffer,
   mockOfferLocations,
   mockNews,
