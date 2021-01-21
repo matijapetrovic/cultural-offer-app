@@ -4,6 +4,7 @@ import { first } from 'rxjs/operators';
 import { CategoriesService } from '../../categories.service';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { Category } from '../../category';
 
 
 @Component({
@@ -11,10 +12,9 @@ import { DynamicDialogRef } from 'primeng/dynamicdialog';
   templateUrl: './update-category.component.html',
   styleUrls: ['./update-category.component.scss']
 })
-export class UpdateCategoryComponent implements OnInit{
+export class UpdateCategoryComponent implements OnInit {
 
-  addForm: FormGroup;
-  error: any;
+  updateForm: FormGroup;
   loading = false;
   submitted = false;
   category: any;
@@ -31,49 +31,44 @@ export class UpdateCategoryComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.addForm = this.formBuilder.group({
+    this.updateForm = this.formBuilder.group({
       name: ['', Validators.required],
     });
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.submitted = true;
-
     if (this.invalidFormInputs()) {
       return;
     }
-
     this.loading = true;
     this.updateCategory();
-    this.ref.close(true);
   }
 
-  updateCategory() {
-    const updatedCategory = {id: this.category.id, name: this.name};
+  updateCategory(): void {
+    const updatedCategory: Category = { id: this.category.id, name: this.name };
     this.categoryService.updateCategory(updatedCategory)
-      .pipe(first())
       .subscribe(
-        error => {
-          this.error = error;
+        () => {
           this.loading = false;
+          this.ref.close(this.submitted);
         });
   }
 
+  get f(): any { return this.updateForm.controls; }
 
-  get f() { return this.addForm.controls; }
-
-  invalidFormInputs() {
+  invalidFormInputs(): boolean {
     if (this.f.name.value === '' || this.f.name.value === null || this.areNamesSame()) {
       return true;
     }
     return false;
   }
 
-  areNamesSame() {
+  areNamesSame(): boolean {
     return this.category.name === this.name;
   }
 
-  errorMessage() {
+  errorMessage(): string {
     return 'Name is required!';
   }
 }

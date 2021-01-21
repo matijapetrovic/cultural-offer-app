@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HandleError, HttpErrorHandler } from 'src/app/core/services/http-error-handler.service';
 import { environment } from 'src/environments/environment';
@@ -9,7 +9,7 @@ import { CategoriesPage, Category } from './category';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
-    Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjdWx0dXJlLWFwcCIsInN1YiI6ImFkbWluMUBnbWFpbC5jb20iLCJhdWQiOiJ3ZWIiLCJpYXQiOjE2MDkyNTMzNzcsImV4cCI6MTYxMTA1MzM3N30.f_9B7npSnsKWlD3cKmxeKXa_Nso4PGvSwOxbxt-Gw16fnyZ3Ho1gLNvWPMiuvCWeiBiuEH2Wf1bxuwYunH84eQ'
+    observe: 'response'
   })
 };
 
@@ -17,12 +17,14 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class CategoriesService {
-  categoriesUrl = `${environment.apiUrl}/api/categories`;
-  private handleError: HandleError;
 
   constructor(private http: HttpClient, httpErrorHandler: HttpErrorHandler) {
     this.handleError = httpErrorHandler.createHandleError('CategoryService');
   }
+  categoriesUrl = `${environment.apiUrl}/api/categories`;
+  private handleError: HandleError;
+  private RegenerateData = new Subject<void>();
+  RegenerateData$ = this.RegenerateData.asObservable();
 
   getCategory(id: number): Observable<Category> {
     const url = `${this.categoriesUrl}/${id}`;
@@ -31,6 +33,10 @@ export class CategoriesService {
       catchError(this.handleError<Category>('getCategory')
       )
     );
+  }
+
+  announceChange(): void {
+    this.RegenerateData.next();
   }
 
   getCategories(page: number, limit: number): Observable<CategoriesPage> {
