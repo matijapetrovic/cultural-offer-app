@@ -62,7 +62,7 @@ export class OfferMapPageComponent implements OnInit {
     this.subcategoriesService.getSubcategoryNames(category.id).subscribe(subcategories => this.subcategories = subcategories);
   }
 
-  searchLocation(event: string) {
+  searchLocation(event: string): void {
     this.geolocationService.geocode(event).subscribe(
       (locationRange) => {
         this.locationRange = locationRange;
@@ -76,8 +76,7 @@ export class OfferMapPageComponent implements OnInit {
       });
   }
 
-  updateFilters(event: CulturalOfferLocationsFilter) {
-    console.log(event);
+  updateFilters(event: CulturalOfferLocationsFilter): void {
     if (event.category) {
       this.categoryId = event.category.id;
     }

@@ -25,7 +25,6 @@ describe('CulturalOfferComponent', () => {
   let authenticationService: AuthenticationService;
 
   beforeEach(async () => {
-
     const culturalOffersServiceMock = {
       getCulturalOffer: jasmine.createSpy('getCulturalOffer')
         .and.returnValue(of(mockCulturalOffer)),
@@ -54,8 +53,12 @@ describe('CulturalOfferComponent', () => {
       currentUserSubject: userSubject,
       login: jasmine.createSpy('login')
         .and.callFake((username: string, password: string) => {
-          if (username == 'admin') { userSubject.next(mockAdmin); }
-          if (username == 'user') { userSubject.next(mockUser); }
+          if (username === 'admin') {
+            userSubject.next(mockAdmin);
+          }
+          if (username === 'user') {
+            userSubject.next(mockUser);
+          }
         }),
       currentUser: userSubject.asObservable()
     };
@@ -125,7 +128,7 @@ describe('CulturalOfferComponent', () => {
     tick();
 
     expect(component.subscribed).toBeTrue();
-    expect(culturalOffersService.getSubscribed).toHaveBeenCalled;
+    expect(culturalOffersService.getSubscribed).toHaveBeenCalled();
   }));
 
   it('should update subscribed admin logs in', () => {

@@ -43,9 +43,9 @@ describe('OfferMapFilterFormComponent', () => {
     component.filterForm.controls.subcategory.setValue(subcategory);
 
     let filter: CulturalOfferLocationsFilter;
-    component.onSubmit.subscribe((event: CulturalOfferLocationsFilter) => filter = event);
+    component.submit.subscribe((event: CulturalOfferLocationsFilter) => filter = event);
 
-    component.submit();
+    component.submitForm();
 
     expect(filter.category).toBeDefined();
     expect(filter.category.id).toEqual(category.id);
@@ -66,7 +66,7 @@ describe('OfferMapFilterFormComponent', () => {
     component.filterForm.controls.category.setValue(category);
 
     let selectedCategory: Category;
-    component.onCategorySelected.subscribe((event: Category) => selectedCategory = event);
+    component.categorySelected.subscribe((event: Category) => selectedCategory = event);
 
     component.selectCategory();
     expect(selectedCategory).toBeDefined();
@@ -79,9 +79,9 @@ describe('OfferMapFilterFormComponent', () => {
   it('raises onReset when form is reset', () => {
 
     let reset = false;
-    component.onReset.subscribe(() => reset = true);
+    component.reset.subscribe(() => reset = true);
 
-    component.reset();
+    component.resetForm();
     expect(reset).toBeTrue();
   });
 });

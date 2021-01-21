@@ -32,9 +32,9 @@ describe('OfferMapSearchLocationComponent', () => {
     component.searchForm.controls.location.setValue(location);
 
     let selectedLocation: string;
-    component.onSubmit.subscribe((location: string) => selectedLocation = location);
+    component.submit.subscribe((event: string) => selectedLocation = event);
 
-    component.submit();
+    component.submitForm();
     expect(selectedLocation).toEqual(location);
     expect(component.searchForm.pristine).toBeTrue();
   });

@@ -5,5 +5,5 @@ export interface Category {
 
 export interface CategoriesPage {
   data: Category[];
-  links: Map<String, String>;
+  links: Map<string, string>;
 }

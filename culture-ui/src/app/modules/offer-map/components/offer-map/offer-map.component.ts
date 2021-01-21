@@ -21,7 +21,7 @@ export class OfferMapComponent implements OnInit, AfterViewInit, OnChanges {
   private shouldEmitBoundsChanged = true;
 
   @Output()
-  onMapBoundsChanged = new EventEmitter<LocationRange>();
+  mapBoundsChanged = new EventEmitter<LocationRange>();
 
   mapOptions: any;
   mapOverlays: google.maps.Marker[];
@@ -58,15 +58,14 @@ export class OfferMapComponent implements OnInit, AfterViewInit, OnChanges {
     const sw: google.maps.LatLng = new google.maps.LatLng(this.bounds.latitudeFrom, this.bounds.longitudeFrom);
     const ne: google.maps.LatLng = new google.maps.LatLng(this.bounds.latitudeTo, this.bounds.longitudeTo);
     const bounds: google.maps.LatLngBounds = new google.maps.LatLngBounds(sw, ne);
-    console.log(this.map.getBounds());
-    if (!this.map.getBounds() || !this.map.getBounds().equals(bounds)) {
+    if (!this.map.getBounds() || !bounds.equals(this.map.getBounds())) {
       this.map.fitBounds(bounds);
     }
 
     this.shouldEmitBoundsChanged = true;
   }
 
-  setMap(event: any) {
+  setMap(event: any): void {
     this.map = event.map;
     this.updateMapBounds();
   }
@@ -80,7 +79,7 @@ export class OfferMapComponent implements OnInit, AfterViewInit, OnChanges {
     });
   }
 
-  mapBoundsChanged(): void {
+  onMapBoundsChanged(): void {
     if (!this.mapInitialized || !this.shouldEmitBoundsChanged) {
       return;
     }
@@ -92,11 +91,11 @@ export class OfferMapComponent implements OnInit, AfterViewInit, OnChanges {
       longitudeFrom: bounds.getSouthWest().lng(),
       longitudeTo: bounds.getNorthEast().lng()
     };
-    this.onMapBoundsChanged.emit(locationRange);
+    this.mapBoundsChanged.emit(locationRange);
   }
 
   handleOverlayClick(event: any): void {
-    const isMarker: boolean = event.overlay.getTitle != undefined;
+    const isMarker: boolean = event.overlay.getTitle !== undefined;
 
     if (!isMarker) {
       return;
@@ -104,7 +103,8 @@ export class OfferMapComponent implements OnInit, AfterViewInit, OnChanges {
 
     const title: string = event.overlay.getTitle();
     const latLng: google.maps.LatLng = event.originalEvent.latLng;
-    const offer: CulturalOfferLocation = this.culturalOffers.filter((offer) => offer.location.latitude === latLng.lat() && offer.location.longitude === latLng.lng())[0];
+    const offer: CulturalOfferLocation = this.culturalOffers.filter((culturalOffer) => culturalOffer.location.latitude === latLng.lat() &&
+      culturalOffer.location.longitude === latLng.lng())[0];
 
     this.mapInfoWindow.setContent(`<h3>${title}</h3><p>${offer.location.address}</p><a pButton href='/cultural-offers/${offer.id}'>View page<a>`);
     this.mapInfoWindow.open(event.map, event.overlay);

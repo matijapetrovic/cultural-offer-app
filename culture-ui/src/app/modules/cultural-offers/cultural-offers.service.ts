@@ -76,7 +76,7 @@ export class CulturalOffersService {
     const url = `${this.culturalOffersUrl}/${id}/subscriptions`;
     return this.http.get<void>(url, {...httpOptions, observe: 'response'})
       .pipe(
-        map((response) => response.status == 204 ? true : false),
+        map((response) => response.status === 204 ? true : false),
         catchError((err) => of(false))
       );
   }

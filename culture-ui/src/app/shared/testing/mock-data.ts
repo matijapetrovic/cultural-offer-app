@@ -126,22 +126,22 @@ const mockReviewPage: ReviewPage = {
   };
 
 const mockUser: User = {
-    id: 1,
-    username: 'user',
-    password: 'password',
-    firstName: 'name',
-    lastName: 'last name',
-    role: Role.User
-  };
+  id: 1,
+  username: 'user',
+  password: 'password',
+  firstName: 'name',
+  lastName: 'last name',
+  role: Role.User
+};
 
 const mockAdmin: User = {
-    id: 1,
-    username: 'user',
-    password: 'password',
-    firstName: 'name',
-    lastName: 'last name',
-    role: Role.Admin
-  };
+  id: 1,
+  username: 'user',
+  password: 'password',
+  firstName: 'name',
+  lastName: 'last name',
+  role: Role.Admin
+};
 
 const mockMapBounds: google.maps.LatLngBounds =
   new google.maps.LatLngBounds({lat: 30.0, lng: 30.0}, {lat: 45.0, lng: 45.0});
@@ -154,14 +154,14 @@ const mockLocationRange: LocationRange = {
 };
 
 export {
-    mockCulturalOffer,
-    mockOfferLocations,
-    mockNews,
-    mockReview,
-    mockNewsPage,
-    mockReviewPage,
-    mockUser,
-    mockAdmin,
-    mockMapBounds,
-    mockLocationRange
+  mockCulturalOffer,
+  mockOfferLocations,
+  mockNews,
+  mockReview,
+  mockNewsPage,
+  mockReviewPage,
+  mockUser,
+  mockAdmin,
+  mockMapBounds,
+  mockLocationRange
 };

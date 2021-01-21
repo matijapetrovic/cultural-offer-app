@@ -11,31 +11,15 @@ describe('OfferMapComponent', () => {
   let map: google.maps.Map;
 
   beforeEach(async () => {
-    const mockLatLng = {
-      lat: jasmine.createSpy('lat')
-        .and.returnValue(of(30.0)),
-      lng: jasmine.createSpy('lng')
-        .and.returnValue(of(30.0))
-    };
-    const mockBounds = {
-      getNorthEast: jasmine.createSpy('getNorthEast')
-        .and.returnValue(of(mockLatLng)),
-      getSouthWest: jasmine.createSpy('getSouthWest')
-        .and.returnValue(of(mockLatLng)),
-      equals: jasmine.createSpy('equals')
-        .and.callFake((other: google.maps.LatLngBounds) => false),
-    };
     const mockMap = {
       getBounds: jasmine.createSpy('getBounds')
-        .and.returnValue(of(mockBounds)),
+        .and.returnValue(mockMapBounds),
       fitBounds: jasmine.createSpy('fitBounds')
     };
     await TestBed.configureTestingModule({
       declarations: [ OfferMapComponent ],
       providers: [
-        {provide: google.maps.Map, useValue: mockMap},
-        {provide: google.maps.LatLngBounds, useValue: mockBounds},
-        {provide: google.maps.LatLng, useValue: mockLatLng}
+        {provide: google.maps.Map, useValue: mockMap}
       ]
     })
     .compileComponents();
@@ -65,18 +49,66 @@ describe('OfferMapComponent', () => {
 
   it('should emit onBoundsChanged when map bounds changed', () => {
     let locationRange: LocationRange;
-    component.onMapBoundsChanged.subscribe((event: LocationRange) => locationRange = event);
+    component.mapBoundsChanged.subscribe((event: LocationRange) => locationRange = event);
 
-    component.mapBoundsChanged();
+    component.onMapBoundsChanged();
 
     expect(locationRange).toBeDefined();
   });
 
   it('should update cultural offer locations when input is changed ', () => {
     component.culturalOffers = null;
+    fixture.detectChanges();
     component.culturalOffers = mockOfferLocations;
     fixture.detectChanges();
 
     expect(component.mapOverlays.length).toEqual(component.culturalOffers.length);
+  });
+
+  it('should update bounds when input is changed', () => {
+    const newLocationRange: LocationRange = {
+      latitudeFrom: 40.0,
+      latitudeTo: 40.0,
+      longitudeFrom: 40.0,
+      longitudeTo: 40.0
+    };
+
+    component.bounds = newLocationRange;
+    fixture.detectChanges();
+    expect(component.map.fitBounds).toHaveBeenCalled();
+  });
+
+  it('should open info window when marker is clicked', () => {
+    const mockOverlayClickEvent = {
+      overlay: {
+        getTitle(): string {
+          return 'Title 1';
+        }
+      },
+      originalEvent: {
+        latLng: new google.maps.LatLng(40.0, 40.0)
+      },
+      map: {
+      }
+    };
+
+    spyOn(component.mapInfoWindow, 'open');
+
+    component.handleOverlayClick(mockOverlayClickEvent);
+
+    expect(component.mapInfoWindow.getContent().toString().indexOf('Title 1') >= 0).toBeTrue();
+    expect(component.mapInfoWindow.open).toHaveBeenCalled();
+  });
+
+  it('should not open info windo when not marker is clicked', () => {
+    const mockOverlayClickEvent = {
+      overlay: {}
+    };
+
+    spyOn(component.mapInfoWindow, 'open');
+
+    component.handleOverlayClick(mockOverlayClickEvent);
+    expect(component.mapInfoWindow.open).not.toHaveBeenCalled();
+
   });
 });

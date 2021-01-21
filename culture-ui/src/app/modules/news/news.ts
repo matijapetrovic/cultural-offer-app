@@ -15,5 +15,5 @@ export interface NewsAuthor {
 }
 export interface NewsPage {
   data: News[];
-  links: Map<string, String>;
+  links: Map<string, string>;
 }

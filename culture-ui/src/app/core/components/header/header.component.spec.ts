@@ -20,8 +20,12 @@ describe('HeaderComponent', () => {
       currentUserSubject: userSubject,
       login: jasmine.createSpy('login')
         .and.callFake((username: string, password: string) => {
-          if (username == 'admin') { userSubject.next(mockAdmin); }
-          if (username == 'user') { userSubject.next(mockUser); }
+          if (username === 'admin') {
+            userSubject.next(mockAdmin);
+          }
+          if (username === 'user') {
+            userSubject.next(mockUser);
+          }
         }),
       currentUser: userSubject.asObservable()
     };

@@ -57,12 +57,12 @@ export class CulturalOfferComponent implements OnInit {
     this.mapInfoWindow = new google.maps.InfoWindow();
     this.authenticationService.currentUser.subscribe((user) => {
       this.updateSubscribed(user);
-      this.userIsRegular = user && user.role == Role.User;
+      this.userIsRegular = user && user.role === Role.User;
     });
   }
 
-  updateSubscribed(user: User) {
-    if (user == null || user.role == Role.Admin) {
+  updateSubscribed(user: User): void {
+    if (user === null || user.role === Role.Admin) {
       this.subscribed = null;
       return;
     }
@@ -86,11 +86,13 @@ export class CulturalOfferComponent implements OnInit {
   }
 
   getReviews(): void {
-    this.reviewsService.getReviews(this.culturalOfferId, this.currentReviewsPage, this.reviewsLimit).subscribe(reviewPage => this.reviewPage = reviewPage);
+    this.reviewsService.getReviews(this.culturalOfferId, this.currentReviewsPage, this.reviewsLimit)
+      .subscribe(reviewPage => this.reviewPage = reviewPage);
   }
 
   getNews(): void {
-    this.newsService.getNews(this.culturalOfferId, this.currentNewsPage, this.newsLimit).subscribe(newsPage => this.newsPage = newsPage);
+    this.newsService.getNews(this.culturalOfferId, this.currentNewsPage, this.newsLimit)
+      .subscribe(newsPage => this.newsPage = newsPage);
   }
 
   getNextReviews(): void {
@@ -114,7 +116,7 @@ export class CulturalOfferComponent implements OnInit {
   }
 
   handleOverlayClick(event: any): void {
-    const isMarker = event.overlay.getTitle != undefined;
+    const isMarker = event.overlay.getTitle !== undefined;
 
     if (isMarker) {
       const title = event.overlay.getTitle();
@@ -123,7 +125,7 @@ export class CulturalOfferComponent implements OnInit {
     }
   }
 
-  confirmSubscribe(event: Event) {
+  confirmSubscribe(event: Event): void {
     this.confirmationService.confirm({
         target: event.target,
         message: 'Are you sure that you want to subscribe to this offer?',
@@ -136,7 +138,7 @@ export class CulturalOfferComponent implements OnInit {
     });
   }
 
-  confirmUnsubscribe(event: Event) {
+  confirmUnsubscribe(event: Event): void {
     this.confirmationService.confirm({
       target: event.target,
       message: 'Are you sure that you want to unsubscribe from this offer?',

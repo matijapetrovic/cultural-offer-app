@@ -82,7 +82,6 @@ describe('CulturalOffersService', () => {
     expect(culturalOfferLocations[0].location.latitude).toEqual(mockOfferLocations[0].location.latitude);
     expect(culturalOfferLocations[0].location.longitude).toEqual(mockOfferLocations[0].location.longitude);
     expect(culturalOfferLocations[0].location.address).toEqual(mockOfferLocations[0].location.address);
-
     expect(culturalOfferLocations[1].id).toEqual(mockOfferLocations[1].id);
     expect(culturalOfferLocations[1].name).toEqual(mockOfferLocations[1].name);
     expect(culturalOfferLocations[1].location.latitude).toEqual(mockOfferLocations[1].location.latitude);

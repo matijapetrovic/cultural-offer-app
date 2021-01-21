@@ -50,7 +50,7 @@ export class AuthenticationService {
         }));
   }
 
-  logout() {
+  logout(): void {
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
     this.router.navigate(['']);
