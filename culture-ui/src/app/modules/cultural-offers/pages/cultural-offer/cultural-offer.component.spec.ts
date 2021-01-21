@@ -8,6 +8,7 @@ import { AuthenticationService } from 'src/app/modules/authentication/authentica
 import { User } from 'src/app/modules/authentication/user';
 import { NewsService } from 'src/app/modules/news/news.service';
 import { ReviewsService } from 'src/app/modules/reviews/reviews.service';
+import { RoundPipe } from 'src/app/shared/pipes/round.pipe';
 import { mockAdmin, mockCulturalOffer, mockNewsPage, mockReviewPage, mockUser } from 'src/app/shared/testing/mock-data';
 import { ActivatedRouteStub } from 'src/app/shared/testing/router-stubs';
 import { CulturalOffersService } from '../../cultural-offers.service';
@@ -67,7 +68,7 @@ describe('CulturalOfferComponent', () => {
     activatedRouteStub.testParams = {id: 1};
 
     await TestBed.configureTestingModule({
-      declarations: [ CulturalOfferComponent ],
+      declarations: [ CulturalOfferComponent, RoundPipe ],
       providers: [
         { provide: CulturalOffersService, useValue: culturalOffersServiceMock },
         { provide: ReviewsService, useValue: reviewsServiceMock },
@@ -182,6 +183,7 @@ describe('CulturalOfferComponent', () => {
   it('should subscribe when subscribe button is clicked', fakeAsync(() => {
     component.subscribe();
     tick();
+    tick(2000);
 
     expect(culturalOffersService.subscribeToCulturalOffer).toHaveBeenCalledWith(1);
     expect(component.subscribed).toBeTrue();
@@ -190,6 +192,7 @@ describe('CulturalOfferComponent', () => {
   it('should unsubscribe when unsubscribe button is clicked', fakeAsync(() => {
     component.unsubscribe();
     tick();
+    tick(2000);
 
     expect(culturalOffersService.unsubscribeFromCulturalOffer).toHaveBeenCalledWith(1);    
     expect(component.subscribed).toBeFalse();

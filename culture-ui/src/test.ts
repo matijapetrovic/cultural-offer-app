@@ -6,6 +6,7 @@ import {
   BrowserDynamicTestingModule,
   platformBrowserDynamicTesting
 } from '@angular/platform-browser-dynamic/testing';
+import { MessageService } from 'primeng/api';
 
 declare const require: {
   context(path: string, deep?: boolean, filter?: RegExp): {
@@ -17,7 +18,14 @@ declare const require: {
 // First, initialize the Angular testing environment.
 getTestBed().initTestEnvironment(
   BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting()
+  platformBrowserDynamicTesting([
+    { 
+      provide: MessageService, useValue: 
+      {
+        add: jasmine.createSpy('add'),
+        clear: jasmine.createSpy('clear')
+      }
+    }])
 );
 // Then we find all the tests.
 const context = require.context('./', true, /\.spec\.ts$/);

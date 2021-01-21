@@ -1,6 +1,6 @@
 import { Role } from "src/app/modules/authentication/role";
 import { User } from "src/app/modules/authentication/user";
-import { CulturalOffer, CulturalOfferLocation } from "src/app/modules/cultural-offers/cultural-offer";
+import { CulturalOffer, CulturalOfferLocation, LocationRange } from "src/app/modules/cultural-offers/cultural-offer";
 import { News, NewsPage } from "src/app/modules/news/news";
 import { Review, ReviewPage } from "src/app/modules/reviews/review";
 
@@ -143,6 +143,16 @@ const mockReviewPage: ReviewPage = {
     role: Role.Admin
   };
 
+const mockMapBounds: google.maps.LatLngBounds = 
+  new google.maps.LatLngBounds({lat: 30.0, lng: 30.0}, {lat: 45.0, lng: 45.0});
+
+const mockLocationRange: LocationRange = {
+  latitudeFrom: 30.0,
+  longitudeFrom: 30.0,
+  latitudeTo: 45.0,
+  longitudeTo: 45.0
+};
+
 export { 
     mockCulturalOffer,
     mockOfferLocations,
@@ -151,5 +161,7 @@ export {
     mockNewsPage,
     mockReviewPage,
     mockUser,
-    mockAdmin
+    mockAdmin,
+    mockMapBounds,
+    mockLocationRange
 };

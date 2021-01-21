@@ -12,7 +12,13 @@ window.google = {
 		LatLngBounds: function(ne, sw) {
 			return {
 				getSouthWest: function() { return sw; },
-				getNorthEast: function() { return ne; }
+				getNorthEast: function() { return ne; },
+				equals: function(other) {
+					return ne.lat == other.ne.lat() &&
+							ne.lng == other.ne.lng() &&
+							sw.lat == other.sw.lat() &&
+							sw.lng == other.sw.lat();
+				}
 			};
 		},
 		OverlayView: function() {

@@ -57,6 +57,7 @@ export class OfferMapComponent implements OnInit, AfterViewInit, OnChanges {
     let sw: google.maps.LatLng = new google.maps.LatLng(this.bounds.latitudeFrom, this.bounds.longitudeFrom);
     let ne: google.maps.LatLng = new google.maps.LatLng(this.bounds.latitudeTo, this.bounds.longitudeTo);
     let bounds: google.maps.LatLngBounds = new google.maps.LatLngBounds(sw, ne);
+    console.log(this.map.getBounds());
     if (!this.map.getBounds() || !this.map.getBounds().equals(bounds))
       this.map.fitBounds(bounds);
 
