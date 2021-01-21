@@ -4,7 +4,7 @@
       *ngIf="culturalOffers"
       [culturalOffers]="culturalOffers"
       [bounds]="locationRange"
-      (onMapBoundsChanged)="updateLocations($event)"
+      (mapBoundsChanged)="updateLocations($event)"
     ></app-offer-map>
   </div>
   <div class="p-col-6 p-d-flex p-flex-column">
@@ -18,9 +18,9 @@
       <app-offer-map-filter-form
         [categories]="categories"
         [subcategories]="subcategories"
-        (onCategorySelected)="getSubcategories($event)"
-        (onSubmit)="updateFilters($event)"
-        (onReset)="resetFilters()"
+        (categorySelected)="getSubcategories($event)"
+        (submit)="updateFilters($event)"
+        (reset)="resetFilters()"
       >
       </app-offer-map-filter-form>
     </div>

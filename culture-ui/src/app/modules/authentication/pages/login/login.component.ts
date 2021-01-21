@@ -31,11 +31,11 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      username: ['', [Validators.required, Validators.pattern("^[^\s@]+@[^\s@]+\.[^\s@]+$")]],
+      username: ['', [Validators.required, Validators.pattern('^[^\s@]+@[^\s@]+\.[^\s@]+$')]],
       password: ['', Validators.required],
     });
-    
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
   }
 
   get f() { return this.loginForm.controls; }
@@ -64,21 +64,21 @@ export class LoginComponent implements OnInit {
 
   usernameMessage() {
     if (this.isInvalidEmailFormat()){
-      return "Wrong email format!";
+      return 'Wrong email format!';
     } else if (this.isEmptyEmail()) {
-      return "Email is required!"
+      return 'Email is required!';
     }
   }
 
   isEmptyEmail() {
-    if (this.f.username.value === "" || this.f.username.value === null) {
+    if (this.f.username.value === '' || this.f.username.value === null) {
       return true;
     }
     return false;
   }
 
   emailIsValid(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   }
 
   isInvalidEmailFormat() {
@@ -96,7 +96,7 @@ export class LoginComponent implements OnInit {
   }
 
   isEmptyPassword() {
-    if (this.f.password.value === "" || this.f.password.value === null) {
+    if (this.f.password.value === '' || this.f.password.value === null) {
       return true;
     }
     return false;

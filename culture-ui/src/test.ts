@@ -19,8 +19,8 @@ declare const require: {
 getTestBed().initTestEnvironment(
   BrowserDynamicTestingModule,
   platformBrowserDynamicTesting([
-    { 
-      provide: MessageService, useValue: 
+    {
+      provide: MessageService, useValue:
       {
         add: jasmine.createSpy('add'),
         clear: jasmine.createSpy('clear')

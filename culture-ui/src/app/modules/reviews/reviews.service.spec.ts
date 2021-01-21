@@ -12,7 +12,7 @@ describe('ReviewsService', () => {
   let injector: TestBed;
   let httpMock: HttpTestingController;
   let httpClient: HttpClient;
-  
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
@@ -33,14 +33,14 @@ describe('ReviewsService', () => {
   });
 
   it('getReviews() should return some reviews', fakeAsync(() => {
-    const culturalOfferId: number = 1;
-    const page: number = 0;
-    const limit: number = 2;
+    const culturalOfferId = 1;
+    const page = 0;
+    const limit = 2;
 
     let reviewPage: ReviewPage;
     service.getReviews(culturalOfferId, page, limit).subscribe((result) => reviewPage = result);
 
-    let url = `${environment.apiUrl}/api/cultural-offers/${culturalOfferId}/reviews?page=${page}&limit=${limit}`;
+    const url = `${environment.apiUrl}/api/cultural-offers/${culturalOfferId}/reviews?page=${page}&limit=${limit}`;
 
     const req = httpMock.expectOne(url);
     expect(req.request.method).toBe('GET');
@@ -49,7 +49,7 @@ describe('ReviewsService', () => {
     tick();
 
     expect(reviewPage).toBeDefined();
-    
+
     expect(reviewPage.data).toBeDefined();
     expect(reviewPage.data.length).toEqual(mockReviewPage.data.length);
 

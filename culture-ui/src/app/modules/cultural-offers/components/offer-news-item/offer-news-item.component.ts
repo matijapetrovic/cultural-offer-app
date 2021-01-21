@@ -9,7 +9,7 @@ import { News } from '../../../news/news';
 export class OfferNewsItemComponent implements OnInit {
   @Input()
   newsItem: News;
-  
+
   constructor() { }
 
   ngOnInit(): void {

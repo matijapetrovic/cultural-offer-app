@@ -12,7 +12,7 @@ describe('NewsService', () => {
   let injector: TestBed;
   let httpMock: HttpTestingController;
   let httpClient: HttpClient;
-  
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
@@ -33,14 +33,14 @@ describe('NewsService', () => {
   });
 
   it('getNews() should return some news', fakeAsync(() => {
-    const culturalOfferId: number = 1;
-    const page: number = 0;
-    const limit: number = 2;
+    const culturalOfferId = 1;
+    const page = 0;
+    const limit = 2;
 
     let newsPage: NewsPage;
     service.getNews(culturalOfferId, page, limit).subscribe((result) => newsPage = result);
-    
-    let url = `${environment.apiUrl}/api/cultural-offers/${culturalOfferId}/news?page=${page}&limit=${limit}`;
+
+    const url = `${environment.apiUrl}/api/cultural-offers/${culturalOfferId}/news?page=${page}&limit=${limit}`;
 
     const req = httpMock.expectOne(url);
     expect(req.request.method).toBe('GET');
@@ -49,7 +49,7 @@ describe('NewsService', () => {
     tick();
 
     expect(newsPage).toBeDefined();
-    
+
     expect(newsPage.data).toBeDefined();
     expect(newsPage.data.length).toEqual(mockNewsPage.data.length);
 
@@ -58,5 +58,5 @@ describe('NewsService', () => {
     expect(newsPage.links.has('next')).toBeTrue();
     expect(newsPage.links.has('prev')).toBeFalse();
   }));
-  
+
 });

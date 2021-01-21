@@ -62,25 +62,27 @@ export class OfferMapPageComponent implements OnInit {
     this.subcategoriesService.getSubcategoryNames(category.id).subscribe(subcategories => this.subcategories = subcategories);
   }
 
-  searchLocation(event: string) {
+  searchLocation(event: string): void {
     this.geolocationService.geocode(event).subscribe(
       (locationRange) => {
         this.locationRange = locationRange;
         this.getCulturalOfferLocations();
       },
       (error) => {
-        if (error.message)
+        if (error.message) {
           this.messageService.add({severity: 'warn', summary: 'Error!', detail: error.message});
-          setTimeout(() => this.messageService.clear(), 2000);
+        }
+        setTimeout(() => this.messageService.clear(), 2000);
       });
   }
 
-  updateFilters(event: CulturalOfferLocationsFilter) {
-    console.log(event);
-    if (event.category)
+  updateFilters(event: CulturalOfferLocationsFilter): void {
+    if (event.category) {
       this.categoryId = event.category.id;
-    if (event.subcategory)
+    }
+    if (event.subcategory) {
       this.subcategoryId = event.subcategory.id;
+    }
     this.getCulturalOfferLocations();
   }
 

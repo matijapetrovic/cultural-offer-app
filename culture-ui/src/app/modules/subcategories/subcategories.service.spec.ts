@@ -32,17 +32,17 @@ describe('SubcategoriesService', () => {
   });
 
   it('getSubcategoryNames() should return some names', fakeAsync(() => {
-    const categoryId: number = 1;
+    const categoryId = 1;
 
     const mockSubcategories: Subcategory[] = [
       {
         id: 1,
-        categoryId: categoryId,
+        categoryId,
         name: 'Subacategory 1'
       },
       {
         id: 2,
-        categoryId: categoryId,
+        categoryId,
         name: 'Subcategory 2'
       }
     ];
@@ -50,7 +50,7 @@ describe('SubcategoriesService', () => {
     let subcategories: Subcategory[];
     service.getSubcategoryNames(categoryId).subscribe((result) => subcategories = result);
 
-    let url = `${environment.apiUrl}/api/categories/${categoryId}/subcategories/names`;
+    const url = `${environment.apiUrl}/api/categories/${categoryId}/subcategories/names`;
 
     const req = httpMock.expectOne(url);
     expect(req.request.method).toBe('GET');
@@ -62,7 +62,7 @@ describe('SubcategoriesService', () => {
     expect(subcategories[0].id).toEqual(mockSubcategories[0].id);
     expect(subcategories[0].name).toEqual(mockSubcategories[0].name);
     expect(subcategories[0].categoryId).toEqual(mockSubcategories[0].categoryId);
-    
+
     expect(subcategories[1].id).toEqual(mockSubcategories[1].id);
     expect(subcategories[1].name).toEqual(mockSubcategories[1].name);
     expect(subcategories[1].categoryId).toEqual(mockSubcategories[1].categoryId);

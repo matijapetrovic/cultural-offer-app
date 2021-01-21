@@ -22,7 +22,7 @@ export class CulturalOffersService {
   culturalOffersUrl = `${environment.apiUrl}/api/cultural-offers`;
   private handleError: HandleError;
 
-  constructor(private http: HttpClient, private messageService: MessageService, httpErrorHandler : HttpErrorHandler) {
+  constructor(private http: HttpClient, private messageService: MessageService, httpErrorHandler: HttpErrorHandler) {
     this.handleError = httpErrorHandler.createHandleError('CulturalOffersService');
   }
 
@@ -38,14 +38,16 @@ export class CulturalOffersService {
     console.log(categoryId);
     let params: HttpParams =
       new HttpParams()
-        .append('latitudeFrom', locationRange.latitudeFrom.toString())       
+        .append('latitudeFrom', locationRange.latitudeFrom.toString())
         .append('latitudeTo', locationRange.latitudeTo.toString())
-        .append('longitudeFrom', locationRange.longitudeFrom.toString()) 
+        .append('longitudeFrom', locationRange.longitudeFrom.toString())
         .append('longitudeTo', locationRange.longitudeTo.toString());
-    if (categoryId)
-      params = params.append('categoryId', categoryId.toString())
-    if (subcategoryId)
-      params = params.append('subcategoryId', subcategoryId.toString())
+    if (categoryId) {
+      params = params.append('categoryId', categoryId.toString());
+    }
+    if (subcategoryId) {
+      params = params.append('subcategoryId', subcategoryId.toString());
+    }
 
     const url = `${this.culturalOffersUrl}/locations`;
     return this.http.get<CulturalOfferLocation[]>(url, {...httpOptions, params})
@@ -74,8 +76,8 @@ export class CulturalOffersService {
     const url = `${this.culturalOffersUrl}/${id}/subscriptions`;
     return this.http.get<void>(url, {...httpOptions, observe: 'response'})
       .pipe(
-        map((response) => response.status == 204 ? true : false),
+        map((response) => response.status === 204 ? true : false),
         catchError((err) => of(false))
-      )
+      );
   }
 }

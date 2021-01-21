@@ -13,7 +13,7 @@ describe('CulturalOffersService', () => {
   let injector: TestBed;
   let httpMock: HttpTestingController;
   let httpClient: HttpClient;
-  
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
@@ -36,7 +36,7 @@ describe('CulturalOffersService', () => {
   it('getCulturalOffer() should return a culturalOffer', fakeAsync(() => {
     let culturalOffer: CulturalOffer;
     service.getCulturalOffer(mockCulturalOffer.id).subscribe(offer => culturalOffer = offer);
-    
+
     const req = httpMock.expectOne(`${environment.apiUrl}/api/cultural-offers/${mockCulturalOffer.id}`);
     expect(req.request.method).toBe('GET');
     req.flush(mockCulturalOffer);
@@ -76,13 +76,12 @@ describe('CulturalOffersService', () => {
     tick();
 
     expect(culturalOfferLocations.length).toEqual(mockOfferLocations.length, 'should contain given amount of locations');
-    
+
     expect(culturalOfferLocations[0].id).toEqual(mockOfferLocations[0].id);
     expect(culturalOfferLocations[0].name).toEqual(mockOfferLocations[0].name);
     expect(culturalOfferLocations[0].location.latitude).toEqual(mockOfferLocations[0].location.latitude);
     expect(culturalOfferLocations[0].location.longitude).toEqual(mockOfferLocations[0].location.longitude);
     expect(culturalOfferLocations[0].location.address).toEqual(mockOfferLocations[0].location.address);
-  
     expect(culturalOfferLocations[1].id).toEqual(mockOfferLocations[1].id);
     expect(culturalOfferLocations[1].name).toEqual(mockOfferLocations[1].name);
     expect(culturalOfferLocations[1].location.latitude).toEqual(mockOfferLocations[1].location.latitude);
@@ -91,11 +90,11 @@ describe('CulturalOffersService', () => {
   }));
 
   it('subscribeToCulturalOffer() should succeed', fakeAsync(() => {
-    const id: number = 1;
+    const id = 1;
 
-    let url = `${environment.apiUrl}/api/cultural-offers/${id}/subscriptions`;
-    
-    let success: boolean = false;
+    const url = `${environment.apiUrl}/api/cultural-offers/${id}/subscriptions`;
+
+    let success = false;
     service.subscribeToCulturalOffer(id).subscribe(() => success = true);
 
     const req = httpMock.expectOne(url);
@@ -108,11 +107,11 @@ describe('CulturalOffersService', () => {
   }));
 
   it('unsubscribeFromCulturalOffer() should succeed', fakeAsync(() => {
-    const id: number = 1;
+    const id = 1;
 
-    let url = `${environment.apiUrl}/api/cultural-offers/${id}/subscriptions`;
-    
-    let success: boolean = false;
+    const url = `${environment.apiUrl}/api/cultural-offers/${id}/subscriptions`;
+
+    let success = false;
     service.unsubscribeFromCulturalOffer(id).subscribe(() => success = true);
 
     const req = httpMock.expectOne(url);
@@ -125,12 +124,12 @@ describe('CulturalOffersService', () => {
   }));
 
   it('getSubscribed() should return true', fakeAsync(() => {
-    const id: number = 1;
+    const id = 1;
 
     let subscribed: boolean;
     service.getSubscribed(id).subscribe((result) => subscribed = result);
 
-    let url = `${environment.apiUrl}/api/cultural-offers/${id}/subscriptions`;
+    const url = `${environment.apiUrl}/api/cultural-offers/${id}/subscriptions`;
 
     const req = httpMock.expectOne(url);
     expect(req.request.method).toBe('GET');
@@ -140,12 +139,12 @@ describe('CulturalOffersService', () => {
   }));
 
   it ('getSubscribed() should return false', fakeAsync(() => {
-    const id: number = 1;
+    const id = 1;
 
     let subscribed: boolean;
     service.getSubscribed(id).subscribe((result) => subscribed = result);
 
-    let url = `${environment.apiUrl}/api/cultural-offers/${id}/subscriptions`;
+    const url = `${environment.apiUrl}/api/cultural-offers/${id}/subscriptions`;
 
     const req = httpMock.expectOne(url);
     expect(req.request.method).toBe('GET');

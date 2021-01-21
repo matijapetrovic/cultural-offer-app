@@ -27,14 +27,14 @@ describe('OfferMapSearchLocationComponent', () => {
   });
 
   it('raises the onSubmitEvent when form is submitted', () => {
-    const location: string = 'Novi Sad Serbia';
+    const location = 'Novi Sad Serbia';
 
-    component.searchForm.controls['location'].setValue(location);
+    component.searchForm.controls.location.setValue(location);
 
     let selectedLocation: string;
-    component.onSubmit.subscribe((location: string) => selectedLocation = location);
-    
-    component.submit();
+    component.submit.subscribe((event: string) => selectedLocation = event);
+
+    component.submitForm();
     expect(selectedLocation).toEqual(location);
     expect(component.searchForm.pristine).toBeTrue();
   });

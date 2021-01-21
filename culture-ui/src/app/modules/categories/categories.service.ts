@@ -20,7 +20,7 @@ export class CategoriesService {
   categoriesUrl = `${environment.apiUrl}/api/categories`;
   private handleError: HandleError;
 
-  constructor(private http: HttpClient, httpErrorHandler: HttpErrorHandler) { 
+  constructor(private http: HttpClient, httpErrorHandler: HttpErrorHandler) {
     this.handleError = httpErrorHandler.createHandleError('CategoryService');
   }
 

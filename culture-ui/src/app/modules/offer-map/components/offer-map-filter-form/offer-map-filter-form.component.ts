@@ -15,44 +15,44 @@ export class OfferMapFilterFormComponent implements OnInit {
   subcategories: Subcategory[];
 
   @Output()
-  onCategorySelected = new EventEmitter<Category>();
+  categorySelected = new EventEmitter<Category>();
 
   @Output()
-  onSubmit = new EventEmitter<CulturalOfferLocationsFilter>();
+  submit = new EventEmitter<CulturalOfferLocationsFilter>();
 
   @Output()
-  onReset = new EventEmitter<void>();
+  reset = new EventEmitter<void>();
 
   filterForm: FormGroup;
 
   constructor() {
     this.filterForm = new FormGroup({
       category: new FormControl(),
-      subcategory: new FormControl({value: null, disabled:true})
+      subcategory: new FormControl({value: null, disabled: true})
     });
   }
 
   ngOnInit(): void {
   }
 
-  reset(): void {
+  resetForm(): void {
     this.filterForm.reset();
-    this.filterForm.controls['subcategory'].disable();
-    this.onReset.emit();
+    this.filterForm.controls.subcategory.disable();
+    this.reset.emit();
   }
 
   selectCategory(): void {
-    this.filterForm.controls['subcategory'].reset();
-    this.filterForm.controls['subcategory'].enable();
-    this.onCategorySelected.emit(Object.assign({}, this.filterForm.value['category']));
+    this.filterForm.controls.subcategory.reset();
+    this.filterForm.controls.subcategory.enable();
+    this.categorySelected.emit(Object.assign({}, this.filterForm.value.category));
   }
 
-  submit(): void {
-    //deep copy
+  submitForm(): void {
+    // deep copy
     const result: CulturalOfferLocationsFilter = Object.assign({}, this.filterForm.value);
     result.category = Object.assign({}, result.category);
     result.subcategory = Object.assign({}, result.subcategory);
-    this.onSubmit.emit(result);
+    this.submit.emit(result);
   }
 
 }

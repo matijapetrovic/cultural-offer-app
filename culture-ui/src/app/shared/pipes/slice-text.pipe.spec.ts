@@ -8,9 +8,9 @@ describe('SliceTextPipe', () => {
 
   it('transforms abcd with length 5 to abcd', () => {
     expect(pipe.transform('abcd', 5)).toBe('abcd');
-  })
+  });
 
   it('transforms abcdef with length 5 to abcde...', () => {
     expect(pipe.transform('abcdef', 5)).toBe('abcde...');
-  })
+  });
 });

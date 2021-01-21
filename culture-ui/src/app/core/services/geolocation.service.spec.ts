@@ -32,7 +32,7 @@ describe('GeolocationService', () => {
   });
 
   it('geocode() should return valid location range', fakeAsync(() => {
-    const location: string = 'Novi Sad Serbia';
+    const location = 'Novi Sad Serbia';
 
     const mockLocation = {
       results: [
@@ -56,9 +56,9 @@ describe('GeolocationService', () => {
     let locationRange: LocationRange;
     service.geocode(location).subscribe((result) => locationRange = result);
 
-    const address: string = location.replace(" ", "%20").replace(" ","%20");
+    const address: string = location.replace(' ', '%20').replace(' ', '%20');
     const url = `${service.geolocationApiUrl}?address=${address}&key=${environment.mapsApiKey}`;
-    
+
     const req = httpMock.expectOne(url);
     expect(req.request.method).toBe('GET');
     req.flush(mockLocation);

@@ -1,8 +1,8 @@
-import { Role } from "src/app/modules/authentication/role";
-import { User } from "src/app/modules/authentication/user";
-import { CulturalOffer, CulturalOfferLocation, LocationRange } from "src/app/modules/cultural-offers/cultural-offer";
-import { News, NewsPage } from "src/app/modules/news/news";
-import { Review, ReviewPage } from "src/app/modules/reviews/review";
+import { Role } from 'src/app/modules/authentication/role';
+import { User } from 'src/app/modules/authentication/user';
+import { CulturalOffer, CulturalOfferLocation, LocationRange } from 'src/app/modules/cultural-offers/cultural-offer';
+import { News, NewsPage } from 'src/app/modules/news/news';
+import { Review, ReviewPage } from 'src/app/modules/reviews/review';
 
 const mockCulturalOffer: CulturalOffer = {
     id: 1,
@@ -125,25 +125,25 @@ const mockReviewPage: ReviewPage = {
     links: new Map([['next', 'next-link'], ['self', 'self-link']])
   };
 
-  const mockUser: User = {
-    id: 1,
-    username: 'user',
-    password: 'password',
-    firstName: 'name',
-    lastName: 'last name',
-    role: Role.User
-  };
+const mockUser: User = {
+  id: 1,
+  username: 'user',
+  password: 'password',
+  firstName: 'name',
+  lastName: 'last name',
+  role: Role.User
+};
 
-  const mockAdmin: User = {
-    id: 1,
-    username: 'user',
-    password: 'password',
-    firstName: 'name',
-    lastName: 'last name',
-    role: Role.Admin
-  };
+const mockAdmin: User = {
+  id: 1,
+  username: 'user',
+  password: 'password',
+  firstName: 'name',
+  lastName: 'last name',
+  role: Role.Admin
+};
 
-const mockMapBounds: google.maps.LatLngBounds = 
+const mockMapBounds: google.maps.LatLngBounds =
   new google.maps.LatLngBounds({lat: 30.0, lng: 30.0}, {lat: 45.0, lng: 45.0});
 
 const mockLocationRange: LocationRange = {
@@ -153,15 +153,15 @@ const mockLocationRange: LocationRange = {
   longitudeTo: 45.0
 };
 
-export { 
-    mockCulturalOffer,
-    mockOfferLocations,
-    mockNews,
-    mockReview,
-    mockNewsPage,
-    mockReviewPage,
-    mockUser,
-    mockAdmin,
-    mockMapBounds,
-    mockLocationRange
+export {
+  mockCulturalOffer,
+  mockOfferLocations,
+  mockNews,
+  mockReview,
+  mockNewsPage,
+  mockReviewPage,
+  mockUser,
+  mockAdmin,
+  mockMapBounds,
+  mockLocationRange
 };

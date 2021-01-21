@@ -10,7 +10,7 @@ import { HandleError, HttpErrorHandler } from './http-error-handler.service';
   providedIn: 'root'
 })
 export class GeolocationService {
-  geolocationApiUrl: string = `https://maps.googleapis.com/maps/api/geocode/json`;
+  geolocationApiUrl = `https://maps.googleapis.com/maps/api/geocode/json`;
 
   private handleError: HandleError;
 
@@ -19,10 +19,10 @@ export class GeolocationService {
   }
 
   geocode(location: string): Observable<LocationRange> {
-    let params: HttpParams = 
+    const params: HttpParams =
       new HttpParams()
         .append('address', location)
-        .append('key', environment.mapsApiKey)
+        .append('key', environment.mapsApiKey);
 
     return this.http.get<any>(this.geolocationApiUrl, {params})
       .pipe(

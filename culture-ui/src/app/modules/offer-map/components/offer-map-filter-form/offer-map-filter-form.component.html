@@ -1,5 +1,5 @@
 <p-card header="Filter by category">
-  <form [formGroup]="filterForm" (ngSubmit)="submit()" novalidate>
+  <form [formGroup]="filterForm" (ngSubmit)="submitForm()" novalidate>
     <div class="p-fluid p-grid">
       <div class="p-field p-col-12 p-md-6">
         <p-dropdown
@@ -34,7 +34,7 @@
           pButton
           type="button"
           [disabled]="filterForm.pristine"
-          (click)="reset()"
+          (click)="resetForm()"
           label="Reset"
           class="p-button-danger"
         ></button>

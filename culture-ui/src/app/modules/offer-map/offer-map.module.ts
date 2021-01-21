@@ -13,7 +13,7 @@ import { OfferMapSearchLocationComponent } from './components/offer-map-search-l
 
 
 @NgModule({
-  declarations: [OfferMapPageComponent,OfferMapComponent, OfferMapFilterFormComponent, OfferMapSearchLocationComponent ],
+  declarations: [OfferMapPageComponent, OfferMapComponent, OfferMapFilterFormComponent, OfferMapSearchLocationComponent ],
   imports: [
     CommonModule,
     OfferMapRoutingModule,

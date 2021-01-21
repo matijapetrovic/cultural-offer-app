@@ -22,12 +22,12 @@ export class NewsService {
   newsUrl = `${environment.apiUrl}/api/cultural-offers`;
   private handleError: HandleError;
 
-  constructor(private http: HttpClient, httpErrorHandler : HttpErrorHandler) {
+  constructor(private http: HttpClient, httpErrorHandler: HttpErrorHandler) {
     this.handleError = httpErrorHandler.createHandleError('NewsService');
   }
 
   getNews(culturalOfferId: number, page: number, limit: number): Observable<NewsPage>{
-    let params: HttpParams = 
+    const params: HttpParams =
       new HttpParams()
         .append('page', page.toString())
         .append('limit', limit.toString());

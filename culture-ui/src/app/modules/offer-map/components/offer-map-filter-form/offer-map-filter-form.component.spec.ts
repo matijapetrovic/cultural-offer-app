@@ -38,19 +38,19 @@ describe('OfferMapFilterFormComponent', () => {
       categoryId: category.id,
       name: 'Subcategory 1'
     };
-    component.filterForm.controls['category'].setValue(category);
-    component.selectCategory();    
-    component.filterForm.controls['subcategory'].setValue(subcategory);
+    component.filterForm.controls.category.setValue(category);
+    component.selectCategory();
+    component.filterForm.controls.subcategory.setValue(subcategory);
 
     let filter: CulturalOfferLocationsFilter;
-    component.onSubmit.subscribe((event: CulturalOfferLocationsFilter) => filter = event);
+    component.submit.subscribe((event: CulturalOfferLocationsFilter) => filter = event);
 
-    component.submit();
+    component.submitForm();
 
     expect(filter.category).toBeDefined();
     expect(filter.category.id).toEqual(category.id);
     expect(filter.category.name).toEqual(category.name);
-    
+
     expect(filter.subcategory).toBeDefined();
     expect(filter.subcategory.id).toEqual(subcategory.id);
     expect(filter.subcategory.name).toEqual(subcategory.name);
@@ -63,25 +63,25 @@ describe('OfferMapFilterFormComponent', () => {
       name: 'Category 1'
     };
 
-    component.filterForm.controls['category'].setValue(category);
+    component.filterForm.controls.category.setValue(category);
 
     let selectedCategory: Category;
-    component.onCategorySelected.subscribe((event: Category) => selectedCategory = event);
-    
+    component.categorySelected.subscribe((event: Category) => selectedCategory = event);
+
     component.selectCategory();
     expect(selectedCategory).toBeDefined();
     expect(selectedCategory.id).toEqual(category.id);
     expect(selectedCategory.name).toEqual(category.name);
-    expect(component.filterForm.controls['subcategory'].pristine).toBeTrue();
-    expect(component.filterForm.controls['subcategory'].enabled).toBeTrue();
+    expect(component.filterForm.controls.subcategory.pristine).toBeTrue();
+    expect(component.filterForm.controls.subcategory.enabled).toBeTrue();
   });
 
   it('raises onReset when form is reset', () => {
 
-    let reset: boolean = false;
-    component.onReset.subscribe(() => reset = true);
+    let reset = false;
+    component.reset.subscribe(() => reset = true);
 
-    component.reset();
+    component.resetForm();
     expect(reset).toBeTrue();
   });
 });

@@ -26,11 +26,11 @@ export class PaginationBarComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  navigatePrevious() {
+  navigatePrevious(): void {
     this.navigatePrevEvent.emit();
   }
 
-  navigateNext() {
+  navigateNext(): void {
     this.navigateNextEvent.emit();
   }
 

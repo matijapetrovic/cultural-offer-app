@@ -11,13 +11,24 @@ window.google = {
 		},
 		LatLngBounds: function(ne, sw) {
 			return {
-				getSouthWest: function() { return sw; },
-				getNorthEast: function() { return ne; },
+				getSouthWest: function() { 
+					return {
+						lat: function() { return sw.lat; },
+						lng: function() { return sw.lng; }
+					}; 
+				},
+				getNorthEast: function() { 
+					return {
+						lat: function() { return ne.lat; },
+						lng: function() { return ne.lng; }
+					}; 
+				},
 				equals: function(other) {
-					return ne.lat == other.ne.lat() &&
-							ne.lng == other.ne.lng() &&
-							sw.lat == other.sw.lat() &&
-							sw.lng == other.sw.lat();
+					console.log(other);
+					return ne.lat == other.getNorthEast().lat &&
+							ne.lng == other.getNorthEast().lng &&
+							sw.lat == other.getSouthWest().lat &&
+							sw.lng == other.getSouthWest().lat;
 				}
 			};
 		},
@@ -25,7 +36,12 @@ window.google = {
 			return {};
 		},
 		InfoWindow: function() {
-			return {};
+			return {
+				content: '',
+				setContent: function(str) { this.content = str },
+				getContent: function() { return this.content; },
+				open: function(map, overlay) {}
+			};
 		},
 		Marker: function() {
 			return {};

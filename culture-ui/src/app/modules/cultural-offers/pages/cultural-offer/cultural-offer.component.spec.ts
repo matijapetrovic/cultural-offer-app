@@ -25,7 +25,6 @@ describe('CulturalOfferComponent', () => {
   let authenticationService: AuthenticationService;
 
   beforeEach(async () => {
-    
     const culturalOffersServiceMock = {
       getCulturalOffer: jasmine.createSpy('getCulturalOffer')
         .and.returnValue(of(mockCulturalOffer)),
@@ -53,9 +52,13 @@ describe('CulturalOfferComponent', () => {
         .and.callFake(() => userSubject.next(null)),
       currentUserSubject: userSubject,
       login: jasmine.createSpy('login')
-        .and.callFake((username: string, password: string) => { 
-          if (username == 'admin') userSubject.next(mockAdmin);
-          if (username == 'user') userSubject.next(mockUser); 
+        .and.callFake((username: string, password: string) => {
+          if (username === 'admin') {
+            userSubject.next(mockAdmin);
+          }
+          if (username === 'user') {
+            userSubject.next(mockUser);
+          }
         }),
       currentUser: userSubject.asObservable()
     };
@@ -88,15 +91,15 @@ describe('CulturalOfferComponent', () => {
     reviewsService = TestBed.inject(ReviewsService);
     newsService = TestBed.inject(NewsService);
     authenticationService = TestBed.inject(AuthenticationService);
-    
+
     fixture.detectChanges();
   });
 
   it('should create and init', fakeAsync(() => {
     expect(component).toBeTruthy();
-    
+
     tick();
-    
+
     expect(component.culturalOffer).toEqual(mockCulturalOffer);
     expect(component.reviewPage).toEqual(mockReviewPage);
     expect(component.newsPage).toEqual(mockNewsPage);
@@ -113,19 +116,19 @@ describe('CulturalOfferComponent', () => {
     tick();
     fixture.detectChanges();
 
-    let reviewItems: DebugElement[] = fixture.debugElement.queryAll(By.css('ul.review-items > li'));
+    const reviewItems: DebugElement[] = fixture.debugElement.queryAll(By.css('ul.review-items > li'));
     expect(reviewItems.length).toBe(mockReviewPage.data.length);
-    
-    let newsItems: DebugElement[] = fixture.debugElement.queryAll(By.css('ul.news-items > li'));
+
+    const newsItems: DebugElement[] = fixture.debugElement.queryAll(By.css('ul.news-items > li'));
     expect(newsItems.length).toBe(mockNewsPage.data.length);
   }));
 
   it('should update subscribed regular user logs in', fakeAsync(() => {
     authenticationService.login('user', '');
     tick();
-    
+
     expect(component.subscribed).toBeTrue();
-    expect(culturalOffersService.getSubscribed).toHaveBeenCalled;
+    expect(culturalOffersService.getSubscribed).toHaveBeenCalled();
   }));
 
   it('should update subscribed admin logs in', () => {
@@ -144,7 +147,7 @@ describe('CulturalOfferComponent', () => {
     component.newsPage = null;
     component.getNextNews();
     tick();
-    
+
     expect(newsService.getNews).toHaveBeenCalledWith(1, 1, 3);
     expect(component.newsPage).toEqual(mockNewsPage);
   }));
@@ -153,7 +156,7 @@ describe('CulturalOfferComponent', () => {
     component.reviewPage = null;
     component.getNextReviews();
     tick();
-    
+
     expect(reviewsService.getReviews).toHaveBeenCalledWith(1, 1, 3);
     expect(component.reviewPage).toEqual(mockReviewPage);
   }));
@@ -164,7 +167,7 @@ describe('CulturalOfferComponent', () => {
     component.newsPage = null;
     component.getPrevNews();
     tick();
-    
+
     expect(newsService.getNews).toHaveBeenCalledWith(1, 0, 3);
     expect(component.newsPage).toEqual(mockNewsPage);
   }));
@@ -175,7 +178,7 @@ describe('CulturalOfferComponent', () => {
     component.reviewPage = null;
     component.getPrevReviews();
     tick();
-    
+
     expect(reviewsService.getReviews).toHaveBeenCalledWith(1, 0, 3);
     expect(component.reviewPage).toEqual(mockReviewPage);
   }));
@@ -194,7 +197,7 @@ describe('CulturalOfferComponent', () => {
     tick();
     tick(2000);
 
-    expect(culturalOffersService.unsubscribeFromCulturalOffer).toHaveBeenCalledWith(1);    
+    expect(culturalOffersService.unsubscribeFromCulturalOffer).toHaveBeenCalledWith(1);
     expect(component.subscribed).toBeFalse();
   }));
 });
