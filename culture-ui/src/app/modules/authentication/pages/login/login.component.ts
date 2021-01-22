@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
+  ngOnInit(): any {
     this.loginForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.pattern('^[^\s@]+@[^\s@]+\.[^\s@]+$')]],
       password: ['', Validators.required],
@@ -38,9 +38,9 @@ export class LoginComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
   }
 
-  get f() { return this.loginForm.controls; }
+  get f(): any { return this.loginForm.controls; }
 
-  onSubmit() {
+  onSubmit(): void {
     this.submitted = true;
 
     if (this.isInvalidEmailForm()) {
@@ -58,11 +58,9 @@ export class LoginComponent implements OnInit {
           this.error = error;
           this.loading = false;
         });
-
-    this.removeFormInputs();
   }
 
-  usernameMessage() {
+  usernameMessage(): string {
     if (this.isInvalidEmailFormat()){
       return 'Wrong email format!';
     } else if (this.isEmptyEmail()) {
@@ -70,46 +68,46 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  isEmptyEmail() {
+  isEmptyEmail(): boolean {
     if (this.f.username.value === '' || this.f.username.value === null) {
       return true;
     }
     return false;
   }
 
-  emailIsValid(email) {
+  emailIsValid(email): boolean {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   }
 
-  isInvalidEmailFormat() {
+  isInvalidEmailFormat(): boolean {
     if (!this.emailIsValid(this.f.username.value) && !this.isEmptyEmail()) {
       return true;
     }
     return false;
   }
 
-  isInvalidEmailForm() {
+  isInvalidEmailForm(): boolean {
     if (this.isInvalidEmailFormat() || this.isEmptyEmail()) {
       return true;
     }
     return false;
   }
 
-  isEmptyPassword() {
+  isEmptyPassword(): boolean {
     if (this.f.password.value === '' || this.f.password.value === null) {
       return true;
     }
     return false;
   }
 
-  isFormValid() {
+  isFormValid(): boolean {
     if (!this.isInvalidEmailForm && !this.isEmptyPassword()){
       return true;
     }
     return false;
   }
 
-  removeFormInputs() {
+  removeFormInputs(): void {
     this.loginForm.reset();
   }
 }

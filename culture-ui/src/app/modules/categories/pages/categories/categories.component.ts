@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CategoriesPage } from '../../category';
 import { CategoriesService } from 'src/app/modules/categories/categories.service';
 import { DialogService } from 'primeng/dynamicdialog';
@@ -22,39 +22,32 @@ export class CategoriesComponent implements OnInit {
   private limit = 5;
   public ref: DynamicDialogRef;
 
-  private tableChanged = false;
+  private tableChanged = true;
 
   constructor(
     private categoriesService: CategoriesService,
     public dialogService: DialogService,
     public messageService: MessageService,
-    private confirmationService: ConfirmationService
+    public confirmationService: ConfirmationService
   ) {
     this.page = 0;
   }
 
-  showAddForm() {
+  showAddForm(): void {
     this.ref = this.dialogService.open(AddCategoryComponent, {
       header: 'Add category',
       width: '30%',
       dismissableMask: true
     });
 
-    this.ref.onDestroy.subscribe(() => {
-      // this.messageService.add({ severity: 'info', summary: 'Category updated', detail: 'Name:' + category.name });
-      if (this.tableChanged) {
-
-        console.log('usao');
+    this.ref.onClose.subscribe((submitted) => {
+      if (submitted) {
         this.getCategories();
       }
     });
-
-    this.ref.onClose.subscribe((submitted: boolean) => {
-      this.tableChanged = submitted;
-    });
   }
 
-  showUpdateForm(category: any) {
+  showUpdateForm(category: any): void {
     this.ref = this.dialogService.open(UpdateCategoryComponent, {
       data: {
         category
@@ -64,15 +57,14 @@ export class CategoriesComponent implements OnInit {
       dismissableMask: true
     });
 
-    this.ref.onDestroy.subscribe(() => {
-      // this.messageService.add({ severity: 'info', summary: 'Category updated', detail: 'Name:' + category.name });
-      if (this.tableChanged) {
+    this.ref.onClose.subscribe((submitted) => {
+      if (submitted) {
         this.getCategories();
       }
     });
   }
 
-  showDeleteForm(id: number) {
+  showDeleteForm(id: number): void {
     this.confirmationService.confirm({
       message: 'Do you want to delete this category?',
       header: 'Delete Confirmation',
@@ -80,7 +72,6 @@ export class CategoriesComponent implements OnInit {
       accept: () => {
         // this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' });
         this.deleteCategory(id);
-        this.getCategories();
       },
       reject: () => {
         // this.messageService.add({ severity: 'info', summary: 'Rejected', detail: 'You have rejected' });
@@ -97,15 +88,20 @@ export class CategoriesComponent implements OnInit {
   }
 
   deleteCategory(id: number): void {
-    this.categoriesService.deleteCategory(id).subscribe();
+    this.categoriesService.deleteCategory(id)
+    .pipe()
+    .subscribe(
+      () => {
+        this.getCategories();
+      });
   }
 
-  getNextCategories() {
+  getNextCategories(): void {
     this.page++;
     this.getCategories();
   }
 
-  getPrevCategories() {
+  getPrevCategories(): void {
     this.page--;
     this.getCategories();
   }

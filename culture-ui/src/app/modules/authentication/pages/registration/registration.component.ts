@@ -29,9 +29,9 @@ export class RegistrationComponent implements OnInit {
     });
   }
 
-  get f() { return this.registerForm.controls; }
+  get f(): any { return this.registerForm.controls; }
 
-  onSubmit() {
+  onSubmit(): void {
     this.submitted = true;
 
     if (this.isInvalidEmailForm() || !this.arePasswordsSame()) {
@@ -49,7 +49,7 @@ export class RegistrationComponent implements OnInit {
       .subscribe();
   }
 
-  usernameMessage() {
+  usernameMessage(): string {
     if (this.isInvalidEmailFormat()) {
       return 'Wrong email format!';
     } else if (this.isEmptyEmail() && this.submitted) {
@@ -57,57 +57,64 @@ export class RegistrationComponent implements OnInit {
     }
   }
 
-  isEmptyEmail() {
+  isEmptyEmail(): boolean {
     if (this.f.username.value === '' || this.f.username.value === null) {
       return true;
     }
     return false;
   }
 
-  emailIsValid(email) {
+  emailIsValid(email): boolean {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   }
 
-  isInvalidEmailFormat() {
+  isInvalidEmailFormat(): boolean {
     if (!this.emailIsValid(this.f.username.value) && !this.isEmptyEmail()) {
       return true;
     }
     return false;
   }
 
-  isInvalidEmailForm() {
+  isInvalidEmailForm(): boolean {
     if (this.isInvalidEmailFormat() || this.isEmptyEmail()) {
       return true;
     }
     return false;
   }
 
-  arePasswordsSame() {
+  isFormValid(): boolean {
+    if (!this.isInvalidEmailForm && !this.isEmptyPassword()) {
+      return true;
+    }
+    return false;
+  }
+
+  arePasswordsSame(): boolean {
     return (this.f.password.value === this.f.confirmPassword.value);
   }
 
-  arePasswordsEmpty() {
+  arePasswordsEmpty(): boolean {
     if (this.isEmptyPassword() || this.isEmptyConfirmPassword()) {
       return true;
     }
     return false;
   }
 
-  isEmptyPassword() {
+  isEmptyPassword(): boolean {
     if (this.f.password.value === '' || this.f.password.value === null) {
       return true;
     }
     return false;
   }
 
-  isEmptyConfirmPassword() {
+  isEmptyConfirmPassword(): boolean {
     if (this.f.confirmPassword.value === '' || this.f.confirmPassword.value === null) {
       return true;
     }
     return false;
   }
 
-  passwordMessage() {
+  passwordMessage(): string {
     if (!this.arePasswordsSame() && !this.arePasswordsEmpty()) {
       return 'Passwords must match!';
     }
@@ -116,7 +123,7 @@ export class RegistrationComponent implements OnInit {
     }
   }
 
-  confirmPasswordMessage() {
+  confirmPasswordMessage(): string {
     if (!this.arePasswordsSame() && !this.arePasswordsEmpty()) {
       return 'Passwords must match!';
     }
@@ -125,15 +132,15 @@ export class RegistrationComponent implements OnInit {
     }
   }
 
-  arePasswordErrorsActivated() {
+  arePasswordErrorsActivated(): boolean {
     return this.f.password.errors.required || this.f.password.errors;
   }
 
-  areConfirmPasswordErrorsActivated() {
+  areConfirmPasswordErrorsActivated(): boolean {
     return this.f.confirmPassword.errors.required || this.f.confirmPassword.errors;
   }
 
-  removeFormInputs() {
+  removeFormInputs(): void {
     this.registerForm.reset();
   }
 }
