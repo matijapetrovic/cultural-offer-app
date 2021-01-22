@@ -30,7 +30,7 @@ const routes: Routes = [
   {
     path: 'subcategories',
     loadChildren: () => import('./modules/subcategories/subcategories.module').then(m => m.SubcategoriesModule),
-    data: { roles: [Role.Admin] }
+    data: { roles: [Role.ROLE_ADMIN] }
   },
   { path: '**', redirectTo: '' }
 ];
