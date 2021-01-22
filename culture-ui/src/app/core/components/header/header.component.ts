@@ -42,7 +42,7 @@ export class HeaderComponent implements OnInit {
     },
     {
       label: 'Subcategories',
-      routerLink: ['subcategories']
+      routerLink: ['/subcategories']
     },
     {
       label: 'News',
