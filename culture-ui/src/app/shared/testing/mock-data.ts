@@ -157,7 +157,7 @@ const mockUser: User = {
   password: 'password',
   firstName: 'name',
   lastName: 'last name',
-  role: Role.User
+  role: [Role.ROLE_USER]
 };
 
 const mockAdmin: User = {
@@ -166,7 +166,7 @@ const mockAdmin: User = {
   password: 'password',
   firstName: 'name',
   lastName: 'last name',
-  role: Role.Admin
+  role: [Role.ROLE_ADMIN]
 };
 
 const validLocation = 'Location';

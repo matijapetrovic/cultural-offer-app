@@ -62,13 +62,9 @@ export class CulturalOfferComponent implements OnInit {
     this.getReviews();
     this.getNews();
     this.mapInfoWindow = new google.maps.InfoWindow();
-    this.authenticationService.currentUser.subscribe(user => {
-      // user iz nepoznatog razloga nema prototip User, nego objekat iz localStorage-a
-      // te je zato user.role niz, a ne string
-      console.log(user);
+    this.authenticationService.currentUser.subscribe((user) => {
       this.updateSubscribed(user);
-
-      this.userIsRegular = user && user.role[0] === Role.User;
+      this.userIsRegular = user && user.role.includes(Role.ROLE_USER);
     });
   }
 
@@ -93,10 +89,7 @@ export class CulturalOfferComponent implements OnInit {
   }
 
   updateSubscribed(user: User): void {
-    // videti napomenu u drugoj metodi iznad
-    // console.log(user);
-
-    if (user === null || user.role[0] === Role.Admin) {
+    if (user === null || user.role.includes(Role.ROLE_ADMIN)) {
       this.subscribed = null;
       return;
     }
@@ -104,40 +97,29 @@ export class CulturalOfferComponent implements OnInit {
   }
 
   getCulturalOffer(): void {
-    this.culturalOffersService
-      .getCulturalOffer(this.culturalOfferId)
-      .subscribe(culturalOffer => {
-        this.culturalOffer = culturalOffer;
-        this.mapOptions = {
-          center: { lat: culturalOffer.latitude, lng: culturalOffer.longitude },
-          zoom: 9
-        };
-        this.mapOverlays = [
-          new google.maps.Marker({
-            position: {
-              lat: culturalOffer.latitude,
-              lng: culturalOffer.longitude
-            },
-            title: culturalOffer.name
-          })
-        ];
-      });
+    this.culturalOffersService.getCulturalOffer(this.culturalOfferId).subscribe(culturalOffer =>  {
+      this.culturalOffer = culturalOffer;
+      this.mapOptions = {
+        center: {lat: culturalOffer.latitude, lng: culturalOffer.longitude},
+        zoom: 9
+      };
+      this.mapOverlays = [
+        new google.maps.Marker({
+          position: {lat: culturalOffer.latitude, lng: culturalOffer.longitude },
+          title: culturalOffer.name
+        })
+      ];
+    });
   }
 
   getReviews(): void {
-    this.reviewsService
-      .getReviews(
-        this.culturalOfferId,
-        this.currentReviewsPage,
-        this.reviewsLimit
-      )
-      .subscribe(reviewPage => (this.reviewPage = reviewPage));
+    this.reviewsService.getReviews(this.culturalOfferId, this.currentReviewsPage, this.reviewsLimit)
+      .subscribe(reviewPage => this.reviewPage = reviewPage);
   }
 
   getNews(): void {
-    this.newsService
-      .getNews(this.culturalOfferId, this.currentNewsPage, this.newsLimit)
-      .subscribe(newsPage => (this.newsPage = newsPage));
+    this.newsService.getNews(this.culturalOfferId, this.currentNewsPage, this.newsLimit)
+      .subscribe(newsPage => this.newsPage = newsPage);
   }
 
   getNextReviews(): void {
@@ -172,13 +154,14 @@ export class CulturalOfferComponent implements OnInit {
 
   confirmSubscribe(event: Event): void {
     this.confirmationService.confirm({
-      target: event.target,
-      message: 'Are you sure that you want to subscribe to this offer?',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        this.subscribe();
-      },
-      reject: () => { }
+        target: event.target,
+        message: 'Are you sure that you want to subscribe to this offer?',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+            this.subscribe();
+        },
+        reject: () => {
+        }
     });
   }
 
@@ -188,47 +171,30 @@ export class CulturalOfferComponent implements OnInit {
       message: 'Are you sure that you want to unsubscribe from this offer?',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.unsubscribe();
+          this.unsubscribe();
       },
-      reject: () => { }
+      reject: () => {
+      }
     });
   }
 
   subscribe(): void {
-    this.culturalOffersService
-      .subscribeToCulturalOffer(this.culturalOfferId)
-      .subscribe(() => {
-        this.subscribed = true;
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Subscription successful',
-          detail:
-            "You have successfully subscribed to this cultural offer's newsletter"
-        });
-        setTimeout(() => this.messageService.clear(), 2000);
-      });
+    this.culturalOffersService.subscribeToCulturalOffer(this.culturalOfferId).subscribe(() => {
+      this.subscribed = true;
+      this.messageService.add({severity: 'success', summary: 'Subscription successful', detail: 'You have successfully subscribed to this cultural offer\'s newsletter'});
+      setTimeout(() => this.messageService.clear(), 2000);
+    });
   }
 
   unsubscribe(): void {
-    this.culturalOffersService
-      .unsubscribeFromCulturalOffer(this.culturalOfferId)
-      .subscribe(() => {
-        this.subscribed = false;
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Unsubscription successful',
-          detail:
-            "You have successfully unsubscribed to this cultural offer's newsletter"
-        });
-        setTimeout(() => this.messageService, 2000);
-      });
+    this.culturalOffersService.unsubscribeFromCulturalOffer(this.culturalOfferId).subscribe(() => {
+      this.subscribed = false;
+      this.messageService.add({severity: 'success', summary: 'Unsubscription successful', detail: 'You have successfully unsubscribed to this cultural offer\'s newsletter'});
+      setTimeout(() => this.messageService, 2000);
+    });
   }
 
   getSubscribed(): void {
-    this.culturalOffersService
-      .getSubscribed(this.culturalOfferId)
-      .subscribe(isSubscribed => {
-        this.subscribed = isSubscribed;
-      });
+    this.culturalOffersService.getSubscribed(this.culturalOfferId).subscribe((isSubscribed) => { this.subscribed = isSubscribed; });
   }
 }
