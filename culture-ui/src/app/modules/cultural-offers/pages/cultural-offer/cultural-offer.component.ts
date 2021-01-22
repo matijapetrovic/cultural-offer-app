@@ -12,6 +12,7 @@ import { ReviewsService } from 'src/app/modules/reviews/reviews.service';
 import { CulturalOffer } from '../../cultural-offer';
 import { DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
 import { AddReviewForOfferComponent } from '../../components/add-review-for-offer/add-review-for-offer.component';
+import { AddReviewComponent } from 'src/app/modules/reviews/components/add-review/add-review/add-review.component';
 
 @Component({
   selector: 'app-cultural-offer',
@@ -64,7 +65,7 @@ export class CulturalOfferComponent implements OnInit {
     this.authenticationService.currentUser.subscribe(user => {
       // user iz nepoznatog razloga nema prototip User, nego objekat iz localStorage-a
       // te je zato user.role niz, a ne string
-      // console.log(user);
+      console.log(user);
       this.updateSubscribed(user);
 
       this.userIsRegular = user && user.role[0] === Role.User;
@@ -72,7 +73,9 @@ export class CulturalOfferComponent implements OnInit {
   }
 
   showAddReviewForm(): void {
-    this.ref = this.dialogService.open(AddReviewForOfferComponent, {
+
+    // TODO: Ovde menjati dijalog
+    this.ref = this.dialogService.open(AddReviewComponent, {
 
       data: {
         culturalOfferId: this.culturalOfferId
@@ -90,7 +93,7 @@ export class CulturalOfferComponent implements OnInit {
   }
 
   updateSubscribed(user: User): void {
-    // videti napomenu u metodi iznad
+    // videti napomenu u drugoj metodi iznad
     // console.log(user);
 
     if (user === null || user.role[0] === Role.Admin) {

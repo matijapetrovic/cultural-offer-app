@@ -8,11 +8,11 @@ import { MessageService } from 'primeng/api';
 import { ImageService } from 'src/app/core/services/image.service';
 
 @Component({
-  selector: 'app-add-review-for-offer',
-  templateUrl: './add-review-for-offer.component.html',
-  styleUrls: ['./add-review-for-offer.component.scss']
+  selector: 'app-add-review',
+  templateUrl: './add-review.component.html',
+  styleUrls: ['./add-review.component.scss']
 })
-export class AddReviewForOfferComponent implements OnInit {
+export class AddReviewComponent implements OnInit {
   private culturalOfferId: number;
   private reviewToAdd: ReviewToAdd;
   public addReviewForm: FormGroup;
