@@ -10,11 +10,14 @@ import { NewsService } from 'src/app/modules/news/news.service';
 import { ReviewPage } from 'src/app/modules/reviews/review';
 import { ReviewsService } from 'src/app/modules/reviews/reviews.service';
 import { CulturalOffer } from '../../cultural-offer';
+import { DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
+import { AddReviewForOfferComponent } from '../../components/add-review-for-offer/add-review-for-offer.component';
 
 @Component({
   selector: 'app-cultural-offer',
   templateUrl: './cultural-offer.component.html',
-  styleUrls: ['./cultural-offer.component.scss']
+  styleUrls: ['./cultural-offer.component.scss'],
+  providers: [DialogService]
 })
 export class CulturalOfferComponent implements OnInit {
   culturalOffer: CulturalOffer;
@@ -36,6 +39,8 @@ export class CulturalOfferComponent implements OnInit {
   mapOverlays: any;
   mapInfoWindow: any;
 
+  private ref: DynamicDialogRef;
+
   constructor(
     private culturalOffersService: CulturalOffersService,
     private reviewsService: ReviewsService,
@@ -43,7 +48,8 @@ export class CulturalOfferComponent implements OnInit {
     private route: ActivatedRoute,
     private confirmationService: ConfirmationService,
     private authenticationService: AuthenticationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private dialogService: DialogService
   ) {
     this.currentReviewsPage = 0;
     this.currentNewsPage = 0;
@@ -55,14 +61,35 @@ export class CulturalOfferComponent implements OnInit {
     this.getReviews();
     this.getNews();
     this.mapInfoWindow = new google.maps.InfoWindow();
-    this.authenticationService.currentUser.subscribe((user) => {
+    this.authenticationService.currentUser.subscribe(user => {
+      // user iz nepoznatog razloga nema prototip User, nego objekat iz localStorage-a
+      // te je zato user.role niz, a ne string
+      console.log(user);
       this.updateSubscribed(user);
-      this.userIsRegular = user && user.role === Role.User;
+
+      this.userIsRegular = user && user.role[0] === Role.User;
+    });
+  }
+
+  showAddReviewForm(): void {
+    this.ref = this.dialogService.open(AddReviewForOfferComponent, {
+      header: 'Add review',
+      width: '30%',
+      dismissableMask: true
+    });
+
+    this.ref.onClose.subscribe(submitted => {
+      if (submitted) {
+        this.getReviews();
+      }
     });
   }
 
   updateSubscribed(user: User): void {
-    if (user === null || user.role === Role.Admin) {
+    // videti napomenu u metodi iznad
+    console.log(user);
+
+    if (user === null || user.role[0] === Role.Admin) {
       this.subscribed = null;
       return;
     }
@@ -70,29 +97,40 @@ export class CulturalOfferComponent implements OnInit {
   }
 
   getCulturalOffer(): void {
-    this.culturalOffersService.getCulturalOffer(this.culturalOfferId).subscribe(culturalOffer =>  {
-      this.culturalOffer = culturalOffer;
-      this.mapOptions = {
-        center: {lat: culturalOffer.latitude, lng: culturalOffer.longitude},
-        zoom: 9
-      };
-      this.mapOverlays = [
-        new google.maps.Marker({
-          position: {lat: culturalOffer.latitude, lng: culturalOffer.longitude },
-          title: culturalOffer.name
-        })
-      ];
-    });
+    this.culturalOffersService
+      .getCulturalOffer(this.culturalOfferId)
+      .subscribe(culturalOffer => {
+        this.culturalOffer = culturalOffer;
+        this.mapOptions = {
+          center: { lat: culturalOffer.latitude, lng: culturalOffer.longitude },
+          zoom: 9
+        };
+        this.mapOverlays = [
+          new google.maps.Marker({
+            position: {
+              lat: culturalOffer.latitude,
+              lng: culturalOffer.longitude
+            },
+            title: culturalOffer.name
+          })
+        ];
+      });
   }
 
   getReviews(): void {
-    this.reviewsService.getReviews(this.culturalOfferId, this.currentReviewsPage, this.reviewsLimit)
-      .subscribe(reviewPage => this.reviewPage = reviewPage);
+    this.reviewsService
+      .getReviews(
+        this.culturalOfferId,
+        this.currentReviewsPage,
+        this.reviewsLimit
+      )
+      .subscribe(reviewPage => (this.reviewPage = reviewPage));
   }
 
   getNews(): void {
-    this.newsService.getNews(this.culturalOfferId, this.currentNewsPage, this.newsLimit)
-      .subscribe(newsPage => this.newsPage = newsPage);
+    this.newsService
+      .getNews(this.culturalOfferId, this.currentNewsPage, this.newsLimit)
+      .subscribe(newsPage => (this.newsPage = newsPage));
   }
 
   getNextReviews(): void {
@@ -127,14 +165,13 @@ export class CulturalOfferComponent implements OnInit {
 
   confirmSubscribe(event: Event): void {
     this.confirmationService.confirm({
-        target: event.target,
-        message: 'Are you sure that you want to subscribe to this offer?',
-        icon: 'pi pi-exclamation-triangle',
-        accept: () => {
-            this.subscribe();
-        },
-        reject: () => {
-        }
+      target: event.target,
+      message: 'Are you sure that you want to subscribe to this offer?',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.subscribe();
+      },
+      reject: () => {}
     });
   }
 
@@ -144,30 +181,47 @@ export class CulturalOfferComponent implements OnInit {
       message: 'Are you sure that you want to unsubscribe from this offer?',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-          this.unsubscribe();
+        this.unsubscribe();
       },
-      reject: () => {
-      }
+      reject: () => {}
     });
   }
 
   subscribe(): void {
-    this.culturalOffersService.subscribeToCulturalOffer(this.culturalOfferId).subscribe(() => {
-      this.subscribed = true;
-      this.messageService.add({severity: 'success', summary: 'Subscription successful', detail: 'You have successfully subscribed to this cultural offer\'s newsletter'});
-      setTimeout(() => this.messageService.clear(), 2000);
-    });
+    this.culturalOffersService
+      .subscribeToCulturalOffer(this.culturalOfferId)
+      .subscribe(() => {
+        this.subscribed = true;
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Subscription successful',
+          detail:
+            "You have successfully subscribed to this cultural offer's newsletter"
+        });
+        setTimeout(() => this.messageService.clear(), 2000);
+      });
   }
 
   unsubscribe(): void {
-    this.culturalOffersService.unsubscribeFromCulturalOffer(this.culturalOfferId).subscribe(() => {
-      this.subscribed = false;
-      this.messageService.add({severity: 'success', summary: 'Unsubscription successful', detail: 'You have successfully unsubscribed to this cultural offer\'s newsletter'});
-      setTimeout(() => this.messageService, 2000);
-    });
+    this.culturalOffersService
+      .unsubscribeFromCulturalOffer(this.culturalOfferId)
+      .subscribe(() => {
+        this.subscribed = false;
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Unsubscription successful',
+          detail:
+            "You have successfully unsubscribed to this cultural offer's newsletter"
+        });
+        setTimeout(() => this.messageService, 2000);
+      });
   }
 
   getSubscribed(): void {
-    this.culturalOffersService.getSubscribed(this.culturalOfferId).subscribe((isSubscribed) => { this.subscribed = isSubscribed; });
+    this.culturalOffersService
+      .getSubscribed(this.culturalOfferId)
+      .subscribe(isSubscribed => {
+        this.subscribed = isSubscribed;
+      });
   }
 }

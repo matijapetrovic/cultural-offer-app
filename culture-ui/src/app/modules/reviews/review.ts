@@ -17,3 +17,9 @@ export interface ReviewPage {
   data: Review[];
   links: Map<string, string>;
 }
+
+export interface ReviewToAdd {
+  comment: string;
+  rating: number;
+  images: string[];
+}

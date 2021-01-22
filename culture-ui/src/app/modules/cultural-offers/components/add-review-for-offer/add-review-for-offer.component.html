@@ -1,0 +1,41 @@
+<form class="reactiveForm" [formGroup]="addReviewForm" (ngSubmit)="onSubmit()">
+  <div class="p-fluid">
+    <div class="p-field p-text-center">
+      <label>Rating</label>
+      <p-rating
+        size="100"
+        formControlName="rating"
+        [cancel]="false"
+        class="rating"
+      >
+      </p-rating>
+    </div>
+    <div class="p-field">
+      <label>Comment</label>
+      <textarea
+        formControlName="comment"
+        class="add-review-textarea"
+        type="text"
+        placeholder="Add your comment here"
+        pInputTextarea
+      ></textarea>
+      <small
+        class="text-danger"
+        *ngIf="
+          addReviewForm.controls.comment.touched &&
+          addReviewForm.controls.comment.errors?.required
+        "
+        >Comment is required</small
+      >
+    </div>
+  </div>
+  <div class="p-grid p-px-5 p-mt-6 p-justify-center">
+    <button
+      type="submit"
+      class="p-button"
+      label="Add"
+      pButton
+      [disabled]="addReviewForm.invalid"
+    ></button>
+  </div>
+</form>
