@@ -26,11 +26,17 @@ export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
+  private getUserFromLocalStorage(): User {
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    if (!user)
+      return null;
+    user.role = user.role.map((role: string) => Role[role]);
+    return user;
+  }
+
   constructor(private http: HttpClient, private router: Router, httpErrorHandler: HttpErrorHandler) {
     this.handleError = httpErrorHandler.createHandleError('AuthenticationService');
-    const user = JSON.parse(localStorage.getItem('currentUser'));
-    user.role = user.role.map((role: string) => Role[role]);
-    this.currentUserSubject = new BehaviorSubject<User>(user);
+    this.currentUserSubject = new BehaviorSubject<User>(this.getUserFromLoca
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
@@ -48,9 +54,7 @@ export class AuthenticationService {
         tap(userInfo => {
           if (userInfo && userInfo.token) {
             localStorage.setItem('currentUser', JSON.stringify(userInfo));
-            const user = JSON.parse(localStorage.getItem('currentUser'));
-            user.role = user.role.map((role: string) => Role[role]);
-            this.currentUserSubject.next(user);
+            this.currentUserSubject.next(this.getUserFromLocalStorage());
           }
         }));
   }
