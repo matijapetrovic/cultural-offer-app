@@ -17,7 +17,7 @@ export class OfferReviewItemComponent implements OnInit {
   constructor(private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
-    this.authenticationService.currentUser.subscribe((user) => this.userIsAdmin = user && user.role == Role.Admin);
+    this.authenticationService.currentUser.subscribe((user) => this.userIsAdmin = user && user.role === Role.Admin);
   }
 
 }

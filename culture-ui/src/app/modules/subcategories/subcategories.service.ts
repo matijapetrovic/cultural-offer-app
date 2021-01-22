@@ -17,15 +17,15 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class SubcategoriesService {
-  subcategoriesUrl = `${environment.apiUrl}/api/categories`
+  subcategoriesUrl = `${environment.apiUrl}/api/categories`;
   private handleError: HandleError;
-  
+
   constructor(private http: HttpClient, httpErrorHandler: HttpErrorHandler) {
     this.handleError = httpErrorHandler.createHandleError('SubcategoriesService');
   }
 
   getSubcategories(categoryId: number, page: number, limit: number): Observable<SubcategoriesPage> {
-    let url = `${this.subcategoriesUrl}/${categoryId}/subcategories?page=${page}&limit=${limit}`;
+    const url = `${this.subcategoriesUrl}/${categoryId}/subcategories?page=${page}&limit=${limit}`;
     return this.http.get<SubcategoriesPage>(url, httpOptions)
       .pipe(
         catchError(this.handleError<SubcategoriesPage>('getSubcategories'))
@@ -33,7 +33,7 @@ export class SubcategoriesService {
   }
 
   getSubcategoryNames(categoryId: number): Observable<Subcategory[]> {
-    let url = `${this.subcategoriesUrl}/${categoryId}/subcategories/names`;
+    const url = `${this.subcategoriesUrl}/${categoryId}/subcategories/names`;
     return this.http.get<Subcategory[]>(url, httpOptions)
       .pipe(
         catchError(this.handleError('getSubcategoryNames', []))

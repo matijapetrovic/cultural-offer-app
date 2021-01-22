@@ -5,7 +5,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { AddCategoryComponent } from '../add-category/add-category.component';
 import { MessageService } from 'primeng/api';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
-import { ConfirmationService } from 'primeng/api'
+import { ConfirmationService } from 'primeng/api';
 import { UpdateCategoryComponent } from '../update-category/update-category.component';
 
 
@@ -19,7 +19,7 @@ export class CategoriesComponent implements OnInit {
   categoriesPage: CategoriesPage;
 
   private page: number;
-  private limit: number = 5;
+  private limit = 5;
   public ref: DynamicDialogRef;
 
   private tableChanged = false;
@@ -42,7 +42,7 @@ export class CategoriesComponent implements OnInit {
 
     this.ref.onDestroy.subscribe(() => {
       // this.messageService.add({ severity: 'info', summary: 'Category updated', detail: 'Name:' + category.name });
-      if(this.tableChanged) {
+      if (this.tableChanged) {
 
         console.log('usao');
         this.getCategories();
@@ -57,7 +57,7 @@ export class CategoriesComponent implements OnInit {
   showUpdateForm(category: any) {
     this.ref = this.dialogService.open(UpdateCategoryComponent, {
       data: {
-        category: category
+        category
       },
       header: 'Update category',
       width: '30%',
@@ -78,16 +78,16 @@ export class CategoriesComponent implements OnInit {
       header: 'Delete Confirmation',
       icon: 'pi pi-info-circle',
       accept: () => {
-        //this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' });
+        // this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' });
         this.deleteCategory(id);
         this.getCategories();
       },
       reject: () => {
-        //this.messageService.add({ severity: 'info', summary: 'Rejected', detail: 'You have rejected' });
+        // this.messageService.add({ severity: 'info', summary: 'Rejected', detail: 'You have rejected' });
       }
     });
   }
-  
+
   ngOnInit(): void {
     this.getCategories();
   }

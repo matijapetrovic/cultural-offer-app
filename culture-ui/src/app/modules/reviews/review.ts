@@ -1,19 +1,19 @@
 export interface Review {
-  id: number,
-  culturalOfferId: number,
-  rating: number,
+  id: number;
+  culturalOfferId: number;
+  rating: number;
   author: ReviewAuthor;
-  comment: String,
-  images: String[]
+  comment: string;
+  images: string[];
 }
 
 export interface ReviewAuthor {
-  id: number,
-  firstName: string,
-  lastName: string
+  id: number;
+  firstName: string;
+  lastName: string;
 }
 
 export interface ReviewPage {
-  data: Review[],
-  links: Map<String, String>
+  data: Review[];
+  links: Map<string, string>;
 }

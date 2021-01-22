@@ -22,7 +22,7 @@ export class AddCategoryComponent implements OnInit {
     private formBuilder: FormBuilder,
     public ref: DynamicDialogRef
   ) {
-    
+
   }
 
   ngOnInit(): void {
@@ -33,7 +33,7 @@ export class AddCategoryComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-  
+
 
     if (this.invalidFormInputs()) {
       this.removeFormInputs();
@@ -48,7 +48,7 @@ export class AddCategoryComponent implements OnInit {
   }
 
   addCategory() {
-    let category: Category = {id: null, name: this.f.name.value};
+    const category: Category = {id: null, name: this.f.name.value};
     this.categoryService.addCategory(category)
       .pipe(first())
       .subscribe(
@@ -72,6 +72,6 @@ export class AddCategoryComponent implements OnInit {
   }
 
   errorMessage() {
-    return "Name is required!"
+    return 'Name is required!';
   }
 }

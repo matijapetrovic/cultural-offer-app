@@ -13,6 +13,7 @@ import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -35,6 +36,8 @@ class AddCulturalOfferService implements
         CulturalOffer offer = CulturalOffer.of(
                 command.getName(),
                 command.getDescription(),
+                BigDecimal.ZERO,
+                0,
                 Location.of(command.getLongitude(), command.getLatitude(), "xd"), // geocode
                 images,
                 subcategory);

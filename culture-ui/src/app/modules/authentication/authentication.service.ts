@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
 import { User } from './user';
@@ -39,19 +39,18 @@ export class AuthenticationService {
     return this.currentUserSubject.value != null;
   }
 
-  login(email: string, password: string) {
-    return this.http.post<any>(`${this.authenticationUrl}/login`, { email, password })
-      .pipe(map(user => {
-        if (user && user.token) {
-          localStorage.setItem('currentUser', JSON.stringify(user));
-          this.currentUserSubject.next(user);
-        }
-
-        return user;
-      }));
+  login(email: string, password: string): Observable<User> {
+    return this.http.post<User>(`${this.authenticationUrl}/login`, { email, password })
+      .pipe(
+        tap(user => {
+          if (user && user.token) {
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            this.currentUserSubject.next(user);
+          }
+        }));
   }
 
-  logout() {
+  logout(): void {
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
     this.router.navigate(['']);

@@ -8,6 +8,7 @@ import cultureapp.domain.user.exception.RegularUserNotFoundException;
 import lombok.*;
 
 import javax.validation.constraints.Positive;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,6 +35,8 @@ public interface GetCulturalOfferByIdQueryHandler {
         Long id;
         String name;
         String description;
+        BigDecimal rating;
+        Integer reviewCount;
         Double longitude;
         Double latitude;
         String subcategory;
@@ -44,6 +47,8 @@ public interface GetCulturalOfferByIdQueryHandler {
                     offer.getId(),
                     offer.getName(),
                     offer.getDescription(),
+                    offer.getRating(),
+                    offer.getReviewCount(),
                     offer.getLocation().getLongitude(),
                     offer.getLocation().getLatitude(),
                     offer.getSubcategory().getName(),

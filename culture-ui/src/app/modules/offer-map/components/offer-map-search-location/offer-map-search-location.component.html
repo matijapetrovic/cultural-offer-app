@@ -1,5 +1,5 @@
 <p-card header="Search by location">
-    <form [formGroup]="searchForm" (ngSubmit)="emitOnSubmit()" novalidate>
+    <form id="searchForm" [formGroup]="searchForm" (ngSubmit)="submitForm()" novalidate>
       <div class="p-fluid p-grid">
         <div class="p-field p-col-6 p-offset-3">
           <span class="p-float-label">

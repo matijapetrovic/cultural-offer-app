@@ -13,7 +13,7 @@ export class RegistrationComponent implements OnInit {
   submitted = false;
   returnUrl: string;
   error = '';
-  
+
   constructor(
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService
@@ -21,7 +21,7 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
-      username: ['', [Validators.required, Validators.pattern("^[^\s@]+@[^\s@]+\.[^\s@]+$")]],
+      username: ['', [Validators.required, Validators.pattern('^[^\s@]+@[^\s@]+\.[^\s@]+$')]],
       password: ['', Validators.required, ],
       confirmPassword: ['', Validators.required],
       firstName: ['', Validators.required],
@@ -51,21 +51,21 @@ export class RegistrationComponent implements OnInit {
 
   usernameMessage() {
     if (this.isInvalidEmailFormat()) {
-      return "Wrong email format!";
+      return 'Wrong email format!';
     } else if (this.isEmptyEmail() && this.submitted) {
-      return "Email is required!"
+      return 'Email is required!';
     }
   }
 
   isEmptyEmail() {
-    if (this.f.username.value === "" || this.f.username.value === null) {
+    if (this.f.username.value === '' || this.f.username.value === null) {
       return true;
     }
     return false;
   }
 
   emailIsValid(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   }
 
   isInvalidEmailFormat() {
@@ -87,21 +87,21 @@ export class RegistrationComponent implements OnInit {
   }
 
   arePasswordsEmpty() {
-    if(this.isEmptyPassword() || this.isEmptyConfirmPassword()) {
+    if (this.isEmptyPassword() || this.isEmptyConfirmPassword()) {
       return true;
     }
     return false;
   }
 
   isEmptyPassword() {
-    if (this.f.password.value === "" || this.f.password.value === null) {
+    if (this.f.password.value === '' || this.f.password.value === null) {
       return true;
     }
     return false;
   }
 
   isEmptyConfirmPassword() {
-    if (this.f.confirmPassword.value === "" || this.f.confirmPassword.value === null) {
+    if (this.f.confirmPassword.value === '' || this.f.confirmPassword.value === null) {
       return true;
     }
     return false;
@@ -109,28 +109,28 @@ export class RegistrationComponent implements OnInit {
 
   passwordMessage() {
     if (!this.arePasswordsSame() && !this.arePasswordsEmpty()) {
-      return "Passwords must match!"; 
-    } 
+      return 'Passwords must match!';
+    }
     else if ((this.f.password.value === '' || this.f.password.value === null) && this.arePasswordErrorsActivated()) {
-      return "Password is required!";
+      return 'Password is required!';
     }
   }
 
   confirmPasswordMessage() {
     if (!this.arePasswordsSame() && !this.arePasswordsEmpty()) {
-      return "Passwords must match!";
+      return 'Passwords must match!';
     }
     else if ((this.f.confirmPassword.value === '' || this.f.confirmPassword.value === null) && this.areConfirmPasswordErrorsActivated()) {
-      return "Password is required!";
+      return 'Password is required!';
     }
   }
 
   arePasswordErrorsActivated() {
-    return this.f.password.errors.required || this.f.password.errors
+    return this.f.password.errors.required || this.f.password.errors;
   }
 
   areConfirmPasswordErrorsActivated() {
-    return this.f.confirmPassword.errors.required || this.f.confirmPassword.errors
+    return this.f.confirmPassword.errors.required || this.f.confirmPassword.errors;
   }
 
   removeFormInputs() {

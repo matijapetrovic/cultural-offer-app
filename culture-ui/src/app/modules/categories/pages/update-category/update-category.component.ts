@@ -74,6 +74,6 @@ export class UpdateCategoryComponent implements OnInit{
   }
 
   errorMessage() {
-    return "Name is required!"
+    return 'Name is required!';
   }
 }

@@ -107,6 +107,8 @@ public class GetCulturalOfferByIdServiceUnitTest {
                         VALID_CULTURAL_OFFER_ID,
                         VALID_CULTURAL_OFFER_NAME,
                         VALID_CULTURAL_OFFER_DESCRIPTION,
+                        VALID_CULTURAL_OFFER_RATING,
+                        VALID_CULTURAL_OFFER_REVIEW_COUNT,
                         Location.of(VALID_LOCATION_LONGITUDE,
                                 VALID_LOCATION_LATITUDE,
                                 VALID_LOCATION_ADDRESS),
