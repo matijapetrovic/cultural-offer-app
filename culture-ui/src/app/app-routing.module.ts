@@ -25,7 +25,7 @@ const routes: Routes = [
     path: 'categories',
     loadChildren: () => import('./modules/categories/categories.module').then(m => m.CategoriesModule),
     canActivate: [AuthGuard],
-    data: { roles: [Role.Admin] }
+    data: { roles: [Role.ROLE_ADMIN] }
   },
   { path: '**', redirectTo: '' }
 ];

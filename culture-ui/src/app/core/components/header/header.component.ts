@@ -68,15 +68,16 @@ export class HeaderComponent implements OnInit {
   }
 
   updateItems(user: User): void {
+    console.log(user);
     if (!!user) {
       this.authenticated = true;
-      if (user.role === Role.Admin) {
+      if (user.role.includes(Role.ROLE_ADMIN)) {
         this.items = [
           ...this.commonItems,
           ...this.adminItems
         ];
       }
-      else if (user.role === Role.User) {
+      else if (user.role.includes(Role.ROLE_USER)) {
         this.items = [
           ...this.commonItems,
           ...this.userItems

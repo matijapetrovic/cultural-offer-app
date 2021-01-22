@@ -8,6 +8,7 @@ import { User } from './user';
 import { Router } from '@angular/router';
 import { RegisterRequest } from './register';
 import { HandleError, HttpErrorHandler } from 'src/app/core/services/http-error-handler.service';
+import { Role } from './role';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -27,7 +28,9 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient, private router: Router, httpErrorHandler: HttpErrorHandler) {
     this.handleError = httpErrorHandler.createHandleError('AuthenticationService');
-    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    user.role = user.role.map((role: string) => Role[role]);
+    this.currentUserSubject = new BehaviorSubject<User>(user);
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
@@ -42,9 +45,11 @@ export class AuthenticationService {
   login(email: string, password: string): Observable<User> {
     return this.http.post<User>(`${this.authenticationUrl}/login`, { email, password })
       .pipe(
-        tap(user => {
-          if (user && user.token) {
-            localStorage.setItem('currentUser', JSON.stringify(user));
+        tap(userInfo => {
+          if (userInfo && userInfo.token) {
+            localStorage.setItem('currentUser', JSON.stringify(userInfo));
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            user.role = user.role.map((role: string) => Role[role]);
             this.currentUserSubject.next(user);
           }
         }));
