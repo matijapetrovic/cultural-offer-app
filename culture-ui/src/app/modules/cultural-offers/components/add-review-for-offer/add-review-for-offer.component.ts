@@ -1,51 +1,97 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ReviewsService } from 'src/app/modules/reviews/reviews.service';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
-import { FileUploadModule } from 'primeng/fileupload';
-import { HttpClientModule } from '@angular/common/http';
 import { ReviewToAdd } from 'src/app/modules/reviews/review';
 import { ActivatedRoute } from '@angular/router';
+import { MessageService } from 'primeng/api';
+import { ImageService } from 'src/app/core/services/image.service';
 
 @Component({
   selector: 'app-add-review-for-offer',
   templateUrl: './add-review-for-offer.component.html',
-  styleUrls: ['./add-review-for-offer.component.scss'],
-  providers: [FileUploadModule, HttpClientModule]
+  styleUrls: ['./add-review-for-offer.component.scss']
 })
 export class AddReviewForOfferComponent implements OnInit {
   private culturalOfferId: number;
   private reviewToAdd: ReviewToAdd;
-  addReviewForm: FormGroup;
+  public addReviewForm: FormGroup;
+
+  private imagesToAdd: FormData;
 
   constructor(
     private reviewsService: ReviewsService,
     private formBuilder: FormBuilder,
     private ref: DynamicDialogRef,
-    private fileUploadModule: FileUploadModule,
-    private httpClientModule: HttpClientModule,
-    private route: ActivatedRoute
-  ) {}
+    public config: DynamicDialogConfig,
+    private messageService: MessageService,
+    private imageService: ImageService
+  ) {
+    this.culturalOfferId = this.config.data.culturalOfferId;
+  }
 
   ngOnInit(): void {
-    this.culturalOfferId = +this.route.snapshot.params.id;
+    this.imagesToAdd = new FormData();
+
     this.addReviewForm = this.formBuilder.group({
       comment: ['', Validators.required],
       rating: [2, Validators.required],
-      images: [new Array<string>()]
+      images: [new Array<number>()]
     });
+  }
+
+  addToImagesToArray(event: any): void {
+
+    this.imagesToAdd = new FormData();
+
+    for (let i = 0; i < event.currentFiles.length; i++) {
+      const image = event.currentFiles[i];
+      this.imagesToAdd.append('images', image);
+    }
+
   }
 
   onSubmit(): void {
     this.reviewToAdd = this.addReviewForm.value;
-    this.reviewsService
-      .addReview(this.reviewToAdd, this.culturalOfferId)
-      .subscribe(() => {
-        this.addReviewForm.reset();
 
-        const submitted = true;
-        this.ref.close(submitted);
-      });
+
+    this.imageService
+      .addImages(this.imagesToAdd)
+      .subscribe(
+        (imagesId: number[]) => {
+          this.reviewToAdd.images = imagesId;
+
+          this.reviewsService
+            .addReview(this.reviewToAdd, this.culturalOfferId)
+            .subscribe(
+              () => {
+                this.addReviewForm.reset();
+
+                const submitted = true;
+                this.ref.close(submitted);
+              },
+              error => {
+                console.log(error);
+
+                const submitted = false;
+                this.ref.close(submitted);
+
+              }
+            );
+        },
+        error => {
+          console.log(error);
+        }
+      );
+
+
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Review successfully added.',
+      detail: 'Look for it at the end of reviews.'
+    });
+
+    setTimeout(() => this.messageService.clear(), 5000);
   }
 }

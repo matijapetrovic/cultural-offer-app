@@ -38,6 +38,10 @@ public class CloudinaryImageUploader implements ImageUploader {
     }
 
     private void initCloudinary() {
+        System.out.println("cloud_name " + cloudName);
+        System.out.println("api_key " + apiKey);
+        System.out.println("api_secret " + apiSecret);
+
         cloudinary = new Cloudinary(
                 ObjectUtils.asMap(
                         "cloud_name", cloudName,

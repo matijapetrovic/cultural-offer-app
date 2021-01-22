@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { FileUploadModule } from 'primeng/fileupload';
 import { SharedModule } from './../../shared/shared.module';
 import { CulturalOfferComponent } from './pages/cultural-offer/cultural-offer.component';
 import { CulturalOffersRoutingModule } from './cultural-offers-routing.module';
@@ -14,7 +15,8 @@ import { AddReviewForOfferComponent } from './components/add-review-for-offer/ad
   imports: [
     CommonModule,
     CulturalOffersRoutingModule,
-    SharedModule
+    SharedModule,
+    FileUploadModule
   ]
 })
 export class CulturalOffersModule { }

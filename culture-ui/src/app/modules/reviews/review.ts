@@ -21,5 +21,5 @@ export interface ReviewPage {
 export interface ReviewToAdd {
   comment: string;
   rating: number;
-  images: string[];
+  images: number[];
 }

@@ -5,20 +5,17 @@
   </div>
   <div class="review-content p-col-9">
     <span class="review-author">{{ review.author.firstName }} {{ review.author.lastName }}</span>
-    <p-scrollPanel [style]="{width: '100%', height: '200px'}">  
+    <p-scrollPanel [style]="{width: '100%', height: '200px'}">
       <p class="review-comment">{{ review.comment }}</p>
     </p-scrollPanel>
-    
-    <div class="review-images" class="p-grid">
-      <img class="p-col-4" [src]="review.images[0]" alt="">
-      <img class="p-col-4" [src]="review.images[1]" alt="">
-      <img class="p-col-4" [src]="review.images[2]" alt="">
-    </div>
-    <button
-      *ngIf="userIsAdmin"
-      pButton
-      class="p-button-secondary" 
-      label="Reply">
+
+    <p-carousel *ngIf="review.images.length" [value]="review.images" class="review-images">
+      <ng-template let-image pTemplate="item">
+        <img [src]="image" alt="Review image" />
+      </ng-template>
+    </p-carousel>
+
+    <button *ngIf="userIsAdmin" pButton class="p-button-secondary" label="Reply">
     </button>
   </div>
 </div>

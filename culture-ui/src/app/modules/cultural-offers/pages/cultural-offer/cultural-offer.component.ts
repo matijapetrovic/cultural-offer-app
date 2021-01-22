@@ -64,7 +64,7 @@ export class CulturalOfferComponent implements OnInit {
     this.authenticationService.currentUser.subscribe(user => {
       // user iz nepoznatog razloga nema prototip User, nego objekat iz localStorage-a
       // te je zato user.role niz, a ne string
-      console.log(user);
+      // console.log(user);
       this.updateSubscribed(user);
 
       this.userIsRegular = user && user.role[0] === Role.User;
@@ -73,6 +73,10 @@ export class CulturalOfferComponent implements OnInit {
 
   showAddReviewForm(): void {
     this.ref = this.dialogService.open(AddReviewForOfferComponent, {
+
+      data: {
+        culturalOfferId: this.culturalOfferId
+      },
       header: 'Add review',
       width: '30%',
       dismissableMask: true
@@ -87,7 +91,7 @@ export class CulturalOfferComponent implements OnInit {
 
   updateSubscribed(user: User): void {
     // videti napomenu u metodi iznad
-    console.log(user);
+    // console.log(user);
 
     if (user === null || user.role[0] === Role.Admin) {
       this.subscribed = null;
@@ -171,7 +175,7 @@ export class CulturalOfferComponent implements OnInit {
       accept: () => {
         this.subscribe();
       },
-      reject: () => {}
+      reject: () => { }
     });
   }
 
@@ -183,7 +187,7 @@ export class CulturalOfferComponent implements OnInit {
       accept: () => {
         this.unsubscribe();
       },
-      reject: () => {}
+      reject: () => { }
     });
   }
 
