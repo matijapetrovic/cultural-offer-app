@@ -22,6 +22,7 @@ export class OfferMapSearchLocationComponent implements OnInit {
   }
 
   submitForm(): void {
+    console.log(this.searchForm.value.location);
     this.submit.emit(this.searchForm.value.location);
     this.searchForm.reset();
   }

@@ -10,7 +10,7 @@
   <div class="p-col-6 p-d-flex p-flex-column">
     <div class="p-as-start p-mb-5" style="width:100%">
       <app-offer-map-search-location
-        (onSubmit)="searchLocation($event)"
+        (submit)="searchLocation($event)"
       >
       </app-offer-map-search-location>
     </div>
@@ -33,13 +33,14 @@
           [paginator]="true" 
           [rows]="7"
           filterBy="name"
+          class="offer-filter-table"
         >
           <ng-template pTemplate="header">
               <i class="pi pi-search" style="margin-right:10px"></i>
               <input type="search" pInputText placeholder="Search by Name" (input)="dv.filter($event.target.value)">
           </ng-template>
           <ng-template let-offer pTemplate="listItem">
-              <div class="p-col-12" style="font-size: 20px; padding: 10px 0">
+              <div class="offer-filter-item p-col-12" style="font-size: 20px; padding: 10px 0">
                   <a [routerLink]="['/cultural-offers', offer.id]">{{ offer.name }}</a> | {{ offer.location.address }}
               </div>
           </ng-template>

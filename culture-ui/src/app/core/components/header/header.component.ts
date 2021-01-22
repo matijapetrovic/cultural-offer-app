@@ -19,45 +19,53 @@ export class HeaderComponent implements OnInit {
     {
       label: 'Home',
       icon: 'pi pi-home',
-      routerLink: ['']
+      routerLink: [''],
+      id: 'home-nav-link'
     },
     {
       label: 'Map',
       icon: 'pi pi-map',
-      routerLink: ['/map']
+      routerLink: ['/map'],
+      id: 'map-nav-link'
     }
   ];
 
   userItems: MenuItem[] = [
     {
       label: 'Dashboard',
-      routerLink: ['/dashboard']
+      routerLink: ['/dashboard'],
+      id: 'dashboard-nav-link'
     }
   ];
 
   adminItems: MenuItem[] = [
     {
       label: 'Categories',
-      routerLink: ['/categories']
+      routerLink: ['/categories'],
+      id: 'categories-nav-link'
     },
     {
       label: 'Subcategories',
-      routerLink: ['/subcategories']
+      routerLink: ['/subcategories'],
+      id: 'subcategories-nav-link'
     },
     {
       label: 'News',
-      routerLink: ['news']
+      routerLink: ['news'],
+      id: 'news-nav-link'
     }
   ];
 
   unauthenticatedItems: MenuItem[] = [
     {
       label: 'Log in',
-      routerLink: ['/auth/login']
+      routerLink: ['/auth/login'],
+      id: 'login-nav-link'
     },
     {
       label: 'Register',
-      routerLink: ['/auth/register']
+      routerLink: ['/auth/register'],
+      id: 'register-nav-link'
     }
   ];
 
