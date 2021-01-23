@@ -15,7 +15,24 @@
       </ng-template>
     </p-carousel>
 
-    <button *ngIf="userIsAdmin" pButton class="p-button-secondary" label="Reply">
-    </button>
+
+
+    <div *ngIf="review.reply != null;then showReply else showAddReplyButton"></div>
+
+    <ng-template #showReply>
+      <div class="review-items">
+        <div style="margin-bottom: 20px">
+          <h2>Reply</h2>
+          <hr />
+          <app-review-reply-item [reply]="review.reply"></app-review-reply-item>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #showAddReplyButton>
+      <button *ngIf="userIsAdmin" pButton class="p-button-secondary" label="Reply">
+      </button>
+    </ng-template>
+
   </div>
 </div>

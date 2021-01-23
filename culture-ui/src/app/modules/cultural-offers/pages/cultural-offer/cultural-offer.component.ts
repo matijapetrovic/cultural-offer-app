@@ -71,7 +71,7 @@ export class CulturalOfferComponent implements OnInit {
   showAddReviewForm(): void {
 
     // TODO: Ovde menjati dijalog
-    this.ref = this.dialogService.open(AddReviewComponent, {
+    this.ref = this.dialogService.open(AddReviewForOfferComponent, {
 
       data: {
         culturalOfferId: this.culturalOfferId
@@ -83,6 +83,7 @@ export class CulturalOfferComponent implements OnInit {
 
     this.ref.onClose.subscribe(submitted => {
       if (submitted) {
+        this.getCulturalOffer();
         this.getReviews();
       }
     });
@@ -97,15 +98,15 @@ export class CulturalOfferComponent implements OnInit {
   }
 
   getCulturalOffer(): void {
-    this.culturalOffersService.getCulturalOffer(this.culturalOfferId).subscribe(culturalOffer =>  {
+    this.culturalOffersService.getCulturalOffer(this.culturalOfferId).subscribe(culturalOffer => {
       this.culturalOffer = culturalOffer;
       this.mapOptions = {
-        center: {lat: culturalOffer.latitude, lng: culturalOffer.longitude},
+        center: { lat: culturalOffer.latitude, lng: culturalOffer.longitude },
         zoom: 9
       };
       this.mapOverlays = [
         new google.maps.Marker({
-          position: {lat: culturalOffer.latitude, lng: culturalOffer.longitude },
+          position: { lat: culturalOffer.latitude, lng: culturalOffer.longitude },
           title: culturalOffer.name
         })
       ];
@@ -114,7 +115,9 @@ export class CulturalOfferComponent implements OnInit {
 
   getReviews(): void {
     this.reviewsService.getReviews(this.culturalOfferId, this.currentReviewsPage, this.reviewsLimit)
-      .subscribe(reviewPage => this.reviewPage = reviewPage);
+      .subscribe(reviewPage => {
+        this.reviewPage = reviewPage;
+      });
   }
 
   getNews(): void {
@@ -154,14 +157,14 @@ export class CulturalOfferComponent implements OnInit {
 
   confirmSubscribe(event: Event): void {
     this.confirmationService.confirm({
-        target: event.target,
-        message: 'Are you sure that you want to subscribe to this offer?',
-        icon: 'pi pi-exclamation-triangle',
-        accept: () => {
-            this.subscribe();
-        },
-        reject: () => {
-        }
+      target: event.target,
+      message: 'Are you sure that you want to subscribe to this offer?',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.subscribe();
+      },
+      reject: () => {
+      }
     });
   }
 
@@ -171,7 +174,7 @@ export class CulturalOfferComponent implements OnInit {
       message: 'Are you sure that you want to unsubscribe from this offer?',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-          this.unsubscribe();
+        this.unsubscribe();
       },
       reject: () => {
       }
@@ -181,7 +184,7 @@ export class CulturalOfferComponent implements OnInit {
   subscribe(): void {
     this.culturalOffersService.subscribeToCulturalOffer(this.culturalOfferId).subscribe(() => {
       this.subscribed = true;
-      this.messageService.add({severity: 'success', summary: 'Subscription successful', detail: 'You have successfully subscribed to this cultural offer\'s newsletter'});
+      this.messageService.add({ severity: 'success', summary: 'Subscription successful', detail: 'You have successfully subscribed to this cultural offer\'s newsletter' });
       setTimeout(() => this.messageService.clear(), 2000);
     });
   }
@@ -189,7 +192,7 @@ export class CulturalOfferComponent implements OnInit {
   unsubscribe(): void {
     this.culturalOffersService.unsubscribeFromCulturalOffer(this.culturalOfferId).subscribe(() => {
       this.subscribed = false;
-      this.messageService.add({severity: 'success', summary: 'Unsubscription successful', detail: 'You have successfully unsubscribed to this cultural offer\'s newsletter'});
+      this.messageService.add({ severity: 'success', summary: 'Unsubscription successful', detail: 'You have successfully unsubscribed to this cultural offer\'s newsletter' });
       setTimeout(() => this.messageService, 2000);
     });
   }

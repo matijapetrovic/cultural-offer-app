@@ -8,10 +8,17 @@ import { CulturalOffersRoutingModule } from './cultural-offers-routing.module';
 import { OfferReviewItemComponent } from './components/offer-review-item/offer-review-item.component';
 import { OfferNewsItemComponent } from './components/offer-news-item/offer-news-item.component';
 import { AddReviewForOfferComponent } from './components/add-review-for-offer/add-review-for-offer.component';
+import { ReviewReplyItemComponent } from './components/review-reply-item/review-reply-item.component';
 
 
 @NgModule({
-  declarations: [CulturalOfferComponent, OfferReviewItemComponent, OfferNewsItemComponent, AddReviewForOfferComponent],
+  declarations: [
+    CulturalOfferComponent,
+    OfferReviewItemComponent,
+    OfferNewsItemComponent,
+    AddReviewForOfferComponent,
+    ReviewReplyItemComponent
+  ],
   imports: [
     CommonModule,
     CulturalOffersRoutingModule,

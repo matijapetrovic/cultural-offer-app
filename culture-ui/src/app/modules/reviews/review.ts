@@ -5,6 +5,7 @@ export interface Review {
   author: ReviewAuthor;
   comment: string;
   images: string[];
+  reply?: Reply;
 }
 
 export interface ReviewAuthor {
@@ -22,4 +23,15 @@ export interface ReviewToAdd {
   comment: string;
   rating: number;
   images: number[];
+}
+
+export interface Reply {
+  comment: string;
+  author: ReplyAuthor;
+}
+
+export interface ReplyAuthor {
+  id: number;
+  firstName: string;
+  lastName: string;
 }

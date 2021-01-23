@@ -44,8 +44,7 @@ export class AddReviewComponent implements OnInit {
 
     this.imagesToAdd = new FormData();
 
-    for (let i = 0; i < event.currentFiles.length; i++) {
-      const image = event.currentFiles[i];
+    for (const image of event.currentFiles) {
       this.imagesToAdd.append('images', image);
     }
 
