@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { AuthenticationService } from 'src/app/modules/authentication/authentication.service';
@@ -70,7 +70,6 @@ export class CulturalOfferComponent implements OnInit {
 
   showAddReviewForm(): void {
 
-    // TODO: Ovde menjati dijalog
     this.ref = this.dialogService.open(AddReviewForOfferComponent, {
 
       data: {
@@ -81,11 +80,14 @@ export class CulturalOfferComponent implements OnInit {
       dismissableMask: true
     });
 
-    this.ref.onClose.subscribe(submitted => {
-      if (submitted) {
+    this.ref.onClose.subscribe((reviewAddedEvent: EventEmitter<void>) => {
+      reviewAddedEvent.subscribe(() => {
         this.getCulturalOffer();
         this.getReviews();
-      }
+      },
+        error => {
+          console.log(error.error);
+        });
     });
   }
 
