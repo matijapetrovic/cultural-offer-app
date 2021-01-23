@@ -23,7 +23,7 @@
         <p-table
           #dt 
           *ngIf="culturalOffersPage"
-          [value]="subcategoriesPage.data"
+          [value]="culturalOffersPage.data"
           [editable]="true"  [paginator]="false" [rows]="10" [responsive]="true"
           [showCurrentPageReport]="true"
           styleClass="p-datatable-categoriesPage p-datatable-gridlines"
@@ -42,13 +42,17 @@
         <ng-template pTemplate="header">
           <tr>
             <th>Name</th>
+            <th>Subcategory</th>
             <th>Actions</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-culturalOffer>
-          <tr ng-repeat="(culturalOffer.name) in culturalOffersPage.data">
+          <tr ng-repeat="(culturalOffer) in culturalOffersPage.data">
             <td>
               {{culturalOffer.name}}
+            </td>
+            <td>
+              {{culturalOffer.subcategory}}
             </td>
             <td>
               <div class="p-grid p-justify-center">

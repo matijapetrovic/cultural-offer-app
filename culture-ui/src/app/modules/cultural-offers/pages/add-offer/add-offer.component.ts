@@ -31,6 +31,7 @@ export class AddOfferComponent implements OnInit {
     ngOnInit(): void {
         this.addForm = this.formBuilder.group({
             name: ['', Validators.required],
+            description: ['', Validators.required]
         });
     }
 
@@ -60,6 +61,9 @@ export class AddOfferComponent implements OnInit {
 
     invalidFormInputs(): boolean {
         if (this.f.name.value === '' || this.f.name.value === null) {
+            return true;
+        }
+        if (this.f.description.value === '' || this.f.description.value === null) {
             return true;
         }
         return false;

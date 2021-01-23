@@ -1,21 +1,56 @@
 <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
     <div class="p-grid p-px-6 form-group">
       <div class="p-px-5"></div>
-        <span class="p-field p-col p-mt-4 p-grid">
-          <label
-            class="p-justify-left p-col-2">
-            Name: 
-          </label>
-          <div>
+        <table>
+          <tr>
+            <label>
+              Name:
+            </label>
+          </tr>
+          <tr>
             <input 
               type="name"
               autocomplete="off"
               pInputText
               formControlName="name"
-              class="form-control "
+              [cols]="24"
+              class="form-control"
               [ngClass]="{ 'is-invalid': submitted && f.name.errors}">
-          </div>
-        </span>
+          </tr>
+          <tr></tr>
+          <tr>
+            <label
+              class="p-justify-left p-col-2">
+              Description: 
+            </label>
+          </tr>
+          <tr>
+            <textarea
+              formControlName="description"
+              class="form-control"
+              [rows]="5" 
+              [cols]="24"
+              [ngClass]="{ 'is-invalid': submitted && f.description.errors}"
+              pInputTextarea>
+            </textarea>
+          </tr>
+          <tr></tr>
+          <tr>
+            <label
+              class="p-justify-left p-col-2">
+              Subcategory: 
+            </label>
+          </tr>
+          <tr>
+            <p-dropdown
+              inputId="subcategory"
+              [options]="subcategories"
+              optionLabel="name"
+              (onChange)="categoryChanged($event.value)"
+              placeholder="Select a category"
+            >
+          </tr>
+        </table>
       </div>
     <div class="p-grid p-px-5 p-mt-6 p-justify-center">
       <button

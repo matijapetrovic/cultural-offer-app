@@ -36,7 +36,7 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient, private router: Router, httpErrorHandler: HttpErrorHandler) {
     this.handleError = httpErrorHandler.createHandleError('AuthenticationService');
-    this.currentUserSubject = new BehaviorSubject<User>(this.getUserFromLoca
+    this.currentUserSubject = new BehaviorSubject<User>(this.getUserFromLocalStorage());
     this.currentUser = this.currentUserSubject.asObservable();
   }
 

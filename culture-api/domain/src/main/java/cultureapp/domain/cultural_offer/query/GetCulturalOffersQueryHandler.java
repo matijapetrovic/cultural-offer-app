@@ -3,6 +3,7 @@ package cultureapp.domain.cultural_offer.query;
 import cultureapp.domain.core.validation.SelfValidating;
 import cultureapp.domain.cultural_offer.CulturalOffer;
 import cultureapp.domain.image.Image;
+import cultureapp.domain.subcategory.query.GetSubcategoriesQueryHandler;
 import lombok.*;
 import org.springframework.data.domain.Slice;
 
@@ -33,6 +34,8 @@ public interface GetCulturalOffersQueryHandler {
         }
     }
 
+
+
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @Getter
     class GetCulturalOffersDTO {
@@ -41,7 +44,7 @@ public interface GetCulturalOffersQueryHandler {
         String description;
         Double longitude;
         Double latitude;
-        String subcategory;
+        GetSubcategoriesQueryHandler.GetSubcategoriesDTO subcategory;
         List<String> images;
 
         public static GetCulturalOffersDTO of(CulturalOffer offer) {
@@ -51,7 +54,7 @@ public interface GetCulturalOffersQueryHandler {
                     offer.getDescription(),
                     offer.getLocation().getLongitude(),
                     offer.getLocation().getLatitude(),
-                    offer.getSubcategory().getName(),
+                    GetSubcategoriesQueryHandler.GetSubcategoriesDTO.of(offer.getSubcategory()),
                     offer.getImages().stream().map(Image::getUrl).collect(Collectors.toList()));
         }
     }

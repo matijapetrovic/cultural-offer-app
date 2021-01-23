@@ -5,6 +5,7 @@ export interface CulturalOffer {
   id: number;
   name: string;
   description: string;
+  subcategory: Subcategory;
   rating: number;
   reviewCount: number;
   images: Array<string>;
