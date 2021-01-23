@@ -10,7 +10,7 @@
   <div class="p-col-6 p-d-flex p-flex-column">
     <div class="p-as-start p-mb-5" style="width:100%">
       <app-offer-map-search-location
-        (submit)="searchLocation($event)"
+        (submitted)="searchLocation($event)"
       >
       </app-offer-map-search-location>
     </div>
@@ -19,7 +19,7 @@
         [categories]="categories"
         [subcategories]="subcategories"
         (categorySelected)="getSubcategories($event)"
-        (submit)="updateFilters($event)"
+        (submitted)="updateFilters($event)"
         (reset)="resetFilters()"
       >
       </app-offer-map-filter-form>

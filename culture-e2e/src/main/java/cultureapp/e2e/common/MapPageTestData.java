@@ -1,4 +1,4 @@
-package cultureapp.common;
+package cultureapp.e2e.common;
 
 public class MapPageTestData {
     public static int START_OFFER_COUNT = 3;

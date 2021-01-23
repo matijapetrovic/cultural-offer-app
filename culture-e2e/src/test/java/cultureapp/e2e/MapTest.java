@@ -1,6 +1,8 @@
 package cultureapp.e2e;
 
-import cultureapp.e2e.pages.HomePage;
+import cultureapp.e2e.exception.SelectDropdownNotOpen;
+import cultureapp.e2e.pages.home.FilterForm;
+import cultureapp.e2e.pages.home.HomePage;
 import cultureapp.e2e.pages.NavigationBar;
 import org.junit.After;
 import org.junit.Before;
@@ -9,16 +11,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
 
-import static cultureapp.common.MapPageTestData.*;
+import static cultureapp.e2e.common.MapPageTestData.*;
 import static cultureapp.e2e.Util.APP_URL;
 import static cultureapp.e2e.Util.CHROME_DRIVER_PATH;
-import static org.junit.Assert.assertTrue;
 
 public class MapTest {
     private WebDriver browser;
 
     private HomePage homePage;
-    private NavigationBar navigationBar;
 
     @Before
     public void setupSelenium() {
@@ -28,7 +28,6 @@ public class MapTest {
         browser.navigate().to(APP_URL);
 
         homePage = PageFactory.initElements(browser, HomePage.class);
-        navigationBar = PageFactory.initElements(browser, NavigationBar.class);
     }
 
     @After
@@ -37,62 +36,96 @@ public class MapTest {
     }
 
     @Test
-    public void filterByCategoryWithResults() {
+    public void filterByCategoryWithResults() throws SelectDropdownNotOpen {
         homePage.ensureIsDisplayed();
-        homePage.ensureIsOfferCount(START_OFFER_COUNT);
-        homePage.getFilterFormCategorySelect().click();
-        homePage.ensureIsSelectCategoryCount(FILTER_CATEGORY_COUNT);
+        homePage.getOffersList().ensureIsOfferCount(START_OFFER_COUNT);
 
-        homePage.chooseFilterFormCategory(1).click();
+        FilterForm filterForm = homePage.getFilterForm();
+        filterForm.getCategorySelect().toggle();
+        filterForm.getCategorySelect().ensureDropdownItemCount(FILTER_CATEGORY_COUNT);
+        filterForm.getCategorySelect().chooseFromDropdown(1);
+        filterForm.submit();
 
-        homePage.getFilterFormSubmitButton().click();
-        homePage.ensureIsOfferCount(FILTER_CATEGORY_1_OFFER_COUNT);
+        homePage.getOffersList().ensureIsOfferCount(FILTER_CATEGORY_1_OFFER_COUNT);
     }
 
     @Test
-    public void filterByCategoryAndSubcategoryWithResults() {
+    public void filterByCategoryAndSubcategoryWithResults() throws SelectDropdownNotOpen {
         homePage.ensureIsDisplayed();
-        homePage.ensureIsOfferCount(START_OFFER_COUNT);
-        homePage.getFilterFormCategorySelect().click();
-        homePage.ensureIsSelectCategoryCount(FILTER_CATEGORY_COUNT);
+        homePage.getOffersList().ensureIsOfferCount(START_OFFER_COUNT);
 
-        homePage.chooseFilterFormCategory(1).click();
-        homePage.getFilterFormSubcategorySelect().click();
-        homePage.ensureIsSelectSubcategoryCount(FILTER_CATEGORY_1_SUBCATEGORY_COUNT);
+        FilterForm filterForm = homePage.getFilterForm();
 
-        homePage.chooseFilterFormSubcategory(1).click();
+        filterForm.getCategorySelect().toggle();
+        filterForm.getCategorySelect().ensureDropdownItemCount(FILTER_CATEGORY_COUNT);
+        filterForm.getCategorySelect().chooseFromDropdown(1);
 
-        homePage.getFilterFormSubmitButton().click();
-        homePage.ensureIsOfferCount(FILTER_CATEGORY_1_SUBCATEGORY_1_OFFER_COUNT);
+        filterForm.getSubcategorySelect().toggle();
+        filterForm.getSubcategorySelect().ensureDropdownItemCount(FILTER_CATEGORY_1_SUBCATEGORY_COUNT);
+        filterForm.getSubcategorySelect().chooseFromDropdown(1);
+
+        filterForm.submit();
+
+        homePage.getOffersList().ensureIsOfferCount(FILTER_CATEGORY_1_SUBCATEGORY_1_OFFER_COUNT);
     }
 
     @Test
-    public void filterByCategoryAndSubcategoryWithoutResults() {
+    public void filterByCategoryAndSubcategoryWithoutResults() throws SelectDropdownNotOpen {
         homePage.ensureIsDisplayed();
-        homePage.ensureIsOfferCount(START_OFFER_COUNT);
+        homePage.getOffersList().ensureIsOfferCount(START_OFFER_COUNT);
 
-        homePage.getFilterFormCategorySelect().click();
-        homePage.ensureIsSelectCategoryCount(FILTER_CATEGORY_COUNT);
+        FilterForm filterForm = homePage.getFilterForm();
 
-        homePage.chooseFilterFormCategory(1).click();
-        homePage.getFilterFormSubcategorySelect().click();
-        homePage.ensureIsSelectSubcategoryCount(FILTER_CATEGORY_1_SUBCATEGORY_COUNT);
+        filterForm.getCategorySelect().toggle();
+        filterForm.getCategorySelect().ensureDropdownItemCount(FILTER_CATEGORY_COUNT);
+        filterForm.getCategorySelect().chooseFromDropdown(1);
 
-        homePage.chooseFilterFormSubcategory(2).click();
+        filterForm.getSubcategorySelect().toggle();
+        filterForm.getSubcategorySelect().ensureDropdownItemCount(FILTER_CATEGORY_1_SUBCATEGORY_COUNT);
+        filterForm.getSubcategorySelect().chooseFromDropdown(2);
 
-        homePage.getFilterFormSubmitButton().click();
-        homePage.ensureIsOfferCount(FILTER_CATEGORY_1_SUBCATEGORY_2_OFFER_COUNT);
+        filterForm.submit();
+
+        homePage.getOffersList().ensureIsOfferCount(FILTER_CATEGORY_1_SUBCATEGORY_2_OFFER_COUNT);
+    }
+
+    @Test
+    public void resetFilterForm() throws SelectDropdownNotOpen {
+        homePage.ensureIsDisplayed();
+        homePage.getOffersList().ensureIsOfferCount(START_OFFER_COUNT);
+
+        FilterForm filterForm = homePage.getFilterForm();
+        filterForm.getCategorySelect().toggle();
+        filterForm.getCategorySelect().ensureDropdownItemCount(FILTER_CATEGORY_COUNT);
+        filterForm.getCategorySelect().chooseFromDropdown(1);
+
+        filterForm.submit();
+        filterForm.reset();
+
+        homePage.getOffersList().ensureIsOfferCount(START_OFFER_COUNT);
     }
 
     @Test
     public void searchValidLocation() {
         homePage.ensureIsDisplayed();
-        homePage.ensureIsOfferCount(START_OFFER_COUNT);
+        homePage.getOffersList().ensureIsOfferCount(START_OFFER_COUNT);
 
-        homePage.getSearchLocationFormLocationInput().sendKeys(SEARCH_VALID_LOCATION);
-        homePage.getSearchLocationFormSubmitButton().click();
+        homePage.getSearchLocationForm().getLocationInput().sendKeys(SEARCH_VALID_LOCATION);
+        homePage.getSearchLocationForm().submit();
 
-        homePage.ensureIsOfferCount(SEARCH_VALID_LOCATION_OFFER_COUNT);
+        homePage.getOffersList().ensureIsOfferCount(SEARCH_VALID_LOCATION_OFFER_COUNT);
+    }
+
+    @Test
+    public void searchInvalidLocation() {
+        homePage.ensureIsDisplayed();
+        homePage.getOffersList().ensureIsOfferCount(START_OFFER_COUNT);
+
+        homePage.getSearchLocationForm().getLocationInput().sendKeys(SEARCH_INVALID_LOCATION);
+        homePage.getSearchLocationForm().submit();
+
+        homePage.ensureToastIsDisplayed();
+        homePage.getOffersList().ensureIsOfferCount(START_OFFER_COUNT);
     }
 
 }

@@ -10,7 +10,7 @@ export class OfferMapSearchLocationComponent implements OnInit {
   searchForm: FormGroup;
 
   @Output()
-  submit = new EventEmitter<string>();
+  submitted = new EventEmitter<string>();
 
   constructor() {
     this.searchForm = new FormGroup({
@@ -22,8 +22,7 @@ export class OfferMapSearchLocationComponent implements OnInit {
   }
 
   submitForm(): void {
-    console.log(this.searchForm.value.location);
-    this.submit.emit(this.searchForm.value.location);
+    this.submitted.emit(this.searchForm.value.location);
     this.searchForm.reset();
   }
 }

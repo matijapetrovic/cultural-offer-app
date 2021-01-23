@@ -76,7 +76,6 @@ export class HeaderComponent implements OnInit {
   }
 
   updateItems(user: User): void {
-    console.log(user);
     if (!!user) {
       this.authenticated = true;
       if (user.role.includes(Role.ROLE_ADMIN)) {
