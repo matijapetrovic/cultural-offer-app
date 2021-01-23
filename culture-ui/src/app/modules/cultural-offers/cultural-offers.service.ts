@@ -67,7 +67,6 @@ export class CulturalOffersService {
   }
 
   getCulturalOfferLocations(locationRange: LocationRange, categoryId: number, subcategoryId: number): Observable<CulturalOfferLocation[]> {
-    console.log(categoryId);
     let params: HttpParams =
       new HttpParams()
         .append('latitudeFrom', locationRange.latitudeFrom.toString())

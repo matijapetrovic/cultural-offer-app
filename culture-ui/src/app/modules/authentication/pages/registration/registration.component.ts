@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../authentication.service';
 
 @Component({
@@ -18,9 +17,7 @@ export class RegistrationComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService
-    ) {
-
-     }
+    ) { }
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
@@ -50,7 +47,6 @@ export class RegistrationComponent implements OnInit {
         password: this.f.password.value
       })
       .subscribe();
-    this.removeFormInputs();
   }
 
   usernameMessage(): string {
