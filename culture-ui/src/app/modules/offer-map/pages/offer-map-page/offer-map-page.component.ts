@@ -61,8 +61,8 @@ export class OfferMapPageComponent implements OnInit {
     this.subcategoriesService.getSubcategoryNames(category.id).subscribe(subcategories => this.subcategories = subcategories);
   }
 
-  searchLocation(event: string): void {
-    this.geolocationService.geocode(event).subscribe(
+  searchLocation(location: string): void {
+    this.geolocationService.geocode(location).subscribe(
       (locationRange) => {
         this.locationRange = locationRange;
         this.getCulturalOfferLocations();
@@ -70,7 +70,7 @@ export class OfferMapPageComponent implements OnInit {
       (error) => {
         if (error.message) {
           this.messageService.add({severity: 'warn', summary: 'Error!', detail: error.message});
-          setTimeout(() => this.messageService.clear(), 2000);
+          
         }
       });
   }

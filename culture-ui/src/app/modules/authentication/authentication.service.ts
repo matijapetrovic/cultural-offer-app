@@ -28,8 +28,9 @@ export class AuthenticationService {
 
   private getUserFromLocalStorage(): User {
     const user = JSON.parse(localStorage.getItem('currentUser'));
-    if (!user)
+    if (!user) {
       return null;
+    }
     user.role = user.role.map((role: string) => Role[role]);
     return user;
   }

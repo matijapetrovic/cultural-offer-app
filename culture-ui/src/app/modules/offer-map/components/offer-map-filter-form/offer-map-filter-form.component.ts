@@ -18,7 +18,7 @@ export class OfferMapFilterFormComponent implements OnInit {
   categorySelected = new EventEmitter<Category>();
 
   @Output()
-  submit = new EventEmitter<CulturalOfferLocationsFilter>();
+  submitted = new EventEmitter<CulturalOfferLocationsFilter>();
 
   @Output()
   reset = new EventEmitter<void>();
@@ -52,7 +52,7 @@ export class OfferMapFilterFormComponent implements OnInit {
     const result: CulturalOfferLocationsFilter = Object.assign({}, this.filterForm.value);
     result.category = Object.assign({}, result.category);
     result.subcategory = Object.assign({}, result.subcategory);
-    this.submit.emit(result);
+    this.submitted.emit(result);
   }
 
 }

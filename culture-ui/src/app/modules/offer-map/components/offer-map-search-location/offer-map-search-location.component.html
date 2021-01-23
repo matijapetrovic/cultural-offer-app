@@ -5,7 +5,7 @@
           <span class="p-float-label">
             <input type="text"
               pInputText 
-              id="location"
+              id="search-location-input"
               formControlName="location"
             />
             <label for="location">Location</label>
@@ -15,6 +15,7 @@
             <button
                 pButton
                 [disabled]="searchForm.pristine"
+                id="submit-search-location"
                 label="Search"
                 type="submit"
             ></button>
