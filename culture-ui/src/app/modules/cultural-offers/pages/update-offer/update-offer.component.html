@@ -1,0 +1,17 @@
+<form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+    <div class="p-grid p-px-6 form-group">
+      <div class="p-px-5"></div>
+      <span class="p-field p-col p-mt-4 p-grid">
+        <label class="p-justify-left p-col-2">
+          Name:
+        </label>
+        <div>
+          <input type="name" [(ngModel)]="offer.name" autocomplete="off" pInputText formControlName="name" class="form-control "
+            [ngClass]="{ 'is-invalid': submitted && f.name.errors}">
+        </div>
+      </span>
+    </div>
+    <div class="p-grid p-px-5 p-mt-6 p-justify-center">
+      <button [disabled]="invalidFormInputs()" type="submit" class="p-button" label="Update" pButton></button>
+    </div>
+  </form>

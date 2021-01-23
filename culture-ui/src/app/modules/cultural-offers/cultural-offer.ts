@@ -35,3 +35,8 @@ export interface CulturalOfferLocationsFilter {
   category: Category;
   subcategory: Subcategory;
 }
+
+export interface CulturalOffersPage {
+  data: CulturalOffer[];
+  links: Map<string, string>;
+}
