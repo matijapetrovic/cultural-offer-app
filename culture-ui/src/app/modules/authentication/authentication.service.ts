@@ -28,15 +28,26 @@ export class AuthenticationService {
 
   private getUserFromLocalStorage(): User {
     const user = JSON.parse(localStorage.getItem('currentUser'));
+<<<<<<< HEAD
+    if (!user) {
+      return null;
+    }
+=======
     if (!user)
       return null;
+>>>>>>> master
     user.role = user.role.map((role: string) => Role[role]);
     return user;
   }
 
   constructor(private http: HttpClient, private router: Router, httpErrorHandler: HttpErrorHandler) {
     this.handleError = httpErrorHandler.createHandleError('AuthenticationService');
+<<<<<<< HEAD
+    
+    this.currentUserSubject = new BehaviorSubject<User>(this.getUserFromLocalStorage());
+=======
     this.currentUserSubject = new BehaviorSubject<User>(this.getUserFromLoca
+>>>>>>> master
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
