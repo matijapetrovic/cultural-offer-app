@@ -51,11 +51,11 @@ describe('AuthenticationService', () => {
       password: 'password',
       firstName: 'A',
       lastName: 'A',
-      role: Role.User
+      role: Array<Role.ROLE_USER>()
     };
     const currentUserSubjectMock: BehaviorSubject<User> = new BehaviorSubject<User>(mockUserSubject);
     spyOn<any>(service, 'currentUserValue').and.returnValue(mockUserSubject);
-    service.currentUserSubject = currentUserSubjectMock;
+    service['currentUserSubject'] = currentUserSubjectMock;
     const user = service.currentUserValue;
     tick();
 
@@ -86,7 +86,7 @@ describe('AuthenticationService', () => {
       password: 'password',
       firstName: 'A',
       lastName: 'A',
-      role: Role.User
+      role: Array<Role.ROLE_USER>()
     };
 
     spyOn<any>(service, 'currentUserValue').and.returnValue(mockUserSubject);
@@ -118,7 +118,7 @@ describe('AuthenticationService', () => {
       password: 'password',
       firstName: 'A',
       lastName: 'A',
-      role: Role.User
+      role: Array<Role.ROLE_USER>()
     };
 
     spyOn(service, 'login').and.callThrough();
