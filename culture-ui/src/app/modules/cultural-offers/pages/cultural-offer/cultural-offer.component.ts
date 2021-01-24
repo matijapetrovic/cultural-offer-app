@@ -11,7 +11,6 @@ import { ReviewPage } from 'src/app/modules/reviews/review';
 import { ReviewsService } from 'src/app/modules/reviews/reviews.service';
 import { CulturalOffer } from '../../cultural-offer';
 import { DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
-import { AddReviewForOfferComponent } from '../../components/add-review-for-offer/add-review-for-offer.component';
 import { AddReviewComponent } from 'src/app/modules/reviews/components/add-review/add-review/add-review.component';
 
 @Component({
@@ -70,7 +69,7 @@ export class CulturalOfferComponent implements OnInit {
 
   showAddReviewForm(): void {
 
-    this.ref = this.dialogService.open(AddReviewForOfferComponent, {
+    this.ref = this.dialogService.open(AddReviewComponent, {
 
       data: {
         culturalOfferId: this.culturalOfferId

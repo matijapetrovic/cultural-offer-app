@@ -7,11 +7,10 @@ import { CulturalOfferComponent } from './pages/cultural-offer/cultural-offer.co
 import { CulturalOffersRoutingModule } from './cultural-offers-routing.module';
 import { OfferReviewItemComponent } from './components/offer-review-item/offer-review-item.component';
 import { OfferNewsItemComponent } from './components/offer-news-item/offer-news-item.component';
-import { AddReviewForOfferComponent } from './components/add-review-for-offer/add-review-for-offer.component';
 import { ReviewReplyItemComponent } from './components/review-reply-item/review-reply-item.component';
 import { AddReplyForOfferComponent } from './components/add-reply-for-offer/add-reply-for-offer.component';
-import { AddReviewComponent } from '../reviews/components/add-review/add-review/add-review.component';
 import { ReviewsModule } from '../reviews/reviews.module';
+import { RepliesModule } from '../replies/replies.module';
 
 
 @NgModule({
@@ -19,7 +18,6 @@ import { ReviewsModule } from '../reviews/reviews.module';
     CulturalOfferComponent,
     OfferReviewItemComponent,
     OfferNewsItemComponent,
-    AddReviewForOfferComponent,
     ReviewReplyItemComponent,
     AddReplyForOfferComponent
   ],
@@ -28,7 +26,8 @@ import { ReviewsModule } from '../reviews/reviews.module';
     CulturalOffersRoutingModule,
     SharedModule,
     FileUploadModule,
-    ReviewsModule
+    ReviewsModule,
+    RepliesModule
   ]
 })
 export class CulturalOffersModule { }

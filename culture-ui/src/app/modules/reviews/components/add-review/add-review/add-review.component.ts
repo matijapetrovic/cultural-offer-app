@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ReviewsService } from 'src/app/modules/reviews/reviews.service';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -18,6 +18,8 @@ export class AddReviewComponent implements OnInit {
   public addReviewForm: FormGroup;
 
   private imagesToAdd: FormData;
+
+  public reviewAddedEvent: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(
     private reviewsService: ReviewsService,
@@ -53,7 +55,9 @@ export class AddReviewComponent implements OnInit {
   onSubmit(): void {
     this.reviewToAdd = this.addReviewForm.value;
 
-    // not working
+    this.ref.close(this.reviewAddedEvent);
+    this.showProccessMessage();
+
     this.imageService
       .addImages(this.imagesToAdd)
       .subscribe(
@@ -66,30 +70,31 @@ export class AddReviewComponent implements OnInit {
               () => {
                 this.addReviewForm.reset();
 
-                const submitted = true;
-                this.ref.close(submitted);
-              },
-              error => {
-                console.log(error);
+                this.showSuccessMessage();
 
-                const submitted = false;
-                this.ref.close(submitted);
+                this.reviewAddedEvent.emit();
 
-              }
-            );
-        },
-        error => {
-          console.log(error);
-        }
-      );
+              });
+        });
 
+    this.addReviewForm.reset();
+  }
 
+  showProccessMessage(): void {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Your request is beeing processed.',
+      detail: 'Uploading review can take couple of minutes depending of size of images.'
+    });
+    setTimeout(() => this.messageService.clear(), 10000);
+  }
+
+  showSuccessMessage(): void {
     this.messageService.add({
       severity: 'success',
       summary: 'Review successfully added.',
       detail: 'Look for it at the end of reviews.'
     });
-
     setTimeout(() => this.messageService.clear(), 5000);
   }
 }
