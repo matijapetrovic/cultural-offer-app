@@ -35,7 +35,7 @@ public class ReplyService implements AddReplyUseCase {
                 .orElseThrow(() -> new ReviewNotFoundException(command.getReviewId(), command.getCulturalOfferId()));
 
         Account account = authenticationService.getAuthenticated();
-        Administrator admin = adminRepository.findById(account.getId())
+        Administrator admin = adminRepository.findByAccountId(account.getId())
                 .orElseThrow(() -> new AdminNotFoundException(account.getId()));
 
         Reply reply = Reply.of(review, command.getComment(), admin);
