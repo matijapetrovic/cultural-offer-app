@@ -8,8 +8,7 @@ import { SubcategoriesPage, Subcategory } from './subcategory';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type':  'application/json',
-    Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjdWx0dXJlLWFwcCIsInN1YiI6InVzZXIxQGdtYWlsLmNvbSIsImF1ZCI6IndlYiIsImlhdCI6MTYwODA0NzQ4MCwiZXhwIjoxNjA5ODQ3NDgwfQ.ueAGubG7bsyVoaxoFUTlFgzWNMZ-9QpTBBdETc9yLv9lWaAav5yLHSUWWCmWtFkpgQIHntZvej1vuENVLbeghg'
+    'Content-Type': 'application/json'
   })
 };
 
@@ -27,9 +26,9 @@ export class SubcategoriesService {
   deleteSubcategory(subcategory: any): Observable<{}> {
     const url = `${this.subcategoriesUrl}/${subcategory.categoryId}/subcategories/${subcategory.id}`;
     return this.http.delete(url, httpOptions)
-    .pipe(
-      catchError(this.handleError('deleteSubcategory'))
-    );
+      .pipe(
+        catchError(this.handleError('deleteSubcategory'))
+      );
   }
 
   updateSubcategory(subcategory: Subcategory): Observable<Subcategory> {
