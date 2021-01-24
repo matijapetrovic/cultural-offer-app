@@ -22,8 +22,6 @@ export class CategoriesComponent implements OnInit {
   private limit = 5;
   public ref: DynamicDialogRef;
 
-  private tableChanged = true;
-
   constructor(
     private categoriesService: CategoriesService,
     public dialogService: DialogService,
@@ -43,6 +41,9 @@ export class CategoriesComponent implements OnInit {
     this.ref.onClose.subscribe((submitted) => {
       if (submitted) {
         this.getCategories();
+        this.messageService.add({
+          severity: 'success', summary: 'Category adding successful', detail: 'You have successfully added category' });
+        setTimeout(() => this.messageService.clear(), 2000);
       }
     });
   }
@@ -60,6 +61,8 @@ export class CategoriesComponent implements OnInit {
     this.ref.onClose.subscribe((submitted) => {
       if (submitted) {
         this.getCategories();
+        this.messageService.add({ severity: 'success', summary: 'Category updating successful', detail: 'You have successfully updated category' });
+        setTimeout(() => this.messageService.clear(), 2000);
       }
     });
   }
@@ -70,11 +73,10 @@ export class CategoriesComponent implements OnInit {
       header: 'Delete Confirmation',
       icon: 'pi pi-info-circle',
       accept: () => {
-        // this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' });
+        this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have successfuly deleted category!'});
         this.deleteCategory(id);
       },
       reject: () => {
-        // this.messageService.add({ severity: 'info', summary: 'Rejected', detail: 'You have rejected' });
       }
     });
   }

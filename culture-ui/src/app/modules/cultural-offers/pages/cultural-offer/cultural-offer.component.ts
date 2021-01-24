@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { AuthenticationService } from 'src/app/modules/authentication/authentication.service';
@@ -10,11 +10,14 @@ import { NewsService } from 'src/app/modules/news/news.service';
 import { ReviewPage } from 'src/app/modules/reviews/review';
 import { ReviewsService } from 'src/app/modules/reviews/reviews.service';
 import { CulturalOffer } from '../../cultural-offer';
+import { DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
+import { AddReviewComponent } from 'src/app/modules/reviews/components/add-review/add-review.component';
 
 @Component({
   selector: 'app-cultural-offer',
   templateUrl: './cultural-offer.component.html',
-  styleUrls: ['./cultural-offer.component.scss']
+  styleUrls: ['./cultural-offer.component.scss'],
+  providers: [DialogService]
 })
 export class CulturalOfferComponent implements OnInit {
   culturalOffer: CulturalOffer;
@@ -25,7 +28,7 @@ export class CulturalOfferComponent implements OnInit {
   userIsAdmin: boolean;
   subscribed: boolean = null;
 
-  private culturalOfferId: number;
+  culturalOfferId: number;
 
   private currentReviewsPage: number;
   private reviewsLimit = 3;
@@ -37,6 +40,8 @@ export class CulturalOfferComponent implements OnInit {
   mapOverlays: any;
   mapInfoWindow: any;
 
+  private ref: DynamicDialogRef;
+
   constructor(
     private culturalOffersService: CulturalOffersService,
     private reviewsService: ReviewsService,
@@ -44,7 +49,8 @@ export class CulturalOfferComponent implements OnInit {
     private route: ActivatedRoute,
     private confirmationService: ConfirmationService,
     private authenticationService: AuthenticationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private dialogService: DialogService
   ) {
     this.currentReviewsPage = 0;
     this.currentNewsPage = 0;
@@ -63,6 +69,33 @@ export class CulturalOfferComponent implements OnInit {
     });
   }
 
+  showAddReviewForm(): void {
+
+    this.ref = this.dialogService.open(AddReviewComponent, {
+
+      data: {
+        culturalOfferId: this.culturalOfferId
+      },
+      header: 'Add review',
+      width: '30%',
+      dismissableMask: true
+    });
+
+    this.ref.onClose.subscribe((reviewAddedEvent: EventEmitter<void>) => {
+      if (reviewAddedEvent == null) {
+        return;
+      }
+
+      reviewAddedEvent.subscribe(() => {
+        this.getCulturalOffer();
+        this.getReviews();
+      },
+        error => {
+          console.log(error.error);
+        });
+    });
+  }
+
   updateSubscribed(user: User): void {
     if (user === null || user.role.includes(Role.ROLE_ADMIN)) {
       this.subscribed = null;
@@ -72,15 +105,15 @@ export class CulturalOfferComponent implements OnInit {
   }
 
   getCulturalOffer(): void {
-    this.culturalOffersService.getCulturalOffer(this.culturalOfferId).subscribe(culturalOffer =>  {
+    this.culturalOffersService.getCulturalOffer(this.culturalOfferId).subscribe(culturalOffer => {
       this.culturalOffer = culturalOffer;
       this.mapOptions = {
-        center: {lat: culturalOffer.latitude, lng: culturalOffer.longitude},
+        center: { lat: culturalOffer.latitude, lng: culturalOffer.longitude },
         zoom: 9
       };
       this.mapOverlays = [
         new google.maps.Marker({
-          position: {lat: culturalOffer.latitude, lng: culturalOffer.longitude },
+          position: { lat: culturalOffer.latitude, lng: culturalOffer.longitude },
           title: culturalOffer.name
         })
       ];
@@ -89,7 +122,9 @@ export class CulturalOfferComponent implements OnInit {
 
   getReviews(): void {
     this.reviewsService.getReviews(this.culturalOfferId, this.currentReviewsPage, this.reviewsLimit)
-      .subscribe(reviewPage => this.reviewPage = reviewPage);
+      .subscribe(reviewPage => {
+        this.reviewPage = reviewPage;
+      });
   }
 
   getNews(): void {
@@ -148,7 +183,7 @@ export class CulturalOfferComponent implements OnInit {
       message: 'Are you sure that you want to unsubscribe from this offer?',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-          this.unsubscribe();
+        this.unsubscribe();
       },
       acceptButtonStyleClass: 'accept-confirm-button',
       reject: () => {
@@ -160,7 +195,7 @@ export class CulturalOfferComponent implements OnInit {
   subscribe(): void {
     this.culturalOffersService.subscribeToCulturalOffer(this.culturalOfferId).subscribe(() => {
       this.subscribed = true;
-      this.messageService.add({severity: 'success', summary: 'Subscription successful', detail: 'You have successfully subscribed to this cultural offer\'s newsletter'});
+      this.messageService.add({ severity: 'success', summary: 'Subscription successful', detail: 'You have successfully subscribed to this cultural offer\'s newsletter' });
       setTimeout(() => this.messageService.clear(), 2000);
     });
   }
@@ -168,7 +203,7 @@ export class CulturalOfferComponent implements OnInit {
   unsubscribe(): void {
     this.culturalOffersService.unsubscribeFromCulturalOffer(this.culturalOfferId).subscribe(() => {
       this.subscribed = false;
-      this.messageService.add({severity: 'success', summary: 'Unsubscription successful', detail: 'You have successfully unsubscribed to this cultural offer\'s newsletter'});
+      this.messageService.add({ severity: 'success', summary: 'Unsubscription successful', detail: 'You have successfully unsubscribed to this cultural offer\'s newsletter' });
       setTimeout(() => this.messageService, 2000);
     });
   }

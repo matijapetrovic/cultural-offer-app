@@ -35,10 +35,6 @@ export class CategoriesService {
     );
   }
 
-  announceChange(): void {
-    this.RegenerateData.next();
-  }
-
   getCategories(page: number, limit: number): Observable<CategoriesPage> {
     const url = `${this.categoriesUrl}?page=${page}&limit=${limit}`;
     return this.http.get<CategoriesPage>(url, httpOptions)
