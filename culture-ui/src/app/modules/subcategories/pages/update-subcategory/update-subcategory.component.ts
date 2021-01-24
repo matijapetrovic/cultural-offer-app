@@ -16,7 +16,7 @@ export class UpdateSubcategoryComponent implements OnInit {
     loading: boolean;
     updateForm: FormGroup;
 
-    //Subcategory which we update
+    // Subcategory which we update
     subcategory: any;
 
     constructor(
@@ -24,13 +24,13 @@ export class UpdateSubcategoryComponent implements OnInit {
         private config: DynamicDialogConfig,
         private subcategoriesService: SubcategoriesService,
         public ref: DynamicDialogRef
-    ) { 
-        //deep copying original object
+    ) {
+        // deep copying original object
         this.subcategory = {...this.config.data.subcategory};
         this.submitted = false;
         this.loading = false;
     }
-    
+
     ngOnInit(): void {
         this.updateForm = this.formBulilder.group({
             name: ['', Validators.required],
@@ -41,7 +41,7 @@ export class UpdateSubcategoryComponent implements OnInit {
 
         this.submitted = true;
 
-        if(this.invalidFormInputs()) {
+        if (this.invalidFormInputs()) {
             this.removeFormInputs();
             return;
         }
@@ -62,11 +62,11 @@ export class UpdateSubcategoryComponent implements OnInit {
     }
 
     get f() { return this.updateForm.controls; }
-    
-   
+
+
 
     invalidFormInputs(): boolean {
-        if( this.subcategory.name === '' || this.subcategory.name === null || this.nameNotChanged()) {
+        if ( this.subcategory.name === '' || this.subcategory.name === null || this.nameNotChanged()) {
             return true;
         }
         return false;
@@ -76,14 +76,14 @@ export class UpdateSubcategoryComponent implements OnInit {
         return this.subcategory.name === this.originalSubcategory.name;
     }
 
-    //Original subcategory so we can know if changes are made
-    get originalSubcategory() { return this.config.data.subcategory }
+    // Original subcategory so we can know if changes are made
+    get originalSubcategory() { return this.config.data.subcategory; }
 
     removeFormInputs() {
         this.updateForm.reset();
     }
 
     errorMessage() {
-        return "Name is required!"
+        return 'Name is required!';
     }
 }
