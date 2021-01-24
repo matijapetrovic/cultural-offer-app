@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SubcategoriesService } from 'src/app/modules/subcategories/subcategories.service'
+import { SubcategoriesService } from 'src/app/modules/subcategories/subcategories.service';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Subcategory } from 'src/app/modules/subcategories/subcategory';
 import { first } from 'rxjs/operators';
@@ -18,15 +18,15 @@ export class AddSubcategoryComponent implements OnInit {
     loading: boolean;
     submitted: boolean;
 
-    //Category to which we add subcategory
-    category:any;
+    // Category to which we add subcategory
+    category: any;
 
     constructor(
         private subcategoryService: SubcategoriesService,
         private formBuilder: FormBuilder,
         public ref: DynamicDialogRef,
         public config: DynamicDialogConfig,
-    ) { 
+    ) {
         this.category = this.config.data.category;
         this.loading = false;
         this.submitted = false;
@@ -41,7 +41,7 @@ export class AddSubcategoryComponent implements OnInit {
     onSubmit(): void {
         this.submitted = true;
 
-        if(this.invalidFormInputs()) {
+        if (this.invalidFormInputs()) {
             this.removeFormInputs();
             return;
         }
@@ -50,7 +50,7 @@ export class AddSubcategoryComponent implements OnInit {
     }
 
     addSubcategory() {
-        let subcategory:Subcategory = {id: null, categoryId: this.category.id, name: this.f.name.value };
+        const subcategory: Subcategory = {id: null, categoryId: this.category.id, name: this.f.name.value };
         this.subcategoryService.addSubcategory(subcategory)
         .pipe(first())
         .subscribe(() => {
@@ -74,7 +74,7 @@ export class AddSubcategoryComponent implements OnInit {
     }
 
     errorMessage() {
-        return "Name is required!"
+        return 'Name is required!';
     }
 
 }

@@ -1,6 +1,6 @@
 import { Role } from 'src/app/modules/authentication/role';
 import { User } from 'src/app/modules/authentication/user';
-import { Category } from 'src/app/modules/categories/category';
+import { CategoriesPage, Category } from 'src/app/modules/categories/category';
 import { CulturalOffer, CulturalOfferLocation, LocationRange } from 'src/app/modules/cultural-offers/cultural-offer';
 import { News, NewsPage } from 'src/app/modules/news/news';
 import { Review, ReviewPage } from 'src/app/modules/reviews/review';
@@ -151,6 +151,20 @@ const mockReviewPage: ReviewPage = {
     links: new Map([['next', 'next-link'], ['self', 'self-link']])
   };
 
+const mockCategoriesPage: CategoriesPage = {
+  data: [
+    {
+      id: 1,
+      name: 'Category1'
+    },
+    {
+      id: 2,
+      name: 'Category2'
+    },
+  ],
+  links: new Map([['next', 'next-link'], ['self', 'self-link']])
+};
+
 const mockUser: User = {
   id: 1,
   username: 'user',
@@ -198,5 +212,6 @@ export {
   mockUser,
   mockAdmin,
   mockMapBounds,
-  mockLocationRange
+  mockLocationRange,
+  mockCategoriesPage
 };

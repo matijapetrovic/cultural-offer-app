@@ -53,10 +53,6 @@ export class LoginComponent implements OnInit {
       .subscribe(
         data => {
           this.router.navigate([this.returnUrl]);
-        },
-        error => {
-          this.error = error;
-          this.loading = false;
         });
   }
 
@@ -98,16 +94,5 @@ export class LoginComponent implements OnInit {
       return true;
     }
     return false;
-  }
-
-  isFormValid(): boolean {
-    if (!this.isInvalidEmailForm && !this.isEmptyPassword()){
-      return true;
-    }
-    return false;
-  }
-
-  removeFormInputs(): void {
-    this.loginForm.reset();
   }
 }

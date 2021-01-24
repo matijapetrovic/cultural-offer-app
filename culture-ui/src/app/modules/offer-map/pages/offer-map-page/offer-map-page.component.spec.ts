@@ -43,8 +43,9 @@ describe('OfferMapPageComponent', () => {
     const geolocationServiceMock = {
       geocode: jasmine.createSpy('geocode')
         .and.callFake((location: string) => {
-          if (location == 'Location')
+          if (location == 'Location') {
             return of(mockLocationRange);
+          }
           return throwError(new Error(invalidLocationMessage.detail));
         })
     };
@@ -78,7 +79,7 @@ describe('OfferMapPageComponent', () => {
     expect(component).toBeTruthy();
 
     tick();
-    
+
     expect(culturalOfferService.getCulturalOfferLocations).toHaveBeenCalled();
     expect(categoriesService.getCategoryNames).toHaveBeenCalled();
 
