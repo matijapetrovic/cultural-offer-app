@@ -57,12 +57,12 @@ export class CulturalOfferComponent implements OnInit {
     this.mapInfoWindow = new google.maps.InfoWindow();
     this.authenticationService.currentUser.subscribe((user) => {
       this.updateSubscribed(user);
-      this.userIsRegular = user && user.role === Role.User;
+      this.userIsRegular = user && user.role.includes(Role.ROLE_USER);
     });
   }
 
   updateSubscribed(user: User): void {
-    if (user === null || user.role === Role.Admin) {
+    if (user === null || user.role.includes(Role.ROLE_ADMIN)) {
       this.subscribed = null;
       return;
     }

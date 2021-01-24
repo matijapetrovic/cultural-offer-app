@@ -2,27 +2,49 @@
   <form [formGroup]="filterForm" (ngSubmit)="submitForm()" novalidate>
     <div class="p-fluid p-grid">
       <div class="p-field p-col-12 p-md-6">
-        <p-dropdown
-          inputId="category"
+        <!-- <p-dropdown
+          inputId="filter-category-select"
           [options]="categories"
           formControlName="category"
           optionLabel="name"
           (onChange)="selectCategory()"
           placeholder="Select a category"
         >
-        </p-dropdown>
+        </p-dropdown> -->
+        <ng-select
+          [items]="categories"
+          bindLabel="name"
+          formControlName="category"
+          placeholder="Select a category"
+          appearance="outline"
+          [searchable]="false"
+          (change)="selectCategory()"
+          id="filter-category-select"
+        >
+        </ng-select>
       </div>
       <div class="p-field p-col-12 p-md-6">
-        <p-dropdown
-          inputId="subcategory"
+        <!-- <p-dropdown
+          inputId="filter-subcategory-select"
           [options]="subcategories"
           formControlName="subcategory"
           optionLabel="name"
           placeholder="Select a subcategory"
-        ></p-dropdown>
+        ></p-dropdown> -->
+        <ng-select
+          [items]="subcategories"
+          bindLabel="name"
+          formControlName="subcategory"
+          placeholder="Select a subcategory"
+          appearance="outline"
+          [searchable]="false"
+          id="filter-subcategory-select"
+        >
+        </ng-select>
       </div>
       <div class="p-col-6 p-offset-3">
         <button
+          id="submit-filter-form"
           pButton
           [disabled]="filterForm.pristine"
           label="Filter"
@@ -31,6 +53,7 @@
       </div>
       <div class="p-col-6 p-offset-3">
         <button
+          id="reset-filter-form"
           pButton
           type="button"
           [disabled]="filterForm.pristine"
@@ -39,8 +62,6 @@
           class="p-button-danger"
         ></button>
       </div>
-      
-      
     </div>
   </form>
 </p-card>

@@ -43,7 +43,7 @@ describe('OfferMapFilterFormComponent', () => {
     component.filterForm.controls.subcategory.setValue(subcategory);
 
     let filter: CulturalOfferLocationsFilter;
-    component.submit.subscribe((event: CulturalOfferLocationsFilter) => filter = event);
+    component.submitted.subscribe((event: CulturalOfferLocationsFilter) => filter = event);
 
     component.submitForm();
 
