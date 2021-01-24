@@ -46,6 +46,7 @@ public interface GetCulturalOffersQueryHandler {
         Double latitude;
         GetSubcategoriesQueryHandler.GetSubcategoriesDTO subcategory;
         List<String> images;
+        String address;
 
         public static GetCulturalOffersDTO of(CulturalOffer offer) {
             return new GetCulturalOffersDTO(
@@ -55,7 +56,8 @@ public interface GetCulturalOffersQueryHandler {
                     offer.getLocation().getLongitude(),
                     offer.getLocation().getLatitude(),
                     GetSubcategoriesQueryHandler.GetSubcategoriesDTO.of(offer.getSubcategory()),
-                    offer.getImages().stream().map(Image::getUrl).collect(Collectors.toList()));
+                    offer.getImages().stream().map(Image::getUrl).collect(Collectors.toList()),
+                    offer.getLocation().getAddress());
         }
     }
 }

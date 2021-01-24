@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CulturalOffersService } from 'src/app/modules/cultural-offers/cultural-offers.service'
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { first } from 'rxjs/operators';
-import { DynamicDialogConfig } from 'primeng/dynamicdialog';
-import { CulturalOffer } from 'src/app/modules/cultural-offers/cultural-offer'
+import { CulturalOffersService } from 'src/app/modules/cultural-offers/cultural-offers.service'
+
 
 
 @Component({
@@ -12,69 +10,25 @@ import { CulturalOffer } from 'src/app/modules/cultural-offers/cultural-offer'
     templateUrl: './add-offer.component.html',
     styleUrls: ['./add-offer.component.scss']
 })
-export class AddOfferComponent implements OnInit {
+export class AddOfferComponent{
 
-    addForm: FormGroup;
     loading: boolean;
-    submitted: boolean;
 
     constructor(
         private culturalOffersService: CulturalOffersService,
-        private formBuilder: FormBuilder,
         public ref: DynamicDialogRef,
-        public config: DynamicDialogConfig,
     ) { 
         this.loading = false;
-        this.submitted = false;
     }
 
-    ngOnInit(): void {
-        this.addForm = this.formBuilder.group({
-            name: ['', Validators.required],
-            description: ['', Validators.required]
-        });
-    }
-
-    onSubmit(): void {
-        this.submitted = true;
-
-        if(this.invalidFormInputs()) {
-            this.removeFormInputs();
-            return;
-        }
+    postOffer(offer:any): void {
         this.loading = true;
-        this.addCulturalOffer();
-    }
 
-    addCulturalOffer() {
-        let culturalOffer:CulturalOffer = null;
-        this.culturalOffersService.addCulturalOffer(culturalOffer)
+        this.culturalOffersService.addCulturalOffer(offer)
         .pipe(first())
         .subscribe(() => {
             this.loading = false;
-            this.removeFormInputs();
-            this.ref.close(this.submitted);
+            this.ref.close(true);
         });
     }
-
-    get f() { return this.addForm.controls; }
-
-    invalidFormInputs(): boolean {
-        if (this.f.name.value === '' || this.f.name.value === null) {
-            return true;
-        }
-        if (this.f.description.value === '' || this.f.description.value === null) {
-            return true;
-        }
-        return false;
-    }
-
-    removeFormInputs() {
-        this.addForm.reset();
-    }
-
-    errorMessage() {
-        return "Name is required!"
-    }
-
 }

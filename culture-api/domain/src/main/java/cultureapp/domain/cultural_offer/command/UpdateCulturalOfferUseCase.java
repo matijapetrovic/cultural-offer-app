@@ -44,9 +44,13 @@ public interface UpdateCulturalOfferUseCase {
         @IdList
         List<Long> images;
 
+        @NotBlank
+        String address;
+
         public UpdateCulturalOfferCommand(Long id, String name, String description,
                                           Double longitude, Double latitude,
-                                          Long categoryId, Long subcategoryId, List<Long> images)
+                                          Long categoryId, Long subcategoryId, List<Long> images,
+                                          String address)
         {
             this.id = id;
             this.name = name;
@@ -56,6 +60,7 @@ public interface UpdateCulturalOfferUseCase {
             this.categoryId = categoryId;
             this.subcategoryId = subcategoryId;
             this.images = images;
+            this.address = address;
             validateSelf();
         }
     }

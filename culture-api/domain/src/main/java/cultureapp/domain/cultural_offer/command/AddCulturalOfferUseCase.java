@@ -10,7 +10,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Value;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.util.List;
 
@@ -31,6 +30,8 @@ public interface AddCulturalOfferUseCase {
         List<Long> images;
         @NotBlank
         String description;
+        @NotBlank
+        String address;
         @Positive
         Long categoryId;
         @Positive
@@ -43,7 +44,8 @@ public interface AddCulturalOfferUseCase {
                 List<Long> images,
                 String description,
                 Long categoryId,
-                Long subcategoryId) {
+                Long subcategoryId,
+                String address) {
             this.name = name;
             this.longitude = longitude;
             this.latitude = latitude;
@@ -51,6 +53,7 @@ public interface AddCulturalOfferUseCase {
             this.description = description;
             this.categoryId= categoryId;
             this.subcategoryId = subcategoryId;
+            this.address = address;
             this.validateSelf();
         }
     }

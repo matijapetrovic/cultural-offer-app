@@ -13,14 +13,17 @@
         </div>
       </div>
       <div class="p-field p-col-12 p-md-6">
-        <p-dropdown
-          inputId="category"
-          [options]="categories"
-          optionLabel="name"
-          (onChange)="categoryChanged($event.value)"
+        <ng-select
+          [items]="categories"
+          bindLabel="name"
           placeholder="Select a category"
+          appearance="outline"
+          [searchable]="false"
+          [clearable]="false"
+          (change)="categoryChanged($event)"
+          id="filter-category-select"
         >
-        </p-dropdown>
+        </ng-select>
       </div>
       <button
         pButton

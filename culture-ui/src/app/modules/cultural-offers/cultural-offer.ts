@@ -1,14 +1,35 @@
 import { Category } from '../categories/category';
 import { Subcategory } from '../subcategories/subcategory';
 
-export interface CulturalOffer {
+export interface CulturalOfferToAdd {
   id: number;
   name: string;
   description: string;
   subcategory: Subcategory;
+  images: number[];
+  latitude: number;
+  longitude: number;
+  address: string;
+}
+
+export interface CulturalOfferView {
+  id: number;
+  name: string;
+  description: string;
+  subcategory: Subcategory;
+  images: string[];
+  latitude: number;
+  longitude: number;
+  address: string;
+}
+
+
+export interface CulturalOffer {
+  id: number;
+  name: string;
+  description: string;
   rating: number;
   reviewCount: number;
-  images: Array<string>;
   latitude: number;
   longitude: number;
 }
@@ -38,6 +59,6 @@ export interface CulturalOfferLocationsFilter {
 }
 
 export interface CulturalOffersPage {
-  data: CulturalOffer[];
+  data: CulturalOfferView[];
   links: Map<string, string>;
 }

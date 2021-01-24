@@ -41,7 +41,8 @@ public class AddCulturalOfferServiceIntegrationTest {
                 List.of(EXISTING_ADD_CULTURAL_OFFER_IMAGE_1, EXISTING_ADD_CULTURAL_OFFER_IMAGE_2),
                 VALID_CULTURAL_OFFER_DESCRIPTION,
                 EXISTING_CATEGORY_ID,
-                NON_EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1
+                NON_EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1,
+                VALID_CULTURAL_OFFER_ADDRESS
         );
 
         addCulturalOfferService.addCulturalOffer(command);
@@ -56,7 +57,8 @@ public class AddCulturalOfferServiceIntegrationTest {
                 List.of(NON_EXISTING_IMAGE_ID_1, NON_EXISTING_IMAGE_ID_2),
                 VALID_CULTURAL_OFFER_DESCRIPTION,
                 EXISTING_CATEGORY_ID,
-                EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1
+                EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1,
+                VALID_CULTURAL_OFFER_ADDRESS
         );
 
         addCulturalOfferService.addCulturalOffer(command);
@@ -74,7 +76,8 @@ public class AddCulturalOfferServiceIntegrationTest {
                 List.of(EXISTING_ADD_CULTURAL_OFFER_IMAGE_1, EXISTING_ADD_CULTURAL_OFFER_IMAGE_2),
                 VALID_CULTURAL_OFFER_DESCRIPTION,
                 EXISTING_CATEGORY_ID,
-                EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1
+                EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1,
+                VALID_CULTURAL_OFFER_ADDRESS
         );
 
         addCulturalOfferService.addCulturalOffer(command);

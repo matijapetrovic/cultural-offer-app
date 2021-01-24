@@ -9,6 +9,7 @@ import { OfferNewsItemComponent } from './components/offer-news-item/offer-news-
 import { CulturalOffersComponent } from './pages/cultural-offers/cultural-offers.component';
 import { AddOfferComponent } from './pages/add-offer/add-offer.component';
 import { UpdateOfferComponent } from './pages/update-offer/update-offer.component';
+import { OfferFormComponent } from './components/offer-form/offer-form.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { UpdateOfferComponent } from './pages/update-offer/update-offer.componen
       OfferNewsItemComponent,
       CulturalOffersComponent,
       AddOfferComponent,
-      UpdateOfferComponent
+      UpdateOfferComponent,
+      OfferFormComponent
     ],
   imports: [
     CommonModule,

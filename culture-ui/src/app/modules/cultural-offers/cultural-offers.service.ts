@@ -4,7 +4,7 @@ import { HandleError, HttpErrorHandler } from '../../core/services/http-error-ha
 
 import { Observable, of, scheduled } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { CulturalOffer, CulturalOfferLocation, CulturalOffersPage, LocationRange } from './cultural-offer';
+import { CulturalOffer, CulturalOfferLocation, CulturalOffersPage, CulturalOfferToAdd, LocationRange } from './cultural-offer';
 import { environment } from 'src/environments/environment';
 import { MessageService } from 'primeng/api';
 
@@ -26,7 +26,7 @@ export class CulturalOffersService {
     this.handleError = httpErrorHandler.createHandleError('CulturalOffersService');
   }
 
-  addCulturalOffer(culturalOffer: CulturalOffer): Observable<void> {
+  addCulturalOffer(culturalOffer: CulturalOfferToAdd): Observable<void> {
     const url =  `${this.culturalOffersUrl}`;
     return this.http.post<void>(url, culturalOffer)
     .pipe(

@@ -1,0 +1,152 @@
+<form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+    <div class="p-grid p-px-6 form-group">
+    <div class="p-px-5"></div>
+      <table>
+        <tr>
+          <td colspan="3">
+            <label
+              class="p-justify-left p-col-2">
+              Name:
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <input 
+              [(ngModel)]="culturalOffer.name"
+              type="name"
+              autocomplete="off"
+              pInputText
+              formControlName="name"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.name.errors}">
+          </td>
+        </tr>
+        <tr></tr>
+        <tr>
+          <td colspan="3">
+            <label
+              class="p-justify-left p-col-2">
+              Address:
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <input 
+            [(ngModel)]="culturalOffer.address"
+            type="name"
+            autocomplete="off"
+            pInputText
+            formControlName="address"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.name.errors}">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label
+              class="p-justify-left p-col-2">
+              Category: 
+            </label>
+          </td>
+          <td></td>
+          <td>
+            <label
+              class="p-justify-left p-col-2">
+              Subcategory: 
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <ng-select
+              [(ngModel)]="tempCategoryId"
+              [items]="categories"
+              bindLabel="name"
+              bindValue="id"
+              formControlName="category"
+              placeholder="Select a category"
+              appearance="outline"
+              [searchable]="false"
+              [clearable]="false"
+              (change)="categoryChanged()"
+              id="filter-category-select"
+              [ngClass]="{ 'is-invalid': submitted && f.category.errors}"
+            >
+            </ng-select>
+          </td>
+          <td></td>
+          <td>
+            <ng-select
+              [(ngModel)]="culturalOffer.subcategory"
+              [items]="subcategories"
+              bindLabel="name"
+              formControlName="subcategory"
+              placeholder="Select a subcategory"
+              appearance="outline"
+              [searchable]="false"
+              [clearable]="false"
+              id="filter-category-select"
+              [ngClass]="{ 'is-invalid': submitted && f.subcategory.errors}"
+            >
+            </ng-select>
+          </td>
+        </tr>
+        <tr></tr>
+        <tr>
+          <td colspan="3">
+            <label
+              class="p-justify-left p-col-2">
+              Description: 
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3" rowspan="3">
+            <textarea
+              [(ngModel)]="culturalOffer.description"
+              formControlName="description"
+              class="form-control"
+              rows="7"
+              [cols]="24"
+              [ngClass]="{ 'is-invalid': submitted && f.description.errors}"
+              pInputTextarea>
+            </textarea>
+          </td>
+        </tr>
+        <tr></tr>
+        <tr></tr>
+        <tr>
+          <td colspan="3">
+            <label
+              class="p-justify-left p-col-2">
+              Images: 
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <input
+              formControlName="images"
+              id="images" 
+              type="file" 
+              class="form-control"
+              multiple="true"
+              accept="image/*"
+              (change)="selectFiles($event)">
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="p-grid p-px-5 p-mt-6 p-justify-center">
+      <button
+        [disabled]="invalidFormInputs()"
+        type="submit"
+        class="p-button"
+        label="Submit"
+        pButton
+      >
+      </button>
+    </div>
+  </form>
