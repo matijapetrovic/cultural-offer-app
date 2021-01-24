@@ -1,41 +1,63 @@
-<p-card header="Cultural offer filter">
-  <form [formGroup]="filterForm" (ngSubmit)="emitOnSubmit()" novalidate>
-    <div class="p-formgrid p-grid" style="width:60%; margin: 0 auto;">
-      <div class="p-field p-col-6">
-        <label for="category">Category</label>
-        <p-dropdown
-          inputId="category"
+<p-card header="Filter by category">
+  <form [formGroup]="filterForm" (ngSubmit)="submitForm()" novalidate>
+    <div class="p-fluid p-grid">
+      <div class="p-field p-col-12 p-md-6">
+        <!-- <p-dropdown
+          inputId="filter-category-select"
           [options]="categories"
           formControlName="category"
           optionLabel="name"
-          (onChange)="emitSubcategorySelected($event)"
+          (onChange)="selectCategory()"
           placeholder="Select a category"
         >
-        </p-dropdown>
+        </p-dropdown> -->
+        <ng-select
+          [items]="categories"
+          bindLabel="name"
+          formControlName="category"
+          placeholder="Select a category"
+          appearance="outline"
+          [searchable]="false"
+          (change)="selectCategory()"
+          id="filter-category-select"
+        >
+        </ng-select>
       </div>
-      <div class="p-field p-col-6">
-        <label for="subcategory">Subcategory</label>
-        <p-dropdown
-          inputId="subcategory"
+      <div class="p-field p-col-12 p-md-6">
+        <!-- <p-dropdown
+          inputId="filter-subcategory-select"
           [options]="subcategories"
           formControlName="subcategory"
           optionLabel="name"
           placeholder="Select a subcategory"
-        ></p-dropdown>
+        ></p-dropdown> -->
+        <ng-select
+          [items]="subcategories"
+          bindLabel="name"
+          formControlName="subcategory"
+          placeholder="Select a subcategory"
+          appearance="outline"
+          [searchable]="false"
+          id="filter-subcategory-select"
+        >
+        </ng-select>
       </div>
-      <div class="p-d-flex p-jc-around p-col-12" style="margin-top: 20px;">
+      <div class="p-col-6 p-offset-3">
         <button
+          id="submit-filter-form"
           pButton
           [disabled]="filterForm.pristine"
           label="Filter"
           type="submit"
         ></button>
-      
+      </div>
+      <div class="p-col-6 p-offset-3">
         <button
+          id="reset-filter-form"
           pButton
           type="button"
           [disabled]="filterForm.pristine"
-          (click)="revert()"
+          (click)="resetForm()"
           label="Reset"
           class="p-button-danger"
         ></button>

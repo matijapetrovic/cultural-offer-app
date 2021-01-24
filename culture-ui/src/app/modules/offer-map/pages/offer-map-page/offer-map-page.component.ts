@@ -5,6 +5,8 @@ import { SubcategoriesService } from 'src/app/modules/subcategories/subcategorie
 import { Subcategory } from 'src/app/modules/subcategories/subcategory';
 import { CulturalOfferLocation, CulturalOfferLocationsFilter, LocationRange } from 'src/app/modules/cultural-offers/cultural-offer';
 import { CulturalOffersService } from 'src/app/modules/cultural-offers/cultural-offers.service';
+import { GeolocationService } from 'src/app/core/services/geolocation.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-offer-map-page',
@@ -24,8 +26,10 @@ export class OfferMapPageComponent implements OnInit {
   constructor(
     private culturalOffersService: CulturalOffersService,
     private categoriesService: CategoriesService,
-    private subcategoriesService: SubcategoriesService
-  ) { 
+    private subcategoriesService: SubcategoriesService,
+    private geolocationService: GeolocationService,
+    private messageService: MessageService
+  ) {
     this.locationRange = {
       latitudeFrom: 41.0,
       latitudeTo: 47.0,
@@ -57,11 +61,27 @@ export class OfferMapPageComponent implements OnInit {
     this.subcategoriesService.getSubcategoryNames(category.id).subscribe(subcategories => this.subcategories = subcategories);
   }
 
-  updateFilters(event: CulturalOfferLocationsFilter) {
-    if (event.category)
+  searchLocation(location: string): void {
+    this.geolocationService.geocode(location).subscribe(
+      (locationRange) => {
+        this.locationRange = locationRange;
+        this.getCulturalOfferLocations();
+      },
+      (error) => {
+        if (error.message) {
+          this.messageService.add({severity: 'warn', summary: 'Error!', detail: error.message});
+          
+        }
+      });
+  }
+
+  updateFilters(event: CulturalOfferLocationsFilter): void {
+    if (event.category) {
       this.categoryId = event.category.id;
-    if (event.subcategory)
+    }
+    if (event.subcategory) {
       this.subcategoryId = event.subcategory.id;
+    }
     this.getCulturalOfferLocations();
   }
 

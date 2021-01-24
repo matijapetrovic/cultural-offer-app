@@ -1,0 +1,27 @@
+<p-card header="Search by location">
+    <form id="searchForm" [formGroup]="searchForm" (ngSubmit)="submitForm()" novalidate>
+      <div class="p-fluid p-grid">
+        <div class="p-field p-col-6 p-offset-3">
+          <span class="p-float-label">
+            <input type="text"
+              pInputText 
+              id="search-location-input"
+              formControlName="location"
+            />
+            <label for="location">Location</label>
+          </span>
+        </div>
+        <div class="p-col-6 p-offset-3">
+            <button
+                pButton
+                [disabled]="searchForm.pristine"
+                id="submit-search-location"
+                label="Search"
+                type="submit"
+            ></button>
+        </div>
+        
+      </div>
+    </form>
+  </p-card>
+  

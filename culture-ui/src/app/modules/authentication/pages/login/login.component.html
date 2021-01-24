@@ -1,0 +1,57 @@
+<div class="p-grid p-mt-6 p-justify-center centered-grid"></div>
+<div class="p-grid p-mt-6 p-justify-center centered-grid"></div>
+<div class="p-grid p-mt-6 p-justify-center centered-grid">
+  <div class="p-col p-sm-5 p-md-6 p-lg-3">
+    <p-card class="flat-card">
+      <div>
+        <div class="p-card-header">
+          <div class="p-grid p-justify-center">
+            <h1>
+              <strong>
+                Login
+              </strong>
+            </h1>
+          </div>
+        </div>
+        <div class="p-card-content">
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="p-grid p-px-6 form-group">
+              <div class="p-px-5"></div>
+              <div class="p-col p-mt-5">
+                <span class="p-input-icon-left">
+                  <i class="pi pi-envelope"></i>
+                  <input type="email" autocomplete="off" pInputText formControlName="username" class="form-control" placeholder="Username"
+                    [ngClass]="{ 'is-invalid': submitted && f.username.errors}">
+                </span>
+                <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                  <div *ngIf="f.username.errors.required || f.username.errors">
+                    <div class="p-mr-3 p-mb-3"></div>
+                    <small id="username-help" class="p-invalid p-mb-3">{{usernameMessage()}}</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="p-grid p-px-6 form-group">
+              <div class="p-px-5"></div>
+              <div class="p-col p-mt-5">
+                <span class="p-input-icon-left">
+                  <i class="pi pi-lock-open"></i>
+                  <input type="password" autocomplete="off" pInputText formControlName="password" class="form-control" placeholder="Password"
+                    [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+                </span>
+                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                  <div *ngIf="f.password.errors.required">
+                    <small id="password-help" class="p-invalid">Password is required!</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="p-grid p-px-5 p-mt-6 p-justify-center">
+              <button type="submit" class="p-button" label="Submit" pButton></button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </p-card>
+  </div>
+</div>

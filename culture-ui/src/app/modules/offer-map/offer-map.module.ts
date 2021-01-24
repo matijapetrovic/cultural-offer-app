@@ -8,11 +8,12 @@ import {OfferMapFilterFormComponent} from './components/offer-map-filter-form/of
 import {OfferMapRoutingModule} from './offer-map-routing.module';
 
 import { SharedModule } from './../../shared/shared.module';
+import { OfferMapSearchLocationComponent } from './components/offer-map-search-location/offer-map-search-location.component';
 
 
 
 @NgModule({
-  declarations: [OfferMapPageComponent,OfferMapComponent, OfferMapFilterFormComponent ],
+  declarations: [OfferMapPageComponent, OfferMapComponent, OfferMapFilterFormComponent, OfferMapSearchLocationComponent ],
   imports: [
     CommonModule,
     OfferMapRoutingModule,

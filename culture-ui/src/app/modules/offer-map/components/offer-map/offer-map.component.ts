@@ -1,5 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, Output, ViewChild, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
-import { Observable } from 'rxjs';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, Output, ViewChild, EventEmitter, OnChanges, SimpleChanges, SimpleChange } from '@angular/core';
 import { CulturalOfferLocation, LocationRange } from 'src/app/modules/cultural-offers/cultural-offer';
 
 @Component({
@@ -9,86 +8,106 @@ import { CulturalOfferLocation, LocationRange } from 'src/app/modules/cultural-o
 })
 export class OfferMapComponent implements OnInit, AfterViewInit, OnChanges {
 
-  @ViewChild("gmap", {read: ElementRef})
+  @ViewChild('gmap', {read: ElementRef})
   gmap: ElementRef;
 
   @Input()
   culturalOffers: CulturalOfferLocation[];
 
-  private mapInitialized: boolean = false;
+  @Input()
+  bounds: LocationRange;
+
+  private mapInitialized = false;
+  private shouldEmitBoundsChanged = true;
 
   @Output()
-  onMapBoundsChanged = new EventEmitter<LocationRange>();
+  mapBoundsChanged = new EventEmitter<LocationRange>();
 
   mapOptions: any;
-  mapOverlays: any;
+  mapOverlays: google.maps.Marker[];
   mapInfoWindow: google.maps.InfoWindow;
-
   map: google.maps.Map;
 
   constructor() { }
-  ngOnChanges(changes: SimpleChanges): void {
-    if (this.mapInitialized)
-      this.updateCulturalOfferLocations();
-  }
-
-  ngAfterViewInit(): void {
-    console.log(this.gmap.nativeElement);
-  }
-
-  setMap(event: any) {
-    this.map = event.map;
-  }
 
   ngOnInit(): void {
     this.mapOptions = {};
     this.mapInfoWindow = new google.maps.InfoWindow();
-    let bounds = new google.maps.LatLngBounds();
 
     this.updateCulturalOfferLocations();
-    this.mapOverlays.forEach(marker => {
-      bounds.extend(marker.getPosition());
-    });
+  }
 
-    setTimeout(()=> {
-      this.map.fitBounds(bounds);
-    }, 1000);
+  ngAfterViewInit(): void {
     this.mapInitialized = true;
   }
 
-  updateCulturalOfferLocations(): void { 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.mapInitialized) {
+      if (changes.culturalOffers) {
+        this.updateCulturalOfferLocations();
+      }
+      if (changes.bounds) {
+        this.updateMapBounds();
+      }
+    }
+  }
+
+  updateMapBounds(): void {
+    this.shouldEmitBoundsChanged = false;
+
+    const sw: google.maps.LatLng = new google.maps.LatLng(this.bounds.latitudeFrom, this.bounds.longitudeFrom);
+    const ne: google.maps.LatLng = new google.maps.LatLng(this.bounds.latitudeTo, this.bounds.longitudeTo);
+    const bounds: google.maps.LatLngBounds = new google.maps.LatLngBounds(sw, ne);
+    if (!this.map.getBounds() || !bounds.equals(this.map.getBounds())) {
+      this.map.fitBounds(bounds);
+    }
+
+    this.shouldEmitBoundsChanged = true;
+  }
+
+  setMap(event: any): void {
+    this.map = event.map;
+    this.updateMapBounds();
+  }
+
+  updateCulturalOfferLocations(): void {
     this.mapOverlays = this.culturalOffers.map((culturalOffer) => {
       return new google.maps.Marker({
-        position: {lat: culturalOffer.location.latitude, lng:culturalOffer.location.longitude },
+        position: {lat: culturalOffer.location.latitude, lng: culturalOffer.location.longitude },
         title: culturalOffer.name
-      })
+      });
     });
   }
 
-  handleOverlayClick(event: any): void {
-    let isMarker: boolean = event.overlay.getTitle != undefined;
-
-    if (isMarker) {
-      let title: string = event.overlay.getTitle();
-      let latLng: google.maps.LatLng = event.originalEvent.latLng;
-      let offer: CulturalOfferLocation = this.culturalOffers.filter((offer) => offer.location.latitude === latLng.lat() && offer.location.longitude === latLng.lng())[0];
-      
-      this.mapInfoWindow.setContent(`<h3>${title}</h3><p>${offer.location.address}</p><a pButton href='/cultural-offers/${offer.id}'>View page<a>`);
-      this.mapInfoWindow.open(event.map, event.overlay);
-    }
-  }
-  // salje se dva put pri ucitavanju komponentre, resi
-  mapBoundsChanged(): void {
-    if (!this.mapInitialized)
+  onMapBoundsChanged(): void {
+    if (!this.mapInitialized || !this.shouldEmitBoundsChanged) {
       return;
-    let bounds: google.maps.LatLngBounds = this.map.getBounds();
-    let locationRange: LocationRange = {
+    }
+
+    const bounds: google.maps.LatLngBounds = this.map.getBounds();
+    const locationRange: LocationRange = {
       latitudeFrom: bounds.getSouthWest().lat(),
       latitudeTo: bounds.getNorthEast().lat(),
       longitudeFrom: bounds.getSouthWest().lng(),
       longitudeTo: bounds.getNorthEast().lng()
     };
-    this.onMapBoundsChanged.emit(locationRange);
+    this.mapBoundsChanged.emit(locationRange);
+  }
+
+  handleOverlayClick(event: any): void {
+    const isMarker: boolean = event.overlay.getTitle !== undefined;
+
+    if (!isMarker) {
+      return;
+    }
+
+    const title: string = event.overlay.getTitle();
+    const latLng: google.maps.LatLng = event.originalEvent.latLng;
+    const offer: CulturalOfferLocation = this.culturalOffers.filter((culturalOffer) => culturalOffer.location.latitude === latLng.lat() &&
+      culturalOffer.location.longitude === latLng.lng())[0];
+
+    this.mapInfoWindow.setContent(`<h3>${title}</h3><p>${offer.location.address}</p><a pButton href='/cultural-offers/${offer.id}'>View page<a>`);
+    this.mapInfoWindow.open(event.map, event.overlay);
   }
 
 }

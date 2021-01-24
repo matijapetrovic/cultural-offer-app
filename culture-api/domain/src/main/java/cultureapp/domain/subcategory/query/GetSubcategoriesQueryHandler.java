@@ -41,11 +41,13 @@ public interface GetSubcategoriesQueryHandler {
     class GetSubcategoriesDTO {
         Long id;
         String name;
+        Long categoryId;
 
         public static GetSubcategoriesDTO of(Subcategory subcategory) {
             return new GetSubcategoriesDTO(
                     subcategory.getId(),
-                    subcategory.getName());
+                    subcategory.getName(),
+                    subcategory.getCategory().getId());
         }
     }
 }

@@ -6,6 +6,7 @@ import cultureapp.domain.subcategory.Subcategory;
 import lombok.*;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
@@ -28,6 +29,12 @@ public class CulturalOffer {
 
     @Column(name="description", length = 1000)
     private String description;
+
+    @Column(name="rating")
+    private BigDecimal rating;
+
+    @Column(name="review_count")
+    private int reviewCount;
 
     @Embedded
     private Location location;
@@ -52,6 +59,8 @@ public class CulturalOffer {
             Long id,
             String name,
             String description,
+            BigDecimal rating,
+            int reviewCount,
             Location location,
             List<Image> images,
             Set<RegularUser> regularUsers,
@@ -60,6 +69,8 @@ public class CulturalOffer {
                 id,
                 name,
                 description,
+                rating,
+                reviewCount,
                 location,
                 images,
                 regularUsers,
@@ -70,12 +81,14 @@ public class CulturalOffer {
     public static CulturalOffer of(
             String name,
             String description,
+            BigDecimal rating,
+            int reviewCount,
             Location location,
             List<Image> images,
             Set<RegularUser> regularUsers,
             Subcategory subcategory
     ) {
-        return withId(null, name, description, location, images, regularUsers, subcategory);
+        return withId(null, name, description, rating, reviewCount, location, images, regularUsers, subcategory);
     }
 
     public void archive() {
@@ -85,6 +98,8 @@ public class CulturalOffer {
     public static CulturalOffer of(
             String name,
             String description,
+            BigDecimal rating,
+            int reviewCount,
             Location location,
             List<Image> images,
             Subcategory subcategory) {
@@ -92,6 +107,8 @@ public class CulturalOffer {
                 null,
                 name,
                 description,
+                rating,
+                reviewCount,
                 location,
                 images,
                 null,

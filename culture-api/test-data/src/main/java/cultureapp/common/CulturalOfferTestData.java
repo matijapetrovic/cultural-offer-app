@@ -1,5 +1,7 @@
 package cultureapp.common;
 
+import java.math.BigDecimal;
+
 public class CulturalOfferTestData {
     public static final Double VALID_CULTURAL_OFFER_LONGITUDE = 1.0;
     public static final Double VALID_CULTURAL_OFFER_LATITUDE = 1.0;
@@ -42,6 +44,8 @@ public class CulturalOfferTestData {
     public static final double VALID_LOCATION_LATITUDE = 45.0;
     public static final double VALID_LOCATION_LONGITUDE = 45.0;
     public static final String VALID_LOCATION_ADDRESS = "Address 1";
+    public static final BigDecimal VALID_CULTURAL_OFFER_RATING = BigDecimal.valueOf(3.0);
+    public static final int VALID_CULTURAL_OFFER_REVIEW_COUNT = 1;
 
 
     public static final Double VALID_LATITUDE_RANGE_FROM = -15.0;

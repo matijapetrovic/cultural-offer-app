@@ -1,16 +1,16 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HandleError, HttpErrorHandler } from '../../core/services/http-error-handler.service';
 
-import { Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Observable, of, scheduled } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 import { CulturalOffer, CulturalOfferLocation, LocationRange } from './cultural-offer';
 import { environment } from 'src/environments/environment';
+import { MessageService } from 'primeng/api';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type':  'application/json',
-    Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjdWx0dXJlLWFwcCIsInN1YiI6InVzZXIxQGdtYWlsLmNvbSIsImF1ZCI6IndlYiIsImlhdCI6MTYwODA0NzQ4MCwiZXhwIjoxNjA5ODQ3NDgwfQ.ueAGubG7bsyVoaxoFUTlFgzWNMZ-9QpTBBdETc9yLv9lWaAav5yLHSUWWCmWtFkpgQIHntZvej1vuENVLbeghg'
+    'Content-Type':  'application/json'
   })
 };
 
@@ -22,7 +22,7 @@ export class CulturalOffersService {
   culturalOffersUrl = `${environment.apiUrl}/api/cultural-offers`;
   private handleError: HandleError;
 
-  constructor(private http: HttpClient, httpErrorHandler : HttpErrorHandler) {
+  constructor(private http: HttpClient, private messageService: MessageService, httpErrorHandler: HttpErrorHandler) {
     this.handleError = httpErrorHandler.createHandleError('CulturalOffersService');
   }
 
@@ -35,14 +35,21 @@ export class CulturalOffersService {
   }
 
   getCulturalOfferLocations(locationRange: LocationRange, categoryId: number, subcategoryId: number): Observable<CulturalOfferLocation[]> {
-    let url = `${this.culturalOffersUrl}/locations`;
-    url += `?latitudeFrom=${locationRange.latitudeFrom}&latitudeTo=${locationRange.latitudeTo}`;
-    url += `&longitudeFrom=${locationRange.longitudeFrom}&longitudeTo=${locationRange.longitudeTo}`;
-    if (categoryId)
-      url += `&categoryId=${categoryId}`;
-    if (subcategoryId)
-      url += `&subcategoryId=${subcategoryId}`;
-    return this.http.get<CulturalOfferLocation[]>(url, httpOptions)
+    let params: HttpParams =
+      new HttpParams()
+        .append('latitudeFrom', locationRange.latitudeFrom.toString())
+        .append('latitudeTo', locationRange.latitudeTo.toString())
+        .append('longitudeFrom', locationRange.longitudeFrom.toString())
+        .append('longitudeTo', locationRange.longitudeTo.toString());
+    if (categoryId) {
+      params = params.append('categoryId', categoryId.toString());
+    }
+    if (subcategoryId) {
+      params = params.append('subcategoryId', subcategoryId.toString());
+    }
+
+    const url = `${this.culturalOffersUrl}/locations`;
+    return this.http.get<CulturalOfferLocation[]>(url, {...httpOptions, params})
       .pipe(
         catchError(this.handleError('getCulturalOfferLocations', []))
       );
@@ -61,6 +68,15 @@ export class CulturalOffersService {
     return this.http.delete(url, httpOptions)
       .pipe(
         catchError(this.handleError('unsubscribeFromCulturalOffer'))
+      );
+  }
+
+  getSubscribed(id: number): Observable<boolean> {
+    const url = `${this.culturalOffersUrl}/${id}/subscriptions`;
+    return this.http.get<void>(url, {...httpOptions, observe: 'response'})
+      .pipe(
+        map((response) => response.status === 204 ? true : false),
+        catchError((err) => of(false))
       );
   }
 }
