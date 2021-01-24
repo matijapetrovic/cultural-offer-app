@@ -11,7 +11,7 @@ import { ReviewPage } from 'src/app/modules/reviews/review';
 import { ReviewsService } from 'src/app/modules/reviews/reviews.service';
 import { CulturalOffer } from '../../cultural-offer';
 import { DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
-import { AddReviewComponent } from 'src/app/modules/reviews/components/add-review/add-review/add-review.component';
+import { AddReviewComponent } from 'src/app/modules/reviews/components/add-review/add-review.component';
 
 @Component({
   selector: 'app-cultural-offer',
