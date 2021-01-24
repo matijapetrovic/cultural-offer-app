@@ -82,13 +82,6 @@ export class RegistrationComponent implements OnInit {
     return false;
   }
 
-  isFormValid(): boolean {
-    if (!this.isInvalidEmailForm && !this.isEmptyPassword()) {
-      return true;
-    }
-    return false;
-  }
-
   arePasswordsSame(): boolean {
     return (this.f.password.value === this.f.confirmPassword.value);
   }

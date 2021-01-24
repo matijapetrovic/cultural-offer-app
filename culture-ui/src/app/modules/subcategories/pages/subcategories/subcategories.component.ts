@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core'
-import { SubcategoriesPage } from '../../subcategory'
-import { SubcategoriesService } from '../../subcategories.service'
-import { CategoriesService } from 'src/app/modules/categories/categories.service'
+import { Component, OnInit } from '@angular/core';
+import { SubcategoriesPage } from '../../subcategory';
+import { SubcategoriesService } from '../../subcategories.service';
+import { CategoriesService } from 'src/app/modules/categories/categories.service';
 import { Category } from 'src/app/modules/categories/category';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { DialogService } from 'primeng/dynamicdialog';
@@ -13,25 +13,25 @@ import { ConfirmationService } from 'primeng/api';
     selector: 'app-subcategories',
     templateUrl: './subcategories.component.html',
     styleUrls: ['./subcategories.component.scss'],
-    providers: [DialogService] 
+    providers: [DialogService]
 })
 export class SubcategoriesComponent implements OnInit {
 
-    subcategoriesPage:SubcategoriesPage;
+    subcategoriesPage: SubcategoriesPage;
     categories: Category[];
     public ref: DynamicDialogRef;
 
     private page: number;
     private limit: number;
-    
-    //Temproary selected category
+
+    // Temproary selected category
     public tempCategory: Category;
 
     constructor(
-        private subcategoriesService:SubcategoriesService,
-        private categoriesService:CategoriesService,
-        public dialogService:DialogService,
-        private confirmationService:ConfirmationService
+        private subcategoriesService: SubcategoriesService,
+        private categoriesService: CategoriesService,
+        public dialogService: DialogService,
+        private confirmationService: ConfirmationService
     ) {
         this.page = 0;
         this.limit = 5;
@@ -53,20 +53,20 @@ export class SubcategoriesComponent implements OnInit {
         );
 
         this.ref.onClose.subscribe(submited => {
-            if(submited) {
+            if (submited) {
                 this.getSubcategories();
             }
-        })
+        });
 
     }
 
-    showUpdateForm(subcategory:any): void {
+    showUpdateForm(subcategory: any): void {
 
         this.ref = this.dialogService.open(
             UpdateSubcategoryComponent,
             {
                 data: {
-                    subcategory: subcategory
+                    subcategory
                 },
                 header: 'Update category',
                 width: '30%',
@@ -75,24 +75,24 @@ export class SubcategoriesComponent implements OnInit {
         );
 
         this.ref.onClose.subscribe(submited => {
-            if(submited) {
+            if (submited) {
                 this.getSubcategories();
             }
-        })
+        });
 
     }
 
-    showDeleteForm(subcategory:any): void {
+    showDeleteForm(subcategory: any): void {
         this.confirmationService.confirm({
             message: 'Do you want to delete this subcategory?',
             header: 'Delete Confirmation',
             icon: 'pi pi-info-circle',
             accept: () => {
-              //this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' });
+              // this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' });
               this.deleteSubcategory(subcategory);
             },
             reject: () => {
-              //this.messageService.add({ severity: 'info', summary: 'Rejected', detail: 'You have rejected' });
+              // this.messageService.add({ severity: 'info', summary: 'Rejected', detail: 'You have rejected' });
             }
           });
     }
@@ -101,7 +101,7 @@ export class SubcategoriesComponent implements OnInit {
         this.getCategories();
     }
 
-    deleteSubcategory(subcategory:any):void {
+    deleteSubcategory(subcategory: any): void {
         this.subcategoriesService.deleteSubcategory(subcategory)
         .pipe()
         .subscribe(
@@ -116,9 +116,9 @@ export class SubcategoriesComponent implements OnInit {
         .subscribe(categories => this.categories = categories);
     }
 
-    categoryChanged(category:any): void {
-        
-        //Each time we change selected category we change tempChategory, too
+    categoryChanged(category: any): void {
+
+        // Each time we change selected category we change tempChategory, too
         this.tempCategory = category;
 
         this.getSubcategories();
@@ -127,14 +127,14 @@ export class SubcategoriesComponent implements OnInit {
     getSubcategories(): void {
         this.subcategoriesService
         .getSubcategories(this.tempCategory.id, this.page, this.limit)
-        .subscribe(subcategories => this.subcategoriesPage = subcategories);        
+        .subscribe(subcategories => this.subcategoriesPage = subcategories);
     }
 
     getNextSubcategories() {
         this.page++;
         this.getSubcategories();
     }
-    
+
     getPrevSubcategories() {
         this.page--;
         this.getSubcategories();

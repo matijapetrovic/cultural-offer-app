@@ -2,24 +2,38 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { CategoriesService } from '../../categories.service';
 
 import { AddCategoryComponent } from './add-category.component';
 
 describe('AddCategoryComponent', () => {
   let component: AddCategoryComponent;
   let fixture: ComponentFixture<AddCategoryComponent>;
-  const dialogRefMock = {
-    close: () => { }
-  };
+
 
   beforeEach(async () => {
+    const categoriesServiceMock = {
+      addCategory: jasmine.createSpy('addCategory')
+        .and.returnValue({
+          subscribe: () => {
+            component.loading = false;
+            component.removeFormInputs();
+            component.ref.close(true);
+          }})
+    };
+
+    const dialogRefMock = {
+      close: () => { }
+    };
+
     await TestBed.configureTestingModule({
       declarations: [AddCategoryComponent],
       imports: [
         FormsModule,
         ReactiveFormsModule,
         HttpClientTestingModule],
-      providers: [{ provide: DynamicDialogRef, useValue: dialogRefMock}]
+      providers: [{ provide: DynamicDialogRef, useValue: dialogRefMock},
+                  { provide: CategoriesService, useValue: categoriesServiceMock }]
     })
     .compileComponents();
   });
@@ -52,16 +66,19 @@ describe('AddCategoryComponent', () => {
     const name = '';
 
     spyOn(component, 'invalidFormInputs');
+    spyOn(component, 'removeFormInputs');
     component.addForm.controls.name.setValue(name);
     component.onSubmit();
 
     expect(component.invalidFormInputs).toHaveBeenCalled();
+    expect(component.removeFormInputs).toHaveBeenCalled();
   });
 
   it('addCategory() form with valid inputs should be added', () => {
     const name = '';
 
     spyOn(component, 'invalidFormInputs');
+    spyOn(component, 'addCategory');
     component.addForm.controls.name.setValue(name);
     component.addCategory();
 
@@ -92,4 +109,9 @@ describe('AddCategoryComponent', () => {
     expect(component.invalidFormInputs()).toBeTrue();
   });
 
+  it(`errorMessage() should return 'Name is required!'`, () => {
+    const message = 'Name is required!';
+
+    expect(component.errorMessage()).toEqual(message);
+  });
 });
