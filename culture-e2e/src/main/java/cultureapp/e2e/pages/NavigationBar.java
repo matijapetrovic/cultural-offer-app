@@ -1,5 +1,7 @@
 package cultureapp.e2e.pages;
 
+import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,7 +10,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 @RequiredArgsConstructor
+@Getter
 public class NavigationBar {
+    @Getter(value = AccessLevel.PRIVATE)
     private final WebDriver driver;
 
     @FindBy(css = "#home-nav-link")
@@ -35,53 +39,28 @@ public class NavigationBar {
     @FindBy(css = "#register-nav-link")
     private WebElement registerPageLink;
 
-    public void navigateToHomePage() {
-        homePageLink.click();
-    }
-    public void navigateToMapPage() {
-        mapPageLink.click();
-    }
-    public void navigateToDashboardPage() {
-        dashboardPageLink.click();
-    }
-    public void navigateToCategoriesPage() {
-        categoriesPageLink.click();
-    }
-    public void navigateToSubcategoriesPage() {
-        subcategoriesPageLink.click();
-    }
-    public void navigateToNewsPage() {
-        newsPageLink.click();
-    }
-    public void navigateToLoginPage() {
-        loginPageLink.click();
-    }
-    public void navigateToRegisterPage() {
-        registerPageLink.click();
-    }
-
-    public void ensureHomePageLinkIsDisplayed(WebDriver driver) {
+    public void ensureHomePageLinkIsDisplayed() {
         (new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(homePageLink));
     }
-    public void ensureMapPageLinkIsDisplayed(WebDriver driver) {
+    public void ensureMapPageLinkIsDisplayed() {
         (new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(mapPageLink));
     }
-    public void ensureDashboardPageLinkIsDisplayed(WebDriver driver) {
+    public void ensureDashboardPageLinkIsDisplayed() {
         (new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(homePageLink));
     }
-    public void ensureCategoriesPageLinkIsDisplayed(WebDriver driver) {
+    public void ensureCategoriesPageLinkIsDisplayed() {
         (new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(homePageLink));
     }
-    public void ensureSubcategoriesPageLinkIsDisplayed(WebDriver driver) {
+    public void ensureSubcategoriesPageLinkIsDisplayed() {
         (new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(homePageLink));
     }
-    public void ensureNewsPageLinkIsDisplayed(WebDriver driver) {
+    public void ensureNewsPageLinkIsDisplayed() {
         (new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(homePageLink));
     }
-    public void ensureLoginPageLinkIsDisplayed(WebDriver driver) {
+    public void ensureLoginPageLinkIsDisplayed() {
         (new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(homePageLink));
     }
-    public void ensureRegisterPageLinkIsDisplayed(WebDriver driver) {
+    public void ensureRegisterPageLinkIsDisplayed() {
         (new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(homePageLink));
     }
 
