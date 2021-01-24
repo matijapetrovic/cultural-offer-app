@@ -80,6 +80,10 @@ export class CulturalOfferComponent implements OnInit {
     });
 
     this.ref.onClose.subscribe((reviewAddedEvent: EventEmitter<void>) => {
+      if (reviewAddedEvent == null) {
+        return;
+      }
+
       reviewAddedEvent.subscribe(() => {
         this.getCulturalOffer();
         this.getReviews();

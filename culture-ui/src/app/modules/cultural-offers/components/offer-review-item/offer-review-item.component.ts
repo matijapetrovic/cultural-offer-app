@@ -3,8 +3,8 @@ import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AuthenticationService } from 'src/app/modules/authentication/authentication.service';
 import { Role } from 'src/app/modules/authentication/role';
+import { AddReplyComponent } from 'src/app/modules/reviews/components/add-reply/add-reply.component';
 import { Review } from 'src/app/modules/reviews/review';
-import { AddReplyForOfferComponent } from '../add-reply-for-offer/add-reply-for-offer.component';
 
 @Component({
   selector: 'app-offer-review-item',
@@ -36,7 +36,7 @@ export class OfferReviewItemComponent implements OnInit {
   }
 
   showAddReplyDialog(): void {
-    this.ref = this.dialogService.open(AddReplyForOfferComponent, {
+    this.ref = this.dialogService.open(AddReplyComponent, {
 
       data: {
         culturalOfferId: this.culturalOfferId,

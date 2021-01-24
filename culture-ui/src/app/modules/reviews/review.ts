@@ -35,3 +35,7 @@ export interface ReplyAuthor {
   firstName: string;
   lastName: string;
 }
+
+export interface ReplyToAdd {
+  comment: string;
+}

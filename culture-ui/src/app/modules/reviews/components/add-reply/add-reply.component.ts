@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { RepliesService } from 'src/app/modules/replies/replies.service';
-import { ReplyToAdd } from 'src/app/modules/replies/reply';
+import { RepliesService } from '../../replies.service';
+import { ReplyToAdd } from '../../review';
 
 @Component({
-  selector: 'app-add-reply-for-offer',
-  templateUrl: './add-reply-for-offer.component.html',
-  styleUrls: ['./add-reply-for-offer.component.scss']
+  selector: 'app-add-reply',
+  templateUrl: './add-reply.component.html',
+  styleUrls: ['./add-reply.component.scss']
 })
-export class AddReplyForOfferComponent implements OnInit {
+export class AddReplyComponent implements OnInit {
   addReplyForm: FormGroup;
 
   private culturalOfferId: number;
