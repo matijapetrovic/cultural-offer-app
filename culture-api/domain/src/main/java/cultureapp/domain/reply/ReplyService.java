@@ -1,5 +1,7 @@
 package cultureapp.domain.reply;
 
+import cultureapp.domain.account.Account;
+import cultureapp.domain.core.AuthenticationService;
 import cultureapp.domain.cultural_offer.CulturalOffer;
 import cultureapp.domain.cultural_offer.CulturalOfferRepository;
 import cultureapp.domain.cultural_offer.exception.CulturalOfferNotFoundException;
@@ -20,6 +22,7 @@ public class ReplyService implements AddReplyUseCase {
     private final ReplyRepository replyRepository;
     private final ReviewRepository reviewRepository;
     private final AdministratorRepository adminRepository;
+    private final AuthenticationService authenticationService;
 
 //    private final CulturalOfferRepository offerRepository;
 
@@ -31,8 +34,9 @@ public class ReplyService implements AddReplyUseCase {
         Review review = reviewRepository.findByIdAndCulturalOfferIdAndArchivedFalse(command.getReviewId(), command.getCulturalOfferId())
                 .orElseThrow(() -> new ReviewNotFoundException(command.getReviewId(), command.getCulturalOfferId()));
 
-        Administrator admin = adminRepository.findById(command.getAdminId())
-                .orElseThrow(() -> new AdminNotFoundException(command.getAdminId()));
+        Account account = authenticationService.getAuthenticated();
+        Administrator admin = adminRepository.findById(account.getId())
+                .orElseThrow(() -> new AdminNotFoundException(account.getId()));
 
         Reply reply = Reply.of(review, command.getComment(), admin);
 

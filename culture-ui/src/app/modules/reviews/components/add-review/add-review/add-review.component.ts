@@ -53,6 +53,7 @@ export class AddReviewComponent implements OnInit {
   onSubmit(): void {
     this.reviewToAdd = this.addReviewForm.value;
 
+    // not working
     this.imageService
       .addImages(this.imagesToAdd)
       .subscribe(

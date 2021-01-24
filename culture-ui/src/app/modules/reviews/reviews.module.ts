@@ -10,6 +10,7 @@ import { FileUploadModule } from 'primeng/fileupload';
     CommonModule,
     SharedModule,
     FileUploadModule
-  ]
+  ],
+  exports: [AddReviewComponent]
 })
 export class ReviewsModule { }

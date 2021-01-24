@@ -28,7 +28,7 @@ export class CulturalOfferComponent implements OnInit {
   userIsRegular: boolean;
   subscribed: boolean = null;
 
-  private culturalOfferId: number;
+  culturalOfferId: number;
 
   private currentReviewsPage: number;
   private reviewsLimit = 3;

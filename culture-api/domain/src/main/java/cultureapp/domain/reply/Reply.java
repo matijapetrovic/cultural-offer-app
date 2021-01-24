@@ -32,7 +32,7 @@ public class Reply {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="id", referencedColumnName = "id")
     @JoinColumn(name="cultural_offer_id", referencedColumnName = "cultural_offer_id")
-    @MapsId
+//    @MapsId
     private Review review;
 
     @ManyToOne
@@ -47,7 +47,7 @@ public class Reply {
             String comment,
             Administrator administrator) {
         return new Reply(
-                review.getId(),
+                null,
                 review.getCulturalOffer().getId(),
                 review,
                 administrator,

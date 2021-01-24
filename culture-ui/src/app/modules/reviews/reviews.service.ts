@@ -12,9 +12,7 @@ import { Review, ReviewPage, ReviewToAdd } from './review';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type': 'application/json',
-    Authorization:
-      'Bearer eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjdWx0dXJlLWFwcCIsInN1YiI6InVzZXIxQGdtYWlsLmNvbSIsImF1ZCI6IndlYiIsImlhdCI6MTYwODA0NzQ4MCwiZXhwIjoxNjA5ODQ3NDgwfQ.ueAGubG7bsyVoaxoFUTlFgzWNMZ-9QpTBBdETc9yLv9lWaAav5yLHSUWWCmWtFkpgQIHntZvej1vuENVLbeghg'
+    'Content-Type': 'application/json'
   })
 };
 
@@ -22,7 +20,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ReviewsService {
-  reviewsUrl = `${environment.apiUrl}/api/cultural-offers`;
+  offersUrl = `${environment.apiUrl}/api/cultural-offers`;
   private handleError: HandleError;
 
   constructor(private http: HttpClient, httpErrorHandler: HttpErrorHandler) {
@@ -38,7 +36,7 @@ export class ReviewsService {
       .append('page', page.toString())
       .append('limit', limit.toString());
 
-    const url = `${this.reviewsUrl}/${culturalOfferId}/reviews`;
+    const url = `${this.offersUrl}/${culturalOfferId}/reviews`;
     return this.http
       .get<ReviewPage>(url, { ...httpOptions, params })
       .pipe(catchError(this.handleError<ReviewPage>('getReviews')));
@@ -48,7 +46,7 @@ export class ReviewsService {
     reviewToAdd: ReviewToAdd,
     culturalOfferId: number
   ): Observable<void> {
-    const url = `${this.reviewsUrl}/${culturalOfferId}/reviews`;
+    const url = `${this.offersUrl}/${culturalOfferId}/reviews`;
     return this.http
       .post<void>(url, reviewToAdd, httpOptions)
       .pipe(catchError(this.handleError<void>('postReview')));

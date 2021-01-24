@@ -1,8 +1,6 @@
-<form class="reactiveForm" (ngSubmit)="onSubmit()">
-    <div>Why this doesn't work?</div>
-    <!-- <div class="p-fluid">
-
-        [formGroup]="addReviewForm"
+<form [formGroup]="addReviewForm" class="reactiveForm" (ngSubmit)="onSubmit()">
+    <h1>True add review</h1>
+    <div class="p-fluid">
 
         <div class="p-field p-text-center">
             <label>Rating</label>
@@ -28,5 +26,5 @@
     </div>
     <div class="p-grid p-px-5 p-mt-6 p-justify-center">
         <button type="submit" class="p-button" label="Add" pButton [disabled]="addReviewForm.invalid"></button>
-    </div> -->
+    </div>
 </form>

@@ -9,6 +9,9 @@ import { OfferReviewItemComponent } from './components/offer-review-item/offer-r
 import { OfferNewsItemComponent } from './components/offer-news-item/offer-news-item.component';
 import { AddReviewForOfferComponent } from './components/add-review-for-offer/add-review-for-offer.component';
 import { ReviewReplyItemComponent } from './components/review-reply-item/review-reply-item.component';
+import { AddReplyForOfferComponent } from './components/add-reply-for-offer/add-reply-for-offer.component';
+import { AddReviewComponent } from '../reviews/components/add-review/add-review/add-review.component';
+import { ReviewsModule } from '../reviews/reviews.module';
 
 
 @NgModule({
@@ -17,13 +20,15 @@ import { ReviewReplyItemComponent } from './components/review-reply-item/review-
     OfferReviewItemComponent,
     OfferNewsItemComponent,
     AddReviewForOfferComponent,
-    ReviewReplyItemComponent
+    ReviewReplyItemComponent,
+    AddReplyForOfferComponent
   ],
   imports: [
     CommonModule,
     CulturalOffersRoutingModule,
     SharedModule,
-    FileUploadModule
+    FileUploadModule,
+    ReviewsModule
   ]
 })
 export class CulturalOffersModule { }

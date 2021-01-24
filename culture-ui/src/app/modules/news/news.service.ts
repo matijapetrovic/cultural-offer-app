@@ -9,8 +9,7 @@ import { NewsPage } from './news';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type':  'application/json',
-    Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjdWx0dXJlLWFwcCIsInN1YiI6InVzZXIxQGdtYWlsLmNvbSIsImF1ZCI6IndlYiIsImlhdCI6MTYwODA0NzQ4MCwiZXhwIjoxNjA5ODQ3NDgwfQ.ueAGubG7bsyVoaxoFUTlFgzWNMZ-9QpTBBdETc9yLv9lWaAav5yLHSUWWCmWtFkpgQIHntZvej1vuENVLbeghg'
+    'Content-Type': 'application/json'
   })
 };
 
@@ -26,14 +25,14 @@ export class NewsService {
     this.handleError = httpErrorHandler.createHandleError('NewsService');
   }
 
-  getNews(culturalOfferId: number, page: number, limit: number): Observable<NewsPage>{
+  getNews(culturalOfferId: number, page: number, limit: number): Observable<NewsPage> {
     const params: HttpParams =
       new HttpParams()
         .append('page', page.toString())
         .append('limit', limit.toString());
 
     const url = `${this.newsUrl}/${culturalOfferId}/news`;
-    return this.http.get<NewsPage>(url, {...httpOptions, params})
+    return this.http.get<NewsPage>(url, { ...httpOptions, params })
       .pipe(
         catchError(this.handleError<NewsPage>('getNews'))
       );

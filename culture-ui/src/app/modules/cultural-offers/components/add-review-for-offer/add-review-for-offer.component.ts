@@ -76,6 +76,8 @@ export class AddReviewForOfferComponent implements OnInit {
 
               });
         });
+
+    this.addReviewForm.reset();
   }
 
   showProccessMessage(): void {

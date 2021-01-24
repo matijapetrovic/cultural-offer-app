@@ -21,7 +21,7 @@
 
     <ng-template #showReply>
       <div class="review-items">
-        <div style="margin-bottom: 20px">
+        <div style="margin-bottom: 20px; margin-top: 20px">
           <h2>Reply</h2>
           <hr />
           <app-review-reply-item [reply]="review.reply"></app-review-reply-item>
@@ -30,7 +30,8 @@
     </ng-template>
 
     <ng-template #showAddReplyButton>
-      <button *ngIf="userIsAdmin" pButton class="p-button-secondary" label="Reply">
+      <button *ngIf="userIsAdmin" (click)="showAddReplyDialog()" style="margin-top: 20px" pButton
+        class="p-button-secondary" label="Reply">
       </button>
     </ng-template>
 
