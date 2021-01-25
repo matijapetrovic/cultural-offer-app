@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DashboardService } from '../../dashboard.service';
-import { SubscriptionsSubcategoriesPage } from '../../subscriptions-details';
+import { SubscribedSubcategoriesPage } from '../../subscriptions-details';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,22 +8,21 @@ import { SubscriptionsSubcategoriesPage } from '../../subscriptions-details';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  subSubCatPage: SubscriptionsSubcategoriesPage;
+  subSubCatPage: SubscribedSubcategoriesPage;
 
-  private page: number;
+  page: number = 0;
   private limit: number = 5;
 
   constructor(private dashboardService: DashboardService) {
   }
 
   ngOnInit(): void {
-    this.page = 0;
     this.getSubscribedSubcategories();
   }
 
   getSubscribedSubcategories(): void {
     this.dashboardService.getSubscribedSubcategories(this.page, this.limit)
-      .subscribe(subcategories => this.subSubCatPage = subcategories);
+      .subscribe((subcategories: SubscribedSubcategoriesPage) => this.subSubCatPage = subcategories);
   }
 
   getPreviousPage(): void {

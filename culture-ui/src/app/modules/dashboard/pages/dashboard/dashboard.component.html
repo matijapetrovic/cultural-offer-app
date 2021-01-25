@@ -1,14 +1,25 @@
 <div>
-    <div *ngIf="subSubCatPage">
+    <div *ngIf="subSubCatPage; else showNoOffersMessage">
         <app-pagination-bar [hasPrev]="subSubCatPage.links.prev" [hasNext]="subSubCatPage.links.next"
             [currentPage]="page" (navigatePrevEvent)="getPreviousPage()" (navigateNextEvent)="getNextPage()">
         </app-pagination-bar>
 
         <p-tabView>
-            <p-tabPanel *ngFor="let subSubCat of subSubCatPage.data" [header]="subSubCat.name">
-                <h1>This shit works!</h1>
-                <p>{{ subSubCat.name }}</p>
+            <p-tabPanel *ngFor="let subSubCat of subSubCatPage.data" [cache]="false">
+                <ng-template pTemplate="header">
+                    {{ subSubCat.name }}
+                </ng-template>
+
+                <!-- lazy loaded -->
+                <ng-template pTemplate="content">
+                    <app-dashboard-panel-content [subscribedSubcategory]="subSubCat"></app-dashboard-panel-content>
+                </ng-template>
             </p-tabPanel>
         </p-tabView>
     </div>
+
+    <ng-template #showNoOffersMessage>
+        <p-card class="center" header="No offers" [style]="{width: '360px'}" styleClass="p-card-shadow">
+        </p-card>
+    </ng-template>
 </div>
