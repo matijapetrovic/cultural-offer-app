@@ -6,12 +6,14 @@ import static cultureapp.common.SubcategoryTestData.*;
 import cultureapp.domain.category.Category;
 import cultureapp.domain.category.CategoryRepository;
 import cultureapp.domain.category.exception.CategoryNotFoundException;
+import cultureapp.domain.core.AuthenticationService;
 import cultureapp.domain.subcategory.command.AddSubcategoryUseCase;
 import cultureapp.domain.subcategory.command.UpdateSubcategoryUseCase;
 import cultureapp.domain.subcategory.exception.SubcategoryAlreadyExistsException;
 import cultureapp.domain.subcategory.exception.SubcategoryNotFoundException;
 import cultureapp.domain.subcategory.query.GetSubcategoriesQueryHandler;
 import cultureapp.domain.subcategory.query.GetSubcategoryByIdQueryHandler;
+import cultureapp.domain.user.RegularUserRepository;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -36,8 +38,19 @@ public class SubcategoryServiceUnitTest {
     private final CategoryRepository categoryRepository =
             Mockito.mock(CategoryRepository.class);
 
+
+    private final AuthenticationService authenticationService =
+            Mockito.mock(AuthenticationService.class);
+    private final RegularUserRepository regularUserRepository =
+            Mockito.mock(RegularUserRepository.class);
+
     private final SubcategoryService subcategoryService =
-            new SubcategoryService(subcategoryRepository, categoryRepository);
+            new SubcategoryService(
+                    subcategoryRepository,
+                    categoryRepository,
+                    authenticationService,
+                    regularUserRepository
+            );
 
     // addSubcategories()
 
