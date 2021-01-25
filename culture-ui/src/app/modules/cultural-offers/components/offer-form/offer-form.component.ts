@@ -48,7 +48,7 @@ export class OfferFormComponent implements OnInit {
             name: ['', Validators.required],
             description: ['', Validators.required],
             category: new FormControl({value: null}, Validators.required),
-            subcategory: new FormControl({value: null, disabled: true}, Validators.required),
+            subcategory: new FormControl({value: null}, Validators.required),
             images: ['', Validators.required],
             address:  ['', Validators.required]
         });
@@ -61,6 +61,7 @@ export class OfferFormComponent implements OnInit {
         if(this.model) {
             this.culturalOffer = {...this.model};
             this.tempCategoryId = this.culturalOffer.subcategory.categoryId;
+            this.getSubcategories();
         }
         else {
             this.model = {
@@ -80,6 +81,10 @@ export class OfferFormComponent implements OnInit {
             this.culturalOffer = {...this.model};
             this.tempCategoryId = null;
         }
+    }
+
+    isSubcatDisabled():boolean {
+        return this.tempCategoryId === null;
     }
 
     getCategories():void {
@@ -109,6 +114,7 @@ export class OfferFormComponent implements OnInit {
         
         this.imageService.addImages(this.imageFormData())
         .subscribe(imageIds => {
+            this.removeFormInputs();
             this.formSubmitted.emit(this.makeOffer(imageIds));
         });  
     }
