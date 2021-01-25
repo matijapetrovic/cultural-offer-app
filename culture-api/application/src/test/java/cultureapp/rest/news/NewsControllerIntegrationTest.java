@@ -660,7 +660,7 @@ public class NewsControllerIntegrationTest {
         assertNotNull(response.getBody());
         assertEquals(EXISTING_CULTURAL_OFFER_ID, response.getBody().getCulturalOfferId());
         assertEquals(EXISTING_NEWS_ID_1_FOR_OFFER_ID_1, response.getBody().getId());
-        assertEquals(EXISTING_NEWS_TITLE_1_FOR_OFFER_ID_1, response.getBody().getName());
+        assertEquals(EXISTING_NEWS_TITLE_1_FOR_OFFER_ID_1, response.getBody().getTitle());
     }
 
     /*
