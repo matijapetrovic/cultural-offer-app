@@ -7,7 +7,6 @@ import { CulturalOfferToAdd, CulturalOfferView } from 'src/app/modules/cultural-
 import { ImageService } from 'src/app/core/services/image.service';
 import { GeolocationService } from 'src/app/core/services/geolocation.service';
 
-
 @Component({
     selector: 'app-offer-form',
     templateUrl: './offer-form.component.html',
@@ -26,7 +25,7 @@ export class OfferFormComponent implements OnInit {
     categories: Category[];
     subcategories: Subcategory[];
 
-    selectedFiles: FileList;
+    newImages: Array<File>;
 
     culturalOffer: CulturalOfferView;
     tempCategoryId: number;
@@ -41,12 +40,13 @@ export class OfferFormComponent implements OnInit {
 
     ngOnInit(): void {
         this.setUp(); 
+        this.newImages = new Array<File>();
     }
 
     setUp() {
         this.getCategories();
         if(this.model) {
-            this.culturalOffer = {...this.model};
+            this.culturalOffer = JSON.parse(JSON.stringify(this.model));
             this.tempCategoryId = this.culturalOffer.subcategory.categoryId;
             this.getSubcategories();
         }
@@ -71,10 +71,6 @@ export class OfferFormComponent implements OnInit {
         }
     }
 
-    isSubcatDisabled():boolean {
-        return this.tempCategoryId === null;
-    }
-
     getCategories():void {
         this.categoriesService
         .getCategoryNames()
@@ -92,53 +88,90 @@ export class OfferFormComponent implements OnInit {
         .subscribe(subcategories => this.subcategories = subcategories);        
     }
 
-    appendFile() {
+    appendFile(event: any) {
+        this.newImages.push(event.target.files.item(0));
 
+        var reader = new FileReader();
+
+        reader.onload = (event:any) => {
+            this.culturalOffer.images.push(event.target.result);
+        }
+
+        reader.readAsDataURL(event.target.files[0]);
     }
 
-    selectFiles(event:any): void {
-        this.selectedFiles = event.target.files;
+    removeImage(imageUrl: string) {
+        let index:number = this.culturalOffer.images.indexOf(imageUrl);
+        this.culturalOffer.images.splice(index, 1);
+
+        if(index < this.culturalOffer.imagesIds.length) {
+            this.culturalOffer.imagesIds.splice(index, 1);
+        }
+        else {
+            this.newImages.splice(index - this.culturalOffer.imagesIds.length, 1);
+        }
     }
 
     onSubmit(): void {
-        this.imageService.addImages(this.imageFormData())
-        .subscribe(imageIds => {
-            this.formSubmitted.emit(this.makeOffer(imageIds));
-        });  
+
+        if(this.newImages.length > 0) {
+            this.imageService.addImages(this.imageFormData())
+                .subscribe(imageIds => {
+                this.updateImagesIds(imageIds);
+                this.returnOfferWithLocation();
+            });
+        } else {
+            this.returnOfferWithLocation();
+        } 
+    }
+
+    updateImagesIds(imagesIds: number[]) {
+        this.culturalOffer.imagesIds = this.culturalOffer.imagesIds.concat(imagesIds);
     }
 
     imageFormData(): FormData {
         let imageData = new FormData();
 
-        if(this.selectedFiles)
-            for (let i = 0; i < this.selectedFiles.length; i++) {
-                imageData.append('images', this.selectedFiles[i]);
-            }
-        else
-            imageData.append('images', '');
+        for (let i = 0; i < this.newImages.length; i++) {
+            imageData.append('images', this.newImages[i]);
+        }
 
         return imageData;
     }
 
-    makeOffer(imageIds:number[]): CulturalOfferToAdd {
+    returnOfferWithLocation() {
 
-        let offerToAdd:CulturalOfferToAdd;
+        if(this.culturalOffer.address !== this.model.address) {
+            this.geocodeService.geocode(this.culturalOffer.address)
+            .subscribe(range => {
+               this.updateLocation(range);
+               this.returnOffer();
+            });
+        } else {
+            this.returnOffer();
+        }
+    }
 
-        this.geocodeService.geocode(this.culturalOffer.address)
-        .subscribe(range => {
-            offerToAdd = {
-                id: this.culturalOffer.id,
-                name: this.culturalOffer.name,
-                description: this.culturalOffer.description,
-                subcategory: this.culturalOffer.subcategory,
-                longitude: range.longitudeFrom + (range.longitudeTo - range.longitudeFrom)/2,
-                latitude: range.latitudeFrom + (range.latitudeTo - range.latitudeFrom)/2,
-                address: this.culturalOffer.address,
-                images: imageIds
-            };
-        });
+    updateLocation(range:any) {
+        this.culturalOffer.longitude = range.longitudeFrom + (range.longitudeTo - range.longitudeFrom)/2;
+        this.culturalOffer.latitude = range.latitudeFrom + (range.latitudeTo - range.latitudeFrom)/2;
+    }
 
-        return offerToAdd;
+    returnOffer() {
+        
+        let retVal:CulturalOfferToAdd = {
+            id: this.culturalOffer.id,
+            name: this.culturalOffer.name,
+            description: this.culturalOffer.description,
+            subcategoryId: this.culturalOffer.subcategory.id,
+            categoryId: this.tempCategoryId,
+            longitude: this.culturalOffer.longitude,
+            latitude: this.culturalOffer.latitude,
+            address: this.culturalOffer.address,
+            images: this.culturalOffer.imagesIds
+        };
+
+        this.formSubmitted.emit(retVal);
     }
 
     invalidFormInputs(): boolean {
@@ -152,9 +185,6 @@ export class OfferFormComponent implements OnInit {
             return true;
         }
         if (this.culturalOffer.address === '' || this.culturalOffer.address === null) {
-            return true;
-        }
-        if(!this.selectedFiles) {
             return true;
         }
         return false;

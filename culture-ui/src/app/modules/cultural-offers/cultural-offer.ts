@@ -5,10 +5,11 @@ export interface CulturalOfferToAdd {
   id: number;
   name: string;
   description: string;
-  subcategory: Subcategory;
-  images: number[];
   latitude: number;
   longitude: number;
+  images: number[];
+  subcategoryId: number;
+  categoryId: number;
   address: string;
 }
 

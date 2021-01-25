@@ -4,7 +4,7 @@ import { HandleError, HttpErrorHandler } from '../../core/services/http-error-ha
 
 import { Observable, of, scheduled } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { CulturalOffer, CulturalOfferLocation, CulturalOffersPage, CulturalOfferToAdd, LocationRange } from './cultural-offer';
+import { CulturalOffer, CulturalOfferLocation, CulturalOffersPage, CulturalOfferToAdd, CulturalOfferView, LocationRange } from './cultural-offer';
 import { environment } from 'src/environments/environment';
 import { MessageService } from 'primeng/api';
 
@@ -34,11 +34,11 @@ export class CulturalOffersService {
     );
   }
 
-  updateCulturalOffer(culturalOffer: CulturalOffer): Observable<CulturalOffer> {
+  updateCulturalOffer(culturalOffer: CulturalOfferToAdd): Observable<CulturalOfferView> {
     const url =  `${this.culturalOffersUrl}/${culturalOffer.id}`;
-    return this.http.put<CulturalOffer>(url, culturalOffer)
+    return this.http.put<CulturalOfferView>(url, culturalOffer)
     .pipe(
-      catchError(this.handleError<CulturalOffer>('putCulturalOffer'))
+      catchError(this.handleError<CulturalOfferView>('putCulturalOffer'))
     );
   }
 
