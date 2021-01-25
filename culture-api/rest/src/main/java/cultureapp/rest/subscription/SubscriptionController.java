@@ -38,7 +38,7 @@ public class SubscriptionController {
         return ResponseEntity.ok(getSubscriptionsForUserQueryHandler.handleGetSubscriptions(query));
     }
 
-    @GetMapping(value = "", params = {"page", "limit"})
+    @GetMapping(value = "/subcategories", params = {"page", "limit"})
     @PreAuthorize(value="hasRole('ROLE_USER')")
     public ResponseEntity<PaginatedResponse<GetSubscriptionsSubcategoriesForUserQueryHandler.GetSubscriptionsSubcategoriesForUserDTO>>
             getSubscribedSubcategoriesForUser(
@@ -53,7 +53,7 @@ public class SubscriptionController {
                 );
         Slice<GetSubscriptionsSubcategoriesForUserQueryHandler.GetSubscriptionsSubcategoriesForUserDTO>
                 result = getSubscriptionsSubcategoriesForUserQueryHandler.getSubscribedSubcategoriesForUser(query);
-        uriBuilder.path("/api/subscriptions");
+        uriBuilder.path("/api/subscriptions/subcategories");
         return ResponseEntity.ok(PaginatedResponse.of(result, uriBuilder));
     }
 }

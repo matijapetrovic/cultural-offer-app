@@ -33,7 +33,7 @@ public class GetSubscriptionsForUserService implements GetSubscriptionsForUserQu
                 .orElseThrow(() -> new RegularUserNotFoundException("Zasto email?"));
 
         Subcategory subcategory = subcategoryRepository.findById(SubcategoryId.of(query.getCategoryId(), query.getSubcategoryId()))
-                .orElseThrow(() -> new SubcategoryNotFoundException(query.getCategoryId(), query.getSubcategoryId()));
+                .orElseThrow(() -> new SubcategoryNotFoundException(query.getSubcategoryId(), query.getCategoryId()));
 
         return user.getCulturalOffers()
                 .stream()

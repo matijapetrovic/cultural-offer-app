@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
-import { SharedModule } from 'primeng/api';
-
+import { SharedModule } from 'src/app/shared/shared.module';
+import { TabViewModule } from 'primeng/tabview';
 
 
 @NgModule({
@@ -11,7 +11,8 @@ import { SharedModule } from 'primeng/api';
   imports: [
     CommonModule,
     DashboardRoutingModule,
-    SharedModule
+    SharedModule,
+    TabViewModule
   ]
 })
 export class DashboardModule { }
