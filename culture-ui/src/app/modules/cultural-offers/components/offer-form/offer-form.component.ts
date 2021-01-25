@@ -1,5 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Category } from 'src/app/modules/categories/category';
 import { Subcategory } from 'src/app/modules/subcategories/subcategory';
 import { CategoriesService } from 'src/app/modules/categories/categories.service';
@@ -22,38 +21,26 @@ export class OfferFormComponent implements OnInit {
     @Output()
     formSubmitted = new EventEmitter<CulturalOfferToAdd>();
 
-    submitted:boolean;
-
-    addForm: FormGroup;
+    @ViewChild('subcategorySelect') subcategorySelect;
 
     categories: Category[];
     subcategories: Subcategory[];
 
     selectedFiles: FileList;
+
     culturalOffer: CulturalOfferView;
     tempCategoryId: number;
 
     constructor(
-        private formBuilder: FormBuilder,
         private categoriesService: CategoriesService,
         private subcategoriesService: SubcategoriesService,
         private imageService: ImageService,
         private geocodeService: GeolocationService
     ) { 
-        this.submitted = false;
     }
 
     ngOnInit(): void {
-        this.addForm = this.formBuilder.group({
-            name: ['', Validators.required],
-            description: ['', Validators.required],
-            category: new FormControl({value: null}, Validators.required),
-            subcategory: new FormControl({value: null}, Validators.required),
-            images: ['', Validators.required],
-            address:  ['', Validators.required]
-        });
-        this.setUp();
-        
+        this.setUp(); 
     }
 
     setUp() {
@@ -74,6 +61,7 @@ export class OfferFormComponent implements OnInit {
                     name: '',
                 },
                 images: [],
+                imagesIds: [],
                 latitude: null,
                 longitude: null,
                 address: ''
@@ -94,8 +82,7 @@ export class OfferFormComponent implements OnInit {
     }
 
     categoryChanged(): void {
-        this.f.subcategory.reset();
-        this.f.subcategory.enable();
+        this.subcategorySelect.handleClearClick();
         this.getSubcategories();
     }
 
@@ -105,16 +92,17 @@ export class OfferFormComponent implements OnInit {
         .subscribe(subcategories => this.subcategories = subcategories);        
     }
 
+    appendFile() {
+
+    }
+
     selectFiles(event:any): void {
         this.selectedFiles = event.target.files;
     }
 
     onSubmit(): void {
-        this.submitted = true;
-        
         this.imageService.addImages(this.imageFormData())
         .subscribe(imageIds => {
-            this.removeFormInputs();
             this.formSubmitted.emit(this.makeOffer(imageIds));
         });  
     }
@@ -122,9 +110,12 @@ export class OfferFormComponent implements OnInit {
     imageFormData(): FormData {
         let imageData = new FormData();
 
-        for (let i = 0; i < this.selectedFiles.length; i++) {
-            imageData.append('images', this.selectedFiles[i]);
-        }
+        if(this.selectedFiles)
+            for (let i = 0; i < this.selectedFiles.length; i++) {
+                imageData.append('images', this.selectedFiles[i]);
+            }
+        else
+            imageData.append('images', '');
 
         return imageData;
     }
@@ -150,32 +141,23 @@ export class OfferFormComponent implements OnInit {
         return offerToAdd;
     }
 
-    get f() { return this.addForm.controls; }
-
     invalidFormInputs(): boolean {
-        if (this.f.name.value === '' || this.f.name.value === null) {
+        if (this.culturalOffer.name === '' || this.culturalOffer.name === null) {
             return true;
         }
-        if (this.f.description.value === '' || this.f.description.value === null) {
+        if (this.culturalOffer.description === '' || this.culturalOffer.description === null) {
             return true;
         }
-        if (this.f.category.value ===  null) {
+        if (this.culturalOffer.subcategory === null || this.culturalOffer.subcategory.id === null) {
             return true;
         }
-        if (this.f.subcategory.value === null) {
+        if (this.culturalOffer.address === '' || this.culturalOffer.address === null) {
             return true;
         }
-        if (this.f.images.value === null) {
-            return true;
-        }
-        if (this.f.address.value === '' || this.f.address.value === null) {
+        if(!this.selectedFiles) {
             return true;
         }
         return false;
-    }
-
-    removeFormInputs() {
-        this.addForm.reset();
     }
 
     errorMessage() {

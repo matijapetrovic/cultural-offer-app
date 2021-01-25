@@ -18,6 +18,7 @@ export interface CulturalOfferView {
   description: string;
   subcategory: Subcategory;
   images: string[];
+  imagesIds: number[];
   latitude: number;
   longitude: number;
   address: string;

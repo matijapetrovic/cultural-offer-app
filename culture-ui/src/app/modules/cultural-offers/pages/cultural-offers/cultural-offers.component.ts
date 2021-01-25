@@ -36,7 +36,7 @@ export class CulturalOffersComponent implements OnInit {
             AddOfferComponent,
             {
                 header: 'Add Cultural Offer',
-                width: '25%',
+                width: '35%',
                 dismissableMask: true
             }
         );
@@ -58,7 +58,7 @@ export class CulturalOffersComponent implements OnInit {
                     offer: offer
                 },
                 header: 'Update Cultural Offer',
-                width: '30%',
+                width: '35%',
                 dismissableMask: true
             }
         );

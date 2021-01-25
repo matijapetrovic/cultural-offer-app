@@ -1,6 +1,5 @@
-<form [formGroup]="addForm" (ngSubmit)="onSubmit()">
-    <div class="p-grid p-px-6 form-group">
-    <div class="p-px-5"></div>
+<form (ngSubmit)="onSubmit()">
+    <div>
       <table>
         <tr>
           <td colspan="3">
@@ -12,14 +11,13 @@
         </tr>
         <tr>
           <td colspan="3">
-            <input 
+            <input
               [(ngModel)]="culturalOffer.name"
+              name="name"
               type="name"
               autocomplete="off"
               pInputText
-              formControlName="name"
-              class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && f.name.errors}">
+              class="form-control">
           </td>
         </tr>
         <tr></tr>
@@ -35,12 +33,11 @@
           <td colspan="3">
             <input 
             [(ngModel)]="culturalOffer.address"
+            name="address"
             type="name"
             autocomplete="off"
             pInputText
-            formControlName="address"
-            class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f.name.errors}">
+            class="form-control">
           </td>
         </tr>
         <tr>
@@ -63,33 +60,28 @@
             <ng-select
               [(ngModel)]="tempCategoryId"
               [items]="categories"
+              name="category"
               bindLabel="name"
               bindValue="id"
-              formControlName="category"
-              placeholder="Select a category"
               appearance="outline"
               [searchable]="false"
               [clearable]="false"
               (change)="categoryChanged()"
-              id="filter-category-select"
-              [ngClass]="{ 'is-invalid': submitted && f.category.errors}"
-            >
+              id="filter-category-select">
             </ng-select>
           </td>
           <td></td>
           <td>
             <ng-select
+              #subcategorySelect
               [(ngModel)]="culturalOffer.subcategory"
+              name="subcategory"
               [items]="subcategories"
               bindLabel="name"
-              formControlName="subcategory"
-              placeholder="Select a subcategory"
               appearance="outline"
               [searchable]="false"
               [clearable]="false"
-              id="filter-category-select"
-              [ngClass]="{ 'is-invalid': submitted && f.subcategory.errors}"
-            >
+              id="filter-category-select">
             </ng-select>
           </td>
         </tr>
@@ -106,11 +98,10 @@
           <td colspan="3" rowspan="3">
             <textarea
               [(ngModel)]="culturalOffer.description"
-              formControlName="description"
+              name="description"
               class="form-control"
               rows="7"
               [cols]="24"
-              [ngClass]="{ 'is-invalid': submitted && f.description.errors}"
               pInputTextarea>
             </textarea>
           </td>
@@ -128,13 +119,18 @@
         <tr>
           <td colspan="3">
             <input
-              formControlName="images"
               id="images" 
               type="file" 
               class="form-control"
-              multiple="true"
-              accept="image/*"
-              (change)="selectFiles($event)">
+              accept="image/*">
+          </td>
+          <td></td>
+          <td>
+            <button
+              (click)="appendFile()"
+              >
+              Append
+            </button>
           </td>
         </tr>
       </table>
