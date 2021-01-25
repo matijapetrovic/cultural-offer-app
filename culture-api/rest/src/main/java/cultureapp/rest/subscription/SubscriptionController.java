@@ -26,16 +26,22 @@ public class SubscriptionController {
     private final GetSubscriptionsForUserQueryHandler getSubscriptionsForUserQueryHandler;
     private final GetSubscriptionsSubcategoriesForUserQueryHandler getSubscriptionsSubcategoriesForUserQueryHandler;
 
-    @GetMapping(value = "", params = {"categoryId", "subcategoryId"})
+    @GetMapping(value = "", params = {"page", "limit", "categoryId", "subcategoryId"})
     @PreAuthorize(value="hasRole('ROLE_USER')")
-    public ResponseEntity<List<GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserDTO>> getSubscriptions(
+    public ResponseEntity<PaginatedResponse<GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserDTO>> getSubscriptions(
+            @RequestParam(name = "page") Long page,
+            @RequestParam(name = "limit") Long limit,
             @RequestParam(name = "categoryId") Long categoryId,
-            @RequestParam(name = "subcategoryId") Long subcategoryId)
+            @RequestParam(name = "subcategoryId") Long subcategoryId,
+            UriComponentsBuilder uriBuilder
+    )
             throws SubcategoryNotFoundException, RegularUserNotFoundException {
         GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserQuery query =
-                new GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserQuery(categoryId, subcategoryId);
+                new GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserQuery(categoryId, subcategoryId, page, limit);
 
-        return ResponseEntity.ok(getSubscriptionsForUserQueryHandler.handleGetSubscriptions(query));
+        Slice<GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserDTO> result = getSubscriptionsForUserQueryHandler.handleGetSubscriptions(query);
+        uriBuilder.path("/api/subscriptions");
+        return ResponseEntity.ok(PaginatedResponse.of(result, uriBuilder));
     }
 
     @GetMapping(value = "/subcategories", params = {"page", "limit"})

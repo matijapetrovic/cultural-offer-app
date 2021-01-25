@@ -18,3 +18,8 @@ export interface SubscribedOffer {
     description: string;
     images: string[];
 }
+
+export interface SubscribedOfferPage {
+    data: SubscribedOffer[];
+    links: Map<string, string>;
+}

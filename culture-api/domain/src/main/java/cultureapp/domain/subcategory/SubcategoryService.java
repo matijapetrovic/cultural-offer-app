@@ -144,8 +144,8 @@ public class SubcategoryService implements
                 new PagedListHolder<>(
                         result,
                         new MutableSortDefinition(
-                                "id",
-                                true,
+                                "name",
+                                false,
                                 true
                         )
                 );
@@ -156,8 +156,8 @@ public class SubcategoryService implements
         List<GetSubscriptionsSubcategoriesForUserDTO> pageList = pagedListHolder.getPageList();
         int nrOfElements = pagedListHolder.getNrOfElements();
 
-        Pageable pageRequest = PageRequest.of(query.getPage(), query.getLimit(), Sort.by("id"));
-//        Pageable pageRequest = PageRequest.of(pagedListHolder.getPage(), pagedListHolder.getPageSize(), Sort.by("id"));
+        Pageable pageRequest = PageRequest.of(query.getPage(), query.getLimit(), Sort.by("name"));
+//        Pageable pageRequest = PageRequest.of(pagedListHolder.getPage(), pagedListHolder.getPageSize(), Sort.by("name"));
 
 
         if (isPageChanged(query.getPage(), pagedListHolder.getPage()))

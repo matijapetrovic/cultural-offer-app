@@ -1,5 +1,6 @@
 <div>
     <div *ngIf="subSubCatPage; else showNoOffersMessage">
+
         <app-pagination-bar [hasPrev]="subSubCatPage.links.prev" [hasNext]="subSubCatPage.links.next"
             [currentPage]="page" (navigatePrevEvent)="getPreviousPage()" (navigateNextEvent)="getNextPage()">
         </app-pagination-bar>

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DashboardService } from '../../dashboard.service';
-import { SubscribedOffer, SubscribedSubcategory } from '../../subscriptions-details';
+import { SubscribedOffer, SubscribedOfferPage, SubscribedSubcategory } from '../../subscriptions-details';
 
 @Component({
   selector: 'app-dashboard-panel-content',
@@ -10,7 +10,11 @@ import { SubscribedOffer, SubscribedSubcategory } from '../../subscriptions-deta
 export class DashboardPanelContentComponent implements OnInit {
   @Input() subscribedSubcategory: SubscribedSubcategory;
 
-  subscribedOffers: SubscribedOffer[];
+  page: number = 0;
+  limit: number = 6;
+  loading: boolean = false;
+
+  subscribedOfferPage: SubscribedOfferPage;
 
   constructor(private dashboardService: DashboardService) { }
 
@@ -19,7 +23,22 @@ export class DashboardPanelContentComponent implements OnInit {
   }
 
   getSubscribedOffers(): void {
-    this.dashboardService.getSubscribedOffers(this.subscribedSubcategory.categoryId, this.subscribedSubcategory.id)
-      .subscribe((offers: SubscribedOffer[]) => this.subscribedOffers = offers);
+    this.dashboardService.getSubscribedOffers(
+      this.subscribedSubcategory.categoryId,
+      this.subscribedSubcategory.id,
+      this.page,
+      this.limit
+    )
+      .subscribe((offers: SubscribedOfferPage) => this.subscribedOfferPage = offers);
+  }
+
+  getPreviousPage(): void {
+    this.page--;
+    this.getSubscribedOffers();
+  }
+
+  getNextPage(): void {
+    this.page++;
+    this.getSubscribedOffers();
   }
 }

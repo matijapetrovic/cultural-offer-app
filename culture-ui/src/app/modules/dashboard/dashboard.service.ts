@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HandleError, HttpErrorHandler } from 'src/app/core/services/http-error-handler.service';
 import { environment } from 'src/environments/environment';
-import { SubscribedOffer, SubscribedSubcategoriesPage } from './subscriptions-details';
+import { SubscribedOffer, SubscribedOfferPage, SubscribedSubcategoriesPage } from './subscriptions-details';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -34,9 +34,9 @@ export class DashboardService {
       .pipe(catchError(this.handleError<SubscribedSubcategoriesPage>('getSubscribedSubcategories')));
   }
 
-  getSubscribedOffers(categoryId: number, subcategoryId: number): Observable<SubscribedOffer[]> {
-    const url = `${this.subscriptionsUrl}?categoryId=${categoryId}&subcategoryId=${subcategoryId}`;
-    return this.http.get<SubscribedOffer[]>(url, httpOptions)
-      .pipe(catchError(this.handleError<SubscribedOffer[]>('getSubscribedOffers')));
+  getSubscribedOffers(categoryId: number, subcategoryId: number, page: number, limit: number): Observable<SubscribedOfferPage> {
+    const url = `${this.subscriptionsUrl}?page=${page}&limit=${limit}&categoryId=${categoryId}&subcategoryId=${subcategoryId}`;
+    return this.http.get<SubscribedOfferPage>(url, httpOptions)
+      .pipe(catchError(this.handleError<SubscribedOfferPage>('getSubscribedOffers')));
   }
 }
