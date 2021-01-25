@@ -1,0 +1,37 @@
+.text-center {
+    text-align: center !important;
+}
+
+.panel-card {
+    margin: 10px;
+    // width: 32%;
+    flex-basis: auto; /* default auto */
+    flex: 0 0 600px;
+}
+
+
+.serv {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+
+    
+    .nem {
+        list-style: none;
+        flex: 0 0 33.333333%;
+    }
+}
+
+.container {
+    display: inline-flex; /* or inline-flex */
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: stretch
+}
+
+// .item {
+//     flex-basis: auto; /* default auto */
+//     flex: 0 0 200px;
+//     margin: 10px;
+//     border: 1px solid #ccc;
+// }
