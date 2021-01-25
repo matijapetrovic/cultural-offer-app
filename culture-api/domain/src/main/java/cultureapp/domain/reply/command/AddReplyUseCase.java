@@ -27,17 +27,12 @@ public interface AddReplyUseCase {
         @Positive
         Long reviewId;
 
-        @NotNull
-        @Positive
-        Long adminId;
-
         @NotBlank
         String comment;
 
-        public AddReplyCommand(Long culturalOfferId, Long reviewId, Long adminId, String comment) {
+        public AddReplyCommand(Long culturalOfferId, Long reviewId, String comment) {
             this.culturalOfferId = culturalOfferId;
             this.reviewId = reviewId;
-            this.adminId = adminId;
             this.comment = comment;
             this.validateSelf();
         }

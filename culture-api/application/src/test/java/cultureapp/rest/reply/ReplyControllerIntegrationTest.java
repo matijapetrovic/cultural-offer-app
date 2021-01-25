@@ -63,7 +63,7 @@ public class ReplyControllerIntegrationTest {
         HttpEntity<ReplyRequest> entity =
                 new HttpEntity<>(
                         new ReplyRequest(
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 VALID_COMMENT
                         )
                 );
@@ -98,7 +98,7 @@ public class ReplyControllerIntegrationTest {
         HttpEntity<ReplyRequest> entity =
                 new HttpEntity<>(
                         new ReplyRequest(
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 VALID_COMMENT
                         ),
                         headers
@@ -132,7 +132,7 @@ public class ReplyControllerIntegrationTest {
         HttpEntity<ReplyRequest> entity =
                 new HttpEntity<>(
                         new ReplyRequest(
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 VALID_COMMENT
                         ),
                         headers
@@ -164,7 +164,7 @@ public class ReplyControllerIntegrationTest {
         HttpEntity<ReplyRequest> entity =
                 new HttpEntity<>(
                         new ReplyRequest(
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 VALID_COMMENT
                         ),
                         headers
@@ -196,7 +196,7 @@ public class ReplyControllerIntegrationTest {
         HttpEntity<ReplyRequest> entity =
                 new HttpEntity<>(
                         new ReplyRequest(
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 VALID_COMMENT
                         ),
                         headers
@@ -228,7 +228,7 @@ public class ReplyControllerIntegrationTest {
         HttpEntity<ReplyRequest> entity =
                 new HttpEntity<>(
                         new ReplyRequest(
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 VALID_COMMENT
                         ),
                         headers
@@ -260,7 +260,7 @@ public class ReplyControllerIntegrationTest {
         HttpEntity<ReplyRequest> entity =
                 new HttpEntity<>(
                         new ReplyRequest(
-                                NON_EXISTING_ADMIN_ID_10,
+//                                NON_EXISTING_ADMIN_ID_10,
                                 VALID_COMMENT
                         ),
                         headers
@@ -292,7 +292,7 @@ public class ReplyControllerIntegrationTest {
         HttpEntity<ReplyRequest> entity =
                 new HttpEntity<>(
                         new ReplyRequest(
-                                null,
+//                                null,
                                 VALID_COMMENT
                         ),
                         headers
@@ -324,7 +324,7 @@ public class ReplyControllerIntegrationTest {
         HttpEntity<ReplyRequest> entity =
                 new HttpEntity<>(
                         new ReplyRequest(
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 INVALID_COMMENT
                         ),
                         headers
@@ -356,7 +356,7 @@ public class ReplyControllerIntegrationTest {
         HttpEntity<ReplyRequest> entity =
                 new HttpEntity<>(
                         new ReplyRequest(
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 null
                         ),
                         headers

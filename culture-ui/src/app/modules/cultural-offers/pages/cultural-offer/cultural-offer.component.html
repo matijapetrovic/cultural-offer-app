@@ -3,7 +3,8 @@
     <div class="p-grid">
       <div class="p-col-5">
         <p-confirmPopup></p-confirmPopup>
-        <button 
+        <button
+          id="unsubscribe-button"
           *ngIf="subscribed === true"
           (click)="confirmUnsubscribe($event)"
           pButton
@@ -13,6 +14,7 @@
         </button>
 
         <button 
+          id="subscribe-button"
           *ngIf="subscribed === false"
           (click)="confirmSubscribe($event)"
           pButton 
@@ -29,23 +31,17 @@
           </p-gmap>
       
       </div>
-      <div class="p-col-7">
-        
+      <div class="p-col-7 offer-description">
         <p-scrollPanel 
           [style]="{width: '100%', height: '200px'}" 
           styleClass="custombar1">
           <p>{{ culturalOffer.description }}</p>
         </p-scrollPanel>
-        
-        <p-carousel 
-          *ngIf="culturalOffer.images.length" 
-          [value]="culturalOffer.images" 
-          class="offer-images">
-          
+
+        <p-carousel *ngIf="culturalOffer.images.length" [value]="culturalOffer.images" class="offer-images">
           <ng-template let-image pTemplate="item">
-            <img [src]="image" alt="Cultural offer image">
+            <img [src]="image" alt="Cultural offer image" />
           </ng-template>
-        
         </p-carousel>
       </div>
     </div>
@@ -54,23 +50,18 @@
   <p-card header="Reviews" class="p-col-5">
     <div *ngIf="culturalOffer">
       <div class="offer-rating" class="p-d-flex p-flex-column p-jc-center p-col-4 p-offset-4">
-        <div class="rating-number">{{ culturalOffer.rating }} <span class="rating-review-count">({{ culturalOffer.reviewCount }})</span></div>
-        <p-rating 
-          [ngModel]="culturalOffer.rating | round" 
-          readonly="true" 
-          [cancel]="false" 
-          class="rating">
+        <div class="rating-number">
+          {{ culturalOffer.rating }}
+          <span class="rating-review-count">({{ culturalOffer.reviewCount }})</span>
+        </div>
+        <p-rating [ngModel]="culturalOffer.rating | round" readonly="true" [cancel]="false" class="rating">
         </p-rating>
-        <button
-          *ngIf="userIsRegular"
-          pButton
-          class="p-button-primary" 
-          label="Add review">
-        </button>
+        <button *ngIf="userIsRegular" pButton class="p-button-primary" label="Add review"
+          (click)="showAddReviewForm()"></button>
       </div>
     </div>
     <div *ngIf="reviewPage">
-      <div *ngIf="reviewPage.data.length">
+      <div *ngIf="reviewPage.data.length" class="reviews-section">
         
         <app-pagination-bar 
           [hasPrev]="reviewPage.links.prev" 
@@ -79,35 +70,40 @@
           (navigatePrevEvent)="getPrevReviews()"
           (navigateNextEvent)="getNextReviews()">
         </app-pagination-bar>
-        
+
         <ul class="review-items">
           <li *ngFor="let review of reviewPage.data">
             <div style="margin-bottom: 20px">
-              <app-offer-review-item [review]="review"></app-offer-review-item>
-              <hr>
+              <app-offer-review-item [review]="review" [culturalOfferId]="culturalOfferId"
+                (replyAddedEvent)="getReviews()"></app-offer-review-item>
+              <hr />
             </div>
           </li>
         </ul>
-        
-        <app-pagination-bar 
-          [hasPrev]="reviewPage.links.prev" 
-          [hasNext]="reviewPage.links.next"
-          [currentPage]="currentReviewsPage" 
-          (navigatePrevEvent)="getPrevReviews()"
+
+        <app-pagination-bar [hasPrev]="reviewPage.links.prev" [hasNext]="reviewPage.links.next"
+          [currentPage]="currentReviewsPage" (navigatePrevEvent)="getPrevReviews()"
           (navigateNextEvent)="getNextReviews()">
         </app-pagination-bar>
-      
       </div>
 
-      <p *ngIf="!reviewPage.data.length">
+      <p *ngIf="!reviewPage.data.length" class="no-reviews-text">
         There are no reviews for this cultural offer.
       </p>
     </div>
   </p-card>
 
   <p-card header="News" class="p-col-7">
+    <div *ngIf="culturalOffer">
+      <button
+          *ngIf="userIsAdmin"
+          pButton
+          class="p-button-primary" 
+          label="Add news">
+        </button>
+    </div>
     <div *ngIf="newsPage">
-      <div *ngIf="newsPage.data.length">
+      <div *ngIf="newsPage.data.length" class="news-section">
         
         <app-pagination-bar 
           [hasPrev]="newsPage.links.prev" 
@@ -116,27 +112,22 @@
           (navigatePrevEvent)="getPrevNews()" 
           (navigateNextEvent)="getNextNews()">
         </app-pagination-bar>
-        
+
         <ul class="news-items">
           <li *ngFor="let newsItem of newsPage.data">
             <div style="margin-bottom: 20px">
               <app-offer-news-item [newsItem]="newsItem"></app-offer-news-item>
-              <hr>
+              <hr />
             </div>
           </li>
         </ul>
-        
-        <app-pagination-bar 
-          [hasPrev]="newsPage.links.prev" 
-          [hasNext]="newsPage.links.next"
-          [currentPage]="currentNewsPage" 
-          (navigatePrevEvent)="getPrevNews()"
-          (navigateNextEvent)="getNextNews()">
+
+        <app-pagination-bar [hasPrev]="newsPage.links.prev" [hasNext]="newsPage.links.next"
+          [currentPage]="currentNewsPage" (navigatePrevEvent)="getPrevNews()" (navigateNextEvent)="getNextNews()">
         </app-pagination-bar>
-      
       </div>
 
-      <p *ngIf="!newsPage.data.length">
+      <p *ngIf="!newsPage.data.length" class="no-news-text">
         There are no news for this cultural offer.
       </p>
     </div>

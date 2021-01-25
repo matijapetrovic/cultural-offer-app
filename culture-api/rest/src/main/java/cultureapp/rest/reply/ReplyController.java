@@ -32,7 +32,6 @@ public class ReplyController {
         AddReplyUseCase.AddReplyCommand command = new AddReplyUseCase.AddReplyCommand(
                 culturalOfferId,
                 reviewId,
-                request.getAdminId(),
                 request.getComment()
         );
         addReplyUseCase.addReply(command);

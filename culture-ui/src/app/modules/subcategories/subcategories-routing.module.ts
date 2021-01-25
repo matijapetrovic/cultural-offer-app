@@ -1,13 +1,13 @@
-import { NgModule } from '@angular/core'
-import { Routes, RouterModule } from '@angular/router'
-import { SubcategoriesComponent } from './pages/subcategories/subcategories.component'
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { SubcategoriesComponent } from './pages/subcategories/subcategories.component';
 
-const routes:Routes = [
+const routes: Routes = [
     {
         path: '',
         component: SubcategoriesComponent
     }
-]
+];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],

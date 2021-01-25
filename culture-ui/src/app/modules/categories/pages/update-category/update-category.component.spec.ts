@@ -4,20 +4,28 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { UpdateCategoryComponent } from './update-category.component';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { CategoriesService } from '../../categories.service';
 
 describe('UpdateCategoryComponent', () => {
   let component: UpdateCategoryComponent;
   let fixture: ComponentFixture<UpdateCategoryComponent>;
-  const dialogRefMock = {
-    close: () => { }
-  };
-  const dialogRefConfigMock = {
-    data: {
-      category: {id: 1, name: 'Category'}
-    }
-  };
 
   beforeEach(async () => {
+    const categoriesServiceMock = {
+      updateCategory: jasmine.createSpy('updateCategory')
+        .and.returnValue({subscribe: () => { component.ref.close(true)}})
+      };
+
+    const dialogRefMock = {
+      close: () => { }
+    };
+
+    const dialogRefConfigMock = {
+      data: {
+        category: { id: 1, name: 'Category' }
+      }
+    };
+
     await TestBed.configureTestingModule({
       declarations: [ UpdateCategoryComponent ],
        imports: [
@@ -25,7 +33,8 @@ describe('UpdateCategoryComponent', () => {
         ReactiveFormsModule,
         HttpClientTestingModule],
       providers: [{ provide: DynamicDialogRef, useValue: dialogRefMock },
-        { provide: DynamicDialogConfig, useValue: dialogRefConfigMock}]
+                  { provide: DynamicDialogConfig, useValue: dialogRefConfigMock},
+                  { provide: CategoriesService, useValue: categoriesServiceMock }]
     })
     .compileComponents();
   });
@@ -113,5 +122,11 @@ describe('UpdateCategoryComponent', () => {
     component.category.name = name2;
 
     expect(component.areNamesSame()).toBeFalse();
+  });
+
+  it(`errorMessage() should return 'Name is required!'`, () => {
+    const message = 'Name is required!';
+    
+    expect(component.errorMessage()).toEqual(message);
   });
 });

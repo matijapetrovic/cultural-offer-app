@@ -24,7 +24,7 @@ export class GeolocationService {
         .append('address', location)
         .append('key', environment.mapsApiKey);
 
-    return this.http.get<any>(this.geolocationApiUrl, {params})
+    return this.http.get<any>(this.geolocationApiUrl, { params })
       .pipe(
         catchError(this.handleError('geocode')),
         map((result) => {

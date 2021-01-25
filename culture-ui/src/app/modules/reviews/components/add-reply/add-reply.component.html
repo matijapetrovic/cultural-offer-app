@@ -1,0 +1,18 @@
+<form class="reactiveForm" [formGroup]="addReplyForm" (ngSubmit)="onSubmit()">
+    <div class="p-fluid">
+
+        <div class="p-field">
+            <label>Reply text</label>
+            <textarea formControlName="comment" class="add-review-textarea" type="text"
+                placeholder="Add your reply text here" pInputTextarea></textarea>
+            <small class="text-danger" *ngIf="
+            addReplyForm.controls.comment.touched &&
+            addReplyForm.controls.comment.errors?.required
+          ">Reply text is required</small>
+        </div>
+
+    </div>
+    <div class="p-grid p-px-5 p-mt-6 p-justify-center">
+        <button type="submit" class="p-button" label="Add" pButton [disabled]="addReplyForm.invalid"></button>
+    </div>
+</form>

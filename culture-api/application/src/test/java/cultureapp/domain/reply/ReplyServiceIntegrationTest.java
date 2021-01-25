@@ -62,7 +62,7 @@ public class ReplyServiceIntegrationTest {
         AddReplyUseCase.AddReplyCommand command = new AddReplyUseCase.AddReplyCommand(
                 CULTURAL_OFFER_ID_1_WITH_REVIEWS,
                 REVIEW_ID_3_FOR_OFFER_ID_1_WITH_NO_REPLY,
-                EXISTING_ADMIN_ID_3,
+//                EXISTING_ADMIN_ID_3,
                 VALID_COMMENT
         );
         replyService.addReply(command);
@@ -93,7 +93,7 @@ public class ReplyServiceIntegrationTest {
         AddReplyUseCase.AddReplyCommand command = new AddReplyUseCase.AddReplyCommand(
                 NON_EXISTING_CULTURAL_OFFER_ID,
                 REVIEW_ID_3_FOR_OFFER_ID_1_WITH_NO_REPLY,
-                EXISTING_ADMIN_ID_3,
+//                EXISTING_ADMIN_ID_3,
                 VALID_COMMENT
         );
         replyService.addReply(command);
@@ -109,7 +109,7 @@ public class ReplyServiceIntegrationTest {
         AddReplyUseCase.AddReplyCommand command = new AddReplyUseCase.AddReplyCommand(
                 CULTURAL_OFFER_ID_1_WITH_REVIEWS,
                 REVIEW_ID_2_FOR_OFFER_ID_1_WITH_REPLY,
-                EXISTING_ADMIN_ID_3,
+//                EXISTING_ADMIN_ID_3,
                 VALID_COMMENT
         );
         replyService.addReply(command);
@@ -125,7 +125,7 @@ public class ReplyServiceIntegrationTest {
         AddReplyUseCase.AddReplyCommand command = new AddReplyUseCase.AddReplyCommand(
                 CULTURAL_OFFER_ID_1_WITH_REVIEWS,
                 NON_EXISTING_REVIEW_ID_FOR_CULTURAL_OFFER_ID_1,
-                EXISTING_ADMIN_ID_3,
+//                EXISTING_ADMIN_ID_3,
                 VALID_COMMENT
         );
         replyService.addReply(command);
@@ -141,7 +141,7 @@ public class ReplyServiceIntegrationTest {
         AddReplyUseCase.AddReplyCommand command = new AddReplyUseCase.AddReplyCommand(
                 CULTURAL_OFFER_ID_1_WITH_REVIEWS,
                 REVIEW_ID_2_FOR_OFFER_ID_1_WITH_REPLY,
-                NON_EXISTING_ADMIN_ID_10,
+//                NON_EXISTING_ADMIN_ID_10,
                 VALID_COMMENT
         );
         replyService.addReply(command);
@@ -157,7 +157,7 @@ public class ReplyServiceIntegrationTest {
         AddReplyUseCase.AddReplyCommand command = new AddReplyUseCase.AddReplyCommand(
                 CULTURAL_OFFER_ID_1_WITH_REVIEWS,
                 REVIEW_ID_2_FOR_OFFER_ID_1_WITH_REPLY,
-                EXISTING_ADMIN_ID_3,
+//                EXISTING_ADMIN_ID_3,
                 INVALID_COMMENT
         );
         replyService.addReply(command);
@@ -173,7 +173,7 @@ public class ReplyServiceIntegrationTest {
         AddReplyUseCase.AddReplyCommand command = new AddReplyUseCase.AddReplyCommand(
                 null,
                 REVIEW_ID_2_FOR_OFFER_ID_1_WITH_REPLY,
-                EXISTING_ADMIN_ID_3,
+//                EXISTING_ADMIN_ID_3,
                 VALID_COMMENT
         );
         replyService.addReply(command);
@@ -189,7 +189,7 @@ public class ReplyServiceIntegrationTest {
         AddReplyUseCase.AddReplyCommand command = new AddReplyUseCase.AddReplyCommand(
                 CULTURAL_OFFER_ID_1_WITH_REVIEWS,
                 null,
-                EXISTING_ADMIN_ID_3,
+//                EXISTING_ADMIN_ID_3,
                 VALID_COMMENT
         );
         replyService.addReply(command);
@@ -205,7 +205,7 @@ public class ReplyServiceIntegrationTest {
         AddReplyUseCase.AddReplyCommand command = new AddReplyUseCase.AddReplyCommand(
                 CULTURAL_OFFER_ID_1_WITH_REVIEWS,
                 REVIEW_ID_2_FOR_OFFER_ID_1_WITH_REPLY,
-                null,
+//                null,
                 VALID_COMMENT
         );
         replyService.addReply(command);
@@ -221,7 +221,7 @@ public class ReplyServiceIntegrationTest {
         AddReplyUseCase.AddReplyCommand command = new AddReplyUseCase.AddReplyCommand(
                 CULTURAL_OFFER_ID_1_WITH_REVIEWS,
                 REVIEW_ID_2_FOR_OFFER_ID_1_WITH_REPLY,
-                EXISTING_ADMIN_ID_3,
+//                EXISTING_ADMIN_ID_3,
                 null
         );
         replyService.addReply(command);
