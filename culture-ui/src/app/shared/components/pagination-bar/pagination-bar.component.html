@@ -4,7 +4,7 @@
         [disabled]="!hasPrev" 
         (click)="navigatePrevious()"
         label="Previous"
-        class="p-button-text p-button-secondary"
+        class="p-button-text p-button-secondary pagination-prev-button"
     ></button>
     <p class="page-number">{{ currentPage + 1 }}</p>
     <button 
@@ -12,6 +12,6 @@
         [disabled]="!hasNext" 
         (click)="navigateNext()"
         label="Next"
-        class="p-button-text p-button-secondary"
+        class="p-button-text p-button-secondary pagination-next-button"
     ></button>
 </div>

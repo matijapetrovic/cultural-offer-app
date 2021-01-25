@@ -25,6 +25,7 @@ export class CulturalOfferComponent implements OnInit {
   newsPage: NewsPage;
 
   userIsRegular: boolean;
+  userIsAdmin: boolean;
   subscribed: boolean = null;
 
   culturalOfferId: number;
@@ -64,6 +65,7 @@ export class CulturalOfferComponent implements OnInit {
     this.authenticationService.currentUser.subscribe((user) => {
       this.updateSubscribed(user);
       this.userIsRegular = user && user.role.includes(Role.ROLE_USER);
+      this.userIsAdmin = user && user.role.includes(Role.ROLE_ADMIN);
     });
   }
 
@@ -162,14 +164,16 @@ export class CulturalOfferComponent implements OnInit {
 
   confirmSubscribe(event: Event): void {
     this.confirmationService.confirm({
-      target: event.target,
-      message: 'Are you sure that you want to subscribe to this offer?',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        this.subscribe();
-      },
-      reject: () => {
-      }
+        target: event.target,
+        message: 'Are you sure that you want to subscribe to this offer?',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+            this.subscribe();
+        },
+        acceptButtonStyleClass: 'accept-confirm-button',
+        reject: () => {
+        },
+        rejectButtonStyleClass: 'reject-confirm-button'
     });
   }
 
@@ -181,8 +185,10 @@ export class CulturalOfferComponent implements OnInit {
       accept: () => {
         this.unsubscribe();
       },
+      acceptButtonStyleClass: 'accept-confirm-button',
       reject: () => {
-      }
+      },
+      rejectButtonStyleClass: 'reject-confirm-button'
     });
   }
 
