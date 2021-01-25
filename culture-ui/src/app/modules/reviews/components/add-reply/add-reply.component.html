@@ -3,7 +3,7 @@
 
         <div class="p-field">
             <label>Reply text</label>
-            <textarea formControlName="comment" class="add-review-textarea" type="text"
+            <textarea id="add-reply-comment" formControlName="comment" class="add-review-textarea" type="text"
                 placeholder="Add your reply text here" pInputTextarea></textarea>
             <small class="text-danger" *ngIf="
             addReplyForm.controls.comment.touched &&
@@ -13,6 +13,6 @@
 
     </div>
     <div class="p-grid p-px-5 p-mt-6 p-justify-center">
-        <button type="submit" class="p-button" label="Add" pButton [disabled]="addReplyForm.invalid"></button>
+        <button id="submit-add-reply" type="submit" class="p-button" label="Add" pButton [disabled]="addReplyForm.invalid"></button>
     </div>
 </form>

@@ -47,7 +47,7 @@
     </div>
   </p-card>
 
-  <p-card header="Reviews" class="p-col-5">
+  <p-card header="Reviews" class="p-col-5 reviews-section">
     <div *ngIf="culturalOffer">
       <div class="offer-rating" class="p-d-flex p-flex-column p-jc-center p-col-4 p-offset-4">
         <div class="rating-number">
@@ -56,12 +56,16 @@
         </div>
         <p-rating [ngModel]="culturalOffer.rating | round" readonly="true" [cancel]="false" class="rating">
         </p-rating>
-        <button *ngIf="userIsRegular" pButton class="p-button-primary" label="Add review"
+        <button 
+          *ngIf="userIsRegular" 
+          pButton 
+          class="p-button-primary add-review-button" 
+          label="Add review"
           (click)="showAddReviewForm()"></button>
       </div>
     </div>
     <div *ngIf="reviewPage">
-      <div *ngIf="reviewPage.data.length" class="reviews-section">
+      <div *ngIf="reviewPage.data.length">
         
         <app-pagination-bar 
           [hasPrev]="reviewPage.links.prev" 
@@ -93,7 +97,7 @@
     </div>
   </p-card>
 
-  <p-card header="News" class="p-col-7">
+  <p-card header="News" class="p-col-7 news-section">
     <div *ngIf="culturalOffer">
       <button
           *ngIf="userIsAdmin"
@@ -103,7 +107,7 @@
         </button>
     </div>
     <div *ngIf="newsPage">
-      <div *ngIf="newsPage.data.length" class="news-section">
+      <div *ngIf="newsPage.data.length">
         
         <app-pagination-bar 
           [hasPrev]="newsPage.links.prev" 

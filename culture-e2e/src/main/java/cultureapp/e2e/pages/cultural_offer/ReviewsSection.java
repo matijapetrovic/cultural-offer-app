@@ -22,6 +22,9 @@ public class ReviewsSection {
     @FindBy(css = ".reviews-section .pagination-next-button")
     private WebElement paginationNextButton;
 
+    @FindBy(css = ".reviews-section .add-review-button")
+    private WebElement addReviewButton;
+
 
     public void ensureIsDisplayed() {
         (new WebDriverWait(driver, 10))
@@ -29,6 +32,24 @@ public class ReviewsSection {
                         ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".reviews-section")),
                         ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".no-reviews-text"))
                 ));
+    }
+
+    public WebElement getReviewComment(int index) {
+        return (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.visibilityOfElementLocated(
+                        By.cssSelector(String.format(".review-items > li:nth-child(%d) .offer-review .review-comment", index))));
+    }
+
+    public WebElement getReplyComment(int index) {
+        return (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.visibilityOfElementLocated(
+                        By.cssSelector(String.format(".review-items > li:nth-child(%d) .offer-review .reply-comment", index))));
+    }
+
+    public WebElement getReplyButton(int index) {
+        return (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.visibilityOfElementLocated(
+                        By.cssSelector(String.format(".review-items > li:nth-child(%d) .offer-review .review-reply-button", index))));
     }
 
 }
