@@ -22,6 +22,7 @@
       ></button>
       <div class="p-grid p-mt-3 p-justify-center centered-grid"></div>
         <p-table
+          id="categories-table"
           #dt 
           *ngIf="categoriesPage"
           [value]="categoriesPage.data"
@@ -46,7 +47,7 @@
             <th>Actions</th>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-category>
+        <ng-template id="categories-table-item" pTemplate="body" let-category>
           <tr ng-repeat="(category.name) in categoriesPage.data">
             <td>
               {{category.name}}
