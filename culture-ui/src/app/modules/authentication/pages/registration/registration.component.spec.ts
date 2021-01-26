@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AuthenticationService } from '../../authentication.service';
 import { fakeAsync } from '@angular/core/testing';
+import { MessageService } from 'primeng/api';
 
 import { RegistrationComponent } from './registration.component';
 import { of } from 'rxjs';
@@ -25,7 +26,8 @@ describe('RegistrationComponent', () => {
         HttpClientTestingModule,
         ReactiveFormsModule
       ],
-      providers: [{ provide: AuthenticationService, useValue: authenticationServiceMock }
+      providers: [{ provide: AuthenticationService, useValue: authenticationServiceMock },
+                  MessageService
       ]})
     .compileComponents();
   });
