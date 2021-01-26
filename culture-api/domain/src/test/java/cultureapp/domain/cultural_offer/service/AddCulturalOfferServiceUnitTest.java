@@ -58,7 +58,8 @@ public class AddCulturalOfferServiceUnitTest {
                 imageIds,
                 VALID_CULTURAL_OFFER_DESCRIPTION,
                 VALID_CATEGORY_ID,
-                VALID_SUBCATEGORY_ID
+                VALID_SUBCATEGORY_ID,
+                VALID_CULTURAL_OFFER_ADDRESS
         );
         valid_subcategory = Subcategory.withId(
                 VALID_SUBCATEGORY_ID,
@@ -78,7 +79,8 @@ public class AddCulturalOfferServiceUnitTest {
                 imageIds,
                 VALID_CULTURAL_OFFER_DESCRIPTION,
                 VALID_CATEGORY_ID,
-                VALID_SUBCATEGORY_ID
+                VALID_SUBCATEGORY_ID,
+                VALID_CULTURAL_OFFER_ADDRESS
         );
     }
 
@@ -91,7 +93,8 @@ public class AddCulturalOfferServiceUnitTest {
                 imageIds,
                 VALID_CULTURAL_OFFER_DESCRIPTION,
                 VALID_CATEGORY_ID,
-                VALID_SUBCATEGORY_ID
+                VALID_SUBCATEGORY_ID,
+                VALID_CULTURAL_OFFER_ADDRESS
         );
     }
 
@@ -104,7 +107,8 @@ public class AddCulturalOfferServiceUnitTest {
                 imageIds,
                 VALID_CULTURAL_OFFER_DESCRIPTION,
                 VALID_CATEGORY_ID,
-                VALID_SUBCATEGORY_ID
+                VALID_SUBCATEGORY_ID,
+                VALID_CULTURAL_OFFER_ADDRESS
         );
     }
 
@@ -117,7 +121,8 @@ public class AddCulturalOfferServiceUnitTest {
                 imageIds,
                 INVALID_CULTURAL_OFFER_DESCRIPTION,
                 VALID_CATEGORY_ID,
-                VALID_SUBCATEGORY_ID
+                VALID_SUBCATEGORY_ID,
+                VALID_CULTURAL_OFFER_ADDRESS
         );
     }
 
@@ -130,7 +135,8 @@ public class AddCulturalOfferServiceUnitTest {
                 imageIds,
                 VALID_CULTURAL_OFFER_DESCRIPTION,
                 INVALID_CATEGORY_ID,
-                VALID_SUBCATEGORY_ID
+                VALID_SUBCATEGORY_ID,
+                VALID_CULTURAL_OFFER_ADDRESS
         );
     }
 
@@ -143,7 +149,8 @@ public class AddCulturalOfferServiceUnitTest {
                 imageIds,
                 VALID_CULTURAL_OFFER_DESCRIPTION,
                 VALID_CATEGORY_ID,
-                INVALID_SUBCATEGORY_ID
+                INVALID_SUBCATEGORY_ID,
+                VALID_CULTURAL_OFFER_ADDRESS
         );
     }
 

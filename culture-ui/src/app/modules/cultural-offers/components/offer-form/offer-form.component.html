@@ -1,0 +1,142 @@
+<form (ngSubmit)="onSubmit()" id="form">
+    <div class="grid-container">
+      <div class="left-item">
+        <table>
+          <tr>
+            <td colspan="3">
+              <label
+                class="p-justify-left p-col-2">
+                Name:
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3">
+              <input
+                [(ngModel)]="culturalOffer.name"
+                name="name"
+                type="name"
+                autocomplete="off"
+                pInputText
+                class="form-control">
+            </td>
+          </tr>
+          <tr></tr>
+          <tr>
+            <td colspan="3">
+              <label
+                class="p-justify-left p-col-2">
+                Address:
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3">
+              <input 
+              [(ngModel)]="culturalOffer.address"
+              name="address"
+              type="name"
+              autocomplete="off"
+              pInputText
+              class="form-control">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label
+                class="p-justify-left p-col-2">
+                Category: 
+              </label>
+            </td>
+            <td></td>
+            <td>
+              <label
+                class="p-justify-left p-col-2">
+                Subcategory: 
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <ng-select
+                [(ngModel)]="tempCategoryId"
+                [items]="categories"
+                name="category"
+                bindLabel="name"
+                bindValue="id"
+                appearance="outline"
+                [searchable]="false"
+                [clearable]="false"
+                (change)="categoryChanged()"
+                id="filter-category-select">
+              </ng-select>
+            </td>
+            <td></td>
+            <td>
+              <ng-select
+                #subcategorySelect
+                [(ngModel)]="culturalOffer.subcategory"
+                name="subcategory"
+                [items]="subcategories"
+                bindLabel="name"
+                appearance="outline"
+                [searchable]="false"
+                [clearable]="false"
+                id="filter-category-select">
+              </ng-select>
+            </td>
+          </tr>
+          <tr></tr>
+          <tr>
+            <td colspan="3">
+              <label
+                class="p-justify-left p-col-2">
+                Description: 
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" rowspan="3">
+              <textarea
+                [(ngModel)]="culturalOffer.description"
+                name="description"
+                class="form-control"
+                rows="7"
+                [cols]="24"
+                pInputTextarea>
+              </textarea>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="right-item">
+        <label
+          class="p-justify-left p-col-2">
+          Append Image: 
+        </label>
+        <input
+          id="images" 
+          type="file"
+          name="image"
+          class="form-control"
+          accept="image/*"
+          (change)="appendFile($event)">
+        <div class="image-container">
+          <div *ngFor="let image of culturalOffer.images">
+                <button type="button" (click)="removeImage(image)">x</button>
+                <img [src]="image" alt="Cultural offer image"/>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-item">
+        <button
+          [disabled]="invalidFormInputs()"
+          type="submit"
+          class="p-button"
+          label="Submit"
+          pButton
+        >
+        </button>
+      </div>
+    </div>
+  </form>

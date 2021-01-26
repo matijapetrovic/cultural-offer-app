@@ -76,7 +76,8 @@ public class UpdateCulturalOfferServiceUnitTest {
                 VALID_CULTURAL_OFFER_LONGITUDE,
                 VALID_CATEGORY_ID,
                 VALID_SUBCATEGORY_ID,
-                imageIds
+                imageIds,
+                VALID_CULTURAL_OFFER_ADDRESS
         );
         valid_subcategory = Subcategory.withId(
                 VALID_SUBCATEGORY_ID,
@@ -111,7 +112,8 @@ public class UpdateCulturalOfferServiceUnitTest {
                 VALID_CULTURAL_OFFER_LONGITUDE,
                 VALID_CATEGORY_ID,
                 VALID_SUBCATEGORY_ID,
-                imageIds
+                imageIds,
+                VALID_CULTURAL_OFFER_ADDRESS
         );
     }
 
@@ -126,7 +128,8 @@ public class UpdateCulturalOfferServiceUnitTest {
                 VALID_CULTURAL_OFFER_LONGITUDE,
                 VALID_CATEGORY_ID,
                 VALID_SUBCATEGORY_ID,
-                imageIds
+                imageIds,
+                VALID_CULTURAL_OFFER_ADDRESS
         );
     }
 
@@ -140,7 +143,8 @@ public class UpdateCulturalOfferServiceUnitTest {
                 VALID_CULTURAL_OFFER_LONGITUDE,
                 VALID_CATEGORY_ID,
                 VALID_SUBCATEGORY_ID,
-                imageIds
+                imageIds,
+                VALID_CULTURAL_OFFER_ADDRESS
         );
     }
 
@@ -154,7 +158,8 @@ public class UpdateCulturalOfferServiceUnitTest {
                 VALID_CULTURAL_OFFER_LONGITUDE,
                 VALID_CATEGORY_ID,
                 VALID_SUBCATEGORY_ID,
-                imageIds
+                imageIds,
+                VALID_CULTURAL_OFFER_ADDRESS
         );
     }
 
@@ -168,7 +173,8 @@ public class UpdateCulturalOfferServiceUnitTest {
                 INVALID_CULTURAL_OFFER_LONGITUDE,
                 VALID_CATEGORY_ID,
                 VALID_SUBCATEGORY_ID,
-                imageIds
+                imageIds,
+                VALID_CULTURAL_OFFER_ADDRESS
         );
     }
 
@@ -182,7 +188,8 @@ public class UpdateCulturalOfferServiceUnitTest {
                 VALID_CULTURAL_OFFER_LONGITUDE,
                 INVALID_CATEGORY_ID,
                 VALID_SUBCATEGORY_ID,
-                imageIds
+                imageIds,
+                VALID_CULTURAL_OFFER_ADDRESS
         );
     }
 
@@ -196,7 +203,8 @@ public class UpdateCulturalOfferServiceUnitTest {
                 VALID_CULTURAL_OFFER_LONGITUDE,
                 VALID_CATEGORY_ID,
                 INVALID_SUBCATEGORY_ID,
-                imageIds
+                imageIds,
+                VALID_CULTURAL_OFFER_ADDRESS
         );
     }
 
