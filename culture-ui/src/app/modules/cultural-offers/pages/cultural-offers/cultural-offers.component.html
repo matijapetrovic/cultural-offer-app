@@ -1,7 +1,7 @@
 <div class="p-grid p-mt-6 p-justify-center centered-grid"></div>
 <div class="p-grid p-mt-6 p-justify-center centered-grid"></div>
 <div class="p-grid p-mt-6 p-justify-center centered-grid">
-  <div class="p-col p-sm-5 p-md-6 p-lg-6">
+  <div class="p-col p-sm-5 p-md-6 p-lg-8">
     <p-card class="flat-card">
       <div class="p-card-header">
         <div class="p-grid p-justify-center">
@@ -56,6 +56,13 @@
             </td>
             <td>
               <div class="p-grid p-justify-center">
+                <button
+                  pButton 
+                  label="News"
+                  icon="pi pi-comments" 
+                  class="p-button-help p-button-rounded p-justify-left p-button-sm p-mr-3 p-mb-2"
+                  (click)="showNews(culturalOffer)"
+                ></button>
                 <button
                   pButton 
                   label="Edit"

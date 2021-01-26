@@ -6,6 +6,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmationService } from 'primeng/api';
 import { AddOfferComponent } from '../add-offer/add-offer.component';
 import { UpdateOfferComponent } from '../update-offer/update-offer.component';
+import {Router} from "@angular/router"
 
 @Component({
     selector: 'app-cultural-offers',
@@ -24,7 +25,8 @@ export class CulturalOffersComponent implements OnInit {
     constructor(
         private culturalOffersService:CulturalOffersService,
         public dialogService:DialogService,
-        private confirmationService:ConfirmationService
+        private confirmationService:ConfirmationService,
+        private router: Router
     ) {
         this.page = 0;
         this.limit = 5;;
@@ -47,6 +49,10 @@ export class CulturalOffersComponent implements OnInit {
             }
         })
 
+    }
+
+    showNews(offer:any) {
+        this.router.navigate([`/cultural-offers/${offer.id}/news`]);
     }
 
     showUpdateForm(offer:any): void {

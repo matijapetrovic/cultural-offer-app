@@ -42,7 +42,7 @@ export class NewsPageComponent implements OnInit {
         culturalOfferId: this.culturalOfferId
       },
       header: 'Add news',
-      width: '55%',
+      width: '50%',
       dismissableMask: true
     });
 
@@ -63,7 +63,7 @@ export class NewsPageComponent implements OnInit {
         news
       },
       header: 'Update news',
-      width: '55%',
+      width: '50%',
       dismissableMask: true
     });
 
