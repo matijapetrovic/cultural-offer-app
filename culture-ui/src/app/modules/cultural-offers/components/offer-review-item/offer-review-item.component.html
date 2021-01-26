@@ -1,10 +1,5 @@
 <div class="offer-review p-grid">
-  <div class="review-rating" class="p-d-flex p-flex-column p-jc-center p-col-3">
-    <div class="rating-number">{{ review.rating }}</div>
-    <p-rating [ngModel]="review.rating | round" readonly="true" [cancel]="false" class="rating"></p-rating>
-  </div>
-  <div class="review-content p-col-9">
-    <span class="review-author">{{ review.author.firstName }} {{ review.author.lastName }}</span>
+  <div class="review-content p-col-12">
     <p-scrollPanel [style]="{width: '100%', 'max-height': '200px'}">
       <p class="review-comment">{{ review.comment }}</p>
     </p-scrollPanel>

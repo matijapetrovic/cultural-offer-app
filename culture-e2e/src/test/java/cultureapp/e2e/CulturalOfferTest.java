@@ -160,7 +160,9 @@ public class CulturalOfferTest {
         dialog.getAddButton().click();
         culturalOfferPage.ensureInfoToastIsDisplayed();
         culturalOfferPage.ensureSuccessToastIsDisplayed();
-        assertEquals(REVIEW_TEXT, culturalOfferPage.getReviewsSection().getReviewComment(1).getText());
+
+        culturalOfferPage.getReviewsSection().openReview(1);
+        assertEquals(REVIEW_TEXT, culturalOfferPage.getReviewsSection().getOpenReviewComment().getText());
     }
 
     @Test
@@ -201,13 +203,16 @@ public class CulturalOfferTest {
         browser.navigate().to(String.format("%s/cultural-offers/%d", APP_URL, REVIEWS_WITH_NO_REPLIES_OFFER_ID));
 
         culturalOfferPage.ensureIsDisplayed();
-        culturalOfferPage.getReviewsSection().getReplyButton(1).click();
+        culturalOfferPage.getReviewsSection().openReview(1);
+        culturalOfferPage.getReviewsSection().getOpenReplyButton().click();
         AddReplyDialog dialog = culturalOfferPage.getAddReplyDialog();
         dialog.ensureIsDisplayed();
         dialog.setComment(REPLY_TEXT);
         dialog.getAddButton().click();
         culturalOfferPage.ensureSuccessToastIsDisplayed();
-        assertEquals(REPLY_TEXT, culturalOfferPage.getReviewsSection().getReplyComment(1).getText());
+
+        culturalOfferPage.getReviewsSection().openReview(1);
+        assertEquals(REPLY_TEXT, culturalOfferPage.getReviewsSection().getOpenReplyComment().getText());
     }
 
     @Test
@@ -225,7 +230,8 @@ public class CulturalOfferTest {
         browser.navigate().to(String.format("%s/cultural-offers/%d", APP_URL, REVIEWS_WITH_NO_REPLIES_OFFER_ID));
 
         culturalOfferPage.ensureIsDisplayed();
-        culturalOfferPage.getReviewsSection().getReplyButton(2).click();
+        culturalOfferPage.getReviewsSection().openReview(2);
+        culturalOfferPage.getReviewsSection().getOpenReplyButton().click();
         AddReplyDialog dialog = culturalOfferPage.getAddReplyDialog();
         dialog.ensureIsDisplayed();
         assertFalse(dialog.getAddButton().isEnabled());

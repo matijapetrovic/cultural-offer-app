@@ -33,7 +33,7 @@
       </div>
       <div class="p-col-7 offer-description">
         <p-scrollPanel 
-          [style]="{width: '100%', height: '200px'}" 
+          [style]="{width: '100%', 'max-height': '200px'}" 
           styleClass="custombar1">
           <p>{{ culturalOffer.description }}</p>
         </p-scrollPanel>
@@ -47,7 +47,7 @@
     </div>
   </p-card>
 
-  <p-card header="Reviews" class="p-col-5 reviews-section">
+  <p-card header="Reviews" class="p-col-6 reviews-section">
     <div *ngIf="culturalOffer">
       <div class="offer-rating" class="p-d-flex p-flex-column p-jc-center p-col-4 p-offset-4">
         <div class="rating-number">
@@ -74,16 +74,22 @@
           (navigatePrevEvent)="getPrevReviews()"
           (navigateNextEvent)="getNextReviews()">
         </app-pagination-bar>
-
-        <ul class="review-items">
-          <li *ngFor="let review of reviewPage.data">
-            <div style="margin-bottom: 20px">
+        
+        <p-accordion class="review-items">
+          <p-accordionTab *ngFor="let review of reviewPage.data;">
+            <ng-template pTemplate="header">
+              <h3 class="news-title">{{ review.author.firstName }} {{ review.author.lastName }}</h3>
+              <div class="review-rating" class="p-d-flex p-flex-column p-jc-center p-col-3">
+                <div class="review-rating-number">{{ review.rating }}</div>
+                <p-rating [ngModel]="review.rating | round" readonly="true" [cancel]="false" class="rating"></p-rating>
+              </div>
+            </ng-template>
+            <ng-template pTemplate="content">
               <app-offer-review-item [review]="review" [culturalOfferId]="culturalOfferId"
                 (replyAddedEvent)="getReviews()"></app-offer-review-item>
-              <hr />
-            </div>
-          </li>
-        </ul>
+            </ng-template>
+          </p-accordionTab>
+        </p-accordion>
 
         <app-pagination-bar [hasPrev]="reviewPage.links.prev" [hasNext]="reviewPage.links.next"
           [currentPage]="currentReviewsPage" (navigatePrevEvent)="getPrevReviews()"
@@ -97,7 +103,7 @@
     </div>
   </p-card>
 
-  <p-card header="News" class="p-col-7 news-section">
+  <p-card header="News" class="p-col-6 news-section">
     <div *ngIf="culturalOffer">
       <button
           *ngIf="userIsAdmin"
@@ -117,14 +123,27 @@
           (navigateNextEvent)="getNextNews()">
         </app-pagination-bar>
 
-        <ul class="news-items">
-          <li *ngFor="let newsItem of newsPage.data">
-            <div style="margin-bottom: 20px">
-              <app-offer-news-item [newsItem]="newsItem"></app-offer-news-item>
-              <hr />
-            </div>
-          </li>
-        </ul>
+        <p-accordion class="news-items">
+          <p-accordionTab *ngFor="let newsItem of newsPage.data;">
+            <ng-template pTemplate="header">
+              <h3 class="news-title">{{ newsItem.title }}</h3>
+              <div class="news-author">{{ newsItem.author.firstName }} {{ newsItem.author.lastName }}</div>
+              <div class="news-date">{{ newsItem.postedDate | localDate }}</div>
+            </ng-template>
+            <ng-template pTemplate="content">
+              <p-scrollPanel 
+                [style]="{width: '100%', 'max-height': '200px'}" 
+                styleClass="custombar1">
+                <p>{{ newsItem.text }}</p>
+              </p-scrollPanel>
+              <p-carousel *ngIf="newsItem.images.length" [value]="newsItem.images" class="offer-images">
+                <ng-template let-image pTemplate="item">
+                  <img [src]="image" alt="News image" />
+                </ng-template>
+              </p-carousel>
+            </ng-template>
+          </p-accordionTab>
+        </p-accordion>
 
         <app-pagination-bar [hasPrev]="newsPage.links.prev" [hasNext]="newsPage.links.next"
           [currentPage]="currentNewsPage" (navigatePrevEvent)="getPrevNews()" (navigateNextEvent)="getNextNews()">

@@ -34,22 +34,28 @@ public class ReviewsSection {
                 ));
     }
 
-    public WebElement getReviewComment(int index) {
-        return (new WebDriverWait(driver, 10))
-                .until(ExpectedConditions.visibilityOfElementLocated(
-                        By.cssSelector(String.format(".review-items > li:nth-child(%d) .offer-review .review-comment", index))));
+    public void openReview(int index) {
+        By selector =  By.cssSelector(String.format(".review-items p-accordiontab:nth-child(%d) .p-accordion-header-link", index));
+        (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.visibilityOfElementLocated(selector)).click();
     }
 
-    public WebElement getReplyComment(int index) {
+    public WebElement getOpenReviewComment() {
+        By selector = By.cssSelector(".p-accordion-tab-active .offer-review .review-comment");
         return (new WebDriverWait(driver, 10))
-                .until(ExpectedConditions.visibilityOfElementLocated(
-                        By.cssSelector(String.format(".review-items > li:nth-child(%d) .offer-review .reply-comment", index))));
+                .until(ExpectedConditions.visibilityOfElementLocated(selector));
     }
 
-    public WebElement getReplyButton(int index) {
+    public WebElement getOpenReplyComment() {
+        By selector = By.cssSelector(".p-accordion-tab-active .offer-review .reply-comment");
         return (new WebDriverWait(driver, 10))
-                .until(ExpectedConditions.visibilityOfElementLocated(
-                        By.cssSelector(String.format(".review-items > li:nth-child(%d) .offer-review .review-reply-button", index))));
+                .until(ExpectedConditions.visibilityOfElementLocated(selector));
+    }
+
+    public WebElement getOpenReplyButton() {
+        By selector = By.cssSelector(".p-accordion-tab-active .offer-review .review-reply-button");
+        return (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.visibilityOfElementLocated(selector));
     }
 
 }
