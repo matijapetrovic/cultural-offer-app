@@ -4,6 +4,7 @@ import cultureapp.domain.category.command.AddCategoryUseCase;
 import cultureapp.domain.category.command.DeleteCategoryUseCase;
 import cultureapp.domain.category.command.UpdateCategoryUseCase;
 import cultureapp.domain.category.exception.CategoryAlreadyExistsException;
+import cultureapp.domain.category.exception.CategoryCannotBeDeletedException;
 import cultureapp.domain.category.exception.CategoryNotFoundException;
 import cultureapp.domain.category.query.GetCategoriesQueryHandler;
 import cultureapp.domain.category.query.GetCategoryByIdQueryHandler;
@@ -63,16 +64,17 @@ public class CategoryService implements
     }
 
     @Override
-    public void deleteCategoryById(@Positive Long id) throws CategoryNotFoundException {
+    public void deleteCategoryById(@Positive Long id) throws CategoryNotFoundException, CategoryCannotBeDeletedException {
         Category category = categoryRepository.findByIdAndArchivedFalse(id)
                 .orElseThrow(() -> new CategoryNotFoundException(id));
 
         if(!categoryRepository.existsWithSubcategory(id)) {
             category.archive();
             categoryRepository.save(category);
+        } else {
+            throw new CategoryCannotBeDeletedException(id);
         }
     }
-
 
     @Override
     public List<GetCategoryNamesDTO> getCategoryNames() {

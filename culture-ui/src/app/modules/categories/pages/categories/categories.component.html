@@ -14,6 +14,7 @@
         </div>
       </div>
       <button
+        id="show-add-category-form-button"
         pButton
         type="button"
         class="p-button-raised p-button-rounded p-justify-left"
@@ -22,6 +23,7 @@
       ></button>
       <div class="p-grid p-mt-3 p-justify-center centered-grid"></div>
         <p-table
+          id="categories-table"
           #dt 
           *ngIf="categoriesPage"
           [value]="categoriesPage.data"
@@ -35,7 +37,11 @@
           <div class="p-d-flex">
             <span class="p-input-icon-right p-ml-auto">
               <i class="pi pi-search"></i>
-              <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+              <input
+                id="search-categories-input"
+                pInputText
+                type="text"
+                (input)="dt.filterGlobal($event.target.value, 'contains')"
                 placeholder="Search keyword" />
             </span>
           </div>
@@ -46,14 +52,15 @@
             <th>Actions</th>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-category>
+        <ng-template id="categories-table-item" pTemplate="body" let-category>
           <tr ng-repeat="(category.name) in categoriesPage.data">
-            <td>
+            <td id="category-name">
               {{category.name}}
             </td>
             <td>
               <div class="p-grid p-justify-center">
                 <button
+                  id="show-update-category-form-button"
                   pButton 
                   label="Edit"
                   icon="pi pi-pencil" 
@@ -61,6 +68,7 @@
                   (click)="showUpdateForm(category)"
                 ></button>
                 <button 
+                  id="show-delete-category-dialog-button"
                   pButton
                   label="Delete"
                   icon="pi pi-trash" 

@@ -3,6 +3,7 @@ package cultureapp.domain.category;
 import cultureapp.domain.category.command.AddCategoryUseCase;
 import cultureapp.domain.category.command.UpdateCategoryUseCase;
 import cultureapp.domain.category.exception.CategoryAlreadyExistsException;
+import cultureapp.domain.category.exception.CategoryCannotBeDeletedException;
 import cultureapp.domain.category.exception.CategoryNotFoundException;
 import cultureapp.domain.category.query.GetCategoriesQueryHandler;
 import cultureapp.domain.category.query.GetCategoryByIdQueryHandler;
@@ -157,7 +158,7 @@ public class CategoryServiceIntegrationTest {
     */
 
     @Test
-    public void givenDeleteCategoryCommandWithValidIdThenDeletingCategorySucceed() throws CategoryNotFoundException {
+    public void givenDeleteCategoryCommandWithValidIdThenDeletingCategorySucceed() throws CategoryNotFoundException, CategoryCannotBeDeletedException {
 
         categoryService.deleteCategoryById(EXISTING_CATEGORY_ID_WITHOUT_SUBCATEGORY);
 
@@ -170,7 +171,7 @@ public class CategoryServiceIntegrationTest {
     }
 
     @Test(expected = CategoryNotFoundException.class)
-    public void givenDeleteCategoryCommandWithInvalidIdThenDeletingCategoryWillFail() throws CategoryNotFoundException {
+    public void givenDeleteCategoryCommandWithInvalidIdThenDeletingCategoryWillFail() throws CategoryNotFoundException, CategoryCannotBeDeletedException {
         categoryService.deleteCategoryById(INVALID_CATEGORY_ID);
     }
 }
