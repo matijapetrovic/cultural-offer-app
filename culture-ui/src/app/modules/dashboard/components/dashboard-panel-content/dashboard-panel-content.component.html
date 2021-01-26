@@ -18,7 +18,8 @@
 
             <ng-template let-offer pTemplate="gridItem">
                 <div class="container panel-card">
-                    <app-dashboard-panel-item [subscribedOffer]="offer"></app-dashboard-panel-item>
+                    <app-dashboard-panel-item [subscribedOffer]="offer" (unsubscribedEvent)="getSubscribedOffers()">
+                    </app-dashboard-panel-item>
                 </div>
             </ng-template>
 

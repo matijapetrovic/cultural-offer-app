@@ -1,5 +1,5 @@
 <div>
-    <div *ngIf="subSubCatPage; else showNoOffersMessage">
+    <div *ngIf="subSubCatPage && subSubCatPage.data.length != 0; else showNoOffersMessage">
 
         <app-pagination-bar [hasPrev]="subSubCatPage.links.prev" [hasNext]="subSubCatPage.links.next"
             [currentPage]="page" (navigatePrevEvent)="getPreviousPage()" (navigateNextEvent)="getNextPage()">
@@ -20,7 +20,7 @@
     </div>
 
     <ng-template #showNoOffersMessage>
-        <p-card class="center" header="No offers" [style]="{width: '360px'}" styleClass="p-card-shadow">
+        <p-card class="center p-card-shadow p-shadow-24" header="You are not subscribed to any offer.">
         </p-card>
     </ng-template>
 </div>

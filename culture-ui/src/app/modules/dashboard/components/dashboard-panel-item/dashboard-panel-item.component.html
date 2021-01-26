@@ -13,9 +13,11 @@
     </p-scrollPanel>
 
     <ng-template pTemplate="footer">
-        <p-button label="Save" icon="pi pi-check"></p-button>
-        <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary" [style]="{'margin-left': '.5em'}">
-        </p-button>
+        <button pButton label="Details" icon="pi pi-align-justify" (click)="redirectToOfferPage()">
+        </button>
+        <button pButton label="Unsubscribe" icon="pi pi-times" class="p-button-danger" [style]="{'margin-left': '.5em'}"
+            (click)="confirmUnsubscribe($event)">
+        </button>
     </ng-template>
 
 </p-card>
