@@ -13,4 +13,7 @@ public interface SubcategoryRepository extends JpaRepository<Subcategory, Subcat
     Slice<Subcategory> findAllByCategoryIdAndArchivedFalse(Long categoryId, Pageable pageable);
     List<Subcategory> findAllByCategoryIdAndArchivedFalse(Long categoryId);
     Optional<Subcategory> findByIdAndCategoryIdAndArchivedFalse(Long id, Long categoryId);
+
+    // added
+    List<Subcategory> findAllByArchivedFalse();
 }

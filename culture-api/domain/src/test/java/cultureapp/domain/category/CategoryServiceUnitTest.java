@@ -5,6 +5,7 @@ import static cultureapp.common.CategoryTestData.*;
 import cultureapp.domain.category.command.AddCategoryUseCase;
 import cultureapp.domain.category.command.UpdateCategoryUseCase;
 import cultureapp.domain.category.exception.CategoryAlreadyExistsException;
+import cultureapp.domain.category.exception.CategoryCannotBeDeletedException;
 import cultureapp.domain.category.exception.CategoryNotFoundException;
 import cultureapp.domain.category.query.GetCategoriesQueryHandler;
 import cultureapp.domain.category.query.GetCategoryByIdQueryHandler;
@@ -155,7 +156,7 @@ public class CategoryServiceUnitTest {
     */
 
     @Test
-    public void givenDeleteCategoryCommandWithValidIdThenDeletingCategorySucceed() throws CategoryNotFoundException {
+    public void givenDeleteCategoryCommandWithValidIdThenDeletingCategorySucceed() throws CategoryNotFoundException, CategoryCannotBeDeletedException {
         Category category = Category.withId(VALID_CATEGORY_ID, VALID_CATEGORY_NAME);
         given(categoryRepository.findByIdAndArchivedFalse(VALID_CATEGORY_ID)).willReturn(Optional.of(category));
 
@@ -165,7 +166,7 @@ public class CategoryServiceUnitTest {
     }
 
     @Test(expected = CategoryNotFoundException.class)
-    public void givenDeleteCategoryCommandWithInvalidIdThenDeletingCategoryWillFail() throws CategoryNotFoundException {
+    public void givenDeleteCategoryCommandWithInvalidIdThenDeletingCategoryWillFail() throws CategoryNotFoundException, CategoryCannotBeDeletedException {
         given(categoryRepository.findByIdAndArchivedFalse(INVALID_CATEGORY_ID)).willReturn(Optional.empty());
 
         categoryService.deleteCategoryById(INVALID_CATEGORY_ID);

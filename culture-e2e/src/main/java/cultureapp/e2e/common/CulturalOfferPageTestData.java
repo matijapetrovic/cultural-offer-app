@@ -9,6 +9,8 @@ public class CulturalOfferPageTestData {
 
     public static String REPLY_TEXT = "Reply comment 123";
     public static String REVIEW_TEXT = "Comment 123";
+    public static String ADMIN_USERNAME = "admin1@gmail.com";
+    public static String ADMIN_PASSWORD = "123";
 
     public static Long REGULAR_USER_SUBSCRIBED_OFFER_ID = 130L;
     public static Long REGULAR_USER_UNSUBSCRIBED_OFFER_ID = 1L;

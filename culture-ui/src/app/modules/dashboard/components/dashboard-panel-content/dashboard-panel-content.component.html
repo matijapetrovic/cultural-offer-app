@@ -1,0 +1,42 @@
+<div>
+    <div *ngIf="subscribedOfferPage != null">
+
+        <p-dataView [value]="subscribedOfferPage.data" layout="grid" [rows]="limit" [loading]="loading">
+
+            <ng-template pTemplate="header">
+                <p class="text-center">
+                    <em>
+                        You are subscribed to these cultural offers
+                        <app-pagination-bar [hasPrev]="subscribedOfferPage.links.prev"
+                            [hasNext]="subscribedOfferPage.links.next" [currentPage]="page"
+                            (navigatePrevEvent)="getPreviousPage()" (navigateNextEvent)="getNextPage()">
+
+                        </app-pagination-bar>
+                    </em>
+                </p>
+            </ng-template>
+
+            <ng-template let-offer pTemplate="gridItem">
+                <div class="container panel-card">
+                    <app-dashboard-panel-item [subscribedOffer]="offer" (unsubscribedEvent)="getSubscribedOffers()">
+                    </app-dashboard-panel-item>
+                </div>
+            </ng-template>
+
+
+            <ng-template pTemplate="footer">
+                <p class="text-center">
+                    <em>
+                        You are subscribed to these cultural offers
+                        <app-pagination-bar [hasPrev]="subscribedOfferPage.links.prev"
+                            [hasNext]="subscribedOfferPage.links.next" [currentPage]="page"
+                            (navigatePrevEvent)="getPreviousPage()" (navigateNextEvent)="getNextPage()">
+                        </app-pagination-bar>
+                    </em>
+                </p>
+            </ng-template>
+
+        </p-dataView>
+
+    </div>
+</div>

@@ -32,6 +32,12 @@ const routes: Routes = [
     loadChildren: () => import('./modules/subcategories/subcategories.module').then(m => m.SubcategoriesModule),
     data: { roles: [Role.ROLE_ADMIN] }
   },
+  {
+    path: 'dashboard',
+    loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule),
+    canActivate: [AuthGuard],
+    data: { roles: [Role.ROLE_USER] }
+  },
   { path: '**', redirectTo: '' }
 ];
 
