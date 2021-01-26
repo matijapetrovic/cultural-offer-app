@@ -82,19 +82,17 @@ export class AddReviewComponent implements OnInit {
 
   showProccessMessage(): void {
     this.messageService.add({
-      severity: 'success',
+      severity: 'info',
       summary: 'Your request is beeing processed.',
       detail: 'Uploading review can take couple of minutes depending of size of images.'
     });
-    setTimeout(() => this.messageService.clear(), 10000);
   }
 
   showSuccessMessage(): void {
     this.messageService.add({
       severity: 'success',
-      summary: 'Review successfully added.',
-      detail: 'Look for it at the end of reviews.'
+      summary: 'Success!',
+      detail: 'Your review was added.'
     });
-    setTimeout(() => this.messageService.clear(), 5000);
   }
 }
