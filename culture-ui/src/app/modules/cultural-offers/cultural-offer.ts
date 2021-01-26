@@ -31,6 +31,7 @@ export interface CulturalOffer {
   name: string;
   description: string;
   rating: number;
+  images: string[];
   reviewCount: number;
   latitude: number;
   longitude: number;

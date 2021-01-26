@@ -53,11 +53,6 @@ export class HeaderComponent implements OnInit {
       routerLink: ['/subcategories'],
       id: 'subcategories-nav-link'
     },
-    {
-      label: 'News',
-      routerLink: ['news'],
-      id: 'news-nav-link'
-    }
   ];
 
   unauthenticatedItems: MenuItem[] = [

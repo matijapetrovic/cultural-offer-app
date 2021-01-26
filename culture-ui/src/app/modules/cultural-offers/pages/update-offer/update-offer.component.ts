@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { first } from 'rxjs/internal/operators/first';
 import { CulturalOfferView } from '../../cultural-offer';
 import { CulturalOffersService } from '../../cultural-offers.service';
 
@@ -32,7 +31,6 @@ export class UpdateOfferComponent{
         this.loading = true;
 
         this.culturalOffersService.updateCulturalOffer(offer)
-        .pipe(first())
         .subscribe(() => {
             this.loading = false;
             this.ref.close(true);

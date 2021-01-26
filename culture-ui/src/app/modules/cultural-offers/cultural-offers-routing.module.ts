@@ -9,6 +9,10 @@ const routes: Routes = [
     component: CulturalOfferComponent
   },
   {
+    path: ':offerId/news',
+    loadChildren: () => import('./../news/news.module').then(m => m.NewsModule)
+  },
+  {
     path: '',
     component: CulturalOffersComponent
   }
