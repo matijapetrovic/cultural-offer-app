@@ -46,7 +46,7 @@ public interface GetCulturalOffersQueryHandler {
         Double latitude;
         GetSubcategoriesQueryHandler.GetSubcategoriesDTO subcategory;
         List<String> images;
-        List<Long> imageIds;
+        List<Long> imagesIds;
         String address;
 
         public static GetCulturalOffersDTO of(CulturalOffer offer) {

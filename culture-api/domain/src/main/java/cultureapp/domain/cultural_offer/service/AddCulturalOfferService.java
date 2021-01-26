@@ -38,7 +38,7 @@ class AddCulturalOfferService implements
                 command.getDescription(),
                 BigDecimal.ZERO,
                 0,
-                Location.of(command.getLongitude(), command.getLatitude(), "xd"), // geocode
+                Location.of(command.getLongitude(), command.getLatitude(), command.getAddress()), // geocode
                 images,
                 subcategory);
 
