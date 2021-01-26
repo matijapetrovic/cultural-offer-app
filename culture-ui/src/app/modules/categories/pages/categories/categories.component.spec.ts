@@ -33,7 +33,7 @@ describe('CategoriesComponent', () => {
 
     const confirmationServiceMock = {
       confirm: {
-        accept: jasmine.createSpy('accept').and.callFake(() => component.deleteCategory),
+        accept: jasmine.createSpy('accept').and.callThrough(),
         reject: jasmine.createSpy('reject').and.callThrough(),
        },
     };
@@ -98,7 +98,6 @@ describe('CategoriesComponent', () => {
 
   it('showDeleteForm() should delete category when accepted', fakeAsync(() => {
     const id = 1;
-    spyOn(component, 'deleteCategory');
     spyOn<any>(component.confirmationService, 'confirm').and.callFake((params: any) => {
       component.messageService.add({});
       params.accept();
@@ -107,7 +106,6 @@ describe('CategoriesComponent', () => {
     tick();
 
     expect(component.confirmationService.confirm).toBeTruthy();
-    expect(component.deleteCategory).toHaveBeenCalled();
     expect(component.messageService.add).toHaveBeenCalled();
   }));
 
@@ -129,15 +127,6 @@ describe('CategoriesComponent', () => {
     tick();
 
     expect(component.categoriesPage).toBeTruthy();
-  }));
-
-  it('deleteCategory(id) should delete category', fakeAsync(() => {
-    const id = 1;
-
-    spyOn(component, 'getCategories');
-    component.deleteCategory(id);
-
-    expect(component.getCategories).toHaveBeenCalled();
   }));
 
   it('getNextCategories() should get categories from next page', fakeAsync(() => {

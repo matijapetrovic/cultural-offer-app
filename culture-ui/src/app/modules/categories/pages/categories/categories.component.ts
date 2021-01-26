@@ -73,9 +73,13 @@ export class CategoriesComponent implements OnInit {
       header: 'Delete Confirmation',
       icon: 'pi pi-info-circle',
       accept: () => {
-        this.deleteCategory(id);
-        this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have successfuly deleted category!' });
-      },
+        this.categoriesService.deleteCategory(id)
+        .subscribe(
+          () => {
+            this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have successfuly deleted category!' });
+            this.getCategories();
+          });
+        },
       reject: () => {
       }
     });
@@ -87,15 +91,6 @@ export class CategoriesComponent implements OnInit {
 
   getCategories(): void {
     this.categoriesService.getCategories(this.page, this.limit).subscribe(categories => this.categoriesPage = categories);
-  }
-
-  deleteCategory(id: number): void {
-    this.categoriesService.deleteCategory(id)
-    .pipe()
-    .subscribe(
-      () => {
-        this.getCategories();
-      });
   }
 
   getNextCategories(): void {
