@@ -9,6 +9,7 @@ import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,7 +44,7 @@ public interface GetNewsByIdQueryHandler {
         private Long id;
         private Long culturalOfferId;
         private String title;
-        private String postedDate;
+        private LocalDateTime postedDate;
         private AuthorDTO author;
         private String text;
         List<String> images;
@@ -58,7 +59,7 @@ public interface GetNewsByIdQueryHandler {
                     news.getId(),
                     news.getCulturalOffer().getId(),
                     news.getTitle(),
-                    news.getPostedDate().toString().replace("T", " "),
+                    news.getPostedDate(),
                     AuthorDTO.of(news.getAuthor()),
                     news.getText(),
                     news.getImages()
