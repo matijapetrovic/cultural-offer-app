@@ -74,4 +74,13 @@ export class AuthenticationService {
         )
       );
   }
+
+  activate(id: number): Observable<void> {
+    const url = `${this.authenticationUrl}/activate/${id}`;
+    return this.http.post<void>(url, httpOptions)
+      .pipe(
+        catchError(this.handleError<void>('activateAccount')
+        )
+      );
+  }
 }
