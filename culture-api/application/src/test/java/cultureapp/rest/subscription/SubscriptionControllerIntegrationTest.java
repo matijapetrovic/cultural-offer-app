@@ -12,11 +12,13 @@ import static org.junit.Assert.*;
 import cultureapp.domain.cultural_offer.query.GetSubscriptionsForUserQueryHandler;
 import cultureapp.rest.ControllerIntegrationTestUtil;
 
+import cultureapp.rest.core.PaginatedResponse;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -37,18 +39,18 @@ public class SubscriptionControllerIntegrationTest {
         HttpEntity<Void> entity =
                 new HttpEntity<>(headers);
 
-        ResponseEntity<GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserDTO[]> response =
+        ResponseEntity<PaginatedResponse<GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserDTO>> response =
                 restTemplate.exchange(
-                        String.format("/api/subscriptions?categoryId=%d&subcategoryId=%d", EXISTING_CATEGORY_ID, EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1),
+                        String.format("/api/subscriptions?categoryId=%d&subcategoryId=%d&page=0&limit=3", EXISTING_CATEGORY_ID, EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1),
                         HttpMethod.GET,
                         entity,
-                        GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserDTO[].class);
+                        new ParameterizedTypeReference<>() {});
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
         assertNotNull(response.getBody());
-        assertEquals(NUMBER_OF_SUBSCRIPTIONS_FOR_USER_1_AND_SUBCATEGORY_1_1, response.getBody().length);
-        assertEquals(EXISTING_CULTURAL_OFFER_ID, response.getBody()[0].getId());
+        assertEquals(NUMBER_OF_SUBSCRIPTIONS_FOR_USER_1_AND_SUBCATEGORY_1_1, response.getBody().getData().size());
+        assertEquals(EXISTING_CULTURAL_OFFER_ID, response.getBody().getData().get(0).getId());
     }
 
     @Test
@@ -60,7 +62,7 @@ public class SubscriptionControllerIntegrationTest {
 
         ResponseEntity<Object> response =
                 restTemplate.exchange(
-                        String.format("/api/subscriptions?categoryId=%d&subcategoryId=%d", EXISTING_CATEGORY_ID, NON_EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1),
+                        String.format("/api/subscriptions?categoryId=%d&subcategoryId=%d&page=0&limit=3", EXISTING_CATEGORY_ID, NON_EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1),
                         HttpMethod.GET,
                         entity,
                         Object.class);
@@ -75,18 +77,18 @@ public class SubscriptionControllerIntegrationTest {
         HttpEntity<Void> entity =
                 new HttpEntity<>(headers);
 
-        ResponseEntity<GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserDTO[]> response =
+        ResponseEntity<PaginatedResponse<GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserDTO>> response =
                 restTemplate.exchange(
-                        String.format("/api/subscriptions?categoryId=%d&subcategoryId=%d", EXISTING_CATEGORY_ID, 7L),
+                        String.format("/api/subscriptions?categoryId=%d&subcategoryId=%d&page=0&limit=3", EXISTING_CATEGORY_ID, 7L),
                         HttpMethod.GET,
                         entity,
-                        GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserDTO[].class);
+                        new ParameterizedTypeReference<>() {});
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
         assertNotNull(response.getBody());
 
-        assertEquals(0, response.getBody().length);
+        assertEquals(0, response.getBody().getData().size());
     }
 
     @Test
@@ -128,7 +130,7 @@ public class SubscriptionControllerIntegrationTest {
 
         ResponseEntity<Object> response =
                 restTemplate.exchange(
-                        String.format("/api/subscriptions?categoryId=%d&subcategoryId=%d", EXISTING_CATEGORY_ID, EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1),
+                        String.format("/api/subscriptions?categoryId=%d&subcategoryId=%d&page=0&limit=3", EXISTING_CATEGORY_ID, EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1),
                         HttpMethod.GET,
                         entity,
                         Object.class);
