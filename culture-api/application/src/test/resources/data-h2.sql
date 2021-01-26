@@ -21,7 +21,7 @@ insert into regular_user (id, first_name, last_name, account_id) values (nextval
 insert into regular_user (id, first_name, last_name, account_id) values (nextval('user_id_seq'), 'firstName2', 'lastName2', 3);
 
 insert into administrator (id, first_name, last_name, account_id) values (nextval('user_id_seq'), 'adminName1', 'adminSurname2', 1);
-insert into administrator (id, first_name, last_name, account_id) values (nextval('user_id_seq'), 'adminName2', 'adminSurname2', 1);
+insert into administrator (id, first_name, last_name, account_id) values (nextval('user_id_seq'), 'adminName2', 'adminSurname2', 5);
 
 
 insert into category (name, archived) values ('Category1', false);
@@ -40,9 +40,9 @@ insert into subcategory (id, category_id, name, archived) values (nextval('subca
 insert into subcategory (id, category_id, name, archived) values (nextval('subcategory_id_seq'), 2, 'Subcategory23', true);
 insert into subcategory (id, category_id, name, archived) values (nextval('subcategory_id_seq'), 3, 'Subcategory33', false);
 
-insert into cultural_offer (name, address, longitude, latitude, subcategory_id, category_id, archived, description) values ('CulturalOffer1', 'address1', 15.0, 15.0, 1, 1, false, 'description1');
-insert into cultural_offer (name, address, longitude, latitude, subcategory_id, category_id, archived, description) values ('CulturalOffer2', 'address2', 30.0, 30.0, 1, 1, false, 'description2');
-insert into cultural_offer (name, address, longitude, latitude, subcategory_id, category_id, archived, description) values ('CulturalOffer3', 'address3', 45.0, 45.0, 2, 1, false, 'description3');
+insert into cultural_offer (name, address, longitude, latitude, subcategory_id, category_id, archived, description, rating, review_count) values ('CulturalOffer1', 'address1', 15.0, 15.0, 1, 1, false, 'description1', 0.0, 0);
+insert into cultural_offer (name, address, longitude, latitude, subcategory_id, category_id, archived, description, rating, review_count) values ('CulturalOffer2', 'address2', 30.0, 30.0, 1, 1, false, 'description2', 0.0, 0);
+insert into cultural_offer (name, address, longitude, latitude, subcategory_id, category_id, archived, description, rating, review_count) values ('CulturalOffer3', 'address3', 45.0, 45.0, 2, 1, false, 'description3', 0.0, 0);
 
 insert into news (id, cultural_offer_id, title, posted_date, author_id, text, archived) values (nextval('news_id_seq'), 1, 'News 11', '2020-02-04 00:19:35', 3, 'news description 11', false);
 insert into news (id, cultural_offer_id, title, posted_date, author_id, text, archived) values (nextval('news_id_seq'), 1, 'News 12', '2020-08-08 06:02:44', 3,  'news description 12', false);
@@ -63,8 +63,8 @@ insert into review (id, cultural_offer_id, comment, rating, reply_cultural_offer
 insert into review (id, cultural_offer_id, comment, rating, reply_cultural_offer_id, reply_id, archived, user_id, date) values (nextval('review_id_seq'), 1, 'comment', 3.22, null, null, false, 2, '2020-05-24 08:34:34');
 insert into review (id, cultural_offer_id, comment, rating, reply_cultural_offer_id, reply_id, archived, user_id, date) values (nextval('review_id_seq'), 1, 'comment', 4.55, null, null, false, 1, '2020-02-05 08:34:34');
 
-insert into reply (id, cultural_offer_id, author_id, comment) values (nextval('reply_id_seq'), 1, 3, 'Reply comment 1');
-insert into reply (id, cultural_offer_id, author_id, comment) values (nextval('reply_id_seq'), 1, 3, 'Reply comment 2');
+insert into reply (id, cultural_offer_id, author_id, comment) values (1, 1, 3, 'Reply comment 1');
+insert into reply (id, cultural_offer_id, author_id, comment) values (2, 1, 3, 'Reply comment 2');
 
 
 update review set reply_id = 1, reply_cultural_offer_id = 1 where id = 1;

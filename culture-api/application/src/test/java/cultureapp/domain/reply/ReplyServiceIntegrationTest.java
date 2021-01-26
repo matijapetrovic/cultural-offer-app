@@ -10,6 +10,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,8 +22,7 @@ import javax.validation.ConstraintViolationException;
 import java.util.List;
 import java.util.Optional;
 
-import static cultureapp.common.AdministratorTestData.EXISTING_ADMIN_ID_3;
-import static cultureapp.common.AdministratorTestData.NON_EXISTING_ADMIN_ID_10;
+import static cultureapp.common.AdministratorTestData.*;
 import static cultureapp.common.CulturalOfferTestData.NON_EXISTING_CULTURAL_OFFER_ID;
 import static cultureapp.common.ReplyTestData.CULTURAL_OFFER_ID_1_WITH_REVIEWS;
 import static cultureapp.common.ReplyTestData.INVALID_COMMENT;
@@ -43,6 +46,9 @@ public class ReplyServiceIntegrationTest {
     @Autowired
     private ReviewRepository reviewRepository;
 
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
     /*
     * add reply
     * AddReplyCommand           valid
@@ -56,13 +62,15 @@ public class ReplyServiceIntegrationTest {
         );
         Review review = reviewOptional.get();
 
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(EXISTING_ADMIN_EMAIL_1, EXISTING_ADMIN_PASSWORD_1));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
         long replyCount = replyRepository.count();
 
         AddReplyUseCase.AddReplyCommand command = new AddReplyUseCase.AddReplyCommand(
                 CULTURAL_OFFER_ID_1_WITH_REVIEWS,
                 REVIEW_ID_3_FOR_OFFER_ID_1_WITH_NO_REPLY,
-//                EXISTING_ADMIN_ID_3,
                 VALID_COMMENT
         );
         replyService.addReply(command);
@@ -96,6 +104,12 @@ public class ReplyServiceIntegrationTest {
 //                EXISTING_ADMIN_ID_3,
                 VALID_COMMENT
         );
+
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(EXISTING_ADMIN_EMAIL_1, EXISTING_ADMIN_PASSWORD_1));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+
         replyService.addReply(command);
     }
 
@@ -106,6 +120,10 @@ public class ReplyServiceIntegrationTest {
      */
     @Test(expected = ReplyAlreadyExistException.class)
     public void givenReviewWithWhichHasReplyThenAddReplyShouldFail() throws AdminNotFoundException, ReviewNotFoundException, ReplyAlreadyExistException {
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(EXISTING_ADMIN_EMAIL_1, EXISTING_ADMIN_PASSWORD_1));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
         AddReplyUseCase.AddReplyCommand command = new AddReplyUseCase.AddReplyCommand(
                 CULTURAL_OFFER_ID_1_WITH_REVIEWS,
                 REVIEW_ID_2_FOR_OFFER_ID_1_WITH_REPLY,
@@ -126,22 +144,6 @@ public class ReplyServiceIntegrationTest {
                 CULTURAL_OFFER_ID_1_WITH_REVIEWS,
                 NON_EXISTING_REVIEW_ID_FOR_CULTURAL_OFFER_ID_1,
 //                EXISTING_ADMIN_ID_3,
-                VALID_COMMENT
-        );
-        replyService.addReply(command);
-    }
-
-    /*
-     * add reply
-     * AddReplyCommand           invalid -> non existing admin id
-     * except                    exception
-     */
-    @Test(expected = AdminNotFoundException.class)
-    public void givenInvalidAdminIdThenAddReplyShouldFail() throws AdminNotFoundException, ReviewNotFoundException, ReplyAlreadyExistException {
-        AddReplyUseCase.AddReplyCommand command = new AddReplyUseCase.AddReplyCommand(
-                CULTURAL_OFFER_ID_1_WITH_REVIEWS,
-                REVIEW_ID_2_FOR_OFFER_ID_1_WITH_REPLY,
-//                NON_EXISTING_ADMIN_ID_10,
                 VALID_COMMENT
         );
         replyService.addReply(command);
@@ -195,21 +197,6 @@ public class ReplyServiceIntegrationTest {
         replyService.addReply(command);
     }
 
-    /*
-     * add reply
-     * AddReplyCommand           invalid -> null admin id
-     * except                    exception
-     */
-    @Test(expected = ConstraintViolationException.class)
-    public void givenNullAdminIdThenAddReplyShouldFail() throws AdminNotFoundException, ReviewNotFoundException, ReplyAlreadyExistException {
-        AddReplyUseCase.AddReplyCommand command = new AddReplyUseCase.AddReplyCommand(
-                CULTURAL_OFFER_ID_1_WITH_REVIEWS,
-                REVIEW_ID_2_FOR_OFFER_ID_1_WITH_REPLY,
-//                null,
-                VALID_COMMENT
-        );
-        replyService.addReply(command);
-    }
 
     /*
      * add reply
