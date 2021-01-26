@@ -22,8 +22,15 @@
                   <i class="pi pi-user"></i>
                 </label>
                 <span class="p-float-label p-d-inline">
-                  <input type="text" autocomplete="off" pInputText formControlName="firstName" class="form-control p-mb-2"
-                    [ngClass]="{ 'is-invalid': submitted && f.firstName.errors}">
+                  <input 
+                  id="register-first-name-input" 
+                  type="text" 
+                  autocomplete="off" 
+                  pInputText 
+                  formControlName="firstName" 
+                  class="form-control p-mb-2"
+                  [ngClass]="{ 'is-invalid': submitted && f.firstName.errors}"
+                  >
                   <label *ngIf="!f.firstName.value" for="firstName">
                     First name
                   </label>
@@ -42,8 +49,15 @@
                   <i class="pi pi-user"></i>
                 </label>
                 <span class="p-float-label p-d-inline">
-                  <input type="text" autocomplete="off" pInputText formControlName="lastName" class="form-control p-mb-2"
-                    [ngClass]="{ 'is-invalid': submitted && f.lastName.errors}">
+                  <input 
+                  id="register-last-name-input" 
+                  type="text" 
+                  autocomplete="off" 
+                  pInputText 
+                  formControlName="lastName" 
+                  class="form-control p-mb-2"
+                  [ngClass]="{ 'is-invalid': submitted && f.lastName.errors}"
+                  >
                   <label *ngIf="!f.lastName.value" for="lastName">
                     Last name
                   </label>
@@ -66,6 +80,7 @@
                 </label>
                 <span class="p-float-label p-d-inline">
                   <input
+                  id="register-username-input"
                   type="email"
                   autocomplete="off"
                   pInputText
@@ -91,8 +106,15 @@
                   <i class="pi pi-lock-open"></i>
                 </label>
                 <span class="p-float-label p-d-inline">
-                  <input type="password" autocomplete="off" pInputText formControlName="password" class="form-control p-mb-2"
-                    [ngClass]="{ 'is-invalid': submitted && f.password.errors}">
+                  <input 
+                  id="register-password-input" 
+                  type="password" 
+                  autocomplete="off" 
+                  pInputText 
+                  formControlName="password" 
+                  class="form-control p-mb-2"
+                  [ngClass]="{ 'is-invalid': submitted && f.password.errors}"
+                  >
                   <label *ngIf="!f.password.value" for="password">
                     Password
                   </label>
@@ -109,8 +131,15 @@
                   <i class="pi pi-lock"></i>
                 </label>
                 <span class="p-float-label p-d-inline">
-                  <input type="password" autocomplete="off" pInputText formControlName="confirmPassword" class="form-control p-mb-2"
-                    [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors}">
+                  <input 
+                  id="register-confirm-password-input" 
+                  type="password" 
+                  autocomplete="off" 
+                  pInputText 
+                  formControlName="confirmPassword" 
+                  class="form-control p-mb-2"
+                  [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors}"
+                  >
                   <label *ngIf="!f.confirmPassword.value" for="confirmPassword">
                     Confirm password
                   </label>
@@ -121,7 +150,13 @@
               </div>
             </div>
             <div class="p-grid p-px-5 p-mt-6 p-justify-center">
-              <button type="submit" class="p-button" label="Submit" pButton></button>
+              <button 
+              id="register-submit-button" 
+              type="submit" 
+              class="p-button" 
+              label="Submit" 
+              pButton
+              ></button>
             </div>
           </form>
         </div>
