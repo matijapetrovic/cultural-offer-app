@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../authentication.service';
 import { MessageService } from 'primeng/api';
+import { RegisterRequest } from '../../register';
 
 @Component({
   selector: 'app-registration',
@@ -38,26 +39,26 @@ export class RegistrationComponent implements OnInit {
 
     if (this.isInvalidEmailForm() || !this.arePasswordsSame()) {
       this.messageService.add({
-        severity: 'info', summary: 'Registration info', detail: 'Registration data is not valid!'
+        severity: 'warn', summary: 'Registration info', detail: 'Registration data is not valid!'
       });
-      setTimeout(() => this.messageService.clear(), 2000);
       return;
     }
 
     this.loading = true;
-    this.authenticationService.register(
-      {
-        firstName: this.f.firstName.value,
-        lastName: this.f.lastName.value,
-        email: this.f.username.value,
-        password: this.f.password.value
-      })
-      .subscribe();
-    this.messageService.add({
-      severity: 'success', summary: 'Registration successful', detail: 'You have successfully registered user!'
-    });
-    setTimeout(() => this.messageService.clear(), 2000);
-    this.registerForm.reset();
+    const registerRequest: RegisterRequest = {
+      firstName: this.f.firstName.value,
+      lastName: this.f.lastName.value,
+      email: this.f.username.value,
+      password: this.f.password.value
+    };
+    this.authenticationService.register(registerRequest)
+      .subscribe(() => {
+        this.messageService.add({
+          severity: 'success', summary: 'Registration successful', detail: 'You have successfully registered user!'
+        });
+        this.loading = false;
+        this.registerForm.reset();
+      });
   }
 
   usernameMessage(): string {

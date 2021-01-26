@@ -25,6 +25,8 @@ export interface NewsView {
   text: string;
   images: string[];
   imagesIds: number[];
+  author?: NewsAuthor;
+  postedDate?: number[];
 }
 
 export interface NewsAuthor {

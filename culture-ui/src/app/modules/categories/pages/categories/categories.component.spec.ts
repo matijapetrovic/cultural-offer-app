@@ -67,7 +67,6 @@ describe('CategoriesComponent', () => {
     tick();
 
     spyOn(component, 'getCategories');
-    spyOn(component.messageService, 'add');
     spyOn(component.ref, 'close').and.returnValue(component.messageService.add({})).and.callFake(() => component.getCategories());
     component.ref.close();
     tick();
@@ -84,7 +83,6 @@ describe('CategoriesComponent', () => {
       name: 'Category'
     };
     spyOn(component, 'getCategories');
-    spyOn(component.messageService, 'add');
     component.showUpdateForm(category);
     tick();
 
@@ -101,7 +99,6 @@ describe('CategoriesComponent', () => {
   it('showDeleteForm() should delete category when accepted', fakeAsync(() => {
     const id = 1;
     spyOn(component, 'deleteCategory');
-    spyOn(component.messageService, 'add');
     spyOn<any>(component.confirmationService, 'confirm').and.callFake((params: any) => {
       component.messageService.add({});
       params.accept();

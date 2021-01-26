@@ -53,6 +53,11 @@ public class RegisterPage {
                 .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".p-toast-message-info")));
     }
 
+    public void ensureWarnToastIsDisplayed() {
+        (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".p-toast-message-warn")));
+    }
+
     public void ensureErrorToastIsDisplayed() {
         (new WebDriverWait(driver, 10))
                 .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".p-toast-message-error")));

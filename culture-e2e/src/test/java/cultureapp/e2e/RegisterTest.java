@@ -69,7 +69,7 @@ public class RegisterTest {
         registerPage.getConfirmPasswordInput().sendKeys(VALID_PASSWORD);
         registerPage.submit();
 
-        registerPage.ensureInfoToastIsDisplayed();
+        registerPage.ensureWarnToastIsDisplayed();
     }
 
     @Test
@@ -86,7 +86,7 @@ public class RegisterTest {
         registerPage.getConfirmPasswordInput().sendKeys(NOT_EQUl_VALID_CONFIRM_PASSWORD);
         registerPage.submit();
 
-        registerPage.ensureInfoToastIsDisplayed();
+        registerPage.ensureWarnToastIsDisplayed();
     }
 
     @Test
