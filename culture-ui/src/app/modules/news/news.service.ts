@@ -13,7 +13,6 @@ const httpOptions = {
   })
 };
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -35,6 +34,14 @@ export class NewsService {
     return this.http.get<NewsPage>(url, { ...httpOptions, params })
       .pipe(
         catchError(this.handleError<NewsPage>('getNews'))
+      );
+  }
+
+  deleteNews(culturalOfferId: number, news: any): Observable<{}> {
+    const url = `${this.newsUrl}/${culturalOfferId}/news/${news.id}`;
+    return this.http.delete(url, httpOptions)
+      .pipe(
+        catchError(this.handleError('deleteNews'))
       );
   }
 }

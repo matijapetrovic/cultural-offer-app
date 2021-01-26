@@ -6,7 +6,11 @@ const routes: Routes = [
   {
     path: ':id',
     component: CulturalOfferComponent
-  }
+  },
+  {
+    path: ':offerId/news',
+    loadChildren: () => import('./../news/news.module').then(m => m.NewsModule)
+  },
 ];
 
 @NgModule({
