@@ -33,6 +33,6 @@ export interface NewsAuthor {
   lastName: string;
 }
 export interface NewsPage {
-  data: News[];
+  data: NewsView[];
   links: Map<string, string>;
 }

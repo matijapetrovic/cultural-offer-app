@@ -46,7 +46,7 @@ public class NewsController {
 
         AddNewsUseCase.AddNewsCommand command = new AddNewsUseCase.AddNewsCommand(
                 culturalOfferId,
-                request.getName(),
+                request.getTitle(),
                 request.getText(),
                 request.getImages()
         );
@@ -98,7 +98,7 @@ public class NewsController {
         UpdateNewsUseCase.UpdateNewsCommand command = new UpdateNewsUseCase.UpdateNewsCommand(
                 id,
                 culturalOfferId,
-                request.getName(),
+                request.getTitle(),
                 request.getText(),
                 request.getImages());
 

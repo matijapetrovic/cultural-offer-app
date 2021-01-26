@@ -22,7 +22,7 @@ export class UpdateNewsComponent implements OnInit {
         public ref: DynamicDialogRef
     ) { 
         //deep copying original object
-        this.culturalOfferId = config.data.culturalofferId;
+        this.culturalOfferId = config.data.culturalOfferId;
         this.news = {...this.config.data.news};
         this.loading = false;
     }
