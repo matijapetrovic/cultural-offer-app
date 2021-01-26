@@ -391,7 +391,8 @@ public class CulturalOfferControllerIntegrationTest {
                         VALID_CULTURAL_OFFER_LATITUDE,
                         List.of(EXISTING_ADD_CULTURAL_OFFER_IMAGE_1, EXISTING_ADD_CULTURAL_OFFER_IMAGE_2),
                         EXISTING_CATEGORY_ID,
-                        EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1
+                        EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1,
+                        VALID_CULTURAL_OFFER_ADDRESS
                 ));
 
         ResponseEntity<Void> response = restTemplate.postForEntity(
@@ -421,7 +422,8 @@ public class CulturalOfferControllerIntegrationTest {
                         VALID_CULTURAL_OFFER_LATITUDE,
                         List.of(EXISTING_ADD_CULTURAL_OFFER_IMAGE_1, EXISTING_ADD_CULTURAL_OFFER_IMAGE_2),
                         EXISTING_CATEGORY_ID,
-                        EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1
+                        EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1,
+                        VALID_CULTURAL_OFFER_ADDRESS
                 ),
                         headers);
 
@@ -452,7 +454,8 @@ public class CulturalOfferControllerIntegrationTest {
                         VALID_CULTURAL_OFFER_LATITUDE,
                         List.of(EXISTING_ADD_CULTURAL_OFFER_IMAGE_1, EXISTING_ADD_CULTURAL_OFFER_IMAGE_2),
                         EXISTING_CATEGORY_ID,
-                        NON_EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1
+                        NON_EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1,
+                        VALID_CULTURAL_OFFER_ADDRESS
                 ),
                         headers);
 
@@ -483,7 +486,8 @@ public class CulturalOfferControllerIntegrationTest {
                         VALID_CULTURAL_OFFER_LATITUDE,
                         List.of(EXISTING_ADD_CULTURAL_OFFER_IMAGE_1, EXISTING_ADD_CULTURAL_OFFER_IMAGE_2),
                         EXISTING_CATEGORY_ID,
-                        EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1
+                        EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1,
+                        VALID_CULTURAL_OFFER_ADDRESS
                 ),
                         headers);
 
@@ -515,7 +519,8 @@ public class CulturalOfferControllerIntegrationTest {
                         VALID_CULTURAL_OFFER_LATITUDE,
                         List.of(EXISTING_ADD_CULTURAL_OFFER_IMAGE_1, EXISTING_ADD_CULTURAL_OFFER_IMAGE_2),
                         EXISTING_CATEGORY_ID,
-                        EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1
+                        EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1,
+                        VALID_CULTURAL_OFFER_ADDRESS
                 ),
                         headers);
 
@@ -547,7 +552,8 @@ public class CulturalOfferControllerIntegrationTest {
                         VALID_CULTURAL_OFFER_LATITUDE,
                         List.of(EXISTING_ADD_CULTURAL_OFFER_IMAGE_1, EXISTING_ADD_CULTURAL_OFFER_IMAGE_2),
                         EXISTING_CATEGORY_ID,
-                        EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1
+                        EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1,
+                        VALID_CULTURAL_OFFER_ADDRESS
                 ),
                         headers);
 
@@ -579,7 +585,8 @@ public class CulturalOfferControllerIntegrationTest {
                         INVALID_CULTURAL_OFFER_LATITUDE,
                         List.of(EXISTING_ADD_CULTURAL_OFFER_IMAGE_1, EXISTING_ADD_CULTURAL_OFFER_IMAGE_2),
                         EXISTING_CATEGORY_ID,
-                        EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1
+                        EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1,
+                        VALID_CULTURAL_OFFER_ADDRESS
                 ),
                         headers);
 
@@ -611,7 +618,8 @@ public class CulturalOfferControllerIntegrationTest {
                         VALID_CULTURAL_OFFER_LATITUDE,
                         List.of(NON_EXISTING_IMAGE_ID_1, NON_EXISTING_IMAGE_ID_2),
                         EXISTING_CATEGORY_ID,
-                        EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1
+                        EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1,
+                        VALID_CULTURAL_OFFER_ADDRESS
                 ),
                         headers);
 
@@ -643,7 +651,8 @@ public class CulturalOfferControllerIntegrationTest {
                         VALID_CULTURAL_OFFER_LATITUDE,
                         List.of(EXISTING_ADD_CULTURAL_OFFER_IMAGE_1, EXISTING_ADD_CULTURAL_OFFER_IMAGE_2),
                         EXISTING_CATEGORY_ID,
-                        EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1
+                        EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1,
+                        VALID_CULTURAL_OFFER_ADDRESS
                 ),
                         headers);
 
@@ -761,7 +770,8 @@ public class CulturalOfferControllerIntegrationTest {
                 VALID_CULTURAL_OFFER_LATITUDE,
                 List.of(EXISTING_UPDATE_CULTURAL_OFFER_IMAGE_1, EXISTING_UPDATE_CULTURAL_OFFER_IMAGE_2),
                 EXISTING_CATEGORY_ID_2,
-                EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_2
+                EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_2,
+                VALID_CULTURAL_OFFER_ADDRESS
         ));
 
 
@@ -790,7 +800,8 @@ public class CulturalOfferControllerIntegrationTest {
                     VALID_CULTURAL_OFFER_LATITUDE,
                     List.of(EXISTING_UPDATE_CULTURAL_OFFER_IMAGE_1, EXISTING_UPDATE_CULTURAL_OFFER_IMAGE_2),
                     EXISTING_CATEGORY_ID_2,
-                    EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_2
+                    EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_2,
+                    VALID_CULTURAL_OFFER_ADDRESS
                 ),
                 headers);
 
@@ -820,7 +831,8 @@ public class CulturalOfferControllerIntegrationTest {
                         VALID_CULTURAL_OFFER_LATITUDE,
                         List.of(EXISTING_UPDATE_CULTURAL_OFFER_IMAGE_1, EXISTING_UPDATE_CULTURAL_OFFER_IMAGE_2),
                         EXISTING_CATEGORY_ID,
-                        NON_EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1
+                        NON_EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1,
+                        VALID_CULTURAL_OFFER_ADDRESS
                 ),
                         headers);
 
@@ -850,7 +862,8 @@ public class CulturalOfferControllerIntegrationTest {
                         VALID_CULTURAL_OFFER_LATITUDE,
                         List.of(EXISTING_UPDATE_CULTURAL_OFFER_IMAGE_1, EXISTING_UPDATE_CULTURAL_OFFER_IMAGE_2),
                         EXISTING_CATEGORY_ID_2,
-                        EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_2
+                        EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_2,
+                        VALID_CULTURAL_OFFER_ADDRESS
                 ),
                         headers);
 
@@ -881,7 +894,8 @@ public class CulturalOfferControllerIntegrationTest {
                         VALID_CULTURAL_OFFER_LATITUDE,
                         List.of(EXISTING_UPDATE_CULTURAL_OFFER_IMAGE_1, EXISTING_UPDATE_CULTURAL_OFFER_IMAGE_2),
                         EXISTING_CATEGORY_ID_2,
-                        EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_2
+                        EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_2,
+                        VALID_CULTURAL_OFFER_ADDRESS
                 ),
                         headers);
 
@@ -912,7 +926,8 @@ public class CulturalOfferControllerIntegrationTest {
                         VALID_CULTURAL_OFFER_LATITUDE,
                         List.of(EXISTING_UPDATE_CULTURAL_OFFER_IMAGE_1, EXISTING_UPDATE_CULTURAL_OFFER_IMAGE_2),
                         EXISTING_CATEGORY_ID_2,
-                        EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_2
+                        EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_2,
+                        VALID_CULTURAL_OFFER_ADDRESS
                 ),
                         headers);
 
@@ -943,7 +958,8 @@ public class CulturalOfferControllerIntegrationTest {
                         INVALID_CULTURAL_OFFER_LATITUDE,
                         List.of(EXISTING_UPDATE_CULTURAL_OFFER_IMAGE_1, EXISTING_UPDATE_CULTURAL_OFFER_IMAGE_2),
                         EXISTING_CATEGORY_ID_2,
-                        EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_2
+                        EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_2,
+                        VALID_CULTURAL_OFFER_ADDRESS
                 ),
                         headers);
 
@@ -974,7 +990,8 @@ public class CulturalOfferControllerIntegrationTest {
                         VALID_CULTURAL_OFFER_LATITUDE,
                         List.of(NON_EXISTING_IMAGE_ID_1, NON_EXISTING_IMAGE_ID_2),
                         EXISTING_CATEGORY_ID_2,
-                        EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_2
+                        EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_2,
+                        VALID_CULTURAL_OFFER_ADDRESS
                 ),
                         headers);
 
@@ -1005,7 +1022,8 @@ public class CulturalOfferControllerIntegrationTest {
                         VALID_CULTURAL_OFFER_LATITUDE,
                         List.of(EXISTING_UPDATE_CULTURAL_OFFER_IMAGE_1, EXISTING_UPDATE_CULTURAL_OFFER_IMAGE_2),
                         EXISTING_CATEGORY_ID_2,
-                        EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_2
+                        EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_2,
+                        VALID_CULTURAL_OFFER_ADDRESS
                 ),
                         headers);
 

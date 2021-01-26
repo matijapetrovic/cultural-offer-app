@@ -20,4 +20,5 @@ public class CulturalOfferRequest {
     List<Long> images;
     Long categoryId;
     Long subcategoryId;
+    String address;
 }

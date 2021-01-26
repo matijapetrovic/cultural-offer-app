@@ -47,7 +47,8 @@ public class UpdateCulturalOfferServiceIntegrationTest {
                         VALID_CULTURAL_OFFER_LATITUDE,
                         EXISTING_CATEGORY_ID_2,
                         EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_2,
-                        List.of(EXISTING_UPDATE_CULTURAL_OFFER_IMAGE_1, EXISTING_UPDATE_CULTURAL_OFFER_IMAGE_2)
+                        List.of(EXISTING_UPDATE_CULTURAL_OFFER_IMAGE_1, EXISTING_UPDATE_CULTURAL_OFFER_IMAGE_2),
+                        VALID_CULTURAL_OFFER_ADDRESS
                 );
 
         updateCulturalOfferService.updateCulturalOffer(command);
@@ -65,7 +66,8 @@ public class UpdateCulturalOfferServiceIntegrationTest {
                         VALID_CULTURAL_OFFER_LATITUDE,
                         EXISTING_CATEGORY_ID,
                         NON_EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1,
-                        List.of(EXISTING_UPDATE_CULTURAL_OFFER_IMAGE_1, EXISTING_UPDATE_CULTURAL_OFFER_IMAGE_2)
+                        List.of(EXISTING_UPDATE_CULTURAL_OFFER_IMAGE_1, EXISTING_UPDATE_CULTURAL_OFFER_IMAGE_2),
+                        VALID_CULTURAL_OFFER_ADDRESS
                 );
 
         updateCulturalOfferService.updateCulturalOffer(command);
@@ -83,7 +85,8 @@ public class UpdateCulturalOfferServiceIntegrationTest {
                         VALID_CULTURAL_OFFER_LATITUDE,
                         EXISTING_CATEGORY_ID_2,
                         EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_2,
-                        List.of(NON_EXISTING_IMAGE_ID_1, NON_EXISTING_IMAGE_ID_2)
+                        List.of(NON_EXISTING_IMAGE_ID_1, NON_EXISTING_IMAGE_ID_2),
+                        VALID_CULTURAL_OFFER_ADDRESS
                 );
 
         updateCulturalOfferService.updateCulturalOffer(command);
@@ -102,7 +105,8 @@ public class UpdateCulturalOfferServiceIntegrationTest {
                         VALID_CULTURAL_OFFER_LATITUDE,
                         EXISTING_CATEGORY_ID_2,
                         EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_2,
-                        List.of(EXISTING_UPDATE_CULTURAL_OFFER_IMAGE_1, EXISTING_UPDATE_CULTURAL_OFFER_IMAGE_2)
+                        List.of(EXISTING_UPDATE_CULTURAL_OFFER_IMAGE_1, EXISTING_UPDATE_CULTURAL_OFFER_IMAGE_2),
+                        VALID_CULTURAL_OFFER_ADDRESS
                 );
 
         Optional<CulturalOffer> previousOffer =

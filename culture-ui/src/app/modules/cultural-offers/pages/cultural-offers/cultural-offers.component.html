@@ -7,37 +7,23 @@
         <div class="p-grid p-justify-center">
           <h1>
             <strong>
-              Subcategories
+              Cultural Offers
             </strong>
           </h1>
         </div>
-      </div>
-      <div class="p-field p-col-12 p-md-6">
-        <ng-select
-          [items]="categories"
-          bindLabel="name"
-          placeholder="Select a category"
-          appearance="outline"
-          [searchable]="false"
-          [clearable]="false"
-          (change)="categoryChanged($event)"
-          id="filter-category-select"
-        >
-        </ng-select>
       </div>
       <button
         pButton
         type="button"
         class="p-button-raised p-button-rounded p-justify-left"
-        label="Add subcategory"
+        label="Add Culturl Offer"
         (click)="showAddForm()"
-        [disabled]="tempCategory === null"
       ></button>
       <div class="p-grid p-mt-3 p-justify-center centered-grid"></div>
         <p-table
           #dt 
-          *ngIf="subcategoriesPage"
-          [value]="subcategoriesPage.data"
+          *ngIf="culturalOffersPage"
+          [value]="culturalOffersPage.data"
           [editable]="true"  [paginator]="false" [rows]="10" [responsive]="true"
           [showCurrentPageReport]="true"
           styleClass="p-datatable-categoriesPage p-datatable-gridlines"
@@ -56,13 +42,17 @@
         <ng-template pTemplate="header">
           <tr>
             <th>Name</th>
+            <th>Subcategory</th>
             <th>Actions</th>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-subcategory>
-          <tr ng-repeat="(subcategory.name) in subcategoriesPage.data">
+        <ng-template pTemplate="body" let-culturalOffer>
+          <tr ng-repeat="(culturalOffer) in culturalOffersPage.data">
             <td>
-              {{subcategory.name}}
+              {{culturalOffer.name}}
+            </td>
+            <td>
+              {{culturalOffer.subcategory.name}}
             </td>
             <td>
               <div class="p-grid p-justify-center">
@@ -71,14 +61,14 @@
                   label="Edit"
                   icon="pi pi-pencil" 
                   class="p-button-secondary p-button-rounded p-justify-left p-button-sm p-mr-3 p-mb-2"
-                  (click)="showUpdateForm(subcategory)"
+                  (click)="showUpdateForm(culturalOffer)"
                 ></button>
                 <button 
                   pButton
                   label="Delete"
                   icon="pi pi-trash" 
                   class="p-button-info p-button-rounded p-justify-right p-button-sm p-mb-2"
-                  (click)="showDeleteForm(subcategory)"
+                  (click)="showDeleteForm(culturalOffer)"
                 ></button>
               </div>
             </td>
@@ -87,12 +77,12 @@
       </p-table>
       <p-footer class="p-grid p-justify-center"> 
       <app-pagination-bar
-        *ngIf="subcategoriesPage"
-        [hasPrev]="subcategoriesPage.links.prev"
-        [hasNext]="subcategoriesPage.links.next"
+        *ngIf="culturalOffersPage"
+        [hasPrev]="culturalOffersPage.links.prev"
+        [hasNext]="culturalOffersPage.links.next"
         [currentPage]="page"
-        (navigatePrevEvent)="getPrevSubcategories()"
-        (navigateNextEvent)="getNextSubcategories()"
+        (navigatePrevEvent)="getPrevCulturalOffers()"
+        (navigateNextEvent)="getNextCulturalOffers()"
         class="p-justify-center"
       ></app-pagination-bar>
       </p-footer>
