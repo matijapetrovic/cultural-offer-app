@@ -1,0 +1,80 @@
+<form (ngSubmit)="onSubmit()" id="form">
+    <div class="grid-container">
+      <div class="left-item">
+        <table>
+          <tr>
+            <td colspan="3">
+              <label
+                class="p-justify-left p-col-2">
+                Name:
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3">
+              <input
+                [(ngModel)]="news.title"
+                name="title"
+                type="text"
+                autocomplete="off"
+                pInputText
+                class="form-control">
+            </td>
+          </tr>
+          <tr></tr>
+          <tr></tr>
+          <tr></tr>
+          <tr></tr>
+          <tr>
+            <td colspan="3">
+              <label
+                class="p-justify-left p-col-2">
+                Text: 
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" rowspan="3">
+              <textarea
+                [(ngModel)]="news.text"
+                name="text"
+                class="form-control"
+                rows="7"
+                [cols]="24"
+                pInputTextarea>
+              </textarea>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="right-item">
+        <label
+          class="p-justify-left p-col-2">
+          Append Image: 
+        </label>
+        <input
+          id="images" 
+          type="file"
+          name="image"
+          class="form-control"
+          accept="image/*"
+          (change)="appendFile($event)">
+        <div class="image-container">
+          <div *ngFor="let image of news.images">
+                <button type="button" (click)="removeImage(image)">x</button>
+                <img [src]="image" alt="News image"/>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-item">
+        <button
+          [disabled]="invalidFormInputs()"
+          type="submit"
+          class="p-button"
+          label="Submit"
+          pButton
+        >
+        </button>
+      </div>
+    </div>
+  </form>

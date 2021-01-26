@@ -57,6 +57,7 @@ public interface GetNewsForOfferQueryHandler {
         private String text;
 
         private List<String> images;
+        private List<Long> imagesIds;
 
         public static GetNewsForOfferDTO of(News news) {
             return new GetNewsForOfferDTO(
@@ -69,6 +70,10 @@ public interface GetNewsForOfferQueryHandler {
                     news.getImages()
                             .stream()
                             .map(Image::getUrl)
+                            .collect(Collectors.toList()),
+                    news.getImages()
+                            .stream()
+                            .map(Image::getId)
                             .collect(Collectors.toList())
             );
         }

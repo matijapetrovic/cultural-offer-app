@@ -108,8 +108,9 @@
       <button
           *ngIf="userIsAdmin"
           pButton
-          class="p-button-primary" 
-          label="Add news">
+          [routerLink]="['/cultural-offers', culturalOffer.id, 'news']"
+          class="p-button-help" 
+          label="Manage news">
         </button>
     </div>
     <div *ngIf="newsPage">
