@@ -4,6 +4,7 @@ import cultureapp.domain.category.command.AddCategoryUseCase;
 import cultureapp.domain.category.command.DeleteCategoryUseCase;
 import cultureapp.domain.category.command.UpdateCategoryUseCase;
 import cultureapp.domain.category.exception.CategoryAlreadyExistsException;
+import cultureapp.domain.category.exception.CategoryCannotBeDeletedException;
 import cultureapp.domain.category.exception.CategoryNotFoundException;
 import cultureapp.domain.category.query.GetCategoriesQueryHandler;
 import cultureapp.domain.category.query.GetCategoryByIdQueryHandler;
@@ -79,7 +80,7 @@ public class CategoryController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<Void> deleteCategory(@PathVariable Long id) throws CategoryNotFoundException {
+    public ResponseEntity<Void> deleteCategory(@PathVariable Long id) throws CategoryNotFoundException, CategoryCannotBeDeletedException {
         deleteCategoryUseCase.deleteCategoryById(id);
         return ResponseEntity.noContent().build();
     }
