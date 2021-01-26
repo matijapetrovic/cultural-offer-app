@@ -38,8 +38,11 @@ export class NewsPageComponent implements OnInit {
 
   showAddForm(): void {
     this.ref = this.dialogService.open(AddNewsComponent, {
+      data: {
+        culturalOfferId: this.culturalOfferId
+      },
       header: 'Add news',
-      width: '30%',
+      width: '55%',
       dismissableMask: true
     });
 
@@ -56,10 +59,11 @@ export class NewsPageComponent implements OnInit {
   showUpdateForm(news: any): void {
     this.ref = this.dialogService.open(UpdateNewsComponent, {
       data: {
+        culturalOfferId: this.culturalOfferId,
         news
       },
       header: 'Update news',
-      width: '30%',
+      width: '55%',
       dismissableMask: true
     });
 
@@ -72,14 +76,18 @@ export class NewsPageComponent implements OnInit {
     });
   }
 
-  showDeleteForm(id: number): void {
+  showDeleteForm(news: any): void {
     this.confirmationService.confirm({
       message: 'Do you want to delete this news?',
       header: 'Delete Confirmation',
       icon: 'pi pi-info-circle',
       accept: () => {
-        this.deleteNews(id);
-        this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have successfuly deleted news!' });
+        this.newsService.deleteNews(this.culturalOfferId, news.id)
+        .subscribe(
+          () => {
+            this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have successfuly deleted news!' });
+            this.getNews();
+          });
       },
       reject: () => {
       }
@@ -88,15 +96,6 @@ export class NewsPageComponent implements OnInit {
 
   getNews(): void {
     this.newsService.getNews(this.culturalOfferId, this.page, this.limit).subscribe(news => this.newsPage = news);
-  }
-
-  deleteNews(id: number): void {
-    // this.newsService.deleteNews(id)
-    // .pipe()
-    // .subscribe(
-    //   () => {
-    //     this.getNews();
-    //   });
   }
 
   getNextNews(): void {

@@ -8,8 +8,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AddNewsComponent } from './pages/add-news/add-news.component';
 import { UpdateNewsComponent } from './pages/update-news/update-news.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { NewsFormComponent } from './components/news-form/news-form.component';
 @NgModule({
-  declarations: [NewsPageComponent, AddNewsComponent, UpdateNewsComponent],
+  declarations: [NewsPageComponent, AddNewsComponent, UpdateNewsComponent, NewsFormComponent],
   imports: [
     CommonModule,
     NewsRoutingModule,

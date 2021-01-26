@@ -1,3 +1,5 @@
+import { CulturalOffer } from "../cultural-offers/cultural-offer";
+
 export interface News {
   id: number;
   culturalOfferId: number;
@@ -6,6 +8,23 @@ export interface News {
   postedDate: number[];
   text: string;
   images: string[];
+}
+
+export interface NewsToAdd {
+  id: number;
+  culturalOfferId: number;
+  title: string;
+  text: string;
+  images: number[];
+}
+
+export interface NewsView {
+  id: number;
+  culturalOfferId: number;
+  title: string;
+  text: string;
+  images: string[];
+  imagesIds: number[];
 }
 
 export interface NewsAuthor {
