@@ -1,6 +1,6 @@
 package cultureapp.e2e;
 
-import cultureapp.e2e.pages.LoginPage;
+import cultureapp.e2e.pages.login.LoginPage;
 import cultureapp.e2e.pages.NavigationBar;
 import cultureapp.e2e.pages.cultural_offer.AddReplyDialog;
 import cultureapp.e2e.pages.cultural_offer.AddReviewDialog;

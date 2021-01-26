@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../authentication.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-registration',
@@ -16,7 +17,8 @@ export class RegistrationComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+     public messageService: MessageService
     ) { }
 
   ngOnInit(): void {
@@ -35,6 +37,10 @@ export class RegistrationComponent implements OnInit {
     this.submitted = true;
 
     if (this.isInvalidEmailForm() || !this.arePasswordsSame()) {
+      this.messageService.add({
+        severity: 'info', summary: 'Registration info', detail: 'Registration data is not valid!'
+      });
+      setTimeout(() => this.messageService.clear(), 2000);
       return;
     }
 
@@ -47,6 +53,11 @@ export class RegistrationComponent implements OnInit {
         password: this.f.password.value
       })
       .subscribe();
+    this.messageService.add({
+      severity: 'success', summary: 'Registration successful', detail: 'You have successfully registered user!'
+    });
+    setTimeout(() => this.messageService.clear(), 2000);
+    this.registerForm.reset();
   }
 
   usernameMessage(): string {

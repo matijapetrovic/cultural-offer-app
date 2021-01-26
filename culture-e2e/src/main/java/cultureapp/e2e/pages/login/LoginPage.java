@@ -1,8 +1,9 @@
-package cultureapp.e2e.pages;
+package cultureapp.e2e.pages.login;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -23,6 +24,10 @@ public class LoginPage {
 
     @FindBy(css = "#login-submit-button")
     private WebElement loginButton;
+
+    public void submit() {
+        loginButton.click();
+    }
 
     public void ensureIsDisplayed() {
         (new WebDriverWait(driver, 10))
