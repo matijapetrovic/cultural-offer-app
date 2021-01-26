@@ -116,10 +116,10 @@ describe('CulturalOfferComponent', () => {
     tick();
     fixture.detectChanges();
 
-    const reviewItems: DebugElement[] = fixture.debugElement.queryAll(By.css('ul.review-items > li'));
+    const reviewItems: DebugElement[] = fixture.debugElement.queryAll(By.css('.review-items p-accordiontab'));
     expect(reviewItems.length).toBe(mockReviewPage.data.length);
 
-    const newsItems: DebugElement[] = fixture.debugElement.queryAll(By.css('ul.news-items > li'));
+    const newsItems: DebugElement[] = fixture.debugElement.queryAll(By.css('.news-items p-accordiontab'));
     expect(newsItems.length).toBe(mockNewsPage.data.length);
   }));
 

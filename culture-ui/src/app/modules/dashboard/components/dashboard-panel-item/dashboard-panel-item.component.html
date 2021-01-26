@@ -1,0 +1,23 @@
+<p-card [header]="subscribedOffer.name" [style]="{'background-color': 'WhiteSmoke'}">
+    <ng-template pTemplate="header">
+        <p-carousel *ngIf="subscribedOffer.images.length !== 0" [value]="subscribedOffer.images"
+            class="subscribed-offer-images">
+            <ng-template let-image pTemplate="item">
+                <img [src]="image" alt="offer image" />
+            </ng-template>
+        </p-carousel>
+    </ng-template>
+
+    <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+        <p>{{ subscribedOffer.description }}</p>
+    </p-scrollPanel>
+
+    <ng-template pTemplate="footer">
+        <button pButton label="Details" icon="pi pi-align-justify" (click)="redirectToOfferPage()">
+        </button>
+        <button pButton label="Unsubscribe" icon="pi pi-times" class="p-button-danger" [style]="{'margin-left': '.5em'}"
+            (click)="confirmUnsubscribe($event)">
+        </button>
+    </ng-template>
+
+</p-card>

@@ -4,6 +4,17 @@
   display: block;
 }
 
+.review-rating-number {
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.review-comment {
+  margin-bottom: 0px;
+  margin-top: 20px;
+}
+
 ul.news-items {
   list-style-type: none;
   padding-left: 0;
@@ -12,6 +23,25 @@ ul.news-items {
 ul.review-items {
   list-style-type: none;
   padding-left: 0;
+}
+
+.news-title {
+  margin-bottom: 5px;
+  width: 100%;
+}
+
+.news-author {
+  font-style: italic;
+  margin-right: 10px;
+}
+
+.news-text {
+  margin-top:20px;
+}
+
+.news-date {
+  font-style: italic;
+  margin-right: 10px;
 }
 
 .p-scrollpanel {
@@ -40,6 +70,7 @@ ul.review-items {
 
 .rating-number {
   font-size: 32px;
+  font-weight: 500;
   text-align: center;
   margin-bottom: 10px;
 }

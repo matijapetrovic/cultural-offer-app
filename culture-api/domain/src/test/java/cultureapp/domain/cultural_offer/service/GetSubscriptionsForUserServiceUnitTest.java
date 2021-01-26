@@ -17,6 +17,7 @@ import cultureapp.domain.user.RegularUserRepository;
 import cultureapp.domain.user.exception.RegularUserNotFoundException;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.springframework.data.domain.Slice;
 
 import java.util.List;
 import java.util.Optional;
@@ -52,7 +53,9 @@ public class GetSubscriptionsForUserServiceUnitTest {
         GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserQuery query =
                 new GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserQuery(
                         VALID_CATEGORY_ID,
-                        VALID_SUBCATEGORY_ID
+                        VALID_SUBCATEGORY_ID,
+                        0L,
+                        100L
                 );
 
         getSubscriptionsService.handleGetSubscriptions(query);
@@ -73,7 +76,9 @@ public class GetSubscriptionsForUserServiceUnitTest {
         GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserQuery query =
                 new GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserQuery(
                         VALID_CATEGORY_ID,
-                        VALID_SUBCATEGORY_ID
+                        VALID_SUBCATEGORY_ID,
+                        0L,
+                        100L
                 );
 
         getSubscriptionsService.handleGetSubscriptions(query);
@@ -96,11 +101,15 @@ public class GetSubscriptionsForUserServiceUnitTest {
         GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserQuery query =
                 new GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserQuery(
                         subcategory.getCategory().getId(),
-                        subcategory.getId()
+                        subcategory.getId(),
+                        0L,
+                        100L
                 );
 
-        List<GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserDTO> result =
+        Slice<GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserDTO> resultSlice =
                 getSubscriptionsService.handleGetSubscriptions(query);
+
+        List<GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserDTO> result = resultSlice.toList();
 
         assertEquals(user.getCulturalOffers().size(), result.size());
         assertEquals(culturalOffer.getId(), result.get(0).getId());

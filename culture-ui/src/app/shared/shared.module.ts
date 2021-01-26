@@ -26,7 +26,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import {InputTextModule} from 'primeng/inputtext';
 import {DataViewModule} from 'primeng/dataview';
 import { NgSelectModule } from '@ng-select/ng-select';
-
+import {AccordionModule} from 'primeng/accordion';
 
 @NgModule({
     declarations: [
@@ -53,7 +53,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
         ConfirmDialogModule,
         InputTextModule,
         DataViewModule,
-        NgSelectModule
+        NgSelectModule,
+        AccordionModule
     ],
     exports: [
         PaginationBarComponent,
@@ -77,7 +78,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
         ConfirmDialogModule,
         InputTextModule,
         DataViewModule,
-        NgSelectModule
+        NgSelectModule,
+        AccordionModule
     ],
     providers: [
         ConfirmationService
