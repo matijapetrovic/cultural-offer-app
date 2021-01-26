@@ -206,7 +206,5 @@ describe('OfferMapPageComponent', () => {
 
     expect(geolocationService.geocode).toHaveBeenCalledWith(invalidLocation);
     expect(messageService.add).toHaveBeenCalledWith(invalidLocationMessage);
-    tick(2000);
-    expect(messageService.clear).toHaveBeenCalled();
   }));
 });
