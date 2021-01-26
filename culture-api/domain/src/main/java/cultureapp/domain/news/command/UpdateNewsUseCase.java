@@ -38,13 +38,6 @@ public interface UpdateNewsUseCase {
         String name;
 
         @NotNull
-        LocalDateTime postedDate;
-
-        @NotNull
-        @Positive
-        Long authorID;
-
-        @NotNull
         @NotBlank
         String text;
 
@@ -52,13 +45,11 @@ public interface UpdateNewsUseCase {
         List<Long> images;
 
         public UpdateNewsCommand(Long id, Long culturalOfferID, String name,
-                                 LocalDateTime postedDate, Long authorID, String text, List<Long> images)
+                                  String text, List<Long> images)
         {
             this.id = id;
             this.culturalOfferID = culturalOfferID;
             this.name = name;
-            this.postedDate = postedDate;
-            this.authorID = authorID;
             this.text = text;
             this.images = images;
             this.validateSelf();

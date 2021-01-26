@@ -15,13 +15,13 @@ import java.util.stream.Collectors;
 
 @Component
 public class CloudinaryImageUploader implements ImageUploader {
-    @Value("${cultureapp.cloudinary.cloud-name}")
+    @Value("${env.CLOUDINARY_CLOUD_NAME}")
     private String cloudName;
 
-    @Value("${cultureapp.cloudinary.api-key}")
+    @Value("${env.CLOUDINARY_API_KEY}")
     private String apiKey;
 
-    @Value("${cultureapp.cloudinary.api-secret}")
+    @Value("${env.CLOUDINARY_API_SECRET}")
     private String apiSecret;
 
     private Cloudinary cloudinary;

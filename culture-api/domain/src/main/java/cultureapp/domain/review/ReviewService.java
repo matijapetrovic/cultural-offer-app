@@ -88,7 +88,7 @@ public class ReviewService implements
         CulturalOffer culturalOffer =
                 culturalOfferRepository.findByIdAndArchivedFalse(query.getCulturalOfferId())
                         .orElseThrow(() -> new CulturalOfferNotFoundException(query.getCulturalOfferId()));
-        Pageable pageRequest = PageRequest.of(query.getPage(), query.getLimit(), Sort.by("date"));
+        Pageable pageRequest = PageRequest.of(query.getPage(), query.getLimit(), Sort.by(Sort.Direction.DESC, "date"));
 
         Slice<Review> reviews = reviewRepository
                 .findAllByCulturalOfferIdAndArchivedFalse(query.getCulturalOfferId(), pageRequest);

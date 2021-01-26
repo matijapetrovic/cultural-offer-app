@@ -3,6 +3,7 @@ import cultureapp.domain.account.exception.AccountAlreadyActivatedException;
 import cultureapp.domain.account.exception.AccountAlreadyExistsException;
 import cultureapp.domain.account.exception.AccountNotFoundException;
 import cultureapp.domain.authentication.exception.AccountNotActivatedException;
+import cultureapp.domain.category.exception.CategoryCannotBeDeletedException;
 import cultureapp.domain.cultural_offer.exception.CulturalOfferLocationsFilterException;
 import cultureapp.domain.reply.exception.ReplyAlreadyExistException;
 import cultureapp.domain.user.exception.AdminNotFoundException;
@@ -92,6 +93,13 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(CategoryAlreadyExistsException.class)
     protected ResponseEntity<Object> handleCategoryAlreadyExists(
             CategoryAlreadyExistsException ex) {
+        ApiError apiError = new ApiError(HttpStatus.CONFLICT, ex.getMessage(), ex);
+        return buildResponse(apiError);
+    }
+
+    @ExceptionHandler(CategoryCannotBeDeletedException.class)
+    protected ResponseEntity<Object> handleCategoryCannotBeDeleted(
+            CategoryCannotBeDeletedException ex) {
         ApiError apiError = new ApiError(HttpStatus.CONFLICT, ex.getMessage(), ex);
         return buildResponse(apiError);
     }

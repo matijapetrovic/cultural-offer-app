@@ -13,7 +13,7 @@ import { UpdateCategoryComponent } from '../update-category/update-category.comp
   selector: 'app-categories',
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.scss'],
-  providers: [DialogService, MessageService]
+  providers: [DialogService]
 })
 export class CategoriesComponent implements OnInit {
   categoriesPage: CategoriesPage;
@@ -73,8 +73,8 @@ export class CategoriesComponent implements OnInit {
       header: 'Delete Confirmation',
       icon: 'pi pi-info-circle',
       accept: () => {
-        this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have successfuly deleted category!'});
         this.deleteCategory(id);
+        this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have successfuly deleted category!' });
       },
       reject: () => {
       }

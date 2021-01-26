@@ -67,8 +67,8 @@ public class NewsServiceIntegrationTest {
         AddNewsUseCase.AddNewsCommand command = new AddNewsUseCase.AddNewsCommand(
                 EXISTING_CULTURAL_OFFER_ID,
                 VALID_NEWS_TITLE,
-                PRESENT_LOCAL_DATE_TIME,
-                EXISTING_ADMIN_ID_3,
+//                PRESENT_LOCAL_DATE_TIME,
+//                EXISTING_ADMIN_ID_3,
                 VALID_NEWS_TEXT,
                 List.of(FREE_NEWS_IMAGE_FOR_ADD_ID_7, FREE_NEWS_IMAGE_FOR_ADD_ID_8)
         );
@@ -96,8 +96,8 @@ public class NewsServiceIntegrationTest {
         AddNewsUseCase.AddNewsCommand command = new AddNewsUseCase.AddNewsCommand(
                 NON_EXISTING_CULTURAL_OFFER_ID,
                 VALID_NEWS_TITLE,
-                PRESENT_LOCAL_DATE_TIME,
-                EXISTING_ADMIN_ID_3,
+//                PRESENT_LOCAL_DATE_TIME,
+//                EXISTING_ADMIN_ID_3,
                 VALID_NEWS_TEXT,
                 // slike nece biti obrisane iz baze ovom operacijom
                 List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)
@@ -115,8 +115,8 @@ public class NewsServiceIntegrationTest {
         AddNewsUseCase.AddNewsCommand command = new AddNewsUseCase.AddNewsCommand(
                 INVALID_CULTURAL_OFFER_ID,
                 VALID_NEWS_TITLE,
-                PRESENT_LOCAL_DATE_TIME,
-                EXISTING_ADMIN_ID_3,
+//                PRESENT_LOCAL_DATE_TIME,
+//                EXISTING_ADMIN_ID_3,
                 VALID_NEWS_TEXT,
                 // slike nece biti obrisane iz baze ovom operacijom
                 List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)
@@ -134,8 +134,8 @@ public class NewsServiceIntegrationTest {
         AddNewsUseCase.AddNewsCommand command = new AddNewsUseCase.AddNewsCommand(
                 null,
                 VALID_NEWS_TITLE,
-                PRESENT_LOCAL_DATE_TIME,
-                EXISTING_ADMIN_ID_3,
+//                PRESENT_LOCAL_DATE_TIME,
+//                EXISTING_ADMIN_ID_3,
                 VALID_NEWS_TEXT,
                 // slike nece biti obrisane iz baze ovom operacijom
                 List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)
@@ -154,8 +154,8 @@ public class NewsServiceIntegrationTest {
         AddNewsUseCase.AddNewsCommand command = new AddNewsUseCase.AddNewsCommand(
                 EXISTING_CULTURAL_OFFER_ID,
                 INVALID_NEWS_TITLE,
-                PRESENT_LOCAL_DATE_TIME,
-                EXISTING_ADMIN_ID_3,
+//                PRESENT_LOCAL_DATE_TIME,
+//                EXISTING_ADMIN_ID_3,
                 VALID_NEWS_TEXT,
                 // slike nece biti obrisane iz baze ovom operacijom
                 List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)
@@ -173,8 +173,8 @@ public class NewsServiceIntegrationTest {
         AddNewsUseCase.AddNewsCommand command = new AddNewsUseCase.AddNewsCommand(
                 EXISTING_CULTURAL_OFFER_ID,
                 null,
-                PRESENT_LOCAL_DATE_TIME,
-                EXISTING_ADMIN_ID_3,
+//                PRESENT_LOCAL_DATE_TIME,
+//                EXISTING_ADMIN_ID_3,
                 VALID_NEWS_TEXT,
                 // slike nece biti obrisane iz baze ovom operacijom
                 List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)
@@ -191,8 +191,8 @@ public class NewsServiceIntegrationTest {
         AddNewsUseCase.AddNewsCommand command = new AddNewsUseCase.AddNewsCommand(
                 EXISTING_CULTURAL_OFFER_ID,
                 VALID_NEWS_TITLE,
-                null,
-                EXISTING_ADMIN_ID_3,
+//                null,
+//                EXISTING_ADMIN_ID_3,
                 VALID_NEWS_TEXT,
                 // slike nece biti obrisane iz baze ovom operacijom
                 List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)
@@ -209,8 +209,8 @@ public class NewsServiceIntegrationTest {
         AddNewsUseCase.AddNewsCommand command = new AddNewsUseCase.AddNewsCommand(
                 EXISTING_CULTURAL_OFFER_ID,
                 VALID_NEWS_TITLE,
-                PRESENT_LOCAL_DATE_TIME,
-                NON_EXISTING_ADMIN_ID_10,
+//                PRESENT_LOCAL_DATE_TIME,
+//                NON_EXISTING_ADMIN_ID_10,
                 VALID_NEWS_TEXT,
                 // slike nece biti obrisane iz baze ovom operacijom
                 List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)
@@ -228,8 +228,8 @@ public class NewsServiceIntegrationTest {
         AddNewsUseCase.AddNewsCommand command = new AddNewsUseCase.AddNewsCommand(
                 EXISTING_CULTURAL_OFFER_ID,
                 VALID_NEWS_TITLE,
-                PRESENT_LOCAL_DATE_TIME,
-                null,
+//                PRESENT_LOCAL_DATE_TIME,
+//                null,
                 VALID_NEWS_TEXT,
                 // slike nece biti obrisane iz baze ovom operacijom
                 List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)
@@ -246,8 +246,8 @@ public class NewsServiceIntegrationTest {
         AddNewsUseCase.AddNewsCommand command = new AddNewsUseCase.AddNewsCommand(
                 EXISTING_CULTURAL_OFFER_ID,
                 VALID_NEWS_TITLE,
-                PRESENT_LOCAL_DATE_TIME,
-                EXISTING_ADMIN_ID_3,
+//                PRESENT_LOCAL_DATE_TIME,
+//                EXISTING_ADMIN_ID_3,
                 INVALID_NEWS_TEXT,
                 // slike nece biti obrisane iz baze ovom operacijom
                 List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)
@@ -264,8 +264,8 @@ public class NewsServiceIntegrationTest {
         AddNewsUseCase.AddNewsCommand command = new AddNewsUseCase.AddNewsCommand(
                 EXISTING_CULTURAL_OFFER_ID,
                 VALID_NEWS_TITLE,
-                PRESENT_LOCAL_DATE_TIME,
-                EXISTING_ADMIN_ID_3,
+//                PRESENT_LOCAL_DATE_TIME,
+//                EXISTING_ADMIN_ID_3,
                 null,
                 // slike nece biti obrisane iz baze ovom operacijom
                 List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)
@@ -282,8 +282,8 @@ public class NewsServiceIntegrationTest {
         AddNewsUseCase.AddNewsCommand command = new AddNewsUseCase.AddNewsCommand(
                 EXISTING_CULTURAL_OFFER_ID,
                 VALID_NEWS_TITLE,
-                PRESENT_LOCAL_DATE_TIME,
-                EXISTING_ADMIN_ID_3,
+//                PRESENT_LOCAL_DATE_TIME,
+//                EXISTING_ADMIN_ID_3,
                 VALID_NEWS_TEXT,
 
                 // exception here
@@ -303,8 +303,8 @@ public class NewsServiceIntegrationTest {
         AddNewsUseCase.AddNewsCommand command = new AddNewsUseCase.AddNewsCommand(
                 EXISTING_CULTURAL_OFFER_ID,
                 VALID_NEWS_TITLE,
-                PRESENT_LOCAL_DATE_TIME,
-                EXISTING_ADMIN_ID_3,
+//                PRESENT_LOCAL_DATE_TIME,
+//                EXISTING_ADMIN_ID_3,
                 VALID_NEWS_TEXT,
                 null
         );
@@ -529,8 +529,8 @@ public class NewsServiceIntegrationTest {
                         rollBackNews.getId(),                       // news id
                         rollBackNews.getCulturalOffer().getId(),    // offer id
                         NON_EXISTING_NEWS_TITLE,                    // news title
-                        rollBackNews.getPostedDate(),               // localDateTime
-                        rollBackNews.getAuthor().getId(),           // author id
+//                        rollBackNews.getPostedDate(),               // localDateTime
+//                        rollBackNews.getAuthor().getId(),           // author id
                         rollBackNews.getText(),                     // news text
                         rollBackNews.getImages()                    // images
                                 .stream()
@@ -573,8 +573,8 @@ public class NewsServiceIntegrationTest {
                         // exception here
                         INVALID_NEWS_TITLE,                         // news title
 
-                        PRESENT_LOCAL_DATE_TIME,                    // localDateTime
-                        EXISTING_ADMIN_ID_3,                        // author id
+//                        PRESENT_LOCAL_DATE_TIME,                    // localDateTime
+//                        EXISTING_ADMIN_ID_3,                        // author id
                         EXISTING_NEWS_TEXT,                         // news text
                         List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)                    // images
                 );
@@ -595,8 +595,8 @@ public class NewsServiceIntegrationTest {
                         // exception here
                         null,                         // news title
 
-                        PRESENT_LOCAL_DATE_TIME,                    // localDateTime
-                        EXISTING_ADMIN_ID_3,                        // author id
+//                        PRESENT_LOCAL_DATE_TIME,                    // localDateTime
+//                        EXISTING_ADMIN_ID_3,                        // author id
                         EXISTING_NEWS_TEXT,                         // news text
                         List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)                    // images
                 );
@@ -617,8 +617,8 @@ public class NewsServiceIntegrationTest {
                         rollBackNews.getId(),                       // news id
                         rollBackNews.getCulturalOffer().getId(),    // offer id
                         rollBackNews.getTitle(),                    // news title
-                        PRESENT_LOCAL_DATE_TIME,                    // localDateTime
-                        rollBackNews.getAuthor().getId(),           // author id
+//                        PRESENT_LOCAL_DATE_TIME,                    // localDateTime
+//                        rollBackNews.getAuthor().getId(),           // author id
                         rollBackNews.getText(),                     // news text
                         rollBackNews.getImages()                    // images
                                 .stream()
@@ -659,10 +659,10 @@ public class NewsServiceIntegrationTest {
                         EXISTING_CULTURAL_OFFER_ID,                 // offer id
                         EXISTING_NEWS_TITLE,                        // news title
 
-                        // exception here
-                        null,                             // localDateTime
-
-                        EXISTING_ADMIN_ID_3,                        // author id
+//                        // exception here
+//                        null,                             // localDateTime
+//
+//                        EXISTING_ADMIN_ID_3,                        // author id
                         EXISTING_NEWS_TEXT,                         // news text
                         List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)                    // images
                 );
@@ -683,8 +683,8 @@ public class NewsServiceIntegrationTest {
                         rollBackNews.getId(),                       // news id
                         rollBackNews.getCulturalOffer().getId(),    // offer id
                         rollBackNews.getTitle(),                    // news title
-                        rollBackNews.getPostedDate(),               // localDateTime
-                        EXISTING_ADMIN_ID_4,                        // author id
+//                        rollBackNews.getPostedDate(),               // localDateTime
+//                        EXISTING_ADMIN_ID_4,                        // author id
                         rollBackNews.getText(),                     // news text
                         rollBackNews.getImages()                    // images
                                 .stream()
@@ -726,8 +726,8 @@ public class NewsServiceIntegrationTest {
                         rollBackNews.getId(),                       // news id
                         rollBackNews.getCulturalOffer().getId(),    // offer id
                         rollBackNews.getTitle(),                    // news title
-                        rollBackNews.getPostedDate(),               // localDateTime
-                        NON_EXISTING_ADMIN_ID_10,                   // author id
+//                        rollBackNews.getPostedDate(),               // localDateTime
+//                        NON_EXISTING_ADMIN_ID_10,                   // author id
                         rollBackNews.getText(),                     // news text
                         rollBackNews.getImages()                    // images
                                 .stream()
@@ -749,10 +749,10 @@ public class NewsServiceIntegrationTest {
                         EXISTING_NEWS_ID_1_FOR_OFFER_ID_1,                       // news id
                         EXISTING_CULTURAL_OFFER_ID,    // offer id
                         EXISTING_NEWS_TITLE,                    // news title
-                        PRESENT_LOCAL_DATE_TIME,               // localDateTime
-
-                        // exception here
-                        null,                        // author id
+//                        PRESENT_LOCAL_DATE_TIME,               // localDateTime
+//
+//                        // exception here
+//                        null,                        // author id
 
                         EXISTING_NEWS_TEXT,                     // news text
                         List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)
@@ -774,8 +774,8 @@ public class NewsServiceIntegrationTest {
                         rollBackNews.getId(),                       // news id
                         rollBackNews.getCulturalOffer().getId(),    // offer id
                         rollBackNews.getTitle(),                    // news title
-                        rollBackNews.getPostedDate(),               // localDateTime
-                        rollBackNews.getAuthor().getId(),           // author id
+//                        rollBackNews.getPostedDate(),               // localDateTime
+//                        rollBackNews.getAuthor().getId(),           // author id
                         NON_EXISTING_NEWS_TEXT,                     // news text
                         rollBackNews.getImages()                    // images
                                 .stream()
@@ -815,8 +815,8 @@ public class NewsServiceIntegrationTest {
                         EXISTING_NEWS_ID_1_FOR_OFFER_ID_1,                       // news id
                         EXISTING_CULTURAL_OFFER_ID,    // offer id
                         EXISTING_NEWS_TITLE,                    // news title
-                        PRESENT_LOCAL_DATE_TIME,               // localDateTime
-                        EXISTING_ADMIN_ID_3,           // author id
+//                        PRESENT_LOCAL_DATE_TIME,               // localDateTime
+//                        EXISTING_ADMIN_ID_3,           // author id
 
                         // exception here
                         INVALID_NEWS_TEXT,                     // news text
@@ -837,8 +837,8 @@ public class NewsServiceIntegrationTest {
                         EXISTING_NEWS_ID_1_FOR_OFFER_ID_1,                       // news id
                         EXISTING_CULTURAL_OFFER_ID,    // offer id
                         EXISTING_NEWS_TITLE,                    // news title
-                        PRESENT_LOCAL_DATE_TIME,               // localDateTime
-                        EXISTING_ADMIN_ID_3,           // author id
+//                        PRESENT_LOCAL_DATE_TIME,               // localDateTime
+//                        EXISTING_ADMIN_ID_3,           // author id
 
                         // exception here
                         null,                     // news text
@@ -862,8 +862,8 @@ public class NewsServiceIntegrationTest {
                         rollBackNews.getId(),                       // news id
                         rollBackNews.getCulturalOffer().getId(),    // offer id
                         rollBackNews.getTitle(),                    // news title
-                        rollBackNews.getPostedDate(),               // localDateTime
-                        rollBackNews.getAuthor().getId(),           // author id
+//                        rollBackNews.getPostedDate(),               // localDateTime
+//                        rollBackNews.getAuthor().getId(),           // author id
                         rollBackNews.getText(),                     // news text
                         List.of(FREE_NEWS_IMAGE_FOR_UPDATE_ID_11, FREE_NEWS_IMAGE_FOR_UPDATE_ID_12)                    // images
                 );
@@ -901,8 +901,8 @@ public class NewsServiceIntegrationTest {
                         EXISTING_NEWS_ID_1_FOR_OFFER_ID_1,                       // news id
                         EXISTING_CULTURAL_OFFER_ID,    // offer id
                         EXISTING_NEWS_TITLE,                    // news title
-                        PRESENT_LOCAL_DATE_TIME,               // localDateTime
-                        EXISTING_ADMIN_ID_3,           // author id
+//                        PRESENT_LOCAL_DATE_TIME,               // localDateTime
+//                        EXISTING_ADMIN_ID_3,           // author id
                         EXISTING_NEWS_TEXT,                     // news text
 
                         // Exception here
@@ -924,8 +924,8 @@ public class NewsServiceIntegrationTest {
                         EXISTING_NEWS_ID_1_FOR_OFFER_ID_1,                       // news id
                         EXISTING_CULTURAL_OFFER_ID,    // offer id
                         EXISTING_NEWS_TITLE,                    // news title
-                        PRESENT_LOCAL_DATE_TIME,               // localDateTime
-                        EXISTING_ADMIN_ID_3,           // author id
+//                        PRESENT_LOCAL_DATE_TIME,               // localDateTime
+//                        EXISTING_ADMIN_ID_3,           // author id
                         EXISTING_NEWS_TEXT,                     // news text
 
                         // Exception here

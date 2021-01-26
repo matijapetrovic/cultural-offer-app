@@ -75,7 +75,7 @@ public interface GetNewsForOfferQueryHandler {
 
         @AllArgsConstructor(access = AccessLevel.PRIVATE)
         @Getter
-        private static class AuthorDTO {
+        public static class AuthorDTO {
             private Long id;
             private String firstName;
             private String lastName;
