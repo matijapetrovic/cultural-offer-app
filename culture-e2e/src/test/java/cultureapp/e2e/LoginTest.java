@@ -11,8 +11,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
 import static cultureapp.e2e.common.LoginPageTestData.*;
 
-import static cultureapp.e2e.Util.APP_URL;
-import static cultureapp.e2e.Util.CHROME_DRIVER_PATH;
+import static cultureapp.e2e.util.Util.APP_URL;
+import static cultureapp.e2e.util.Util.CHROME_DRIVER_PATH;
 
 public class LoginTest {
     private WebDriver browser;

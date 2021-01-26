@@ -1,6 +1,6 @@
 package cultureapp.e2e;
 
-import cultureapp.e2e.pages.LoginPage;
+import cultureapp.e2e.pages.login.LoginPage;
 import cultureapp.e2e.pages.NavigationBar;
 import cultureapp.e2e.pages.category.CategoriesPage;
 import cultureapp.e2e.pages.home.HomePage;
@@ -14,8 +14,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
 
 import static org.junit.Assert.*;
-import static cultureapp.e2e.Util.APP_URL;
-import static cultureapp.e2e.Util.CHROME_DRIVER_PATH;
+import static cultureapp.e2e.util.Util.APP_URL;
+import static cultureapp.e2e.util.Util.CHROME_DRIVER_PATH;
 import static cultureapp.e2e.common.CulturalOfferPageTestData.*;
 import static cultureapp.e2e.common.CategoryPageTestData.*;
 

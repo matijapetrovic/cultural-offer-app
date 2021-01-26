@@ -3,7 +3,6 @@ package cultureapp.e2e;
 import cultureapp.e2e.exception.SelectDropdownNotOpen;
 import cultureapp.e2e.pages.home.FilterForm;
 import cultureapp.e2e.pages.home.HomePage;
-import cultureapp.e2e.pages.NavigationBar;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,8 +11,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
 
 import static cultureapp.e2e.common.MapPageTestData.*;
-import static cultureapp.e2e.Util.APP_URL;
-import static cultureapp.e2e.Util.CHROME_DRIVER_PATH;
+import static cultureapp.e2e.util.Util.APP_URL;
+import static cultureapp.e2e.util.Util.CHROME_DRIVER_PATH;
 
 public class MapTest {
     private WebDriver browser;
