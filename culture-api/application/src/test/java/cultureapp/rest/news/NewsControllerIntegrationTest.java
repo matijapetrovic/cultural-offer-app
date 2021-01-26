@@ -67,7 +67,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TITLE,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
                                 List.of(FREE_NEWS_IMAGE_ID_10)
                         ),
@@ -106,7 +106,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TITLE,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
                                 List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
@@ -137,7 +137,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 INVALID_NEWS_TITLE,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
                                 List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
@@ -168,7 +168,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 null,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
                                 List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
@@ -199,7 +199,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TEXT,
-                                NON_EXISTING_ADMIN_ID_10,
+//                                NON_EXISTING_ADMIN_ID_10,
                                 NON_EXISTING_NEWS_TEXT,
                                 List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
@@ -230,7 +230,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TEXT,
-                                null,
+//                                null,
                                 NON_EXISTING_NEWS_TEXT,
                                 List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
@@ -261,7 +261,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TEXT,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 INVALID_NEWS_TEXT,
                                 List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
@@ -292,7 +292,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TEXT,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 null,
                                 List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
@@ -323,7 +323,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TEXT,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
                                 null
                         ),
@@ -354,7 +354,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TEXT,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
                                 List.of(FREE_NEWS_IMAGE_ID_9)
                         )
@@ -388,7 +388,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TEXT,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
                                 List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
@@ -779,7 +779,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TITLE,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
                                 List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
@@ -835,7 +835,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TITLE,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
                                 List.of(FREE_NEWS_IMAGE_ID_9)
                         )
@@ -873,7 +873,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TITLE,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
                                 List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
@@ -911,7 +911,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TITLE,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
                                 List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
@@ -949,7 +949,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TITLE,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
                                 List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
@@ -987,7 +987,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TITLE,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
                                 List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
@@ -1025,7 +1025,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TITLE,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
                                 List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
@@ -1063,7 +1063,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 INVALID_NEWS_TITLE,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
                                 List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
@@ -1101,7 +1101,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 null,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
                                 List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
@@ -1139,7 +1139,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TITLE,
-                                NON_EXISTING_ADMIN_ID_10,
+//                                NON_EXISTING_ADMIN_ID_10,
                                 NON_EXISTING_NEWS_TEXT,
                                 List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
@@ -1177,7 +1177,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TITLE,
-                                null,
+//                                null,
                                 NON_EXISTING_NEWS_TEXT,
                                 List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
@@ -1215,7 +1215,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TITLE,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 INVALID_NEWS_TEXT,
                                 List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
@@ -1253,7 +1253,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TITLE,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 null,
                                 List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
@@ -1293,7 +1293,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TITLE,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
                                 null
                         ),
@@ -1376,7 +1376,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TITLE,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
                                 List.of()
                         )
@@ -1408,7 +1408,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TITLE,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
                                 List.of()
                         ),

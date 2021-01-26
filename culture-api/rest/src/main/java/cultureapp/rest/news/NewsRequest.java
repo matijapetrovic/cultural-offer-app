@@ -15,8 +15,6 @@ import java.util.List;
 @Setter
 public class NewsRequest {
     String name;
-    Long authorID;
     String text;
     List<Long> images;
-
 }

@@ -52,7 +52,7 @@ public interface GetNewsForOfferQueryHandler {
         private Long id;
         private Long culturalOfferId;
         private String title;
-        private LocalDateTime postedDate;
+        private String postedDate;
         private AuthorDTO author;
         private String text;
 
@@ -63,7 +63,7 @@ public interface GetNewsForOfferQueryHandler {
                     news.getId(),
                     news.getCulturalOffer().getId(),
                     news.getTitle(),
-                    news.getPostedDate(),
+                    news.getPostedDate().toString().replace("T", " "),
                     AuthorDTO.of(news.getAuthor()),
                     news.getText(),
                     news.getImages()

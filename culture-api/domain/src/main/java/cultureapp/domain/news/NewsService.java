@@ -1,5 +1,7 @@
 package cultureapp.domain.news;
 
+import cultureapp.domain.account.Account;
+import cultureapp.domain.core.AuthenticationService;
 import cultureapp.domain.core.EmailSender;
 import cultureapp.domain.user.Administrator;
 import cultureapp.domain.user.AdministratorRepository;
@@ -26,6 +28,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.Positive;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -44,6 +47,7 @@ public class NewsService implements
     private final AdministratorRepository administratorRepository;
     private final ImageRepository imageRepository;
     private final EmailSender emailSender;
+    private final AuthenticationService authenticationService;
 
     @Override
     public void addNews(AddNewsCommand command) throws CulturalOfferNotFoundException, AdminNotFoundException, NewsAlreadyExistException, ImageNotFoundException {
@@ -52,13 +56,14 @@ public class NewsService implements
         CulturalOffer offer = culturalOfferRepository.findByIdAndArchivedFalse(command.getCulturalOfferID())
                 .orElseThrow(() -> new CulturalOfferNotFoundException(command.getCulturalOfferID()));
 
-        Administrator admin = administratorRepository.findById(command.getAuthorID())
-                .orElseThrow(() -> new AdminNotFoundException(command.getAuthorID()));
+        Account account = authenticationService.getAuthenticated();
+        Administrator admin = administratorRepository.findByAccountId(account.getId())
+                .orElseThrow(() -> new AdminNotFoundException(account.getEmail()));
 
         News news = News.of(
                 offer,
                 command.getName(),
-                command.getPostedDate(),
+                LocalDateTime.now(),
                 admin,
                 command.getText(),
                 false,
@@ -98,7 +103,7 @@ public class NewsService implements
         news.setImages(images);
 
         news.setTitle(command.getName());
-        news.setPostedDate(command.getPostedDate());
+        news.setPostedDate(LocalDateTime.now());
         news.setText(command.getText());
         CulturalOffer offer = culturalOfferRepository.findByIdAndArchivedFalse(command.getCulturalOfferID())
                 .orElseThrow(() -> new CulturalOfferNotFoundException(command.getCulturalOfferID()));
@@ -106,11 +111,12 @@ public class NewsService implements
 //            news.setCulturalOffer(offer);
 //        }
 
-        if (updateAuthor(news, command.getAuthorID())) {
-            Administrator admin = administratorRepository.findById(command.getAuthorID())
-                    .orElseThrow(() -> new AdminNotFoundException(command.getAuthorID()));
-            news.setAuthor(admin);
-        }
+        // Disabled updating author. Author is always the same admin who created news.
+//        if (updateAuthor(news, command.getAuthorID())) {
+//            Administrator admin = administratorRepository.findById(command.getAuthorID())
+//                    .orElseThrow(() -> new AdminNotFoundException(command.getAuthorID()));
+//            news.setAuthor(admin);
+//        }
 
         newsRepository.save(news);
         notifySubscribers(offer);
