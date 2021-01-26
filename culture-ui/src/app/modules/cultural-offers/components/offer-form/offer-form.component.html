@@ -121,19 +121,12 @@
           class="form-control"
           accept="image/*"
           (change)="appendFile($event)">
-        <p-carousel *ngIf="culturalOffer.images.length" [value]="culturalOffer.images" class="offer-images">
-          <ng-template let-image pTemplate="item">
-            <div>
-              <button 
-              width="10" 
-              height="10"
-              (click)="removeImage(image)">
-                X
-              </button>
-              <img [src]="image" alt="Cultural offer image"/>
-            </div>
-          </ng-template>
-        </p-carousel>
+        <div class="image-container">
+          <div *ngFor="let image of culturalOffer.images">
+                <button type="button" (click)="removeImage(image)">x</button>
+                <img [src]="image" alt="Cultural offer image"/>
+          </div>
+        </div>
       </div>
       <div class="bottom-item">
         <button

@@ -1,50 +1,84 @@
-textarea {
-    resize: none;
-    width: 100%;
-  }
 
-input {
-    resize: none;
-    width: 100%;
-}
-
-button {
-  width: 40%;
-}
-
+// GLOBAL
 form {
   width: 100%;
-}
-
-.inputs { 
-  width: 100%;
-  background-color: blue;
-} 
-
-table {
-  width:100%;
-}
-
-.offer-images img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 200px;
-  height: 150px;
 }
 
 .left-item { grid-area: left; }
 .right-item { grid-area: right; }
 .bottom-item { grid-area: bottom; }
 
-
 .grid-container {
   display: grid;
   grid-template-areas:
-    'left left left left right right right'
-    'left left left left right right right'
-    'left left left left right right right'
+    'left left left right right right right'
+    'left left left right right right right'
+    'left left left right right right right'
     'bottom bottom bottom bottom bottom bottom bottom';
   grid-gap: 10px;
   padding: 10px;
+  width: 100%;
 }
+
+//LEFT
+
+.left-item ng-select {
+  width: 200px;
+}
+
+.left-item table {
+  width: 100%;
+}
+
+.left-item input {
+  resize: none;
+  width: 100%;
+}
+
+.left-item textarea {
+  resize: none;
+  width: 100%;
+}
+
+//RIGHT
+
+.right-item {
+  width: 100%;
+  height: 100%;
+}
+
+.image-container {
+  display: grid;
+  grid-template-columns: auto auto;
+  width: 100%;
+  max-height: 290px;
+  overflow-y: auto;
+}
+
+.image-container button {
+  width: 5px;
+  height: 5px;
+  background-color: transparent;
+  border: none;
+  float: right;
+}
+
+.image-container img {
+  width: 150px;
+  height: 100px;
+  border: 1px solid black;
+  padding: 2px auto 2px auto;
+}
+
+.image-container div {
+  width: 160px;
+  height: 110px;
+}
+
+//BOTOOM
+.bottom-item button {
+  width: 40%;
+  margin-left: 30%;
+  margin-right: 30%;
+}
+

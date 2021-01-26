@@ -6,6 +6,7 @@ import { SubcategoriesService } from 'src/app/modules/subcategories/subcategorie
 import { CulturalOfferToAdd, CulturalOfferView } from 'src/app/modules/cultural-offers/cultural-offer'
 import { ImageService } from 'src/app/core/services/image.service';
 import { GeolocationService } from 'src/app/core/services/geolocation.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
     selector: 'app-offer-form',
@@ -35,7 +36,7 @@ export class OfferFormComponent implements OnInit {
         private subcategoriesService: SubcategoriesService,
         private imageService: ImageService,
         private geocodeService: GeolocationService
-    ) { 
+    ) {
     }
 
     ngOnInit(): void {
