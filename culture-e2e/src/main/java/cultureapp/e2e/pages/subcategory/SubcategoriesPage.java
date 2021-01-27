@@ -1,5 +1,6 @@
 package cultureapp.e2e.pages.subcategory;
 
+import cultureapp.e2e.elements.SelectWebElement;
 import lombok.AccessLevel;
 import lombok.Getter;
 import org.openqa.selenium.By;
@@ -23,20 +24,31 @@ public class SubcategoriesPage {
     @FindBy(css = "#show-add-subcategory-button")
     private WebElement showAddSubcategoryFormButton;
 
-    @FindBy(css = "#show-update-category-form-button")
+    @FindBy(css = "#show-update-subcategory-button")
     private WebElement showUpdateSubcategoryFormButton;
 
-    @FindBy(css = "#show-delete-category-dialog-button")
+    @FindBy(css = "#show-delete-subcategory-button")
     private WebElement showDeleteSubcategoryDialogButton;
 
     @FindBy(css = "#search-categories-input")
     private WebElement searchCategoriesInput;
 
-    public void showAddForm() { showAddSubcategoryFormButton.click(); }
+    private SelectWebElement selectCategory;
 
-    public void showUpdateForm() { showUpdateSubcategoryFormButton.click(); }
+    public void showAddForm() {
+        subcategoriesList.ensureIsDisplayed();
+        showAddSubcategoryFormButton.click();
+    }
 
-    public void showDeleteDialog() { showDeleteSubcategoryDialogButton.click(); }
+    public void showUpdateForm() {
+        subcategoriesList.ensureIsDisplayed();
+        showUpdateSubcategoryFormButton.click();
+    }
+
+    public void showDeleteDialog() {
+        subcategoriesList.ensureIsDisplayed();
+        showDeleteSubcategoryDialogButton.click();
+    }
 
     public SubcategoriesPage(WebDriver driver) {
         this.driver = driver;
@@ -49,6 +61,11 @@ public class SubcategoriesPage {
     public void ensureIsDisplayed() {
         (new WebDriverWait(driver, 10))
                 .until(ExpectedConditions.visibilityOf(showAddSubcategoryFormButton));
+        createSelect();
+    }
+
+    private void createSelect() {
+        selectCategory =  new SelectWebElement(driver, "#subcategory-category-select");
     }
 
     public void ensureSuccessToastIsDisplayed() {

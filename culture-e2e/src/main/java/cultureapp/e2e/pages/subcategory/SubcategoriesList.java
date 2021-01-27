@@ -16,19 +16,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
+@RequiredArgsConstructor
 public class SubcategoriesList {
     @Getter(value = AccessLevel.PRIVATE)
     private final WebDriver driver;
 
     @FindBy(css = "#subcategories-table")
     private WebElement subcategoriesTable;
-
-    private final SelectWebElement selectCategory;
-
-    public SubcategoriesList(WebDriver driver) {
-        this.driver = driver;
-        selectCategory =  new SelectWebElement(driver, "#subcategory-category-select");
-    }
 
     public void ensureIsDisplayed() {
         (new WebDriverWait(driver, 10))
@@ -54,6 +48,6 @@ public class SubcategoriesList {
     public List<WebElement> getSubcategoryNamesRows() {
         return new WebDriverWait(driver, 10)
                 .until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(
-                        subcategoriesTable, By.id("subcategory-name")));
+                        subcategoriesTable, By.cssSelector(".subcategory-name")));
     }
 }

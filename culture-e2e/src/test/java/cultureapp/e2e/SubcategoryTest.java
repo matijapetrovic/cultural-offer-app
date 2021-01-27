@@ -5,6 +5,7 @@ import cultureapp.e2e.pages.NavigationBar;
 import cultureapp.e2e.pages.home.HomePage;
 import cultureapp.e2e.pages.login.LoginPage;
 import cultureapp.e2e.pages.subcategory.SubcategoriesPage;
+import cultureapp.e2e.util.Util;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -59,9 +60,9 @@ public class SubcategoryTest {
     }
 
     private void chooseFirstCategory() throws SelectDropdownNotOpen {
-        subcategoriesPage.getSubcategoriesList().getSelectCategory().toggle();
-        subcategoriesPage.getSubcategoriesList().getSelectCategory().ensureDropdownItemCount(NUMBER_OF_CATEGORIES);
-        subcategoriesPage.getSubcategoriesList().getSelectCategory().chooseFromDropdown(1);
+        subcategoriesPage.getSelectCategory().toggle();
+        subcategoriesPage.getSelectCategory().ensureDropdownItemCount(NUMBER_OF_CATEGORIES);
+        subcategoriesPage.getSelectCategory().chooseFromDropdown(1);
     }
 
     @After
@@ -82,7 +83,6 @@ public class SubcategoryTest {
         subcategoriesPage.getAddSubcategoryForm().submitSubcategory();
         subcategoriesPage.ensureSuccessToastIsDisplayed();
 
-        browser.navigate().refresh();
         subcategoriesPage.getSubcategoriesList().ensureIsDisplayed();
 
         int index = subcategoriesPage.getSubcategoriesList().getIndexBySubcategoryName(VALID_SUBCATEGORY_NAME);
@@ -101,9 +101,6 @@ public class SubcategoryTest {
         subcategoriesPage.getAddSubcategoryForm().getAddSubcategoryInput().sendKeys(EXISTING_SUBCATEGORY_NAME);
         subcategoriesPage.getAddSubcategoryForm().submitSubcategory();
         subcategoriesPage.ensureErrorToastIsDisplayed();
-
-        browser.navigate().refresh();
-        subcategoriesPage.getSubcategoriesList().ensureIsDisplayed();
     }
 
     @Test
@@ -122,7 +119,7 @@ public class SubcategoryTest {
     }
 
     @Test
-    public void test4updateValidCategory() throws SelectDropdownNotOpen {
+    public void test4updateValidCategory() throws SelectDropdownNotOpen, InterruptedException {
         loginAdmin();
 
         subcategoriesPage.ensureIsDisplayed();
@@ -130,38 +127,20 @@ public class SubcategoryTest {
 
         subcategoriesPage.showUpdateForm();
         subcategoriesPage.getUpdateSubcategoryForm().ensureIsDisplayed();
+        subcategoriesPage.getUpdateSubcategoryForm().getUpdateSubcategoryInput().clear();
         subcategoriesPage.getUpdateSubcategoryForm().getUpdateSubcategoryInput().sendKeys(VALID_SUBCATEGORY_NAME_2);
         subcategoriesPage.getUpdateSubcategoryForm().updateSubcategory();
         subcategoriesPage.ensureSuccessToastIsDisplayed();
 
-        browser.navigate().refresh();
-        subcategoriesPage.getSubcategoriesList().ensureIsDisplayed();
+        Util.wait(browser, 1000);
 
         int index = subcategoriesPage.getSubcategoriesList().getIndexBySubcategoryName(VALID_SUBCATEGORY_NAME_2);
         assertNotEquals(index, -1);
+        Util.wait(browser, 3000);
     }
 
     @Test
-    public void test5deleteSubcategoryWithoutSubcategory() throws SelectDropdownNotOpen {
-        loginAdmin();
-
-        subcategoriesPage.ensureIsDisplayed();
-        chooseFirstCategory();
-
-        subcategoriesPage.ensureIsDisplayed();
-        subcategoriesPage.showDeleteDialog();
-        subcategoriesPage.getDeleteSubcategoryDialog().ensureIsDisplayed();
-        subcategoriesPage.getDeleteSubcategoryDialog().accept();
-
-        browser.navigate().refresh();
-        subcategoriesPage.getSubcategoriesList().ensureIsDisplayed();
-
-        int index = subcategoriesPage.getSubcategoriesList().getIndexBySubcategoryName(VALID_SUBCATEGORY_NAME_2);
-        assertEquals(index, -1);
-    }
-
-    @Test
-    public void test6rejectCategoryDeleteDialog() throws SelectDropdownNotOpen {
+    public void test5rejectCategoryDeleteDialog() throws SelectDropdownNotOpen, InterruptedException {
         loginAdmin();
 
         subcategoriesPage.ensureIsDisplayed();
@@ -172,10 +151,32 @@ public class SubcategoryTest {
         subcategoriesPage.getDeleteSubcategoryDialog().ensureIsDisplayed();
         subcategoriesPage.getDeleteSubcategoryDialog().reject();
 
-        browser.navigate().refresh();
-        subcategoriesPage.getSubcategoriesList().ensureIsDisplayed();
+        Util.wait(browser, 1000);
 
         int index = subcategoriesPage.getSubcategoriesList().getIndexBySubcategoryName(VALID_SUBCATEGORY_NAME_2);
         assertNotEquals(index, -1);
+        Util.wait(browser, 3000);
     }
+
+    @Test
+    public void test6deleteSubcategory() throws SelectDropdownNotOpen, InterruptedException {
+        loginAdmin();
+
+        subcategoriesPage.ensureIsDisplayed();
+        chooseFirstCategory();
+
+        subcategoriesPage.ensureIsDisplayed();
+        subcategoriesPage.showDeleteDialog();
+        subcategoriesPage.getDeleteSubcategoryDialog().ensureIsDisplayed();
+        subcategoriesPage.getDeleteSubcategoryDialog().accept();
+
+        subcategoriesPage.getSubcategoriesList().ensureIsDisplayed();
+        subcategoriesPage.ensureSuccessToastIsDisplayed();
+
+        int index = subcategoriesPage.getSubcategoriesList().getIndexBySubcategoryName(VALID_SUBCATEGORY_NAME_2);
+        assertEquals(index, -1);
+        Util.wait(browser, 3000);
+    }
+
+
 }
