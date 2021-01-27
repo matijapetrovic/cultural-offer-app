@@ -5,11 +5,10 @@ import { LoginComponent } from './pages/login/login.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { RegistrationComponent } from './pages/registration/registration.component';
 import { AuthenticationRoutingModule } from './authentication-routing.module';
-
-
+import { ActivationComponent } from './../authentication/pages/activation/activation.component';
 
 @NgModule({
-  declarations: [LoginComponent, RegistrationComponent],
+  declarations: [LoginComponent, RegistrationComponent, ActivationComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
