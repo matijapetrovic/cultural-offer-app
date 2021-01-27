@@ -21,11 +21,12 @@
           [searchable]="false"
           [clearable]="false"
           (change)="categoryChanged($event)"
-          id="filter-category-select"
+          id="subcategory-category-select"
         >
         </ng-select>
       </div>
       <button
+        id="show-add-subcategory-button"
         pButton
         type="button"
         class="p-button-raised p-button-rounded p-justify-left"
@@ -35,6 +36,7 @@
       ></button>
       <div class="p-grid p-mt-3 p-justify-center centered-grid"></div>
         <p-table
+          id="subcategories-table"
           #dt 
           *ngIf="subcategoriesPage"
           [value]="subcategoriesPage.data"
@@ -61,12 +63,13 @@
         </ng-template>
         <ng-template pTemplate="body" let-subcategory>
           <tr ng-repeat="(subcategory.name) in subcategoriesPage.data">
-            <td>
+            <td class="subcategory-name">
               {{subcategory.name}}
             </td>
             <td>
               <div class="p-grid p-justify-center">
                 <button
+                  id="show-update-subcategory-button"
                   pButton 
                   label="Edit"
                   icon="pi pi-pencil" 
@@ -74,6 +77,7 @@
                   (click)="showUpdateForm(subcategory)"
                 ></button>
                 <button 
+                  id="show-delete-subcategory-button"
                   pButton
                   label="Delete"
                   icon="pi pi-trash" 

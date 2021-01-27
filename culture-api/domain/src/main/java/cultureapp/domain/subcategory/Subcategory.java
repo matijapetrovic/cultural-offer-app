@@ -9,7 +9,8 @@ import java.io.Serializable;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Table(name="subcategory")
+@Table(name="subcategory",
+        uniqueConstraints = @UniqueConstraint(columnNames={"name", "archived"}))
 @Entity
 @IdClass(SubcategoryId.class)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)

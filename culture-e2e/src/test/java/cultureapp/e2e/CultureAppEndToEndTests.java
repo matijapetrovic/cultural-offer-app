@@ -13,7 +13,8 @@ import org.junit.runners.Suite;
         MapTest.class,
         RegisterTest.class,
         CulturalOfferTableTest.class,
-        NewsTest.class
+        NewsTest.class,
+        SubcategoryTest.class
 })
 public class CultureAppEndToEndTests {
 }

@@ -23,7 +23,7 @@ public class CulturalOfferPageTestData {
     public static Long NO_REVIEWS_OFFER_ID = 748L;
     public static Long REVIEWS_WITH_NO_REPLIES_OFFER_ID = 361L;
 
-    public static String TEST_IMAGE_PATH = "C:\\Users\\Mateo\\Pictures\\Wallpaper\\star-wars-jedi-fallen-order-uhdpaper.com-4k-23.jpg";
+    public static String TEST_IMAGE_PATH = "C:\\Users\\nikol\\Desktop\\download.jpg";
     public static String TEST_IMAGE_PATH_2 = "C:\\Users\\nikol\\Desktop\\download.jpg";
 
     public static String EXISTING_CULTURAL_OFFER_NAME = "Cultural offer 1000: Cooler";
