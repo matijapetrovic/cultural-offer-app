@@ -11,7 +11,9 @@ import org.junit.runners.Suite;
         CulturalOfferTest.class,
         LoginTest.class,
         MapTest.class,
-        RegisterTest.class
+        RegisterTest.class,
+        CulturalOfferTableTest.class,
+        NewsTest.class
 })
 public class CultureAppEndToEndTests {
 }

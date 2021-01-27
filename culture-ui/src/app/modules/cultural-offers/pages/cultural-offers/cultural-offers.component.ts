@@ -6,7 +6,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { AddOfferComponent } from '../add-offer/add-offer.component';
 import { UpdateOfferComponent } from '../update-offer/update-offer.component';
-import {Router} from "@angular/router"
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-cultural-offers',
@@ -25,9 +25,9 @@ export class CulturalOffersComponent implements OnInit {
     constructor(
         private culturalOffersService:CulturalOffersService,
         public dialogService:DialogService,
-        public confirmationService:ConfirmationService,
-        public messageService: MessageService,
-        private router: Router
+        private confirmationService:ConfirmationService,
+        private router: Router,
+        private messageService: MessageService
     ) {
         this.page = 0;
         this.limit = 5;;
@@ -48,8 +48,8 @@ export class CulturalOffersComponent implements OnInit {
             if(submited) {
                 this.getCulturalOffers();
                 this.messageService.add({
-                    severity: 'success', summary: 'Cultural offer added successful', detail: 'You have successfully added cultural offer' });
-                  setTimeout(() => this.messageService.clear(), 2000);
+                    severity: 'success', summary: 'Cultural offer adding successful', detail: 'You have successfully added cultural offer!'
+                });
             }
         })
 
@@ -76,8 +76,9 @@ export class CulturalOffersComponent implements OnInit {
         this.ref.onClose.subscribe(submited => {
             if(submited) {
                 this.getCulturalOffers();
-                this.messageService.add({ severity: 'success', summary: 'Cultural offer updated successful', detail: 'You have successfully updated cultural offer' });
-                setTimeout(() => this.messageService.clear(), 2000);
+                this.messageService.add({
+                    severity: 'success', summary: 'Cultural offer updating successful', detail: 'You have successfully updated cultural offer!'
+                });
             }
         })
 
@@ -89,7 +90,7 @@ export class CulturalOffersComponent implements OnInit {
             header: 'Delete Confirmation',
             icon: 'pi pi-info-circle',
             accept: () => {
-              this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have successfuly deleted cultural offer!' });
+              this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Cultural offer successfully deleted!' });
               this.deleteCulturalOffer(offer);
             },
             reject: () => {

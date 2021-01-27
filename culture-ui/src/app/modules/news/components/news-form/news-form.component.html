@@ -13,6 +13,7 @@
           <tr>
             <td colspan="3">
               <input
+                id = "news-form-title-input"
                 [(ngModel)]="news.title"
                 name="title"
                 type="text"
@@ -36,6 +37,7 @@
           <tr>
             <td colspan="3" rowspan="3">
               <textarea
+                id = "news-text-input"
                 [(ngModel)]="news.text"
                 name="text"
                 class="form-control"
@@ -53,7 +55,7 @@
           Append Image: 
         </label>
         <input
-          id="images" 
+          id="news-images-input" 
           type="file"
           name="image"
           class="form-control"
@@ -68,6 +70,7 @@
       </div>
       <div class="bottom-item">
         <button
+          id = "submit-news-form-button"
           [disabled]="invalidFormInputs()"
           type="submit"
           class="p-button"
