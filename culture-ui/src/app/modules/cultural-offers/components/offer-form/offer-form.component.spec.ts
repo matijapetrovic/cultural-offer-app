@@ -82,6 +82,8 @@ describe('OfferFormComponent', () => {
         spyOn(component, 'getCategories');
         component.setUp();
 
+        tick();
+
         expect(component.getSubcategories).toHaveBeenCalled();
         expect(component.getCategories).toHaveBeenCalled();
 
