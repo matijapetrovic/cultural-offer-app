@@ -34,6 +34,10 @@ export class AddReplyComponent implements OnInit {
   }
 
   onSubmit(): void {
+    if (this.addReplyForm.invalid) {
+      return;
+    }
+
     const replyToAdd: ReplyToAdd = this.addReplyForm.value;
 
     this.repliesService.addReply(this.culturalOfferId, this.reviewId, replyToAdd)
@@ -52,5 +56,13 @@ export class AddReplyComponent implements OnInit {
       detail: 'Reply successfully added.'
     });
     setTimeout(() => this.messageService.clear(), 5000);
+  }
+
+  get offerId(): number {
+    return this.culturalOfferId;
+  }
+
+  get reviewID(): number {
+    return this.reviewId;
   }
 }

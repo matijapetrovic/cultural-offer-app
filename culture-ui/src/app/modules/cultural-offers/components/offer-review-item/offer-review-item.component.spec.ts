@@ -29,12 +29,12 @@ describe('OfferReviewItemComponent', () => {
       currentUser: userSubject.asObservable()
     };
     await TestBed.configureTestingModule({
-      declarations: [ OfferReviewItemComponent, RoundPipe ],
+      declarations: [OfferReviewItemComponent, RoundPipe],
       providers: [
         { provide: AuthenticationService, useValue: authenticationServiceMock }
       ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

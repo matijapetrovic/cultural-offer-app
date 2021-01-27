@@ -23,12 +23,12 @@ export class OfferReviewItemComponent implements OnInit {
 
   userIsAdmin: boolean;
 
-  private ref: DynamicDialogRef;
 
 
   constructor(
     private authenticationService: AuthenticationService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    public ref: DynamicDialogRef
   ) { }
 
   ngOnInit(): void {
