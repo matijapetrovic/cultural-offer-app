@@ -2,8 +2,9 @@ import { Role } from 'src/app/modules/authentication/role';
 import { User } from 'src/app/modules/authentication/user';
 import { CategoriesPage, Category } from 'src/app/modules/categories/category';
 import { CulturalOffer, CulturalOfferLocation, CulturalOffersPage, CulturalOfferToAdd, CulturalOfferView, LocationRange } from 'src/app/modules/cultural-offers/cultural-offer';
+import { SubscribedOfferPage, SubscribedSubcategoriesPage } from 'src/app/modules/dashboard/subscriptions-details';
 import { News, NewsPage } from 'src/app/modules/news/news';
-import { Review, ReviewPage } from 'src/app/modules/reviews/review';
+import { ReplyToAdd, Review, ReviewPage, ReviewToAdd } from 'src/app/modules/reviews/review';
 import { SubcategoriesPage, Subcategory } from 'src/app/modules/subcategories/subcategory';
 
 const mockCategoryNames: Category[] = [
@@ -218,6 +219,49 @@ const mockReview: Review =  {
     images: ['image1', 'image2']
   };
 
+const mockReplyToAdd: ReplyToAdd = {
+  comment: 'Some comment'
+};
+
+const mockEmptyCommentReplyToAdd: ReplyToAdd = {
+  comment: ''
+};
+
+const mockReviewToAdd: ReviewToAdd = {
+  comment: 'Some comment',
+  rating: 5,
+  images: [
+    1,
+    2,
+    3
+  ]
+};
+
+const mockEmptyCommentReviewToAdd: ReviewToAdd = {
+  comment: '',
+  rating: 5,
+  images: [
+    1,
+    2,
+    3
+  ]
+};
+
+const mockNegativeRatingReviewToAdd: ReviewToAdd = {
+  comment: 'Some comment',
+  rating: -5,
+  images: [
+    1,
+    2,
+    3
+  ]
+};
+
+const mockEmptyReviewPage: ReviewPage = {
+  data: [],
+  links: new Map([['prev', 'prev-link'], ['self', 'self-link']])
+};
+
 const mockReviewPage: ReviewPage = {
     data: [
       {
@@ -294,6 +338,68 @@ const mockLocationRange: LocationRange = {
   longitudeTo: 45.0
 };
 
+
+const mockSubscribedSubcategoriesPage: SubscribedSubcategoriesPage = {
+  data: [
+    {
+      id: 1,
+      categoryId: 1,
+      name: 'Some name'
+    },
+    {
+      id: 2,
+      categoryId: 1,
+      name: 'Some name 2'
+    }
+  ],
+  links: new Map([['next', 'next-link'], ['self', 'self-link']])
+};
+
+const mockEmptySubscribedSubcategoriesPage: SubscribedSubcategoriesPage = {
+  data: [],
+  links: new Map([['prev', 'prev-link'], ['self', 'self-link']])
+};
+
+const mockSubscribedOffersPage: SubscribedOfferPage = {
+  data: [
+    {
+      id: 1,
+      name: 'Some name',
+      description: 'Some description',
+      images: [
+        'some image link',
+        'some image link',
+        'some image link',
+      ]
+    },
+    {
+      id: 2,
+      name: 'Some name 2',
+      description: 'Some description 2',
+      images: [
+        'some image link 2',
+        'some image link 2',
+        'some image link 2',
+      ]
+    }
+  ],
+  links: new Map([['next', 'next-link'], ['self', 'self-link']])
+};
+
+const mockEmptySubscribedOffersPage: SubscribedOfferPage = {
+  data: [],
+  links: new Map([['prev', 'prev-link'], ['self', 'self-link']])
+};
+
+const mockImage1: File = new File([''], 'image1.png');
+const mockImage2: File = new File([''], 'image2.png');
+
+const mockImagesToAdd: FormData = new FormData();
+mockImagesToAdd.append('images', mockImage1);
+mockImagesToAdd.append('images', mockImage2);
+
+const mockEmptyImagesToAdd: FormData = new FormData();
+
 export {
   invalidLocationMessage,
   validLocation,
@@ -304,8 +410,14 @@ export {
   mockOfferLocations,
   mockNews,
   mockReview,
+  mockReplyToAdd,
+  mockEmptyCommentReplyToAdd,
   mockNewsPage,
   mockReviewPage,
+  mockEmptyReviewPage,
+  mockReviewToAdd,
+  mockEmptyCommentReviewToAdd,
+  mockNegativeRatingReviewToAdd,
   mockUser,
   mockAdmin,
   mockMapBounds,
@@ -314,5 +426,14 @@ export {
   mockSubcategoriesPage,
   mockCulturalOffersPage,
   mockCulturalOfferToAdd,
-  mockCulturalOfferView
+  mockCulturalOfferView,
+
+  mockSubscribedSubcategoriesPage,
+  mockEmptySubscribedSubcategoriesPage,
+  mockSubscribedOffersPage,
+  mockEmptySubscribedOffersPage,
+  mockImagesToAdd,
+  mockEmptyImagesToAdd,
+  mockImage1,
+  mockImage2
 };
