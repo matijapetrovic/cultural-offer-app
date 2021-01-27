@@ -52,7 +52,11 @@
             <th>Actions</th>
           </tr>
         </ng-template>
-        <ng-template id="categories-table-item" pTemplate="body" let-category>
+        <ng-template 
+        id="categories-table-item" 
+        pTemplate="body" 
+        let-category
+        >
           <tr ng-repeat="(category.name) in categoriesPage.data">
             <td id="category-name">
               {{category.name}}

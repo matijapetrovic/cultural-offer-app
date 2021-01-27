@@ -6,7 +6,8 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmationService } from 'primeng/api';
 import { AddOfferComponent } from '../add-offer/add-offer.component';
 import { UpdateOfferComponent } from '../update-offer/update-offer.component';
-import {Router} from "@angular/router"
+import {Router} from "@angular/router";
+import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'app-cultural-offers',
@@ -26,7 +27,8 @@ export class CulturalOffersComponent implements OnInit {
         private culturalOffersService:CulturalOffersService,
         public dialogService:DialogService,
         private confirmationService:ConfirmationService,
-        private router: Router
+        private router: Router,
+        private messageService: MessageService
     ) {
         this.page = 0;
         this.limit = 5;;
@@ -46,6 +48,9 @@ export class CulturalOffersComponent implements OnInit {
         this.ref.onClose.subscribe(submited => {
             if(submited) {
                 this.getCulturalOffers();
+                this.messageService.add({
+                    severity: 'success', summary: 'Cultural offer adding successful', detail: 'You have successfully added cultural offer!'
+                });
             }
         })
 
@@ -72,6 +77,9 @@ export class CulturalOffersComponent implements OnInit {
         this.ref.onClose.subscribe(submited => {
             if(submited) {
                 this.getCulturalOffers();
+                this.messageService.add({
+                    severity: 'success', summary: 'Cultural offer updating successful', detail: 'You have successfully updated cultural offer!'
+                });
             }
         })
 
@@ -83,11 +91,10 @@ export class CulturalOffersComponent implements OnInit {
             header: 'Delete Confirmation',
             icon: 'pi pi-info-circle',
             accept: () => {
-              //this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' });
+              this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Cultural offer successfully deleted!' });
               this.deleteCulturalOffer(offer);
             },
             reject: () => {
-              //this.messageService.add({ severity: 'info', summary: 'Rejected', detail: 'You have rejected' });
             }
           });
     }
