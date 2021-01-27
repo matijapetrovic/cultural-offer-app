@@ -157,11 +157,9 @@ it('updateCulturalOffer() should update valid offer', fakeAsync(() => {
   expect(offer.description).toEqual(mockCulturalOfferToAdd.description);
 }));
 
-it('pdateCulturalOffer() should throw invalid offer Id', fakeAsync(() => {
+it('updateCulturalOffer() should throw invalid offer Id', fakeAsync(() => {
   let offer: CulturalOffer;
   const errorMessage = "Invalid Offer Id";
-
-  service.updateCulturalOffer(mockCulturalOfferToAdd).subscribe();
 
   const updatedMockOffer: CulturalOfferToAdd = {
     id: -1,

@@ -52,6 +52,7 @@ export class AuthenticationService {
   login(email: string, password: string): Observable<User> {
     return this.http.post<User>(`${this.authenticationUrl}/login`, { email, password })
       .pipe(
+        catchError(this.handleError<User>('login')),
         tap(userInfo => {
           if (userInfo && userInfo.token) {
             localStorage.setItem('currentUser', JSON.stringify(userInfo));

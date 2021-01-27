@@ -145,7 +145,22 @@ public class CulturalOfferTableTest {
     }
 
     @Test
-    public void test4deleteCulturalOffer() {
+    public void test4rejectCulturalOfferDeleteDialog() {
+        loginAdmin();
+
+        culturalOffersTablePage.showDeleteDialog();
+        culturalOffersTablePage.getDeleteCulturalOfferDialog().ensureIsDisplayed();
+        culturalOffersTablePage.getDeleteCulturalOfferDialog().reject();
+
+        browser.navigate().refresh();
+        culturalOffersTablePage.getCulturalOfferList().ensureIsDisplayed();
+
+        int index = culturalOffersTablePage.getCulturalOfferList().getIndexByCulturalOfferName(UPDATE_VALID_CULTURAL_OFFER_NAME);
+        assertNotEquals(index, -1);
+    }
+
+    @Test
+    public void test5deleteCulturalOffer() {
         loginAdmin();
 
         culturalOffersTablePage.showDeleteDialog();
@@ -160,19 +175,6 @@ public class CulturalOfferTableTest {
         assertEquals(index, -1);
     }
 
-    @Test
-    public void test5rejectCulturalOfferDeleteDialog() {
-        loginAdmin();
 
-        culturalOffersTablePage.showDeleteDialog();
-        culturalOffersTablePage.getDeleteCulturalOfferDialog().ensureIsDisplayed();
-        culturalOffersTablePage.getDeleteCulturalOfferDialog().reject();
-
-        browser.navigate().refresh();
-        culturalOffersTablePage.getCulturalOfferList().ensureIsDisplayed();
-
-        int index = culturalOffersTablePage.getCulturalOfferList().getIndexByCulturalOfferName(EXISTING_CULTURAL_OFFER_NAME);
-        assertNotEquals(index, -1);
-    }
 
 }

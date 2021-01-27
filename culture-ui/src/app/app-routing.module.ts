@@ -30,6 +30,7 @@ const routes: Routes = [
   {
     path: 'subcategories',
     loadChildren: () => import('./modules/subcategories/subcategories.module').then(m => m.SubcategoriesModule),
+    canActivate: [AuthGuard],
     data: { roles: [Role.ROLE_ADMIN] }
   },
   {

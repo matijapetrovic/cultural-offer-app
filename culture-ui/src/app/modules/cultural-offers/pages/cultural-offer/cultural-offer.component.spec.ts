@@ -1,8 +1,9 @@
-import { DebugElement } from '@angular/core';
+import { DebugElement, EventEmitter } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { BehaviorSubject, of } from 'rxjs';
 import { AuthenticationService } from 'src/app/modules/authentication/authentication.service';
 import { User } from 'src/app/modules/authentication/user';
@@ -68,20 +69,31 @@ describe('CulturalOfferComponent', () => {
     };
 
     const activatedRouteStub: ActivatedRouteStub = new ActivatedRouteStub();
-    activatedRouteStub.testParams = {id: 1};
+    activatedRouteStub.testParams = { id: 1 };
+
+    const dialogRefMock = {
+      close: jasmine.createSpy('close')
+        .and.callFake(() => { }),
+      onClose: jasmine.createSpy('onClose').and.returnValue({
+        subscribe: () => {
+          new EventEmitter<void>();
+        }
+      })
+    };
 
     await TestBed.configureTestingModule({
-      declarations: [ CulturalOfferComponent, RoundPipe ],
+      declarations: [CulturalOfferComponent, RoundPipe],
       providers: [
         { provide: CulturalOffersService, useValue: culturalOffersServiceMock },
         { provide: ReviewsService, useValue: reviewsServiceMock },
         { provide: NewsService, useValue: newsServiceMock },
         { provide: AuthenticationService, useValue: authenticationServiceMock },
         { provide: ConfirmationService, useValue: confirmationServiceMock },
-        { provide: ActivatedRoute, useValue: activatedRouteStub }
+        { provide: ActivatedRoute, useValue: activatedRouteStub },
+        { provide: DynamicDialogRef, useValue: dialogRefMock }
       ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
@@ -94,6 +106,47 @@ describe('CulturalOfferComponent', () => {
 
     fixture.detectChanges();
   });
+
+  it('showAddReviewForm() should add review when inputs are valid', fakeAsync(() => {
+    component.culturalOfferId = 1;
+    component.showAddReviewForm();
+    tick();
+
+    spyOn(component, 'getCulturalOffer');
+    spyOn(component, 'getReviews');
+    spyOn(component.ref, 'close').and.callFake(() => {
+      component.getCulturalOffer();
+      component.getReviews();
+    });
+    component.ref.close();
+    tick();
+
+
+    expect(component.ref).toBeTruthy();
+    expect(component.ref.close).toHaveBeenCalled();
+    expect(component.getCulturalOffer).toHaveBeenCalled();
+    expect(component.getReviews).toHaveBeenCalled();
+
+  }));
+
+  it('showAddReviewForm() should not add review when inputs are invalid', fakeAsync(() => {
+    component.culturalOfferId = 1;
+    component.showAddReviewForm();
+    tick();
+
+    spyOn(component, 'getCulturalOffer');
+    spyOn(component, 'getReviews');
+    spyOn(component.ref, 'close').and.returnValue(null);
+    component.ref.close();
+    tick();
+
+
+    expect(component.ref).toBeTruthy();
+    expect(component.ref.close).toHaveBeenCalled();
+    expect(component.getCulturalOffer).toHaveBeenCalledTimes(0);
+    expect(component.getReviews).toHaveBeenCalledTimes(0);
+
+  }));
 
   it('should create and init', fakeAsync(() => {
     expect(component).toBeTruthy();
@@ -141,7 +194,7 @@ describe('CulturalOfferComponent', () => {
     authenticationService.logout();
 
     expect(component.subscribed).toBe(null);
- });
+  });
 
   it('should get next news when next button is clicked', fakeAsync(() => {
     component.newsPage = null;

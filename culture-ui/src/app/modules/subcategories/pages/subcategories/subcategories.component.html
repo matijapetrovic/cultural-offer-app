@@ -21,11 +21,12 @@
           [searchable]="false"
           [clearable]="false"
           (change)="categoryChanged($event)"
-          id="filter-category-select"
+          id="subcategory-category-select"
         >
         </ng-select>
       </div>
       <button
+        id="show-add-subcategory-button"
         pButton
         type="button"
         class="p-button-raised p-button-rounded p-justify-left"
@@ -35,6 +36,7 @@
       ></button>
       <div class="p-grid p-mt-3 p-justify-center centered-grid"></div>
         <p-table
+          id="subcategories-table"
           #dt 
           *ngIf="subcategoriesPage"
           [value]="subcategoriesPage.data"
@@ -44,15 +46,6 @@
           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
           [globalFilterFields]="['name']"
         >
-        <ng-template pTemplate="caption">
-          <div class="p-d-flex">
-            <span class="p-input-icon-right p-ml-auto">
-              <i class="pi pi-search"></i>
-              <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
-                placeholder="Search keyword" />
-            </span>
-          </div>
-        </ng-template>
         <ng-template pTemplate="header">
           <tr>
             <th>Name</th>
@@ -61,12 +54,13 @@
         </ng-template>
         <ng-template pTemplate="body" let-subcategory>
           <tr ng-repeat="(subcategory.name) in subcategoriesPage.data">
-            <td>
+            <td class="subcategory-name">
               {{subcategory.name}}
             </td>
             <td>
               <div class="p-grid p-justify-center">
                 <button
+                  id="show-update-subcategory-button"
                   pButton 
                   label="Edit"
                   icon="pi pi-pencil" 
@@ -74,6 +68,7 @@
                   (click)="showUpdateForm(subcategory)"
                 ></button>
                 <button 
+                  id="show-delete-subcategory-button"
                   pButton
                   label="Delete"
                   icon="pi pi-trash" 

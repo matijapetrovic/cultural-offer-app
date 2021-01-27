@@ -33,19 +33,6 @@
           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
           [globalFilterFields]="['name']"
         >
-        <ng-template pTemplate="caption">
-          <div class="p-d-flex">
-            <span class="p-input-icon-right p-ml-auto">
-              <i class="pi pi-search"></i>
-              <input
-                id="search-categories-input"
-                pInputText
-                type="text"
-                (input)="dt.filterGlobal($event.target.value, 'contains')"
-                placeholder="Search keyword" />
-            </span>
-          </div>
-        </ng-template>
         <ng-template pTemplate="header">
           <tr>
             <th>Name</th>

@@ -9,7 +9,8 @@ import java.io.Serializable;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Table(name="subcategory")
+@Table(name="subcategory",
+        uniqueConstraints = @UniqueConstraint(columnNames={"name", "archived"}))
 @Entity
 @IdClass(SubcategoryId.class)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -28,7 +29,7 @@ public class Subcategory implements Serializable {
     @EqualsAndHashCode.Include
     private Category category;
 
-    @Column(name="name", nullable = false, unique = true)
+    @Column(name="name", nullable = false)
     private String name;
 
     @Column(name="archived", nullable = false)

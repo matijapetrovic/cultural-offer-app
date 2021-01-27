@@ -104,7 +104,6 @@ export class CulturalOffersComponent implements OnInit {
 
     deleteCulturalOffer(culturalOffer:any):void {
         this.culturalOffersService.deleteCulturalOffer(culturalOffer)
-        .pipe()
         .subscribe(
             () => {
                 this.getCulturalOffers();

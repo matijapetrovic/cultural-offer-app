@@ -94,7 +94,7 @@ export class SubcategoriesComponent implements OnInit {
             header: 'Delete Confirmation',
             icon: 'pi pi-info-circle',
             accept: () => {
-              this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have successfuly deleted subcategory!' });
+              this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'You have successfuly deleted subcategory!' });
               this.deleteSubcategory(subcategory);
             },
             reject: () => {
@@ -108,7 +108,6 @@ export class SubcategoriesComponent implements OnInit {
 
     deleteSubcategory(subcategory: any): void {
         this.subcategoriesService.deleteSubcategory(subcategory)
-        .pipe()
         .subscribe(
             () => {
                 this.getSubcategories();

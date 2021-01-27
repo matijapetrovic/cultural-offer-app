@@ -93,7 +93,8 @@ describe('UpdateSubcategoryComponent', () => {
 
   it('invalidInputForms() should return false if form inputs are valid', () => {
     
-    component.subcategory.name = '';
+    component.subcategory.name = '?';
+    fixture.detectChanges();
 
     expect(component.invalidFormInputs()).toBeFalse();
   });
