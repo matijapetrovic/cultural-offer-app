@@ -5,6 +5,7 @@ import lombok.Getter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -12,6 +13,18 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class DashboardPage {
     @Getter(value = AccessLevel.PRIVATE)
     private final WebDriver driver;
+
+    @FindBy(css = ".subcategory-nav .pagination-prev-button")
+    private WebElement subcategoryPaginationPrevButton;
+
+    @FindBy(css = ".subcategory-nav .pagination-next-button")
+    private WebElement subcategoryPaginationNextButton;
+
+    @FindBy(css = ".subscription-nav .pagination-prev-button")
+    private WebElement subscriptionPaginationPrevButton;
+
+    @FindBy(css = ".subscription-nav .pagination-next-button")
+    private WebElement subscriptionPaginationNextButton;
 
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
@@ -36,7 +49,13 @@ public class DashboardPage {
                 .until(ExpectedConditions.or(
                         ExpectedConditions.numberOfElementsToBeMoreThan(selector, 0),
                         ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".p-dataview-emptymessage"))));
+
         return driver.findElements(selector).size();
+    }
+
+    public String getSubscriptionOfferName(int index) {
+        By selector = By.cssSelector(String.format(".p-dataview-content .panel-card:nth-child(%d) .p-card-title", index));
+        return driver.findElement(selector).getText();
     }
 
     public WebElement getUnsubscribeButton(int index) {

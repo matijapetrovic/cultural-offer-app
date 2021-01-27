@@ -12,7 +12,7 @@ public class CulturalOfferPageTestData {
     public static String ADMIN_USERNAME = "admin1@gmail.com";
     public static String ADMIN_PASSWORD = "123";
 
-    public static Long REGULAR_USER_SUBSCRIBED_OFFER_ID = 130L;
+    public static Long REGULAR_USER_SUBSCRIBED_OFFER_ID = 30L;
     public static Long REGULAR_USER_UNSUBSCRIBED_OFFER_ID = 1L;
 
     public static Long CULTURAL_OFFER_WITH_REVIEWS_ID = 1L;

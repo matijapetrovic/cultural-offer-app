@@ -1,10 +1,13 @@
 <div>
+    <div *ngIf=!subSubCatPage>
+        Loading...
+    </div>
     <div *ngIf="subSubCatPage && subSubCatPage.data.length != 0; else showNoOffersMessage">
-
-        <app-pagination-bar [hasPrev]="subSubCatPage.links.prev" [hasNext]="subSubCatPage.links.next"
-            [currentPage]="page" (navigatePrevEvent)="getPreviousPage()" (navigateNextEvent)="getNextPage()">
-        </app-pagination-bar>
-
+        <div class="subcategory-nav">
+            <app-pagination-bar [hasPrev]="subSubCatPage.links.prev" [hasNext]="subSubCatPage.links.next"
+                [currentPage]="page" (navigatePrevEvent)="getPreviousPage()" (navigateNextEvent)="getNextPage()">
+            </app-pagination-bar>
+        </div>
         <p-tabView>
             <p-tabPanel *ngFor="let subSubCat of subSubCatPage.data" [cache]="false">
                 <ng-template pTemplate="header">
@@ -19,8 +22,8 @@
         </p-tabView>
     </div>
 
-    <ng-template #showNoOffersMessage>
-        <p-card class="center p-card-shadow p-shadow-24" header="You are not subscribed to any offer.">
+    <ng-template #showNoOffersMessage >
+        <p-card *ngIf="subSubCatPage" class="center p-card-shadow p-shadow-24 no-subscriptions-message" header="You are not subscribed to any offer.">
         </p-card>
     </ng-template>
 </div>
