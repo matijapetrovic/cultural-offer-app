@@ -108,7 +108,6 @@ export class SubcategoriesComponent implements OnInit {
 
     deleteSubcategory(subcategory: any): void {
         this.subcategoriesService.deleteSubcategory(subcategory)
-        .pipe()
         .subscribe(
             () => {
                 this.getSubcategories();

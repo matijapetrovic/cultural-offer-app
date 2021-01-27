@@ -29,7 +29,7 @@ public class Subcategory implements Serializable {
     @EqualsAndHashCode.Include
     private Category category;
 
-    @Column(name="name", nullable = false, unique = true)
+    @Column(name="name", nullable = false)
     private String name;
 
     @Column(name="archived", nullable = false)

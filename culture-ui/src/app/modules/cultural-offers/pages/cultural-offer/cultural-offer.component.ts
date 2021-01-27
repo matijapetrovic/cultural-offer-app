@@ -17,7 +17,7 @@ import { AddReviewComponent } from 'src/app/modules/reviews/components/add-revie
   selector: 'app-cultural-offer',
   templateUrl: './cultural-offer.component.html',
   styleUrls: ['./cultural-offer.component.scss'],
-  providers: [DialogService]
+  providers: [DialogService, DynamicDialogRef]
 })
 export class CulturalOfferComponent implements OnInit {
   culturalOffer: CulturalOffer;

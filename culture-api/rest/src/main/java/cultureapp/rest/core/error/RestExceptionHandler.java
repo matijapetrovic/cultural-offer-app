@@ -22,6 +22,7 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -33,6 +34,15 @@ import java.io.IOException;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice("cultureapp.rest")
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
+
+    @ExceptionHandler(BadCredentialsException.class)
+    protected ResponseEntity<Object> handleBadCredentialsException(
+            BadCredentialsException ex
+    ) {
+        ApiError apiError = new ApiError(HttpStatus.UNAUTHORIZED, "Invalid username/password" ,ex);
+        return buildResponse(apiError);
+    }
+
     @ExceptionHandler(CulturalOfferLocationsFilterException.class)
     protected ResponseEntity<Object> handleCulturalOfferLocationsFilterException(
             CulturalOfferLocationsFilterException ex
