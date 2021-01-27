@@ -41,7 +41,8 @@ export class HeaderComponent implements OnInit {
   adminItems: MenuItem[] = [
     {
       label: 'Cultural Offers',
-      routerLink: ['/cultural-offers']
+      routerLink: ['/cultural-offers'],
+      id: 'cultural-offers-nav-link'
     },
     {
       label: 'Categories',

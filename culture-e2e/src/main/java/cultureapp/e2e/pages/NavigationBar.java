@@ -39,6 +39,9 @@ public class NavigationBar {
     @FindBy(css = "#register-nav-link")
     private WebElement registerPageLink;
 
+    @FindBy(css = "#cultural-offers-nav-link")
+    private WebElement culturalOfferPageLink;
+
     public void ensureHomePageLinkIsDisplayed() {
         (new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(homePageLink));
     }
@@ -55,6 +58,9 @@ public class NavigationBar {
         (new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(homePageLink));
     }
     public void ensureNewsPageLinkIsDisplayed() {
+        (new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(homePageLink));
+    }
+    public void ensureCulturalOffersPageLinkIsDisplayed() {
         (new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(homePageLink));
     }
     public void ensureLoginPageLinkIsDisplayed() {

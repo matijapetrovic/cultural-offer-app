@@ -1,4 +1,4 @@
-package cultureapp.e2e.pages.category;
+package cultureapp.e2e.pages.news;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -15,11 +15,11 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Getter
-public class CategoriesList {
+public class NewsList {
     @Getter(value = AccessLevel.PRIVATE)
     private final WebDriver driver;
 
-    @FindBy(css = "#categories-table")
+    @FindBy(css = "#news-table")
     private WebElement categoriesTable;
 
     public void ensureIsDisplayed() {
@@ -27,25 +27,25 @@ public class CategoriesList {
                 .until(ExpectedConditions.visibilityOf(categoriesTable));
     }
 
-    public int getIndexByCategoryName(String name) {
-       int idx = -1;
-       var categoryNames = getArrayOfNames();
-       for (int i = 0; i < categoryNames.size(); i++) {
-           if(categoryNames.get(i).equals(name)) {
-               idx = i;
-               break;
-           }
-       }
-       return idx;
+    public int getIndexByNewsTitle(String name) {
+        int idx = -1;
+        var newsNames = getArrayOfNames();
+        for (int i = 0; i < newsNames.size(); i++) {
+            if(newsNames.get(i).equals(name)) {
+                idx = i;
+                break;
+            }
+        }
+        return idx;
     }
 
     private List<String> getArrayOfNames() {
-        return getCategoryNamesRows().stream().map(name -> name.getText()).collect(Collectors.toList());
+        return getNewsNamesRows().stream().map(name -> name.getText()).collect(Collectors.toList());
     }
 
-    public List<WebElement> getCategoryNamesRows() {
+    public List<WebElement> getNewsNamesRows() {
         return new WebDriverWait(driver, 10)
                 .until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(
-                        categoriesTable, By.id("category-name")));
+                        categoriesTable, By.id("news-title")));
     }
 }
