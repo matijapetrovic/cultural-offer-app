@@ -6,7 +6,7 @@ import { SubcategoriesService } from 'src/app/modules/subcategories/subcategorie
 import { CulturalOfferToAdd, CulturalOfferView } from 'src/app/modules/cultural-offers/cultural-offer'
 import { ImageService } from 'src/app/core/services/image.service';
 import { GeolocationService } from 'src/app/core/services/geolocation.service';
-import { FormControl } from '@angular/forms';
+import { FormControl, NgForm } from '@angular/forms';
 
 @Component({
     selector: 'app-offer-form',
@@ -22,6 +22,7 @@ export class OfferFormComponent implements OnInit {
     formSubmitted = new EventEmitter<CulturalOfferToAdd>();
 
     @ViewChild('subcategorySelect') subcategorySelect;
+    @ViewChild(NgForm) ngForm: NgForm;
 
     categories: Category[];
     subcategories: Subcategory[];
@@ -90,7 +91,7 @@ export class OfferFormComponent implements OnInit {
     }
 
     appendFile(event: any) {
-        this.newImages.push(event.target.files.item(0));
+        this.newImages.push(event.target.files[0]);
 
         var reader = new FileReader();
 
