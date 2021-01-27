@@ -3,11 +3,10 @@ import { CulturalOffersPage } from '../../cultural-offer'
 import { CulturalOffersService } from '../../cultural-offers.service'
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { DialogService } from 'primeng/dynamicdialog';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { AddOfferComponent } from '../add-offer/add-offer.component';
 import { UpdateOfferComponent } from '../update-offer/update-offer.component';
 import {Router} from "@angular/router";
-import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'app-cultural-offers',

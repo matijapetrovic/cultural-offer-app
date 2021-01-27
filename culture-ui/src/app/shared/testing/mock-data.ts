@@ -1,7 +1,7 @@
 import { Role } from 'src/app/modules/authentication/role';
 import { User } from 'src/app/modules/authentication/user';
 import { CategoriesPage, Category } from 'src/app/modules/categories/category';
-import { CulturalOffer, CulturalOfferLocation, CulturalOffersPage, LocationRange } from 'src/app/modules/cultural-offers/cultural-offer';
+import { CulturalOffer, CulturalOfferLocation, CulturalOffersPage, CulturalOfferToAdd, CulturalOfferView, LocationRange } from 'src/app/modules/cultural-offers/cultural-offer';
 import { News, NewsPage } from 'src/app/modules/news/news';
 import { Review, ReviewPage } from 'src/app/modules/reviews/review';
 import { SubcategoriesPage, Subcategory } from 'src/app/modules/subcategories/subcategory';
@@ -107,6 +107,34 @@ const mockCulturalOffer: CulturalOffer = {
     latitude: 45.0,
     longitude: 45.0
 };
+
+const mockCulturalOfferToAdd: CulturalOfferToAdd = {
+  id: 1,
+  name: 'Offer 1',
+  description: 'Some description',
+  latitude: 45.0,
+  longitude: 45.0,
+  images: [1, 2],
+  subcategoryId: 1,
+  categoryId: 1,
+  address: 'address'
+};
+
+const mockCulturalOfferView: CulturalOfferView = {
+  id: 1,
+  name: 'Offer 1',
+  description: 'Some description',
+  subcategory: {
+    id: 1,
+    name: 'Subcategory3',
+    categoryId: 1
+  },
+  imagesIds: [1, 2],
+  images: ['1', '2'],
+  latitude: 45.0,
+  longitude: 45.0,
+  address: "address"
+}
 
 const mockOfferLocations: CulturalOfferLocation[] = [
     {
@@ -283,5 +311,8 @@ export {
   mockMapBounds,
   mockLocationRange,
   mockCategoriesPage,
-  mockSubcategoriesPage
+  mockSubcategoriesPage,
+  mockCulturalOffersPage,
+  mockCulturalOfferToAdd,
+  mockCulturalOfferView
 };
