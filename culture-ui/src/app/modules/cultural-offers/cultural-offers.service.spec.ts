@@ -99,7 +99,7 @@ it('getCulturaOffers() should return empty', fakeAsync(() => {
 
 // ADD CULTURAL OFFER
 
-it('addSubcategory() should add valid Subategory', fakeAsync(() => {
+it('addCulturalOffer() should add valid CulturalOffer', fakeAsync(() => {
   let response: any;
 
   service.addCulturalOffer(mockCulturalOfferToAdd).subscribe(data => { response = data; });
@@ -113,7 +113,7 @@ it('addSubcategory() should add valid Subategory', fakeAsync(() => {
   expect(response).toBeTruthy();
 }));
 
-it('addSubcategory() should throw offer already exists', fakeAsync(() => {
+it('addCulturalOffer() should throw offer already exists', fakeAsync(() => {
   let response: any;
   const errorMessage = 'Offer already exists!';
 
@@ -131,7 +131,7 @@ it('addSubcategory() should throw offer already exists', fakeAsync(() => {
   expect(errorHandler.handleError).toThrow(errorMessage);
 }));
 
-// UPDATE SUBCATEGOY
+// UPDATE CULTURAL OFFER
 
 it('updateCulturalOffer() should update valid offer', fakeAsync(() => {
   let offer: CulturalOffer;
