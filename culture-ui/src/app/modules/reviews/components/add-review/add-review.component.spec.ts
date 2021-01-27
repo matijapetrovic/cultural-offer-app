@@ -9,6 +9,7 @@ import { ReviewsService } from '../../reviews.service';
 import { AddReviewComponent } from './add-review.component';
 import { RatingModule } from 'primeng/rating';
 import { mockImage1, mockImage2, mockImagesToAdd } from 'src/app/shared/testing/mock-data';
+import { MessageService } from 'primeng/api';
 
 
 describe('AddReviewComponent', () => {
@@ -16,6 +17,10 @@ describe('AddReviewComponent', () => {
   let fixture: ComponentFixture<AddReviewComponent>;
   let imageService: ImageService;
   let reviewsService: ReviewsService;
+  let messageService: MessageService;
+  let ref: DynamicDialogRef;
+
+  const offerId = 1;
 
   beforeEach(async () => {
     const imageServiceMock = {
@@ -28,14 +33,19 @@ describe('AddReviewComponent', () => {
         .and.returnValue(of())
     };
 
-    const dialogConfigMock = jasmine.createSpyObj('DynamicDialogConfig', [], { data: { culturalOfferId: 1 } });
+    const dialogConfigMock = jasmine.createSpyObj('DynamicDialogConfig', [], { data: { culturalOfferId: offerId } });
 
     // const dialogConfigMock: DynamicDialogConfig = {
     //   data: 1
     // };
 
-    const dialogRefMock = {
-      close: () => { }
+    const refMock = {
+      close: jasmine.createSpy('close')
+        .and.callFake(() => { })
+    };
+
+    const messageServiceMock = {
+      add: jasmine.createSpy('add').and.callThrough()
     };
 
     await TestBed.configureTestingModule({
@@ -47,10 +57,11 @@ describe('AddReviewComponent', () => {
         RatingModule  // because of formControlName is in p-rating
       ],
       providers: [
-        { provide: DynamicDialogRef, useValue: dialogRefMock },
+        { provide: DynamicDialogRef, useValue: refMock },
         { provide: ReviewsService, useValue: reviewsServiceMock },
         { provide: ImageService, useValue: imageServiceMock },
-        { provide: DynamicDialogConfig, useValue: dialogConfigMock }
+        { provide: DynamicDialogConfig, useValue: dialogConfigMock },
+        { provide: MessageService, useValue: messageServiceMock }
       ]
     })
       .compileComponents();
@@ -64,14 +75,18 @@ describe('AddReviewComponent', () => {
 
     imageService = TestBed.inject(ImageService);
     reviewsService = TestBed.inject(ReviewsService);
+    messageService = TestBed.inject(MessageService);
+    ref = TestBed.inject(DynamicDialogRef);
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should create addReviewForm', () => {
+  it('should create addReviewForm and images to add', () => {
+    component.ngOnInit();
     expect(component.addReviewForm).toBeDefined();
+    expect(component.imagesToAdd).toBeDefined();
   });
 
   it('form should be invalid when empty', () => {
@@ -106,6 +121,7 @@ describe('AddReviewComponent', () => {
 
     expect(imageService.addImages).toHaveBeenCalledTimes(1);
     expect(reviewsService.addReview).toHaveBeenCalledTimes(1);
+    expect(ref.close).toHaveBeenCalled();
   });
 
   it('onSubmit() form with empty comment should not be submitted', () => {
@@ -124,15 +140,15 @@ describe('AddReviewComponent', () => {
 
   it('should show process message', () => {
     component.showProccessMessage();
-    expect(component.messageService.add).toHaveBeenCalled();
+    expect(messageService.add).toHaveBeenCalled();
   });
 
   it('should show success message', () => {
-    component.showProccessMessage();
-    expect(component.messageService.add).toHaveBeenCalled();
+    component.showSuccessMessage();
+    expect(messageService.add).toHaveBeenCalled();
   });
 
   it('should get cultural offer id', () => {
-    expect(component.offerId).toEqual(1);
+    expect(component.offerId).toEqual(offerId);
   });
 });

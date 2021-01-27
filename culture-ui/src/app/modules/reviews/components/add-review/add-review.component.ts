@@ -26,7 +26,7 @@ export class AddReviewComponent implements OnInit {
     private formBuilder: FormBuilder,
     private ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
-    public messageService: MessageService,
+    private messageService: MessageService,
     private imageService: ImageService
   ) {
     this.culturalOfferId = this.config.data.culturalOfferId;

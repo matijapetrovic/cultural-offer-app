@@ -18,7 +18,6 @@ export class DashboardPanelItemComponent implements OnInit {
     private router: Router,
     private offersService: CulturalOffersService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
   ) { }
 
   ngOnInit(): void {
@@ -29,20 +28,7 @@ export class DashboardPanelItemComponent implements OnInit {
     this.router.navigate([`/cultural-offers/${this.subscribedOffer.id}`]);
   }
 
-  confirmUnsubscribe(event: Event): void {
-    // this.confirmationService.confirm({
-    //   target: event.target,
-    //   message: 'Are you sure that you want to unsubscribe from this offer?',
-    //   icon: 'pi pi-exclamation-triangle',
-    //   accept: () => {
-    //     console.log('eeeeeeeeeeeeee');
-
-    //     this.unsubscribe();
-    //   },
-    //   reject: () => {
-    //     console.log("oooooooooooooo");
-    //   }
-    // });
+  confirmUnsubscribe(): void {
     this.unsubscribe();
   }
 

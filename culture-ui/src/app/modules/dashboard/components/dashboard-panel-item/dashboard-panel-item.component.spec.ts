@@ -8,9 +8,9 @@ describe('DashboardPanelItemComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DashboardPanelItemComponent ]
+      declarations: [DashboardPanelItemComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

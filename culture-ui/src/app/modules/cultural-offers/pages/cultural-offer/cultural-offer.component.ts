@@ -40,7 +40,6 @@ export class CulturalOfferComponent implements OnInit {
   mapOverlays: any;
   mapInfoWindow: any;
 
-  private ref: DynamicDialogRef;
 
   constructor(
     private culturalOffersService: CulturalOffersService,
@@ -50,7 +49,8 @@ export class CulturalOfferComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private authenticationService: AuthenticationService,
     private messageService: MessageService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    public ref: DynamicDialogRef
   ) {
     this.currentReviewsPage = 0;
     this.currentNewsPage = 0;
@@ -164,16 +164,16 @@ export class CulturalOfferComponent implements OnInit {
 
   confirmSubscribe(event: Event): void {
     this.confirmationService.confirm({
-        target: event.target,
-        message: 'Are you sure that you want to subscribe to this offer?',
-        icon: 'pi pi-exclamation-triangle',
-        accept: () => {
-            this.subscribe();
-        },
-        acceptButtonStyleClass: 'accept-confirm-button',
-        reject: () => {
-        },
-        rejectButtonStyleClass: 'reject-confirm-button'
+      target: event.target,
+      message: 'Are you sure that you want to subscribe to this offer?',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.subscribe();
+      },
+      acceptButtonStyleClass: 'accept-confirm-button',
+      reject: () => {
+      },
+      rejectButtonStyleClass: 'reject-confirm-button'
     });
   }
 

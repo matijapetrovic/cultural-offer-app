@@ -139,6 +139,9 @@ describe('ReviewsService', () => {
 
     tick();
 
+    // spyOn(...,  ...)
+    // toHaveBeenCalledTimes()
+
     expect(response.error).toEqual(expectedResponse.error);
     expect(response.status).toEqual(expectedResponse.status);
     expect(response.statusText).toEqual(expectedResponse.statusText);
