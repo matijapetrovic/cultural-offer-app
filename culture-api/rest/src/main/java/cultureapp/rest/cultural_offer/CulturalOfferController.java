@@ -111,7 +111,8 @@ public class CulturalOfferController {
                 request.getImages(),
                 request.getDescription(),
                 request.getCategoryId(),
-                request.getSubcategoryId());
+                request.getSubcategoryId(),
+                request.getAddress());
 
         addCulturalOfferUseCase.addCulturalOffer(command);
         return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -136,7 +137,8 @@ public class CulturalOfferController {
                 request.getLatitude(),
                 request.getCategoryId(),
                 request.getSubcategoryId(),
-                request.getImages());
+                request.getImages(),
+                request.getAddress());
 
         updateCulturalOfferUseCase.updateCulturalOffer(command);
         return ResponseEntity.noContent().build();

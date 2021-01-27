@@ -67,7 +67,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TITLE,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
                                 List.of(FREE_NEWS_IMAGE_ID_10)
                         ),
@@ -106,7 +106,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TITLE,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
                                 List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
@@ -137,7 +137,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 INVALID_NEWS_TITLE,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
                                 List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
@@ -168,7 +168,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 null,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
                                 List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
@@ -184,67 +184,6 @@ public class NewsControllerIntegrationTest {
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     }
 
-    /*
-     * create news - post
-     * offer id              valid
-     * NewsRequest           invalid -> non existing author id
-     * user                  valid
-     * expect                NOT FOUND
-     */
-    @Test
-    public void givenInvalidAuthorIdRequestThenPostShouldFail() {
-        String token = login(restTemplate, EXISTING_ADMINISTRATOR_EMAIL, EXISTING_ADMINISTRATOR_PASSWORD);
-        HttpHeaders headers = getHeaders(token);
-        HttpEntity<NewsRequest> entity =
-                new HttpEntity<>(
-                        new NewsRequest(
-                                NON_EXISTING_NEWS_TEXT,
-                                NON_EXISTING_ADMIN_ID_10,
-                                NON_EXISTING_NEWS_TEXT,
-                                List.of(FREE_NEWS_IMAGE_ID_9)
-                        ),
-                        headers
-                );
-
-        ResponseEntity<Void> response = restTemplate.postForEntity(
-                String.format("/api/cultural-offers/%d/news", EXISTING_CULTURAL_OFFER_ID),
-                entity,
-                Void.class
-        );
-
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-    }
-
-    /*
-     * create news - post
-     * offer id              valid
-     * NewsRequest           invalid -> null author id
-     * user                  valid
-     * expect                BAD REQUEST
-     */
-    @Test
-    public void givenNullAuthorIdRequestThenPostShouldFail() {
-        String token = login(restTemplate, EXISTING_ADMINISTRATOR_EMAIL, EXISTING_ADMINISTRATOR_PASSWORD);
-        HttpHeaders headers = getHeaders(token);
-        HttpEntity<NewsRequest> entity =
-                new HttpEntity<>(
-                        new NewsRequest(
-                                NON_EXISTING_NEWS_TEXT,
-                                null,
-                                NON_EXISTING_NEWS_TEXT,
-                                List.of(FREE_NEWS_IMAGE_ID_9)
-                        ),
-                        headers
-                );
-
-        ResponseEntity<Void> response = restTemplate.postForEntity(
-                String.format("/api/cultural-offers/%d/news", EXISTING_CULTURAL_OFFER_ID),
-                entity,
-                Void.class
-        );
-
-        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-    }
 
     /*
      * create news - post
@@ -261,7 +200,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TEXT,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 INVALID_NEWS_TEXT,
                                 List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
@@ -292,7 +231,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TEXT,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 null,
                                 List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
@@ -323,7 +262,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TEXT,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
                                 null
                         ),
@@ -354,7 +293,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TEXT,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
                                 List.of(FREE_NEWS_IMAGE_ID_9)
                         )
@@ -388,7 +327,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TEXT,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
                                 List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
@@ -660,7 +599,7 @@ public class NewsControllerIntegrationTest {
         assertNotNull(response.getBody());
         assertEquals(EXISTING_CULTURAL_OFFER_ID, response.getBody().getCulturalOfferId());
         assertEquals(EXISTING_NEWS_ID_1_FOR_OFFER_ID_1, response.getBody().getId());
-        assertEquals(EXISTING_NEWS_TITLE_1_FOR_OFFER_ID_1, response.getBody().getName());
+        assertEquals(EXISTING_NEWS_TITLE_1_FOR_OFFER_ID_1, response.getBody().getTitle());
     }
 
     /*
@@ -779,7 +718,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TITLE,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
                                 List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
@@ -835,7 +774,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TITLE,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
                                 List.of(FREE_NEWS_IMAGE_ID_9)
                         )
@@ -873,7 +812,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TITLE,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
                                 List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
@@ -911,7 +850,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TITLE,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
                                 List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
@@ -949,7 +888,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TITLE,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
                                 List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
@@ -987,7 +926,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TITLE,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
                                 List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
@@ -1025,7 +964,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TITLE,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
                                 List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
@@ -1063,7 +1002,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 INVALID_NEWS_TITLE,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
                                 List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
@@ -1101,83 +1040,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 null,
-                                EXISTING_ADMIN_ID_3,
-                                NON_EXISTING_NEWS_TEXT,
-                                List.of(FREE_NEWS_IMAGE_ID_9)
-                        ),
-                        headers
-                );
-
-        ResponseEntity<Void> response = restTemplate.exchange(
-                String.format(
-                        "/api/cultural-offers/%d/news/%d",
-                        EXISTING_CULTURAL_OFFER_ID,
-                        EXISTING_NEWS_ID_1_FOR_OFFER_ID_1
-                ),
-                HttpMethod.PUT,
-                entity,
-                Void.class
-        );
-
-        assertNotNull(response);
-        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-    }
-
-    /*
-     * update news
-     * offer id          valid
-     * news id           valid
-     * NewsRequest       invalid -> non existing admin id
-     * expected          BAD REQUEST
-     */
-    @Test
-    public void givenInvalidAdminIdThenNewsUpdateShouldFail(){
-        String token = login(restTemplate, EXISTING_ADMINISTRATOR_EMAIL, EXISTING_ADMINISTRATOR_PASSWORD);
-//        String token = login(restTemplate, EXISTING_REGULAR_USER_EMAIL, EXISTING_REGULAR_USER_PASSWORD);
-        HttpHeaders headers = getHeaders(token);
-        HttpEntity<NewsRequest> entity =
-                new HttpEntity<>(
-                        new NewsRequest(
-                                NON_EXISTING_NEWS_TITLE,
-                                NON_EXISTING_ADMIN_ID_10,
-                                NON_EXISTING_NEWS_TEXT,
-                                List.of(FREE_NEWS_IMAGE_ID_9)
-                        ),
-                        headers
-                );
-
-        ResponseEntity<Void> response = restTemplate.exchange(
-                String.format(
-                        "/api/cultural-offers/%d/news/%d",
-                        EXISTING_CULTURAL_OFFER_ID,
-                        EXISTING_NEWS_ID_1_FOR_OFFER_ID_1
-                ),
-                HttpMethod.PUT,
-                entity,
-                Void.class
-        );
-
-        assertNotNull(response);
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-    }
-
-    /*
-     * update news
-     * offer id          valid
-     * news id           valid
-     * NewsRequest       invalid -> null admin id
-     * expected          BAD REQUEST
-     */
-    @Test
-    public void givenNullAdminIdThenNewsUpdateShouldFail(){
-        String token = login(restTemplate, EXISTING_ADMINISTRATOR_EMAIL, EXISTING_ADMINISTRATOR_PASSWORD);
-//        String token = login(restTemplate, EXISTING_REGULAR_USER_EMAIL, EXISTING_REGULAR_USER_PASSWORD);
-        HttpHeaders headers = getHeaders(token);
-        HttpEntity<NewsRequest> entity =
-                new HttpEntity<>(
-                        new NewsRequest(
-                                NON_EXISTING_NEWS_TITLE,
-                                null,
+//                                EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
                                 List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
@@ -1215,7 +1078,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TITLE,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 INVALID_NEWS_TEXT,
                                 List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
@@ -1253,7 +1116,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TITLE,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 null,
                                 List.of(FREE_NEWS_IMAGE_ID_9)
                         ),
@@ -1293,7 +1156,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TITLE,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
                                 null
                         ),
@@ -1376,7 +1239,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TITLE,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
                                 List.of()
                         )
@@ -1408,7 +1271,7 @@ public class NewsControllerIntegrationTest {
                 new HttpEntity<>(
                         new NewsRequest(
                                 NON_EXISTING_NEWS_TITLE,
-                                EXISTING_ADMIN_ID_3,
+//                                EXISTING_ADMIN_ID_3,
                                 NON_EXISTING_NEWS_TEXT,
                                 List.of()
                         ),

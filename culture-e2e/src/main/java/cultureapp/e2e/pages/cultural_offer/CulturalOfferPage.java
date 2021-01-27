@@ -17,6 +17,8 @@ public class CulturalOfferPage {
 
     private final ReviewsSection reviewsSection;
     private final NewsSection newsSection;
+    private final AddReviewDialog addReviewDialog;
+    private final AddReplyDialog addReplyDialog;
 
     @FindBy(css = "#subscribe-button")
     private WebElement subscribeButton;
@@ -33,6 +35,8 @@ public class CulturalOfferPage {
         this.driver = driver;
         this.reviewsSection = PageFactory.initElements(driver, ReviewsSection.class);
         this.newsSection = PageFactory.initElements(driver, NewsSection.class);
+        this.addReviewDialog = PageFactory.initElements(driver, AddReviewDialog.class);
+        this.addReplyDialog = PageFactory.initElements(driver, AddReplyDialog.class);
     }
 
     public void ensureIsDisplayed() {
@@ -52,8 +56,13 @@ public class CulturalOfferPage {
                 .until(ExpectedConditions.visibilityOf(unsubscribeButton));
     }
 
-    public void ensureToastIsDisplayed() {
+    public void ensureSuccessToastIsDisplayed() {
         (new WebDriverWait(driver, 10))
-                .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".p-toast-message-text")));
+                .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".p-toast-message-success")));
+    }
+
+    public void ensureInfoToastIsDisplayed() {
+        (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".p-toast-message-info")));
     }
 }

@@ -89,7 +89,8 @@ const mockNewsPage: NewsPage = {
             lastName: 'Last name author'
         },
         text: 'Some text',
-        images: ['image1', 'image2']
+        images: ['image1', 'image2'],
+        imagesIds: [1, 2]
         },
         {
         id: 2,
@@ -102,7 +103,8 @@ const mockNewsPage: NewsPage = {
             lastName: 'Last name author 2'
         },
         text: 'Some other text',
-        images: ['image1', 'image2']
+        images: ['image1', 'image2'],
+        imagesIds: [1, 2]
         }
     ],
     links: new Map([['next', 'next-link'], ['self', 'self-link']])

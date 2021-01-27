@@ -67,8 +67,8 @@ public class NewsServiceIntegrationTest {
         AddNewsUseCase.AddNewsCommand command = new AddNewsUseCase.AddNewsCommand(
                 EXISTING_CULTURAL_OFFER_ID,
                 VALID_NEWS_TITLE,
-                PRESENT_LOCAL_DATE_TIME,
-                EXISTING_ADMIN_ID_3,
+//                PRESENT_LOCAL_DATE_TIME,
+//                EXISTING_ADMIN_ID_3,
                 VALID_NEWS_TEXT,
                 List.of(FREE_NEWS_IMAGE_FOR_ADD_ID_7, FREE_NEWS_IMAGE_FOR_ADD_ID_8)
         );
@@ -96,8 +96,8 @@ public class NewsServiceIntegrationTest {
         AddNewsUseCase.AddNewsCommand command = new AddNewsUseCase.AddNewsCommand(
                 NON_EXISTING_CULTURAL_OFFER_ID,
                 VALID_NEWS_TITLE,
-                PRESENT_LOCAL_DATE_TIME,
-                EXISTING_ADMIN_ID_3,
+//                PRESENT_LOCAL_DATE_TIME,
+//                EXISTING_ADMIN_ID_3,
                 VALID_NEWS_TEXT,
                 // slike nece biti obrisane iz baze ovom operacijom
                 List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)
@@ -115,8 +115,8 @@ public class NewsServiceIntegrationTest {
         AddNewsUseCase.AddNewsCommand command = new AddNewsUseCase.AddNewsCommand(
                 INVALID_CULTURAL_OFFER_ID,
                 VALID_NEWS_TITLE,
-                PRESENT_LOCAL_DATE_TIME,
-                EXISTING_ADMIN_ID_3,
+//                PRESENT_LOCAL_DATE_TIME,
+//                EXISTING_ADMIN_ID_3,
                 VALID_NEWS_TEXT,
                 // slike nece biti obrisane iz baze ovom operacijom
                 List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)
@@ -134,8 +134,8 @@ public class NewsServiceIntegrationTest {
         AddNewsUseCase.AddNewsCommand command = new AddNewsUseCase.AddNewsCommand(
                 null,
                 VALID_NEWS_TITLE,
-                PRESENT_LOCAL_DATE_TIME,
-                EXISTING_ADMIN_ID_3,
+//                PRESENT_LOCAL_DATE_TIME,
+//                EXISTING_ADMIN_ID_3,
                 VALID_NEWS_TEXT,
                 // slike nece biti obrisane iz baze ovom operacijom
                 List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)
@@ -154,8 +154,8 @@ public class NewsServiceIntegrationTest {
         AddNewsUseCase.AddNewsCommand command = new AddNewsUseCase.AddNewsCommand(
                 EXISTING_CULTURAL_OFFER_ID,
                 INVALID_NEWS_TITLE,
-                PRESENT_LOCAL_DATE_TIME,
-                EXISTING_ADMIN_ID_3,
+//                PRESENT_LOCAL_DATE_TIME,
+//                EXISTING_ADMIN_ID_3,
                 VALID_NEWS_TEXT,
                 // slike nece biti obrisane iz baze ovom operacijom
                 List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)
@@ -173,63 +173,8 @@ public class NewsServiceIntegrationTest {
         AddNewsUseCase.AddNewsCommand command = new AddNewsUseCase.AddNewsCommand(
                 EXISTING_CULTURAL_OFFER_ID,
                 null,
-                PRESENT_LOCAL_DATE_TIME,
-                EXISTING_ADMIN_ID_3,
-                VALID_NEWS_TEXT,
-                // slike nece biti obrisane iz baze ovom operacijom
-                List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)
-        );
-    }
-
-    /*
-     * add news
-     * AddNewsCommand    invalid -> null localDateTime
-     * expected          exception
-     */
-    @Test(expected = ConstraintViolationException.class)
-    public void givenNullLocalDateTimeThenAddNewsShouldFail() {
-        AddNewsUseCase.AddNewsCommand command = new AddNewsUseCase.AddNewsCommand(
-                EXISTING_CULTURAL_OFFER_ID,
-                VALID_NEWS_TITLE,
-                null,
-                EXISTING_ADMIN_ID_3,
-                VALID_NEWS_TEXT,
-                // slike nece biti obrisane iz baze ovom operacijom
-                List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)
-        );
-    }
-
-    /*
-     * add news
-     * AddNewsCommand    invalid -> non existing admin id
-     * expected          exception
-     */
-    @Test(expected = AdminNotFoundException.class)
-    public void givenNonExistingAdminIdThenAddNewsShouldFail() throws AdminNotFoundException, ImageNotFoundException, CulturalOfferNotFoundException, NewsAlreadyExistException {
-        AddNewsUseCase.AddNewsCommand command = new AddNewsUseCase.AddNewsCommand(
-                EXISTING_CULTURAL_OFFER_ID,
-                VALID_NEWS_TITLE,
-                PRESENT_LOCAL_DATE_TIME,
-                NON_EXISTING_ADMIN_ID_10,
-                VALID_NEWS_TEXT,
-                // slike nece biti obrisane iz baze ovom operacijom
-                List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)
-        );
-        newsService.addNews(command);
-    }
-
-    /*
-     * add news
-     * AddNewsCommand    invalid -> null admin id
-     * expected          exception
-     */
-    @Test(expected = ConstraintViolationException.class)
-    public void givenNullAdminIdThenAddNewsShouldFail() {
-        AddNewsUseCase.AddNewsCommand command = new AddNewsUseCase.AddNewsCommand(
-                EXISTING_CULTURAL_OFFER_ID,
-                VALID_NEWS_TITLE,
-                PRESENT_LOCAL_DATE_TIME,
-                null,
+//                PRESENT_LOCAL_DATE_TIME,
+//                EXISTING_ADMIN_ID_3,
                 VALID_NEWS_TEXT,
                 // slike nece biti obrisane iz baze ovom operacijom
                 List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)
@@ -246,8 +191,8 @@ public class NewsServiceIntegrationTest {
         AddNewsUseCase.AddNewsCommand command = new AddNewsUseCase.AddNewsCommand(
                 EXISTING_CULTURAL_OFFER_ID,
                 VALID_NEWS_TITLE,
-                PRESENT_LOCAL_DATE_TIME,
-                EXISTING_ADMIN_ID_3,
+//                PRESENT_LOCAL_DATE_TIME,
+//                EXISTING_ADMIN_ID_3,
                 INVALID_NEWS_TEXT,
                 // slike nece biti obrisane iz baze ovom operacijom
                 List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)
@@ -264,8 +209,8 @@ public class NewsServiceIntegrationTest {
         AddNewsUseCase.AddNewsCommand command = new AddNewsUseCase.AddNewsCommand(
                 EXISTING_CULTURAL_OFFER_ID,
                 VALID_NEWS_TITLE,
-                PRESENT_LOCAL_DATE_TIME,
-                EXISTING_ADMIN_ID_3,
+//                PRESENT_LOCAL_DATE_TIME,
+//                EXISTING_ADMIN_ID_3,
                 null,
                 // slike nece biti obrisane iz baze ovom operacijom
                 List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)
@@ -282,8 +227,8 @@ public class NewsServiceIntegrationTest {
         AddNewsUseCase.AddNewsCommand command = new AddNewsUseCase.AddNewsCommand(
                 EXISTING_CULTURAL_OFFER_ID,
                 VALID_NEWS_TITLE,
-                PRESENT_LOCAL_DATE_TIME,
-                EXISTING_ADMIN_ID_3,
+//                PRESENT_LOCAL_DATE_TIME,
+//                EXISTING_ADMIN_ID_3,
                 VALID_NEWS_TEXT,
 
                 // exception here
@@ -303,8 +248,8 @@ public class NewsServiceIntegrationTest {
         AddNewsUseCase.AddNewsCommand command = new AddNewsUseCase.AddNewsCommand(
                 EXISTING_CULTURAL_OFFER_ID,
                 VALID_NEWS_TITLE,
-                PRESENT_LOCAL_DATE_TIME,
-                EXISTING_ADMIN_ID_3,
+//                PRESENT_LOCAL_DATE_TIME,
+//                EXISTING_ADMIN_ID_3,
                 VALID_NEWS_TEXT,
                 null
         );
@@ -529,8 +474,8 @@ public class NewsServiceIntegrationTest {
                         rollBackNews.getId(),                       // news id
                         rollBackNews.getCulturalOffer().getId(),    // offer id
                         NON_EXISTING_NEWS_TITLE,                    // news title
-                        rollBackNews.getPostedDate(),               // localDateTime
-                        rollBackNews.getAuthor().getId(),           // author id
+//                        rollBackNews.getPostedDate(),               // localDateTime
+//                        rollBackNews.getAuthor().getId(),           // author id
                         rollBackNews.getText(),                     // news text
                         rollBackNews.getImages()                    // images
                                 .stream()
@@ -573,8 +518,8 @@ public class NewsServiceIntegrationTest {
                         // exception here
                         INVALID_NEWS_TITLE,                         // news title
 
-                        PRESENT_LOCAL_DATE_TIME,                    // localDateTime
-                        EXISTING_ADMIN_ID_3,                        // author id
+//                        PRESENT_LOCAL_DATE_TIME,                    // localDateTime
+//                        EXISTING_ADMIN_ID_3,                        // author id
                         EXISTING_NEWS_TEXT,                         // news text
                         List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)                    // images
                 );
@@ -595,167 +540,10 @@ public class NewsServiceIntegrationTest {
                         // exception here
                         null,                         // news title
 
-                        PRESENT_LOCAL_DATE_TIME,                    // localDateTime
-                        EXISTING_ADMIN_ID_3,                        // author id
+//                        PRESENT_LOCAL_DATE_TIME,                    // localDateTime
+//                        EXISTING_ADMIN_ID_3,                        // author id
                         EXISTING_NEWS_TEXT,                         // news text
                         List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)                    // images
-                );
-    }
-
-    /*
-     * update news
-     * UpdateNewsCommand         valid -> posted date changed
-     * expected                  success
-     */
-    @Test
-    public void givenValidNewsPostedDateThenUpdateShouldSucceed() throws NewsNotFoundException, ImageNotFoundException, AdminNotFoundException, CulturalOfferNotFoundException, NewsAlreadyExistException {
-        News rollBackNews = getRollBackNews(EXISTING_NEWS_ID_1_FOR_OFFER_ID_1, EXISTING_CULTURAL_OFFER_ID);
-        LocalDateTime rollBackDate = rollBackNews.getPostedDate();
-
-        UpdateNewsUseCase.UpdateNewsCommand command =
-                new UpdateNewsUseCase.UpdateNewsCommand(
-                        rollBackNews.getId(),                       // news id
-                        rollBackNews.getCulturalOffer().getId(),    // offer id
-                        rollBackNews.getTitle(),                    // news title
-                        PRESENT_LOCAL_DATE_TIME,                    // localDateTime
-                        rollBackNews.getAuthor().getId(),           // author id
-                        rollBackNews.getText(),                     // news text
-                        rollBackNews.getImages()                    // images
-                                .stream()
-                                .map(Image::getId)
-                                .collect(Collectors.toList())
-                );
-        newsService.updateNews(command);
-
-        Optional<News> updatedNewsOptional = newsRepository.findByIdAndCulturalOfferIdAndArchivedFalse(
-                EXISTING_NEWS_ID_1_FOR_OFFER_ID_1,
-                EXISTING_CULTURAL_OFFER_ID
-        );
-        assertTrue(updatedNewsOptional.isPresent());
-
-
-        News updatedNews = updatedNewsOptional.get();
-
-        assertEquals(rollBackNews.getId(), updatedNews.getId());
-        assertEquals(rollBackNews.getCulturalOffer().getId(), updatedNews.getCulturalOffer().getId());
-        assertEquals(PRESENT_LOCAL_DATE_TIME, updatedNews.getPostedDate());
-
-
-        // Rollback
-        updatedNews.setPostedDate(rollBackDate);
-        newsRepository.save(updatedNews);
-    }
-
-    /*
-     * update news
-     * UpdateNewsCommand         valid -> null posted date
-     * expected                  exception
-     */
-    @Test(expected = ConstraintViolationException.class)
-    public void givenNullPostedDateThenUpdateShouldRaiseException() {
-        UpdateNewsUseCase.UpdateNewsCommand command =
-                new UpdateNewsUseCase.UpdateNewsCommand(
-                        EXISTING_NEWS_ID_1_FOR_OFFER_ID_1,          // news id
-                        EXISTING_CULTURAL_OFFER_ID,                 // offer id
-                        EXISTING_NEWS_TITLE,                        // news title
-
-                        // exception here
-                        null,                             // localDateTime
-
-                        EXISTING_ADMIN_ID_3,                        // author id
-                        EXISTING_NEWS_TEXT,                         // news text
-                        List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)                    // images
-                );
-    }
-
-    /*
-     * update news
-     * UpdateNewsCommand         valid -> author changed
-     * expected                  success
-     */
-    @Test
-    public void givenValidAuthorThenUpdateShouldSucceed() throws NewsNotFoundException, ImageNotFoundException, AdminNotFoundException, CulturalOfferNotFoundException, NewsAlreadyExistException {
-        News rollBackNews = getRollBackNews(EXISTING_NEWS_ID_1_FOR_OFFER_ID_1, EXISTING_CULTURAL_OFFER_ID);
-        Administrator rollBackAuthor = rollBackNews.getAuthor();
-
-        UpdateNewsUseCase.UpdateNewsCommand command =
-                new UpdateNewsUseCase.UpdateNewsCommand(
-                        rollBackNews.getId(),                       // news id
-                        rollBackNews.getCulturalOffer().getId(),    // offer id
-                        rollBackNews.getTitle(),                    // news title
-                        rollBackNews.getPostedDate(),               // localDateTime
-                        EXISTING_ADMIN_ID_4,                        // author id
-                        rollBackNews.getText(),                     // news text
-                        rollBackNews.getImages()                    // images
-                                .stream()
-                                .map(Image::getId)
-                                .collect(Collectors.toList())
-                );
-        newsService.updateNews(command);
-
-        Optional<News> updatedNewsOptional = newsRepository.findByIdAndCulturalOfferIdAndArchivedFalse(
-                EXISTING_NEWS_ID_1_FOR_OFFER_ID_1,
-                EXISTING_CULTURAL_OFFER_ID
-        );
-        assertTrue(updatedNewsOptional.isPresent());
-
-
-        News updatedNews = updatedNewsOptional.get();
-
-        assertEquals(rollBackNews.getId(), updatedNews.getId());
-        assertEquals(rollBackNews.getCulturalOffer().getId(), updatedNews.getCulturalOffer().getId());
-        assertEquals(EXISTING_ADMIN_ID_4, updatedNews.getAuthor().getId());
-
-
-        // Rollback
-        updatedNews.setAuthor(rollBackAuthor);
-        newsRepository.save(updatedNews);
-    }
-
-    /*
-     * update news
-     * UpdateNewsCommand         valid -> non existing author
-     * expected                  exception
-     */
-    @Test(expected = AdminNotFoundException.class)
-    public void givenInvalidAuthorThenUpdateShouldRaiseException() throws NewsNotFoundException, ImageNotFoundException, AdminNotFoundException, CulturalOfferNotFoundException, NewsAlreadyExistException {
-        News rollBackNews = getRollBackNews(EXISTING_NEWS_ID_1_FOR_OFFER_ID_1, EXISTING_CULTURAL_OFFER_ID);
-
-        UpdateNewsUseCase.UpdateNewsCommand command =
-                new UpdateNewsUseCase.UpdateNewsCommand(
-                        rollBackNews.getId(),                       // news id
-                        rollBackNews.getCulturalOffer().getId(),    // offer id
-                        rollBackNews.getTitle(),                    // news title
-                        rollBackNews.getPostedDate(),               // localDateTime
-                        NON_EXISTING_ADMIN_ID_10,                   // author id
-                        rollBackNews.getText(),                     // news text
-                        rollBackNews.getImages()                    // images
-                                .stream()
-                                .map(Image::getId)
-                                .collect(Collectors.toList())
-                );
-        newsService.updateNews(command);
-    }
-
-    /*
-     * update news
-     * UpdateNewsCommand         invalid -> null author
-     * expected                  exception
-     */
-    @Test(expected = ConstraintViolationException.class)
-    public void givenNullAuthorThenUpdateShouldRaiseException() {
-        UpdateNewsUseCase.UpdateNewsCommand command =
-                new UpdateNewsUseCase.UpdateNewsCommand(
-                        EXISTING_NEWS_ID_1_FOR_OFFER_ID_1,                       // news id
-                        EXISTING_CULTURAL_OFFER_ID,    // offer id
-                        EXISTING_NEWS_TITLE,                    // news title
-                        PRESENT_LOCAL_DATE_TIME,               // localDateTime
-
-                        // exception here
-                        null,                        // author id
-
-                        EXISTING_NEWS_TEXT,                     // news text
-                        List.of(FREE_NEWS_IMAGE_ID_9, FREE_NEWS_IMAGE_ID_10)
                 );
     }
 
@@ -774,8 +562,8 @@ public class NewsServiceIntegrationTest {
                         rollBackNews.getId(),                       // news id
                         rollBackNews.getCulturalOffer().getId(),    // offer id
                         rollBackNews.getTitle(),                    // news title
-                        rollBackNews.getPostedDate(),               // localDateTime
-                        rollBackNews.getAuthor().getId(),           // author id
+//                        rollBackNews.getPostedDate(),               // localDateTime
+//                        rollBackNews.getAuthor().getId(),           // author id
                         NON_EXISTING_NEWS_TEXT,                     // news text
                         rollBackNews.getImages()                    // images
                                 .stream()
@@ -815,8 +603,8 @@ public class NewsServiceIntegrationTest {
                         EXISTING_NEWS_ID_1_FOR_OFFER_ID_1,                       // news id
                         EXISTING_CULTURAL_OFFER_ID,    // offer id
                         EXISTING_NEWS_TITLE,                    // news title
-                        PRESENT_LOCAL_DATE_TIME,               // localDateTime
-                        EXISTING_ADMIN_ID_3,           // author id
+//                        PRESENT_LOCAL_DATE_TIME,               // localDateTime
+//                        EXISTING_ADMIN_ID_3,           // author id
 
                         // exception here
                         INVALID_NEWS_TEXT,                     // news text
@@ -837,8 +625,8 @@ public class NewsServiceIntegrationTest {
                         EXISTING_NEWS_ID_1_FOR_OFFER_ID_1,                       // news id
                         EXISTING_CULTURAL_OFFER_ID,    // offer id
                         EXISTING_NEWS_TITLE,                    // news title
-                        PRESENT_LOCAL_DATE_TIME,               // localDateTime
-                        EXISTING_ADMIN_ID_3,           // author id
+//                        PRESENT_LOCAL_DATE_TIME,               // localDateTime
+//                        EXISTING_ADMIN_ID_3,           // author id
 
                         // exception here
                         null,                     // news text
@@ -862,8 +650,8 @@ public class NewsServiceIntegrationTest {
                         rollBackNews.getId(),                       // news id
                         rollBackNews.getCulturalOffer().getId(),    // offer id
                         rollBackNews.getTitle(),                    // news title
-                        rollBackNews.getPostedDate(),               // localDateTime
-                        rollBackNews.getAuthor().getId(),           // author id
+//                        rollBackNews.getPostedDate(),               // localDateTime
+//                        rollBackNews.getAuthor().getId(),           // author id
                         rollBackNews.getText(),                     // news text
                         List.of(FREE_NEWS_IMAGE_FOR_UPDATE_ID_11, FREE_NEWS_IMAGE_FOR_UPDATE_ID_12)                    // images
                 );
@@ -901,8 +689,8 @@ public class NewsServiceIntegrationTest {
                         EXISTING_NEWS_ID_1_FOR_OFFER_ID_1,                       // news id
                         EXISTING_CULTURAL_OFFER_ID,    // offer id
                         EXISTING_NEWS_TITLE,                    // news title
-                        PRESENT_LOCAL_DATE_TIME,               // localDateTime
-                        EXISTING_ADMIN_ID_3,           // author id
+//                        PRESENT_LOCAL_DATE_TIME,               // localDateTime
+//                        EXISTING_ADMIN_ID_3,           // author id
                         EXISTING_NEWS_TEXT,                     // news text
 
                         // Exception here
@@ -924,8 +712,8 @@ public class NewsServiceIntegrationTest {
                         EXISTING_NEWS_ID_1_FOR_OFFER_ID_1,                       // news id
                         EXISTING_CULTURAL_OFFER_ID,    // offer id
                         EXISTING_NEWS_TITLE,                    // news title
-                        PRESENT_LOCAL_DATE_TIME,               // localDateTime
-                        EXISTING_ADMIN_ID_3,           // author id
+//                        PRESENT_LOCAL_DATE_TIME,               // localDateTime
+//                        EXISTING_ADMIN_ID_3,           // author id
                         EXISTING_NEWS_TEXT,                     // news text
 
                         // Exception here

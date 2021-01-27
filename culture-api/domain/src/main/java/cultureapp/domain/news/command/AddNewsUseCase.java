@@ -30,13 +30,6 @@ public interface AddNewsUseCase {
         String name;
 
         @NotNull
-        LocalDateTime postedDate;
-
-        @NotNull
-        @Positive
-        Long authorID;
-
-        @NotNull
         @NotBlank
         String text;
 
@@ -46,15 +39,11 @@ public interface AddNewsUseCase {
         public AddNewsCommand(
                 Long culturalOfferID,
                 String name,
-                LocalDateTime postedDate,
-                Long authorID,
                 String text,
                 List<Long> images
         ) {
             this.culturalOfferID = culturalOfferID;
             this.name = name;
-            this.postedDate = postedDate;
-            this.authorID = authorID;
             this.text = text;
             this.images = images;
             this.validateSelf();

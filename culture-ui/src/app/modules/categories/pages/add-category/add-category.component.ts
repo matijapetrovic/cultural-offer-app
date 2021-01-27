@@ -29,7 +29,7 @@ export class AddCategoryComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.submitted = true;
+    this.submitted = false;
     if (this.invalidFormInputs()) {
       this.removeFormInputs();
       return;
@@ -43,6 +43,8 @@ export class AddCategoryComponent implements OnInit {
     this.categoryService.addCategory(category)
       .subscribe(
         () => {
+          console.log('ja sam lud');
+          this.submitted = true;
           this.loading = false;
           this.removeFormInputs();
           this.ref.close(this.submitted);

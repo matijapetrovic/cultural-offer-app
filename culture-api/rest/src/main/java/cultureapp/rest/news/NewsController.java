@@ -43,13 +43,10 @@ public class NewsController {
     @PostMapping("")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Void> addNews(@PathVariable Long culturalOfferId, @RequestBody NewsRequest request) throws CulturalOfferNotFoundException, AdminNotFoundException, NewsAlreadyExistException, ImageNotFoundException {
-        LocalDateTime now = LocalDateTime.now();
 
         AddNewsUseCase.AddNewsCommand command = new AddNewsUseCase.AddNewsCommand(
                 culturalOfferId,
-                request.getName(),
-                now,
-                request.getAuthorID(),
+                request.getTitle(),
                 request.getText(),
                 request.getImages()
         );
@@ -101,9 +98,7 @@ public class NewsController {
         UpdateNewsUseCase.UpdateNewsCommand command = new UpdateNewsUseCase.UpdateNewsCommand(
                 id,
                 culturalOfferId,
-                request.getName(),
-                LocalDateTime.now(),
-                request.getAuthorID(),
+                request.getTitle(),
                 request.getText(),
                 request.getImages());
 

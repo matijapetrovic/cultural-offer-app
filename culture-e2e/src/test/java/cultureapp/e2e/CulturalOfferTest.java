@@ -1,9 +1,12 @@
 package cultureapp.e2e;
 
-import cultureapp.e2e.pages.LoginPage;
+import cultureapp.e2e.pages.login.LoginPage;
 import cultureapp.e2e.pages.NavigationBar;
+import cultureapp.e2e.pages.cultural_offer.AddReplyDialog;
+import cultureapp.e2e.pages.cultural_offer.AddReviewDialog;
 import cultureapp.e2e.pages.cultural_offer.CulturalOfferPage;
 import cultureapp.e2e.pages.home.HomePage;
+import cultureapp.e2e.util.Util;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,8 +14,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
 
-import static cultureapp.e2e.Util.APP_URL;
-import static cultureapp.e2e.Util.CHROME_DRIVER_PATH;
+import static cultureapp.e2e.util.Util.APP_URL;
+import static cultureapp.e2e.util.Util.CHROME_DRIVER_PATH;
 import static cultureapp.e2e.common.CulturalOfferPageTestData.*;
 
 import static org.junit.Assert.*;
@@ -62,7 +65,7 @@ public class CulturalOfferTest {
         culturalOfferPage.getSubscribeButton().click();
         culturalOfferPage.getAcceptConfirmButton().click();
 
-        culturalOfferPage.ensureToastIsDisplayed();
+        culturalOfferPage.ensureSuccessToastIsDisplayed();
         culturalOfferPage.ensureIsDisplayedUnsubscribeButton();
     }
 
@@ -85,7 +88,7 @@ public class CulturalOfferTest {
         culturalOfferPage.getUnsubscribeButton().click();
         culturalOfferPage.getAcceptConfirmButton().click();
 
-        culturalOfferPage.ensureToastIsDisplayed();
+        culturalOfferPage.ensureSuccessToastIsDisplayed();
         culturalOfferPage.ensureIsDisplayedSubscribeButton();
     }
 
@@ -134,4 +137,105 @@ public class CulturalOfferTest {
         assertTrue(culturalOfferPage.getNewsSection().getPaginationPrevButton().isEnabled());
         assertFalse(culturalOfferPage.getNewsSection().getPaginationNextButton().isEnabled());
     }
+
+    @Test
+    public void addReviewSuccess() {
+        homePage.ensureIsDisplayed();
+        navigationBar.ensureLoginPageLinkIsDisplayed();
+        navigationBar.getLoginPageLink().click();
+
+        loginPage.ensureIsDisplayed();
+        loginPage.getUsernameInput().sendKeys(REGULAR_USER_USERNAME);
+        loginPage.getPasswordInput().sendKeys(REGULAR_USER_PASSWORD);
+        loginPage.getLoginButton().click();
+
+        homePage.ensureIsDisplayed();
+        browser.navigate().to(String.format("%s/cultural-offers/%d", APP_URL, NO_REVIEWS_OFFER_ID));
+
+        culturalOfferPage.ensureIsDisplayed();
+        culturalOfferPage.getReviewsSection().getAddReviewButton().click();
+        AddReviewDialog dialog = culturalOfferPage.getAddReviewDialog();
+        dialog.ensureIsDisplayed();
+        dialog.setComment(REVIEW_TEXT);
+        dialog.addImage(TEST_IMAGE_PATH);
+        dialog.getAddButton().click();
+        culturalOfferPage.ensureInfoToastIsDisplayed();
+        culturalOfferPage.ensureSuccessToastIsDisplayed();
+
+        culturalOfferPage.getReviewsSection().openReview(1);
+        assertEquals(REVIEW_TEXT, culturalOfferPage.getReviewsSection().getOpenReviewComment().getText());
+    }
+
+    @Test
+    public void addReviewNoComment() {
+        homePage.ensureIsDisplayed();
+        navigationBar.ensureLoginPageLinkIsDisplayed();
+        navigationBar.getLoginPageLink().click();
+
+        loginPage.ensureIsDisplayed();
+        loginPage.getUsernameInput().sendKeys(REGULAR_USER_USERNAME);
+        loginPage.getPasswordInput().sendKeys(REGULAR_USER_PASSWORD);
+        loginPage.getLoginButton().click();
+
+        homePage.ensureIsDisplayed();
+        browser.navigate().to(String.format("%s/cultural-offers/%d", APP_URL, NO_REVIEWS_OFFER_ID));
+
+        culturalOfferPage.ensureIsDisplayed();
+        culturalOfferPage.getReviewsSection().getAddReviewButton().click();
+        AddReviewDialog dialog = culturalOfferPage.getAddReviewDialog();
+        dialog.ensureIsDisplayed();
+        dialog.addImage(TEST_IMAGE_PATH);
+
+        assertFalse(dialog.getAddButton().isEnabled());
+    }
+
+    @Test
+    public void replyToReviewSuccess() {
+        homePage.ensureIsDisplayed();
+        navigationBar.ensureLoginPageLinkIsDisplayed();
+        navigationBar.getLoginPageLink().click();
+
+        loginPage.ensureIsDisplayed();
+        loginPage.getUsernameInput().sendKeys(ADMINISTRATOR_USERNAME);
+        loginPage.getPasswordInput().sendKeys(ADMINISTRATOR_PASSWORD);
+        loginPage.getLoginButton().click();
+
+        homePage.ensureIsDisplayed();
+        browser.navigate().to(String.format("%s/cultural-offers/%d", APP_URL, REVIEWS_WITH_NO_REPLIES_OFFER_ID));
+
+        culturalOfferPage.ensureIsDisplayed();
+        culturalOfferPage.getReviewsSection().openReview(1);
+        culturalOfferPage.getReviewsSection().getOpenReplyButton().click();
+        AddReplyDialog dialog = culturalOfferPage.getAddReplyDialog();
+        dialog.ensureIsDisplayed();
+        dialog.setComment(REPLY_TEXT);
+        dialog.getAddButton().click();
+        culturalOfferPage.ensureSuccessToastIsDisplayed();
+
+        culturalOfferPage.getReviewsSection().openReview(1);
+        assertEquals(REPLY_TEXT, culturalOfferPage.getReviewsSection().getOpenReplyComment().getText());
+    }
+
+    @Test
+    public void replyToReviewNoComment() {
+        homePage.ensureIsDisplayed();
+        navigationBar.ensureLoginPageLinkIsDisplayed();
+        navigationBar.getLoginPageLink().click();
+
+        loginPage.ensureIsDisplayed();
+        loginPage.getUsernameInput().sendKeys(ADMINISTRATOR_USERNAME);
+        loginPage.getPasswordInput().sendKeys(ADMINISTRATOR_PASSWORD);
+        loginPage.getLoginButton().click();
+
+        homePage.ensureIsDisplayed();
+        browser.navigate().to(String.format("%s/cultural-offers/%d", APP_URL, REVIEWS_WITH_NO_REPLIES_OFFER_ID));
+
+        culturalOfferPage.ensureIsDisplayed();
+        culturalOfferPage.getReviewsSection().openReview(2);
+        culturalOfferPage.getReviewsSection().getOpenReplyButton().click();
+        AddReplyDialog dialog = culturalOfferPage.getAddReplyDialog();
+        dialog.ensureIsDisplayed();
+        assertFalse(dialog.getAddButton().isEnabled());
+    }
+
 }

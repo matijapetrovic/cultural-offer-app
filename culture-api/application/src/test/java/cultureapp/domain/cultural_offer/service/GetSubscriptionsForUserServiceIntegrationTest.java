@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Slice;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -40,7 +41,9 @@ public class GetSubscriptionsForUserServiceIntegrationTest {
         GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserQuery query =
                 new GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserQuery(
                         EXISTING_CATEGORY_ID,
-                        EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1
+                        EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1,
+                        0L,
+                        100L
                 );
 
         getSubscriptionsService.handleGetSubscriptions(query);
@@ -55,7 +58,10 @@ public class GetSubscriptionsForUserServiceIntegrationTest {
         GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserQuery query =
                 new GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserQuery(
                         EXISTING_CATEGORY_ID,
-                        NON_EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1);
+                        NON_EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1,
+                        0L,
+                        100L
+                );
 
         getSubscriptionsService.handleGetSubscriptions(query);
     }
@@ -67,11 +73,15 @@ public class GetSubscriptionsForUserServiceIntegrationTest {
         GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserQuery query =
                 new GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserQuery(
                         EXISTING_CATEGORY_ID,
-                        EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1
+                        EXISTING_SUBCATEGORY_ID_FOR_CATEGORY_ID_1,
+                        0L,
+                        100L
                 );
 
-        List<GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserDTO> result =
+        Slice<GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserDTO> resultSlice =
                 getSubscriptionsService.handleGetSubscriptions(query);
+
+        List<GetSubscriptionsForUserQueryHandler.GetSubscriptionsForUserDTO> result = resultSlice.toList();
 
         assertEquals(NUMBER_OF_SUBSCRIPTIONS_FOR_USER_1_AND_SUBCATEGORY_1_1, result.size());
         assertEquals(EXISTING_CULTURAL_OFFER_ID, result.get(0).getId());

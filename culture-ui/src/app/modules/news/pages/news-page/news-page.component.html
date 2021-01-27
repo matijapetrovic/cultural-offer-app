@@ -1,0 +1,98 @@
+
+<div class="p-grid p-mt-6 p-justify-center centered-grid"></div>
+<div class="p-grid p-mt-6 p-justify-center centered-grid"></div>
+<div class="p-grid p-mt-6 p-justify-center centered-grid">
+  <div class="p-col p-sm-5 p-md-6 p-lg-6">
+    <p-card class="flat-card">
+      <div class="p-card-header">
+        <div class="p-grid p-justify-center">
+          <h1>
+            <strong>
+              News
+            </strong>
+          </h1>
+        </div>
+      </div>
+      <button
+        id="show-add-news-form-button"
+        pButton
+        type="button"
+        class="p-button-raised p-button-rounded p-justify-left"
+        label="Add news"
+        (click)="showAddForm()"
+      ></button>
+      <div class="p-grid p-mt-3 p-justify-center centered-grid"></div>
+        <p-table
+          id="news-table"
+          #dt 
+          *ngIf="newsPage"
+          [value]="newsPage.data"
+          [editable]="true"  [paginator]="false" [rows]="10" [responsive]="true"
+          [showCurrentPageReport]="true"
+          styleClass="p-datatable-newsPage p-datatable-gridlines"
+          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+          [globalFilterFields]="['name']"
+        >
+        <ng-template pTemplate="caption">
+          <div class="p-d-flex">
+            <span class="p-input-icon-right p-ml-auto">
+              <i class="pi pi-search"></i>
+              <input
+                id="search-news-input"
+                pInputText
+                type="text"
+                (input)="dt.filterGlobal($event.target.value, 'contains')"
+                placeholder="Search keyword" />
+            </span>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Title</th>
+            <th>Actions</th>
+          </tr>
+        </ng-template>
+        <ng-template id="news-table-item" pTemplate="body" let-news>
+          <tr ng-repeat="(news.title) in newsPage.data">
+            <td id="news-title">
+              {{news.title}}
+            </td>
+            <td>
+              <div class="p-grid p-justify-center">
+                <button
+                  id="show-update-news-form-button"
+                  pButton 
+                  label="Edit"
+                  icon="pi pi-pencil" 
+                  class="p-button-secondary p-button-rounded p-justify-left p-button-sm p-mr-3 p-mb-2"
+                  (click)="showUpdateForm(news)"
+                ></button>
+                <button 
+                  id="show-delete-news-dialog-button"
+                  pButton
+                  label="Delete"
+                  icon="pi pi-trash" 
+                  class="p-button-info p-button-rounded p-justify-right p-button-sm p-mb-2"
+                  (click)="showDeleteForm(news)"
+                ></button>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+      <p-footer class="p-grid p-justify-center"> 
+      <app-pagination-bar
+        *ngIf="newsPage"
+        [hasPrev]="newsPage.links.prev"
+        [hasNext]="newsPage.links.next"
+        [currentPage]="page"
+        (navigatePrevEvent)="getPrevNews()"
+        (navigateNextEvent)="getNextNews()"
+        class="p-justify-center"
+      ></app-pagination-bar>
+      </p-footer>
+    </p-card>
+  </div>
+</div>
+
+<p-confirmDialog></p-confirmDialog>

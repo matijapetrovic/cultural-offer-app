@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../authentication.service';
+import { MessageService } from 'primeng/api';
+import { RegisterRequest } from '../../register';
 
 @Component({
   selector: 'app-registration',
@@ -16,7 +18,8 @@ export class RegistrationComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+     public messageService: MessageService
     ) { }
 
   ngOnInit(): void {
@@ -35,18 +38,27 @@ export class RegistrationComponent implements OnInit {
     this.submitted = true;
 
     if (this.isInvalidEmailForm() || !this.arePasswordsSame()) {
+      this.messageService.add({
+        severity: 'warn', summary: 'Registration info', detail: 'Registration data is not valid!'
+      });
       return;
     }
 
     this.loading = true;
-    this.authenticationService.register(
-      {
-        firstName: this.f.firstName.value,
-        lastName: this.f.lastName.value,
-        email: this.f.username.value,
-        password: this.f.password.value
-      })
-      .subscribe();
+    const registerRequest: RegisterRequest = {
+      firstName: this.f.firstName.value,
+      lastName: this.f.lastName.value,
+      email: this.f.username.value,
+      password: this.f.password.value
+    };
+    this.authenticationService.register(registerRequest)
+      .subscribe(() => {
+        this.messageService.add({
+          severity: 'success', summary: 'Registration successful', detail: 'You have successfully registered user!'
+        });
+        this.loading = false;
+        this.registerForm.reset();
+      });
   }
 
   usernameMessage(): string {

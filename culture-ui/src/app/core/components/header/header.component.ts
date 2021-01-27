@@ -40,6 +40,10 @@ export class HeaderComponent implements OnInit {
 
   adminItems: MenuItem[] = [
     {
+      label: 'Cultural Offers',
+      routerLink: ['/cultural-offers']
+    },
+    {
       label: 'Categories',
       routerLink: ['/categories'],
       id: 'categories-nav-link'
@@ -49,11 +53,6 @@ export class HeaderComponent implements OnInit {
       routerLink: ['/subcategories'],
       id: 'subcategories-nav-link'
     },
-    {
-      label: 'News',
-      routerLink: ['news'],
-      id: 'news-nav-link'
-    }
   ];
 
   unauthenticatedItems: MenuItem[] = [

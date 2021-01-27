@@ -44,6 +44,7 @@ public class UpdateCulturalOfferService implements UpdateCulturalOfferUseCase {
         Subcategory subcategory = subcategoryRepository.findByIdAndCategoryIdAndArchivedFalse(command.getSubcategoryId(), command.getCategoryId())
                 .orElseThrow(() -> new SubcategoryNotFoundException(command.getSubcategoryId(), command.getCategoryId()));
         offer.setSubcategory(subcategory);
+        offer.getLocation().setAddress(command.getAddress());
 
         repository.save(offer);
         notifySubscribers(offer);

@@ -1,4 +1,4 @@
-package cultureapp.e2e.pages;
+package cultureapp.e2e.pages.category;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -9,23 +9,24 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-@Getter
 @RequiredArgsConstructor
-public class LoginPage {
-    @Getter(value= AccessLevel.PRIVATE)
+@Getter
+public class AddCategoryForm {
+    @Getter(value = AccessLevel.PRIVATE)
     private final WebDriver driver;
 
-    @FindBy(css = "#login-username-input")
-    private WebElement usernameInput;
+    @FindBy(css = "#add-category-input")
+    private WebElement addCategoryInput;
 
-    @FindBy(css = "#login-password-input")
-    private WebElement passwordInput;
+    @FindBy(css = "#submit-category-button")
+    private WebElement submitCategoryButton;
 
-    @FindBy(css = "#login-submit-button")
-    private WebElement loginButton;
+    public void submitCategory() {
+        submitCategoryButton.click();
+    }
 
     public void ensureIsDisplayed() {
         (new WebDriverWait(driver, 10))
-                .until(ExpectedConditions.visibilityOf(loginButton));
+                .until(ExpectedConditions.visibilityOf(submitCategoryButton));
     }
 }

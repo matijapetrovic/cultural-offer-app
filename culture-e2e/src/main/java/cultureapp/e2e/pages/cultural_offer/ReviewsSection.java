@@ -22,6 +22,9 @@ public class ReviewsSection {
     @FindBy(css = ".reviews-section .pagination-next-button")
     private WebElement paginationNextButton;
 
+    @FindBy(css = ".reviews-section .add-review-button")
+    private WebElement addReviewButton;
+
 
     public void ensureIsDisplayed() {
         (new WebDriverWait(driver, 10))
@@ -29,6 +32,30 @@ public class ReviewsSection {
                         ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".reviews-section")),
                         ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".no-reviews-text"))
                 ));
+    }
+
+    public void openReview(int index) {
+        By selector =  By.cssSelector(String.format(".review-items p-accordiontab:nth-child(%d) .p-accordion-header-link", index));
+        (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.visibilityOfElementLocated(selector)).click();
+    }
+
+    public WebElement getOpenReviewComment() {
+        By selector = By.cssSelector(".p-accordion-tab-active .offer-review .review-comment");
+        return (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.visibilityOfElementLocated(selector));
+    }
+
+    public WebElement getOpenReplyComment() {
+        By selector = By.cssSelector(".p-accordion-tab-active .offer-review .reply-comment");
+        return (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.visibilityOfElementLocated(selector));
+    }
+
+    public WebElement getOpenReplyButton() {
+        By selector = By.cssSelector(".p-accordion-tab-active .offer-review .review-reply-button");
+        return (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.visibilityOfElementLocated(selector));
     }
 
 }
