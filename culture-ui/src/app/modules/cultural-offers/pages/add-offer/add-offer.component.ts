@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { first } from 'rxjs/operators';
+import { Component } from '@angular/core';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { CulturalOffersService } from 'src/app/modules/cultural-offers/cultural-offers.service'
 
 
@@ -25,7 +24,6 @@ export class AddOfferComponent{
         this.loading = true;
 
         this.culturalOffersService.addCulturalOffer(offer)
-        .pipe(first())
         .subscribe(() => {
             this.loading = false;
             this.ref.close(true);

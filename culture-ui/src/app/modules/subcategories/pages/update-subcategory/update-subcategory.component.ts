@@ -53,7 +53,6 @@ export class UpdateSubcategoryComponent implements OnInit {
     updateSubcategory(): void {
         this.subcategoriesService
         .updateSubcategory(this.subcategory)
-        .pipe(first())
         .subscribe(() => {
             this.loading = false;
             this.removeFormInputs();

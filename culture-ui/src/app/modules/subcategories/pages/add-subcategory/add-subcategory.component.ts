@@ -52,7 +52,6 @@ export class AddSubcategoryComponent implements OnInit {
     addSubcategory() {
         const subcategory: Subcategory = {id: null, categoryId: this.category.id, name: this.f.name.value };
         this.subcategoryService.addSubcategory(subcategory)
-        .pipe(first())
         .subscribe(() => {
             this.loading = false;
             this.removeFormInputs();

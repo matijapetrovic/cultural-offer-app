@@ -3,7 +3,7 @@ import { CulturalOffersPage } from '../../cultural-offer'
 import { CulturalOffersService } from '../../cultural-offers.service'
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { DialogService } from 'primeng/dynamicdialog';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { AddOfferComponent } from '../add-offer/add-offer.component';
 import { UpdateOfferComponent } from '../update-offer/update-offer.component';
 import {Router} from "@angular/router"
@@ -25,7 +25,8 @@ export class CulturalOffersComponent implements OnInit {
     constructor(
         private culturalOffersService:CulturalOffersService,
         public dialogService:DialogService,
-        private confirmationService:ConfirmationService,
+        public confirmationService:ConfirmationService,
+        public messageService: MessageService,
         private router: Router
     ) {
         this.page = 0;
@@ -46,6 +47,9 @@ export class CulturalOffersComponent implements OnInit {
         this.ref.onClose.subscribe(submited => {
             if(submited) {
                 this.getCulturalOffers();
+                this.messageService.add({
+                    severity: 'success', summary: 'Cultural offer added successful', detail: 'You have successfully added cultural offer' });
+                  setTimeout(() => this.messageService.clear(), 2000);
             }
         })
 
@@ -72,6 +76,8 @@ export class CulturalOffersComponent implements OnInit {
         this.ref.onClose.subscribe(submited => {
             if(submited) {
                 this.getCulturalOffers();
+                this.messageService.add({ severity: 'success', summary: 'Cultural offer updated successful', detail: 'You have successfully updated cultural offer' });
+                setTimeout(() => this.messageService.clear(), 2000);
             }
         })
 
@@ -83,11 +89,10 @@ export class CulturalOffersComponent implements OnInit {
             header: 'Delete Confirmation',
             icon: 'pi pi-info-circle',
             accept: () => {
-              //this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' });
+              this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have successfuly deleted cultural offer!' });
               this.deleteCulturalOffer(offer);
             },
             reject: () => {
-              //this.messageService.add({ severity: 'info', summary: 'Rejected', detail: 'You have rejected' });
             }
           });
     }

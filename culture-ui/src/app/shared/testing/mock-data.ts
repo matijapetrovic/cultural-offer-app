@@ -1,10 +1,10 @@
 import { Role } from 'src/app/modules/authentication/role';
 import { User } from 'src/app/modules/authentication/user';
 import { CategoriesPage, Category } from 'src/app/modules/categories/category';
-import { CulturalOffer, CulturalOfferLocation, LocationRange } from 'src/app/modules/cultural-offers/cultural-offer';
+import { CulturalOffer, CulturalOfferLocation, CulturalOffersPage, CulturalOfferToAdd, CulturalOfferView, LocationRange } from 'src/app/modules/cultural-offers/cultural-offer';
 import { News, NewsPage } from 'src/app/modules/news/news';
 import { Review, ReviewPage } from 'src/app/modules/reviews/review';
-import { Subcategory } from 'src/app/modules/subcategories/subcategory';
+import { SubcategoriesPage, Subcategory } from 'src/app/modules/subcategories/subcategory';
 
 const mockCategoryNames: Category[] = [
   {
@@ -30,6 +30,73 @@ const mockSubcategoryNames: Subcategory[] = [
   }
 ];
 
+const mockSubcategoriesPage: SubcategoriesPage = {
+  data: [
+    {
+      id: 1,
+      name: 'Subcategory1',
+      categoryId: 1
+    },
+    {
+      id: 2,
+      name: 'Subcategory2',
+      categoryId: 1
+    },
+  ],
+  links: new Map([['next', 'next-link'], ['self', 'self-link']])
+};
+
+const mockCulturalOffersPage: CulturalOffersPage = {
+  data: [
+    {
+      id: 1,
+      name: "Offer1",
+      description: "Description",
+      subcategory: {
+        id: 1,
+        name: 'Subcategory1',
+        categoryId: 1
+      },
+      images: ["img1", "img2"],
+      imagesIds: [1, 2],
+      latitude: 2.0,
+      longitude: 2.3,
+      address: "address"
+    },
+    {
+      id: 2,
+      name: "Offer2",
+      description: "Description",
+      subcategory: {
+        id: 1,
+        name: 'Subcategory2',
+        categoryId: 1
+      },
+      images: ["img1", "img2"],
+      imagesIds: [1, 2],
+      latitude: 2.0,
+      longitude: 2.3,
+      address: "address"
+    },
+    {
+      id: 1,
+      name: "Offer3",
+      description: "Description",
+      subcategory: {
+        id: 1,
+        name: 'Subcategory3',
+        categoryId: 1
+      },
+      images: ["img1", "img2"],
+      imagesIds: [1, 2],
+      latitude: 2.0,
+      longitude: 2.3,
+      address: "address"
+    }
+  ],
+  links: new Map([['next', 'next-link'], ['self', 'self-link']])
+};
+
 const mockCulturalOffer: CulturalOffer = {
     id: 1,
     name: 'Offer 1',
@@ -40,6 +107,34 @@ const mockCulturalOffer: CulturalOffer = {
     latitude: 45.0,
     longitude: 45.0
 };
+
+const mockCulturalOfferToAdd: CulturalOfferToAdd = {
+  id: 1,
+  name: 'Offer 1',
+  description: 'Some description',
+  latitude: 45.0,
+  longitude: 45.0,
+  images: [1, 2],
+  subcategoryId: 1,
+  categoryId: 1,
+  address: 'address'
+};
+
+const mockCulturalOfferView: CulturalOfferView = {
+  id: 1,
+  name: 'Offer 1',
+  description: 'Some description',
+  subcategory: {
+    id: 1,
+    name: 'Subcategory3',
+    categoryId: 1
+  },
+  imagesIds: [1, 2],
+  images: ['1', '2'],
+  latitude: 45.0,
+  longitude: 45.0,
+  address: "address"
+}
 
 const mockOfferLocations: CulturalOfferLocation[] = [
     {
@@ -215,5 +310,9 @@ export {
   mockAdmin,
   mockMapBounds,
   mockLocationRange,
-  mockCategoriesPage
+  mockCategoriesPage,
+  mockSubcategoriesPage,
+  mockCulturalOffersPage,
+  mockCulturalOfferToAdd,
+  mockCulturalOfferView
 };
