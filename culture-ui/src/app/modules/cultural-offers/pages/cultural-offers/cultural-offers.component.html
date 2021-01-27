@@ -13,6 +13,7 @@
         </div>
       </div>
       <button
+        id="show-add-cultural-offer-form-button"
         pButton
         type="button"
         class="p-button-raised p-button-rounded p-justify-left"
@@ -21,6 +22,7 @@
       ></button>
       <div class="p-grid p-mt-3 p-justify-center centered-grid"></div>
         <p-table
+          id="cultural-offers-table"
           #dt 
           *ngIf="culturalOffersPage"
           [value]="culturalOffersPage.data"
@@ -46,9 +48,13 @@
             <th>Actions</th>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-culturalOffer>
+        <ng-template 
+        id="cultural-offers-table-item" 
+        pTemplate="body" 
+        let-culturalOffer
+        >
           <tr ng-repeat="(culturalOffer) in culturalOffersPage.data">
-            <td>
+            <td id="cultural-offer-name">
               {{culturalOffer.name}}
             </td>
             <td>
@@ -57,6 +63,7 @@
             <td>
               <div class="p-grid p-justify-center">
                 <button
+                  id="show-news-page-button"
                   pButton 
                   label="News"
                   icon="pi pi-comments" 
@@ -64,6 +71,7 @@
                   (click)="showNews(culturalOffer)"
                 ></button>
                 <button
+                  id="show-update-cultural-offer-form-button"
                   pButton 
                   label="Edit"
                   icon="pi pi-pencil" 
@@ -71,6 +79,7 @@
                   (click)="showUpdateForm(culturalOffer)"
                 ></button>
                 <button 
+                  id="show-delete-cultural-offer-dialog-button"
                   pButton
                   label="Delete"
                   icon="pi pi-trash" 

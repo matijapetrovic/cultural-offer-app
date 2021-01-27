@@ -43,7 +43,6 @@ export class AddCategoryComponent implements OnInit {
     this.categoryService.addCategory(category)
       .subscribe(
         () => {
-          console.log('ja sam lud');
           this.submitted = true;
           this.loading = false;
           this.removeFormInputs();

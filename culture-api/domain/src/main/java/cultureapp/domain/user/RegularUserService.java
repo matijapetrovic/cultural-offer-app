@@ -35,7 +35,7 @@ public class RegularUserService implements RegisterRegularUserUseCase {
        regularUserRepository.save(regularUser);
        emailSender.sendEmail(account.getEmail(),
                "Account activation",
-               String.format("Please click this link: \n http://localhost:8080/api/auth/activate/%d", account.getId()));
+               String.format("Please click this link: \n http://localhost:4200/auth/activate/%d", account.getId()));
     }
 
 }

@@ -31,10 +31,10 @@ export class OfferMapPageComponent implements OnInit {
     private messageService: MessageService
   ) {
     this.locationRange = {
-      latitudeFrom: 41.0,
-      latitudeTo: 47.0,
-      longitudeFrom: 18.0,
-      longitudeTo: 23.0
+      latitudeFrom: 44.66841545724345,
+      latitudeTo: 44.72171309183708,
+      longitudeFrom: 19.47059610752435,
+      longitudeTo: 19.5262616937845
     };
     this.categoryId = null;
     this.subcategoryId = null;

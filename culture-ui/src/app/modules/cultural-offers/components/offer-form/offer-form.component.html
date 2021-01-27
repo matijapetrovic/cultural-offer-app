@@ -1,4 +1,4 @@
-<form (ngSubmit)="onSubmit()" id="form">
+<form #form="ngForm" (ngSubmit)="onSubmit()" id="form">
     <div class="grid-container">
       <div class="left-item">
         <table>
@@ -13,6 +13,7 @@
           <tr>
             <td colspan="3">
               <input
+                id="cultural-offer-name-input"
                 [(ngModel)]="culturalOffer.name"
                 name="name"
                 type="name"
@@ -33,6 +34,7 @@
           <tr>
             <td colspan="3">
               <input 
+              id="cultural-offer-address-input"
               [(ngModel)]="culturalOffer.address"
               name="address"
               type="name"
@@ -68,7 +70,7 @@
                 [searchable]="false"
                 [clearable]="false"
                 (change)="categoryChanged()"
-                id="filter-category-select">
+                id="cultural-offer-category-select">
               </ng-select>
             </td>
             <td></td>
@@ -82,7 +84,7 @@
                 appearance="outline"
                 [searchable]="false"
                 [clearable]="false"
-                id="filter-category-select">
+                id="cultural-offer-subcategory-select">
               </ng-select>
             </td>
           </tr>
@@ -98,6 +100,7 @@
           <tr>
             <td colspan="3" rowspan="3">
               <textarea
+                id="cultural-offer-description-input"
                 [(ngModel)]="culturalOffer.description"
                 name="description"
                 class="form-control"
@@ -115,14 +118,14 @@
           Append Image: 
         </label>
         <input
-          id="images" 
+          id="cultural-offer-images" 
           type="file"
           name="image"
           class="form-control"
           accept="image/*"
           (change)="appendFile($event)">
         <div class="image-container">
-          <div *ngFor="let image of culturalOffer.images">
+          <div *ngFor="let image of culturalOffer.images" class="img-view">
                 <button type="button" (click)="removeImage(image)">x</button>
                 <img [src]="image" alt="Cultural offer image"/>
           </div>
@@ -130,6 +133,7 @@
       </div>
       <div class="bottom-item">
         <button
+          id="cultural-offer-submit-button"
           [disabled]="invalidFormInputs()"
           type="submit"
           class="p-button"

@@ -42,8 +42,7 @@ export class CategoriesComponent implements OnInit {
       if (submitted) {
         this.getCategories();
         this.messageService.add({
-          severity: 'success', summary: 'Category adding successful', detail: 'You have successfully added category' });
-        setTimeout(() => this.messageService.clear(), 2000);
+          severity: 'success', summary: 'Category adding successful', detail: 'You have successfully added category!' });
       }
     });
   }
@@ -61,8 +60,7 @@ export class CategoriesComponent implements OnInit {
     this.ref.onClose.subscribe((submitted) => {
       if (submitted) {
         this.getCategories();
-        this.messageService.add({ severity: 'success', summary: 'Category updating successful', detail: 'You have successfully updated category' });
-        setTimeout(() => this.messageService.clear(), 2000);
+        this.messageService.add({ severity: 'success', summary: 'Category updating successful', detail: 'You have successfully updated category!' });
       }
     });
   }

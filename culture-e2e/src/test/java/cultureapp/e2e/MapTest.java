@@ -42,10 +42,10 @@ public class MapTest {
         FilterForm filterForm = homePage.getFilterForm();
         filterForm.getCategorySelect().toggle();
         filterForm.getCategorySelect().ensureDropdownItemCount(FILTER_CATEGORY_COUNT);
-        filterForm.getCategorySelect().chooseFromDropdown(1);
+        filterForm.getCategorySelect().chooseFromDropdown(15);
         filterForm.submit();
 
-        homePage.getOffersList().ensureIsOfferCount(FILTER_CATEGORY_1_OFFER_COUNT);
+        homePage.getOffersList().ensureIsOfferCount(FILTER_CATEGORY_15_OFFER_COUNT);
     }
 
     @Test
@@ -57,15 +57,15 @@ public class MapTest {
 
         filterForm.getCategorySelect().toggle();
         filterForm.getCategorySelect().ensureDropdownItemCount(FILTER_CATEGORY_COUNT);
-        filterForm.getCategorySelect().chooseFromDropdown(1);
+        filterForm.getCategorySelect().chooseFromDropdown(15);
 
         filterForm.getSubcategorySelect().toggle();
-        filterForm.getSubcategorySelect().ensureDropdownItemCount(FILTER_CATEGORY_1_SUBCATEGORY_COUNT);
+        filterForm.getSubcategorySelect().ensureDropdownItemCount(FILTER_CATEGORY_15_SUBCATEGORY_COUNT);
         filterForm.getSubcategorySelect().chooseFromDropdown(1);
 
         filterForm.submit();
 
-        homePage.getOffersList().ensureIsOfferCount(FILTER_CATEGORY_1_SUBCATEGORY_1_OFFER_COUNT);
+        homePage.getOffersList().ensureIsOfferCount(FILTER_CATEGORY_15_SUBCATEGORY_1_OFFER_COUNT);
     }
 
     @Test
@@ -77,15 +77,15 @@ public class MapTest {
 
         filterForm.getCategorySelect().toggle();
         filterForm.getCategorySelect().ensureDropdownItemCount(FILTER_CATEGORY_COUNT);
-        filterForm.getCategorySelect().chooseFromDropdown(1);
+        filterForm.getCategorySelect().chooseFromDropdown(15);
 
         filterForm.getSubcategorySelect().toggle();
-        filterForm.getSubcategorySelect().ensureDropdownItemCount(FILTER_CATEGORY_1_SUBCATEGORY_COUNT);
+        filterForm.getSubcategorySelect().ensureDropdownItemCount(FILTER_CATEGORY_15_SUBCATEGORY_COUNT);
         filterForm.getSubcategorySelect().chooseFromDropdown(2);
 
         filterForm.submit();
 
-        homePage.getOffersList().ensureIsOfferCount(FILTER_CATEGORY_1_SUBCATEGORY_2_OFFER_COUNT);
+        homePage.getOffersList().ensureIsOfferCount(FILTER_CATEGORY_15_SUBCATEGORY_2_OFFER_COUNT);
     }
 
     @Test
@@ -96,7 +96,7 @@ public class MapTest {
         FilterForm filterForm = homePage.getFilterForm();
         filterForm.getCategorySelect().toggle();
         filterForm.getCategorySelect().ensureDropdownItemCount(FILTER_CATEGORY_COUNT);
-        filterForm.getCategorySelect().chooseFromDropdown(1);
+        filterForm.getCategorySelect().chooseFromDropdown(15);
 
         filterForm.submit();
         filterForm.reset();

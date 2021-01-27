@@ -55,11 +55,6 @@ public class CategoriesPage {
                 .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".p-toast-message-success")));
     }
 
-    public void ensureInfoToastIsDisplayed() {
-        (new WebDriverWait(driver, 10))
-                .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".p-toast-message-info")));
-    }
-
     public void ensureErrorToastIsDisplayed() {
         (new WebDriverWait(driver, 10))
                 .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".p-toast-message-error")));
