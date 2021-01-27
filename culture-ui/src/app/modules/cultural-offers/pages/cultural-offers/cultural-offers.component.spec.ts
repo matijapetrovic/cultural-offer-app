@@ -3,8 +3,7 @@ import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ConfirmationService } from 'primeng/api';
-import { CategoriesService } from 'src/app/modules/categories/categories.service';
-import { mockCategoriesPage, mockCulturalOffersPage, mockCulturalOfferView } from 'src/app/shared/testing/mock-data';
+import { mockCulturalOffersPage, mockCulturalOfferView } from 'src/app/shared/testing/mock-data';
 import { of } from 'rxjs';
 import { MessageService } from 'primeng/api';
 
@@ -54,7 +53,7 @@ describe('CulturalOffers', () => {
                   { provide: ConfirmationService, useValue: confirmationServiceMock},
                   { provide: CulturalOffersService, useValue: culturalOffersServiceMock },
                   { provide: MessageService, useValue: messageService },
-                  { provide: Router, useValue: messageService} ]
+                  { provide: Router, useValue: reouterMock} ]
     })
     .compileComponents();
   });

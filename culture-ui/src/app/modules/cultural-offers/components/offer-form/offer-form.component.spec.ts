@@ -98,7 +98,7 @@ describe('OfferFormComponent', () => {
             expect(component.categories.length).toBe(2);
             expect(component.subcategories.length).toBe(2);
             fixture.detectChanges(); // synchronize HTML with component data        
-            expect(component.ngForm.controls.category.value).toBeTruthy();
+            expect(component.ngForm.controls.category).toBeTruthy();
             expect(component.ngForm.controls.subcategory).toBeTruthy();
         });      
 

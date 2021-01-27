@@ -2,7 +2,7 @@ import { Role } from 'src/app/modules/authentication/role';
 import { User } from 'src/app/modules/authentication/user';
 import { CategoriesPage, Category } from 'src/app/modules/categories/category';
 import { CulturalOffer, CulturalOfferLocation, CulturalOffersPage, CulturalOfferToAdd, CulturalOfferView, LocationRange } from 'src/app/modules/cultural-offers/cultural-offer';
-import { News, NewsPage } from 'src/app/modules/news/news';
+import { News, NewsPage, NewsToAdd, NewsView } from 'src/app/modules/news/news';
 import { Review, ReviewPage } from 'src/app/modules/reviews/review';
 import { SubcategoriesPage, Subcategory } from 'src/app/modules/subcategories/subcategory';
 
@@ -171,6 +171,23 @@ const mockNews: News = {
     images: ['image1', 'image2']
     };
 
+const mockNewsToAdd: NewsToAdd = {
+        id: null,
+        culturalOfferId: 1,
+        title: 'Some title',
+        text: 'Some text',
+        images: [1, 2, 3]
+      };
+
+const mockNewsView: NewsView = {
+      id: 1,
+      culturalOfferId: 1,
+      title: 'Some title',
+      text: 'Some text',
+      images: ["1", "2", "3"],
+      imagesIds: [1, 2, 3]
+}
+
 const mockNewsPage: NewsPage = {
     data: [
         {
@@ -314,5 +331,7 @@ export {
   mockSubcategoriesPage,
   mockCulturalOffersPage,
   mockCulturalOfferToAdd,
-  mockCulturalOfferView
+  mockCulturalOfferView,
+  mockNewsToAdd,
+  mockNewsView
 };

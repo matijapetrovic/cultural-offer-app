@@ -25,9 +25,9 @@ export class CulturalOffersComponent implements OnInit {
     constructor(
         private culturalOffersService:CulturalOffersService,
         public dialogService:DialogService,
-        private confirmationService:ConfirmationService,
+        public confirmationService:ConfirmationService,
         private router: Router,
-        private messageService: MessageService
+        public messageService: MessageService
     ) {
         this.page = 0;
         this.limit = 5;;

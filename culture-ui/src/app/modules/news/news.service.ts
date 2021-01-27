@@ -24,6 +24,16 @@ export class NewsService {
     this.handleError = httpErrorHandler.createHandleError('NewsService');
   }
 
+  getOne(culturalOfferId: number, news: any): Observable<NewsView> {
+    const url = `${this.newsUrl}/${culturalOfferId}/news/${news.id}`;
+
+    return this.http.get<NewsView>(url)
+    .pipe(
+      catchError(this.handleError<NewsView>('getOne'))
+    );
+
+  }
+
   getNews(culturalOfferId: number, page: number, limit: number): Observable<NewsPage> {
     const params: HttpParams =
       new HttpParams()
