@@ -48,24 +48,4 @@ public class CategoriesList {
                 .until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(
                         categoriesTable, By.id("category-name")));
     }
-
-    public List<WebElement> getAllUpdateButtons() {
-        return new WebDriverWait(driver, 10)
-                .until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(
-                        categoriesTable, By.className("show-update-category-form-button")));
-    }
-
-    public List<WebElement> getAllDeleteButtons() {
-        return new WebDriverWait(driver, 10)
-                .until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(
-                        categoriesTable, By.id("show-delete-category-dialog-button")));
-    }
-
-    public WebElement getUpdateButtonByIndex(int index) {
-        return this.getAllUpdateButtons().get(index);
-    }
-
-    public WebElement getDeleteButtonByIndex(int index) {
-        return this.getAllDeleteButtons().get(index);
-    }
 }
