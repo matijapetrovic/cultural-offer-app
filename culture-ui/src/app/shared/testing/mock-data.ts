@@ -334,5 +334,7 @@ export {
   mockSubscribedOffersPage,
   mockEmptySubscribedOffersPage,
   mockImagesToAdd,
-  mockEmptyImagesToAdd
+  mockEmptyImagesToAdd,
+  mockImage1,
+  mockImage2
 };

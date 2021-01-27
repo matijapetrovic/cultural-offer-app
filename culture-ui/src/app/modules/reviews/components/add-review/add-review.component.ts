@@ -17,7 +17,7 @@ export class AddReviewComponent implements OnInit {
   private reviewToAdd: ReviewToAdd;
   public addReviewForm: FormGroup;
 
-  private imagesToAdd: FormData;
+  imagesToAdd: FormData;
 
   public reviewAddedEvent: EventEmitter<void> = new EventEmitter<void>();
 
@@ -26,7 +26,7 @@ export class AddReviewComponent implements OnInit {
     private formBuilder: FormBuilder,
     private ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
-    private messageService: MessageService,
+    public messageService: MessageService,
     private imageService: ImageService
   ) {
     this.culturalOfferId = this.config.data.culturalOfferId;
@@ -53,6 +53,10 @@ export class AddReviewComponent implements OnInit {
   }
 
   onSubmit(): void {
+    if (this.addReviewForm.invalid) {
+      return;
+    }
+
     this.reviewToAdd = this.addReviewForm.value;
 
     this.ref.close(this.reviewAddedEvent);
@@ -73,11 +77,8 @@ export class AddReviewComponent implements OnInit {
                 this.showSuccessMessage();
 
                 this.reviewAddedEvent.emit();
-
               });
         });
-
-    this.addReviewForm.reset();
   }
 
   showProccessMessage(): void {
@@ -94,5 +95,9 @@ export class AddReviewComponent implements OnInit {
       summary: 'Success!',
       detail: 'Your review was added.'
     });
+  }
+
+  get offerId(): number {
+    return this.culturalOfferId;
   }
 }
