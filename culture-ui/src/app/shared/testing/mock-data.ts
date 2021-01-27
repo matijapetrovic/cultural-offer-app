@@ -4,7 +4,7 @@ import { CategoriesPage, Category } from 'src/app/modules/categories/category';
 import { CulturalOffer, CulturalOfferLocation, LocationRange } from 'src/app/modules/cultural-offers/cultural-offer';
 import { News, NewsPage } from 'src/app/modules/news/news';
 import { Review, ReviewPage } from 'src/app/modules/reviews/review';
-import { Subcategory } from 'src/app/modules/subcategories/subcategory';
+import { SubcategoriesPage, Subcategory } from 'src/app/modules/subcategories/subcategory';
 
 const mockCategoryNames: Category[] = [
   {
@@ -29,6 +29,22 @@ const mockSubcategoryNames: Subcategory[] = [
     categoryId: 1
   }
 ];
+
+const mockSubcategoriesPage: SubcategoriesPage = {
+  data: [
+    {
+      id: 1,
+      name: 'Subcategory1',
+      categoryId: 1
+    },
+    {
+      id: 2,
+      name: 'Subcategory2',
+      categoryId: 1
+    },
+  ],
+  links: new Map([['next', 'next-link'], ['self', 'self-link']])
+};
 
 const mockCulturalOffer: CulturalOffer = {
     id: 1,
@@ -215,5 +231,6 @@ export {
   mockAdmin,
   mockMapBounds,
   mockLocationRange,
-  mockCategoriesPage
+  mockCategoriesPage,
+  mockSubcategoriesPage
 };
