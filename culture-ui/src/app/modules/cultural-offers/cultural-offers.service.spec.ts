@@ -4,7 +4,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 
 import { CulturalOffersService } from './cultural-offers.service';
 import { HttpClient } from '@angular/common/http';
-import { CulturalOffer, CulturalOfferLocation, LocationRange } from './cultural-offer';
+import { CulturalOffer, CulturalOfferLocation, CulturalOffersPage, LocationRange } from './cultural-offer';
 import { environment } from 'src/environments/environment';
 import { mockCulturalOffer, mockOfferLocations } from 'src/app/shared/testing/mock-data';
 

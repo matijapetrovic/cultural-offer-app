@@ -5,6 +5,8 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
+        ActivateAccountTest.class,
+        DashboardTest.class,
         CategoryTest.class,
         CulturalOfferTest.class,
         LoginTest.class,

@@ -7,7 +7,7 @@ import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AddSubcategoryComponent } from 'src/app/modules/subcategories/pages/add-subcategory/add-subcategory.component';
 import { UpdateSubcategoryComponent } from '../update-subcategory/update-subcategory.component';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
     selector: 'app-subcategories',
@@ -31,7 +31,8 @@ export class SubcategoriesComponent implements OnInit {
         private subcategoriesService: SubcategoriesService,
         private categoriesService: CategoriesService,
         public dialogService: DialogService,
-        private confirmationService: ConfirmationService
+        public messageService: MessageService,
+        public confirmationService: ConfirmationService
     ) {
         this.page = 0;
         this.limit = 5;
@@ -55,6 +56,9 @@ export class SubcategoriesComponent implements OnInit {
         this.ref.onClose.subscribe(submited => {
             if (submited) {
                 this.getSubcategories();
+                this.messageService.add({
+                    severity: 'success', summary: 'Subcategory adding successful', detail: 'You have successfully added subcategory' });
+                  setTimeout(() => this.messageService.clear(), 2000);
             }
         });
 
@@ -77,6 +81,8 @@ export class SubcategoriesComponent implements OnInit {
         this.ref.onClose.subscribe(submited => {
             if (submited) {
                 this.getSubcategories();
+                this.messageService.add({ severity: 'success', summary: 'Subcategory updating successful', detail: 'You have successfully updated subcategory' });
+                setTimeout(() => this.messageService.clear(), 2000);
             }
         });
 
@@ -88,11 +94,10 @@ export class SubcategoriesComponent implements OnInit {
             header: 'Delete Confirmation',
             icon: 'pi pi-info-circle',
             accept: () => {
-              // this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' });
+              this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have successfuly deleted subcategory!' });
               this.deleteSubcategory(subcategory);
             },
             reject: () => {
-              // this.messageService.add({ severity: 'info', summary: 'Rejected', detail: 'You have rejected' });
             }
           });
     }
