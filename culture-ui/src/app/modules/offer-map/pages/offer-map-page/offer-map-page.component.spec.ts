@@ -7,13 +7,13 @@ import { Category } from 'src/app/modules/categories/category';
 import { CulturalOfferLocationsFilter, LocationRange } from 'src/app/modules/cultural-offers/cultural-offer';
 import { CulturalOffersService } from 'src/app/modules/cultural-offers/cultural-offers.service';
 import { SubcategoriesService } from 'src/app/modules/subcategories/subcategories.service';
-import { 
-  invalidLocation, 
-  invalidLocationMessage, 
-  mockCategoryNames, 
-  mockLocationRange, 
-  mockOfferLocations, 
-  mockSubcategoryNames, 
+import {
+  invalidLocation,
+  invalidLocationMessage,
+  mockCategoryNames,
+  mockLocationRange,
+  mockOfferLocations,
+  mockSubcategoryNames,
   validLocation } from 'src/app/shared/testing/mock-data';
 import { OfferMapFilterFormComponent } from '../../components/offer-map-filter-form/offer-map-filter-form.component';
 import { OfferMapSearchLocationComponent } from '../../components/offer-map-search-location/offer-map-search-location.component';

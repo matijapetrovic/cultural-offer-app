@@ -42,12 +42,12 @@ export class CulturalOffersService {
     );
   }
 
-  deleteCulturalOffer(culturalOffer:any): Observable<{}> {
+  deleteCulturalOffer(culturalOffer: any): Observable<{}> {
     const url =  `${this.culturalOffersUrl}/${culturalOffer.id}`;
     return this.http.delete(url)
     .pipe(
       catchError(this.handleError('deleteCulturalOffer'))
-    )
+    );
   }
 
   getCulturaOffers(page: number, limit: number): Observable<CulturalOffersPage> {
@@ -55,7 +55,7 @@ export class CulturalOffersService {
     return this.http.get<CulturalOffersPage>(url)
     .pipe(
       catchError(this.handleError<CulturalOffersPage>('getCulturalOffers'))
-    )
+    );
   }
 
   getCulturalOffer(id: number): Observable<CulturalOffer> {

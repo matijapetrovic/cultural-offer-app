@@ -1,9 +1,9 @@
-import { HttpClientTestingModule } from "@angular/common/http/testing";
-import { ComponentFixture, fakeAsync, TestBed } from "@angular/core/testing";
-import { DynamicDialogRef } from "primeng/dynamicdialog";
-import { mockCulturalOfferToAdd, mockNewsToAdd } from "src/app/shared/testing/mock-data";
-import { NewsService } from "../../news.service";
-import { AddNewsComponent } from "./add-news.component";
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { mockCulturalOfferToAdd, mockNewsToAdd } from 'src/app/shared/testing/mock-data';
+import { NewsService } from '../../news.service';
+import { AddNewsComponent } from './add-news.component';
 
 
 describe('AddOfferComponent', () => {
@@ -23,12 +23,12 @@ describe('AddOfferComponent', () => {
               })
           };
 
-          const dialogRefMock = {
+        const dialogRefMock = {
             close: () => { },
-            onClose: jasmine.createSpy('onClose').and.returnValue({subscribe: () => { true; }})
+            onClose: jasmine.createSpy('onClose').and.returnValue({subscribe: () => { }})
           };
 
-          await TestBed.configureTestingModule({
+        await TestBed.configureTestingModule({
             declarations: [AddNewsComponent],
             imports: [HttpClientTestingModule],
             providers: [{ provide: DynamicDialogRef, useValue: dialogRefMock},
@@ -36,7 +36,7 @@ describe('AddOfferComponent', () => {
           })
           .compileComponents();
 
-    })
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(AddNewsComponent);
@@ -44,11 +44,11 @@ describe('AddOfferComponent', () => {
         fixture.detectChanges();
       });
 
-      it('should create', () => {
+    it('should create', () => {
         expect(component).toBeTruthy();
       });
 
-      it('postNews() should post offer when form is submited', fakeAsync(() => {
+    it('postNews() should post offer when form is submited', fakeAsync(() => {
 
         spyOn(component.ref, 'close');
 

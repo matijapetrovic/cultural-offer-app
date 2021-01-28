@@ -1,9 +1,9 @@
-import { HttpClientTestingModule } from "@angular/common/http/testing";
-import { ComponentFixture, fakeAsync, TestBed } from "@angular/core/testing";
-import { DynamicDialogConfig, DynamicDialogRef } from "primeng/dynamicdialog";
-import { mockCulturalOfferToAdd, mockCulturalOfferView } from "src/app/shared/testing/mock-data";
-import { CulturalOffersService } from "../../cultural-offers.service";
-import { UpdateOfferComponent } from "./update-offer.component";
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { mockCulturalOfferToAdd, mockCulturalOfferView } from 'src/app/shared/testing/mock-data';
+import { CulturalOffersService } from '../../cultural-offers.service';
+import { UpdateOfferComponent } from './update-offer.component';
 
 
 describe('UpdateOfferComponent', () => {
@@ -23,18 +23,18 @@ describe('UpdateOfferComponent', () => {
               })
           };
 
-          const dialogRefMock = {
+        const dialogRefMock = {
             close: () => { },
-            onClose: jasmine.createSpy('onClose').and.returnValue({subscribe: () => { true; }})
+            onClose: jasmine.createSpy('onClose').and.returnValue({subscribe: () => { }})
           };
 
-          const dialogRefConfigMock = {
+        const dialogRefConfigMock = {
             data: {
               offer: mockCulturalOfferView
             }
           };
 
-          await TestBed.configureTestingModule({
+        await TestBed.configureTestingModule({
             declarations: [UpdateOfferComponent],
             imports: [HttpClientTestingModule],
             providers: [{ provide: DynamicDialogRef, useValue: dialogRefMock},
@@ -43,7 +43,7 @@ describe('UpdateOfferComponent', () => {
           })
           .compileComponents();
 
-    })
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(UpdateOfferComponent);
@@ -51,11 +51,11 @@ describe('UpdateOfferComponent', () => {
         fixture.detectChanges();
       });
 
-      it('should create', () => {
+    it('should create', () => {
         expect(component).toBeTruthy();
       });
 
-      it('updateOffer() should put offer when form is submited', fakeAsync(() => {
+    it('updateOffer() should put offer when form is submited', fakeAsync(() => {
 
         spyOn(component.ref, 'close');
 

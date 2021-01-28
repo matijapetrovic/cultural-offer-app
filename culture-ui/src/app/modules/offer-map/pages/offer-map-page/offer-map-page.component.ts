@@ -70,7 +70,7 @@ export class OfferMapPageComponent implements OnInit {
       (error) => {
         if (error.message) {
           this.messageService.add({ severity: 'warn', summary: 'Error!', detail: error.message });
-          
+
         }
       });
   }

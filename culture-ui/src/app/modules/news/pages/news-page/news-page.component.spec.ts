@@ -26,7 +26,7 @@ describe('NewsPageComponent', () => {
 
     const dialogRefMock = {
       close: () => { },
-      onClose: jasmine.createSpy('onClose').and.returnValue({subscribe: () => { true; }})
+      onClose: jasmine.createSpy('onClose').and.returnValue({subscribe: () => { }})
     };
 
     const messageService = {
@@ -42,7 +42,7 @@ describe('NewsPageComponent', () => {
 
     const activatedRouteStub: ActivatedRouteStub = new ActivatedRouteStub();
     activatedRouteStub.testParams = {offerId: 1};
-  
+
 
     await TestBed.configureTestingModule({
       declarations: [ NewsPageComponent ],

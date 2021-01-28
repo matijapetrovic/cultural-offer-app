@@ -24,7 +24,7 @@ describe('CategoriesComponent', () => {
 
     const dialogRefMock = {
       close: () => { },
-      onClose: jasmine.createSpy('onClose').and.returnValue({subscribe: () => { true; }})
+      onClose: jasmine.createSpy('onClose').and.returnValue({subscribe: () => { }})
     };
 
     const messageService = {

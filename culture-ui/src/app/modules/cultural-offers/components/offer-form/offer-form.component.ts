@@ -3,7 +3,7 @@ import { Category } from 'src/app/modules/categories/category';
 import { Subcategory } from 'src/app/modules/subcategories/subcategory';
 import { CategoriesService } from 'src/app/modules/categories/categories.service';
 import { SubcategoriesService } from 'src/app/modules/subcategories/subcategories.service';
-import { CulturalOfferToAdd, CulturalOfferView } from 'src/app/modules/cultural-offers/cultural-offer'
+import { CulturalOfferToAdd, CulturalOfferView } from 'src/app/modules/cultural-offers/cultural-offer';
 import { ImageService } from 'src/app/core/services/image.service';
 import { GeolocationService } from 'src/app/core/services/geolocation.service';
 import { FormControl, NgForm } from '@angular/forms';
@@ -41,13 +41,13 @@ export class OfferFormComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.setUp(); 
+        this.setUp();
         this.newImages = new Array<File>();
     }
 
-    setUp() {
+    setUp(): void {
         this.getCategories();
-        if(this.model) {
+        if (this.model) {
             this.culturalOffer = JSON.parse(JSON.stringify(this.model));
             this.tempCategoryId = this.culturalOffer.subcategory.categoryId;
             this.getSubcategories();
@@ -73,7 +73,7 @@ export class OfferFormComponent implements OnInit {
         }
     }
 
-    getCategories():void {
+    getCategories(): void {
         this.categoriesService
         .getCategoryNames()
         .subscribe(categories => this.categories = categories);
@@ -87,26 +87,26 @@ export class OfferFormComponent implements OnInit {
     getSubcategories(): void {
         this.subcategoriesService
         .getSubcategoryNames(this.tempCategoryId)
-        .subscribe(subcategories => this.subcategories = subcategories);        
+        .subscribe(subcategories => this.subcategories = subcategories);
     }
 
-    appendFile(event: any) {
+    appendFile(event: any): void {
         this.newImages.push(event.target.files[0]);
 
-        var reader = new FileReader();
+        const reader = new FileReader();
 
-        reader.onload = (event:any) => {
-            this.culturalOffer.images.push(event.target.result);
-        }
+        reader.onload = (image: any) => {
+            this.culturalOffer.images.push(image.target.result);
+        };
 
         reader.readAsDataURL(event.target.files[0]);
     }
 
-    removeImage(imageUrl: string) {
-        let index:number = this.culturalOffer.images.indexOf(imageUrl);
+    removeImage(imageUrl: string): void {
+        const index: number = this.culturalOffer.images.indexOf(imageUrl);
         this.culturalOffer.images.splice(index, 1);
 
-        if(index < this.culturalOffer.imagesIds.length) {
+        if (index < this.culturalOffer.imagesIds.length) {
             this.culturalOffer.imagesIds.splice(index, 1);
         }
         else {
@@ -116,7 +116,7 @@ export class OfferFormComponent implements OnInit {
 
     onSubmit(): void {
 
-        if(this.newImages.length > 0) {
+        if (this.newImages.length > 0) {
             this.imageService.addImages(this.imageFormData())
                 .subscribe(imageIds => {
                 this.updateImagesIds(imageIds);
@@ -124,15 +124,15 @@ export class OfferFormComponent implements OnInit {
             });
         } else {
             this.returnOfferWithLocation();
-        } 
+        }
     }
 
-    updateImagesIds(imagesIds: number[]) {
+    updateImagesIds(imagesIds: number[]): void {
         this.culturalOffer.imagesIds = this.culturalOffer.imagesIds.concat(imagesIds);
     }
 
     imageFormData(): FormData {
-        let imageData = new FormData();
+        const imageData = new FormData();
 
         for (let i = 0; i < this.newImages.length; i++) {
             imageData.append('images', this.newImages[i]);
@@ -141,9 +141,9 @@ export class OfferFormComponent implements OnInit {
         return imageData;
     }
 
-    returnOfferWithLocation() {
+    returnOfferWithLocation(): void {
 
-        if(this.culturalOffer.address !== this.model.address) {
+        if (this.culturalOffer.address !== this.model.address) {
             this.geocodeService.geocode(this.culturalOffer.address)
             .subscribe(range => {
                this.updateLocation(range);
@@ -154,14 +154,14 @@ export class OfferFormComponent implements OnInit {
         }
     }
 
-    updateLocation(range:any) {
-        this.culturalOffer.longitude = range.longitudeFrom + (range.longitudeTo - range.longitudeFrom)/2;
-        this.culturalOffer.latitude = range.latitudeFrom + (range.latitudeTo - range.latitudeFrom)/2;
+    updateLocation(range: any): void {
+        this.culturalOffer.longitude = range.longitudeFrom + (range.longitudeTo - range.longitudeFrom) / 2;
+        this.culturalOffer.latitude = range.latitudeFrom + (range.latitudeTo - range.latitudeFrom) / 2;
     }
 
-    returnOffer() {
-        
-        let retVal:CulturalOfferToAdd = {
+    returnOffer(): any {
+
+        const retVal: CulturalOfferToAdd = {
             id: this.culturalOffer.id,
             name: this.culturalOffer.name,
             description: this.culturalOffer.description,
@@ -192,8 +192,8 @@ export class OfferFormComponent implements OnInit {
         return false;
     }
 
-    errorMessage() {
-        return "Name is required!"
+    errorMessage(): string {
+        return 'Name is required!';
     }
 
 }

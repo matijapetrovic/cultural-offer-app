@@ -13,8 +13,8 @@ describe('UpdateCategoryComponent', () => {
   beforeEach(async () => {
     const categoriesServiceMock = {
       updateCategory: jasmine.createSpy('updateCategory')
-        .and.returnValue({subscribe: () => { component.ref.close(true)}})
-      };
+        .and.returnValue({ subscribe: () => { component.ref.close(true) } })
+    };
 
     const dialogRefMock = {
       close: () => { }
@@ -27,16 +27,16 @@ describe('UpdateCategoryComponent', () => {
     };
 
     await TestBed.configureTestingModule({
-      declarations: [ UpdateCategoryComponent ],
-       imports: [
+      declarations: [UpdateCategoryComponent],
+      imports: [
         FormsModule,
         ReactiveFormsModule,
         HttpClientTestingModule],
       providers: [{ provide: DynamicDialogRef, useValue: dialogRefMock },
-                  { provide: DynamicDialogConfig, useValue: dialogRefConfigMock},
-                  { provide: CategoriesService, useValue: categoriesServiceMock }]
+      { provide: DynamicDialogConfig, useValue: dialogRefConfigMock },
+      { provide: CategoriesService, useValue: categoriesServiceMock }]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
@@ -126,7 +126,7 @@ describe('UpdateCategoryComponent', () => {
 
   it(`errorMessage() should return 'Name is required!'`, () => {
     const message = 'Name is required!';
-    
+
     expect(component.errorMessage()).toEqual(message);
   });
 });

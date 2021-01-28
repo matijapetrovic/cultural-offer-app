@@ -62,7 +62,7 @@ describe('NewsService', () => {
 
   // ADD NEWS
 
-it('addNews() should add valid news', fakeAsync(() => {
+  it('addNews() should add valid news', fakeAsync(() => {
   let response: any;
   const url = `${environment.apiUrl}/api/cultural-offers/${mockNewsToAdd.culturalOfferId}/news`;
 
@@ -77,7 +77,7 @@ it('addNews() should add valid news', fakeAsync(() => {
   expect(response).toBeTruthy();
 }));
 
-it('addNews() should throw offer does not exists', fakeAsync(() => {
+  it('addNews() should throw offer does not exists', fakeAsync(() => {
   let response: any;
   const errorMessage = 'Offer already exists!';
   const url = `${environment.apiUrl}/api/cultural-offers/${-1}/news`;
@@ -98,7 +98,7 @@ it('addNews() should throw offer does not exists', fakeAsync(() => {
 
 // UPDATE NEWS
 
-it('updateNews() should update valid news', fakeAsync(() => {
+  it('updateNews() should update valid news', fakeAsync(() => {
   let news: NewsView;
   const url = `${environment.apiUrl}/api/cultural-offers/${mockNewsToAdd.culturalOfferId}/news`;
 
@@ -123,15 +123,14 @@ it('updateNews() should update valid news', fakeAsync(() => {
   expect(news.text).toEqual(mockNewsView.text);
 }));
 
-it('updateNews() should throw invalid offer Id', fakeAsync(() => {
-  let news: NewsView;
-  const errorMessage = "Invalid Offer Id";
+  it('updateNews() should throw invalid offer Id', fakeAsync(() => {
+  const errorMessage = 'Invalid Offer Id';
 
   const updatedMockNews: NewsToAdd = {
     id: 1,
     culturalOfferId: -1,
-    title: "string",
-    text: "string",
+    title: 'string',
+    text: 'string',
     images: [1, 2]
   };
 
@@ -151,15 +150,14 @@ it('updateNews() should throw invalid offer Id', fakeAsync(() => {
   expect(errorHandler.handleError).toThrow(errorMessage);
 }));
 
-it('updateNews() should throw invalid offer Id', fakeAsync(() => {
-  let news: NewsView;
-  const errorMessage = "Invalid News Id";
+  it('updateNews() should throw invalid offer Id', fakeAsync(() => {
+  const errorMessage = 'Invalid News Id';
 
   const updatedMockNews: NewsToAdd = {
     id: -1,
     culturalOfferId: 1,
-    title: "string",
-    text: "string",
+    title: 'string',
+    text: 'string',
     images: [1, 2]
   };
 
@@ -181,24 +179,24 @@ it('updateNews() should throw invalid offer Id', fakeAsync(() => {
 
 // DELETE NEWS
 
-it('deleteNewsr() should delete valid news', fakeAsync(() => {
+  it('deleteNewsr() should delete valid news', fakeAsync(() => {
 
   service.deleteNews(mockNewsToAdd.culturalOfferId, 1).subscribe();
   const url = `${environment.apiUrl}/api/cultural-offers/${mockNewsToAdd.culturalOfferId}/news`;
 
-  const req = httpMock.expectOne(url + "/1");
+  const req = httpMock.expectOne(url + '/1');
   expect(req.request.method).toBe('DELETE');
   req.flush({});
 }));
 
-it('deleteNewsr() should throw invalid offer Id', fakeAsync(() => {
+  it('deleteNewsr() should throw invalid offer Id', fakeAsync(() => {
 
-    const errorMessage = "Invalid Offer Id";
+    const errorMessage = 'Invalid Offer Id';
 
     service.deleteNews(-1, 1).subscribe();
     const url = `${environment.apiUrl}/api/cultural-offers/-1/news`;
 
-    const req = httpMock.expectOne(url + "/1");
+    const req = httpMock.expectOne(url + '/1');
     expect(req.request.method).toBe('DELETE');
     req.flush({});
     errorHandler.handleError.and.callFake(() => {
@@ -213,12 +211,12 @@ it('deleteNewsr() should throw invalid offer Id', fakeAsync(() => {
 
   it('deleteNewsr() should throw invalid news Id', fakeAsync(() => {
 
-    const errorMessage = "Invalid news Id";
+    const errorMessage = 'Invalid news Id';
 
     service.deleteNews(1, -1).subscribe();
     const url = `${environment.apiUrl}/api/cultural-offers/1/news`;
 
-    const req = httpMock.expectOne(url + "/-1");
+    const req = httpMock.expectOne(url + '/-1');
     expect(req.request.method).toBe('DELETE');
     req.flush({});
     errorHandler.handleError.and.callFake(() => {
@@ -255,12 +253,12 @@ it('deleteNewsr() should throw invalid offer Id', fakeAsync(() => {
 
   it('getOne() should throw Invalid offer Id', fakeAsync(() => {
 
-    const errorMessage = "Invalid offer Id";
+    const errorMessage = 'Invalid offer Id';
     let news: NewsView;
     const url = `${environment.apiUrl}/api/cultural-offers/-1/news`;
 
 
-    service.getOne(-1 ,mockNewsView).subscribe(response => { news = response; });
+    service.getOne(-1 , mockNewsView).subscribe(response => { news = response; });
 
     const req = httpMock.expectOne(url + `/${mockNewsView.id}`);
     expect(req.request.method).toBe('GET');
@@ -276,17 +274,17 @@ it('deleteNewsr() should throw invalid offer Id', fakeAsync(() => {
 
   it('getOne() should throw Invalid news Id', fakeAsync(() => {
 
-    const errorMessage = "Invalid news Id";
+    const errorMessage = 'Invalid news Id';
     let news: NewsView;
     const url = `${environment.apiUrl}/api/cultural-offers/1/news`;
 
     const updatedMockNews: NewsToAdd = {
       id: -1,
       culturalOfferId: 1,
-      title: "string",
-      text: "string",
+      title: 'string',
+      text: 'string',
       images: [1, 2]
-    };  
+    };
 
 
     service.getOne(1, updatedMockNews).subscribe(response => { news = response; });

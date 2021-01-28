@@ -60,7 +60,7 @@ export class UpdateSubcategoryComponent implements OnInit {
         });
     }
 
-    get f() { return this.updateForm.controls; }
+    get f(): any { return this.updateForm.controls; }
 
 
 
@@ -71,18 +71,18 @@ export class UpdateSubcategoryComponent implements OnInit {
         return false;
     }
 
-    nameNotChanged() {
+    nameNotChanged(): boolean {
         return this.subcategory.name === this.originalSubcategory.name;
     }
 
     // Original subcategory so we can know if changes are made
-    get originalSubcategory() { return this.config.data.subcategory; }
+    get originalSubcategory(): any { return this.config.data.subcategory; }
 
-    removeFormInputs() {
+    removeFormInputs(): void {
         this.updateForm.reset();
     }
 
-    errorMessage() {
+    errorMessage(): string {
         return 'Name is required!';
     }
 }

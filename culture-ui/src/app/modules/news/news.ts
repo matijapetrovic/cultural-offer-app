@@ -1,4 +1,4 @@
-import { CulturalOffer } from "../cultural-offers/cultural-offer";
+import { CulturalOffer } from '../cultural-offers/cultural-offer';
 
 export interface News {
   id: number;

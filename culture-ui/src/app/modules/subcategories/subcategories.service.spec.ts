@@ -74,17 +74,17 @@ describe('SubcategoriesService', () => {
   // GET SUBCATEGORIES
   it('getSubcategories() should return valid categories', fakeAsync(() => {
     let subcategoriesPage: SubcategoriesPage;
-    
+
     const page = 0;
     const limit = 3;
     const categoryId = 1;
     const subcategoriesUrl = `${environment.apiUrl}/api/categories/${categoryId}/subcategories`;
-    
+
     const mockSubcategoriesPage = {
       data: [
-        { id: 1, categoryId: categoryId, name: 'Subateogory1' },
-        { id: 2, categoryId: categoryId, name: 'Subcateogory2' },
-        { id: 3, categoryId: categoryId, name: 'Subcateogory3' },
+        { id: 1, categoryId, name: 'Subateogory1' },
+        { id: 2, categoryId, name: 'Subcateogory2' },
+        { id: 3, categoryId, name: 'Subcateogory3' },
       ]
     };
 
@@ -110,7 +110,7 @@ describe('SubcategoriesService', () => {
 
   it('getSubategories() should return empty Categories', fakeAsync(() => {
     let subcategoriesPage: SubcategoriesPage;
-    
+
     const page = 0;
     const limit = 3;
     const categoryId = 1;
@@ -134,7 +134,7 @@ describe('SubcategoriesService', () => {
 
   it('getSubategories() should throw category does not exist', fakeAsync(() => {
     let subcategoriesPage: SubcategoriesPage;
-    
+
     const page = 0;
     const limit = 3;
     const categoryId = -1;
@@ -171,7 +171,7 @@ describe('SubcategoriesService', () => {
     const mockSubcategory: Subcategory = {
       id: null,
       name: 'Category',
-      categoryId: categoryId
+      categoryId
     };
     service.addSubcategory(mockSubcategory).subscribe(data => { response = data; });
 
@@ -193,7 +193,7 @@ describe('SubcategoriesService', () => {
     const mockSubcategory: Subcategory = {
       id: null,
       name: 'Category',
-      categoryId: categoryId
+      categoryId
     };
     service.addSubcategory(mockSubcategory).subscribe(data => { response = data; });
 
@@ -210,7 +210,7 @@ describe('SubcategoriesService', () => {
   }));
 
   it('addSubcategory() should throw category does not exist', fakeAsync(() => {
-    
+
     let response: any;
     const errorMessage = 'Category does not exist!';
     const categoryId = -1;
@@ -219,7 +219,7 @@ describe('SubcategoriesService', () => {
     const mockSubcategory: Subcategory = {
       id: null,
       name: 'Category',
-      categoryId: categoryId
+      categoryId
     };
     service.addSubcategory(mockSubcategory).subscribe(data => { response = data; });
 
@@ -245,7 +245,7 @@ describe('SubcategoriesService', () => {
     const updatedMockSubcategory: Subcategory = {
       id: 1,
       name: 'Updated Category',
-      categoryId: categoryId
+      categoryId
     };
 
     service.updateSubcategory(updatedMockSubcategory).subscribe();
@@ -270,7 +270,6 @@ describe('SubcategoriesService', () => {
   }));
 
   it('updateCategory() should throw invalid Subcategory Id', fakeAsync(() => {
-    let subcategory: Subcategory;
     const categoryId = 1;
     const subcategoriesUrl = `${environment.apiUrl}/api/categories/${categoryId}/subcategories`;
     const errorMessage = 'Invalid Subcategory Id!';
@@ -278,7 +277,7 @@ describe('SubcategoriesService', () => {
     const updatedMockSubcategory: Subcategory = {
       id: -1,
       name: 'Updated Category',
-      categoryId: categoryId
+      categoryId
     };
 
     service.updateSubcategory(updatedMockSubcategory).subscribe();
@@ -296,7 +295,6 @@ describe('SubcategoriesService', () => {
   }));
 
   it('updateCategory() should throw invalid Category Id', fakeAsync(() => {
-    let subcategory: Subcategory;
     const categoryId = -1;
     const subcategoriesUrl = `${environment.apiUrl}/api/categories/${categoryId}/subcategories`;
     const errorMessage = 'Invalid Category Id!';
@@ -304,7 +302,7 @@ describe('SubcategoriesService', () => {
     const updatedMockSubcategory: Subcategory = {
       id: 1,
       name: 'Updated Category',
-      categoryId: categoryId
+      categoryId
     };
 
     service.updateSubcategory(updatedMockSubcategory).subscribe();
@@ -332,7 +330,7 @@ describe('SubcategoriesService', () => {
     const getMockSubcategory: Subcategory = {
       id: 1,
       name: 'Get Category',
-      categoryId: categoryId
+      categoryId
     };
 
     service.getSubcategory(getMockSubcategory).subscribe(response => { subcategory = response; });
@@ -359,7 +357,7 @@ describe('SubcategoriesService', () => {
     const getMockSubcategory: Subcategory = {
       id: -1,
       name: 'Get Category',
-      categoryId: categoryId
+      categoryId
     };
 
     service.getSubcategory(getMockSubcategory).subscribe(response => { subcategory = response; });
@@ -386,7 +384,7 @@ describe('SubcategoriesService', () => {
     const getMockSubcategory: Subcategory = {
       id: 1,
       name: 'Get Category',
-      categoryId: categoryId
+      categoryId
     };
 
     service.getSubcategory(getMockSubcategory).subscribe(response => { subcategory = response; });
@@ -413,7 +411,7 @@ describe('SubcategoriesService', () => {
     const deleteMockSubcategory: Subcategory = {
       id: 1,
       name: 'Delete Category',
-      categoryId: categoryId
+      categoryId
     };
 
     service.deleteSubcategory(deleteMockSubcategory).subscribe();
@@ -431,7 +429,7 @@ describe('SubcategoriesService', () => {
     const deleteMockSubcategory: Subcategory = {
       id: -1,
       name: 'Delete Category',
-      categoryId: categoryId
+      categoryId
     };
 
     service.deleteSubcategory(deleteMockSubcategory).subscribe();
@@ -456,7 +454,7 @@ describe('SubcategoriesService', () => {
     const deleteMockSubcategory: Subcategory = {
       id: 1,
       name: 'Delete Category',
-      categoryId: categoryId
+      categoryId
     };
 
     service.deleteSubcategory(deleteMockSubcategory).subscribe();

@@ -19,7 +19,7 @@ export class ActivationComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    let id = +this.route.snapshot.params['id'];
+    const id = +this.route.snapshot.params.id;
     this.authenticationService.activate(id)
       .subscribe(() => {
         this.messageService.add({

@@ -1,19 +1,19 @@
-import { HttpClientTestingModule } from "@angular/common/http/testing";
-import { DebugElement } from "@angular/core";
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from "@angular/core/testing";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { By } from "@angular/platform-browser";
-import { GeolocationService } from "src/app/core/services/geolocation.service";
-import { ImageService } from "src/app/core/services/image.service";
-import { CategoriesService } from "src/app/modules/categories/categories.service";
-import { SubcategoriesService } from "src/app/modules/subcategories/subcategories.service";
-import { mockCategoryNames, mockCulturalOfferView, mockNewsView, mockSubcategoryNames } from "src/app/shared/testing/mock-data";
-import { NewsFormComponent } from "./news-form.component";
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { DebugElement } from '@angular/core';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import { GeolocationService } from 'src/app/core/services/geolocation.service';
+import { ImageService } from 'src/app/core/services/image.service';
+import { CategoriesService } from 'src/app/modules/categories/categories.service';
+import { SubcategoriesService } from 'src/app/modules/subcategories/subcategories.service';
+import { mockCategoryNames, mockCulturalOfferView, mockNewsView, mockSubcategoryNames } from 'src/app/shared/testing/mock-data';
+import { NewsFormComponent } from './news-form.component';
 
 
 describe('NewsFormComponent', () => {
 
-    let component:NewsFormComponent;
+    let component: NewsFormComponent;
     let fixture: ComponentFixture<NewsFormComponent>;
 
     beforeEach(async () => {
@@ -77,7 +77,7 @@ describe('NewsFormComponent', () => {
     //     let filesLenght = component.newImages.length;
     //     let srcsLenght = component.culturalOffer.images.length;
 
-    //     let prevElements: DebugElement[] = 
+    //     let prevElements: DebugElement[] =
     //             fixture.debugElement.queryAll(By.css('.img-show'));
     //     let prevElementsLen = prevElements.length;
 
@@ -97,9 +97,9 @@ describe('NewsFormComponent', () => {
     //         expect(component.newImages.length).toBe(filesLenght + 1);
     //         expect(component.culturalOffer.images.length).toBe(srcsLenght + 1);
     //         fixture.detectChanges();
-    //         let elements: DebugElement[] = 
+    //         let elements: DebugElement[] =
     //             fixture.debugElement.queryAll(By.css('.img-show'));
-    //         expect(elements.length).toBe(prevElementsLen + 1); 
+    //         expect(elements.length).toBe(prevElementsLen + 1);
     //     });
 
     // }))
@@ -110,10 +110,10 @@ describe('NewsFormComponent', () => {
 
         fixture.detectChanges();
 
-        let imgLenght = component.news.images.length;
-        let idsLenght = component.news.imagesIds.length;
-        
-        // let prevElements: DebugElement[] = 
+        const imgLenght = component.news.images.length;
+        const idsLenght = component.news.imagesIds.length;
+
+        // let prevElements: DebugElement[] =
         //          fixture.debugElement.queryAll(By.css('.img-show'));
         // let prevElementsLen = prevElements.length;
 
@@ -122,15 +122,15 @@ describe('NewsFormComponent', () => {
         expect(component.news.images.length).toBe(imgLenght - 1);
         expect(component.news.imagesIds.length).toBe(idsLenght - 1);
         fixture.detectChanges();
-        // let elements: DebugElement[] = 
+        // let elements: DebugElement[] =
         //                 fixture.debugElement.queryAll(By.css('.img-show'));
-        // expect(elements.length).toBe(prevElementsLen - 1); 
-    
+        // expect(elements.length).toBe(prevElementsLen - 1);
+
     });
 
     it('onSubmit() shoud post new images if there are some', fakeAsync(() => {
 
-        component.newImages = [new File([""], "...")];
+        component.newImages = [new File([''], '...')];
 
         spyOn(component, 'updateImagesIds');
         spyOn(component, 'returnNews');
@@ -161,7 +161,7 @@ describe('NewsFormComponent', () => {
 
     it('updateImagesIds() should concat imageIds array with new array', () => {
 
-        let lenght = component.news.imagesIds.length;
+        const lenght = component.news.imagesIds.length;
 
         component.updateImagesIds([1, 2, 3]);
 
@@ -174,18 +174,18 @@ describe('NewsFormComponent', () => {
         component.news.title = '';
 
         expect(component.invalidFormInputs()).toBeTruthy();
-    })
+    });
 
     it('invalidFormInputs() to return false when inputs are valid', () => {
 
         component.news = mockNewsView;
 
-        expect(component.invalidFormInputs()).toBeFalsy();
+        expect(component.invalidFormInputs()).toBeTrue();
     });
 
     it(`errorMessage() should return 'Name is required!'`, () => {
         const message = 'Name is required!';
-    
+
         expect(component.errorMessage()).toEqual(message);
     });
 

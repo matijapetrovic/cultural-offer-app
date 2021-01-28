@@ -4,6 +4,8 @@ import { AuthenticationService } from 'src/app/modules/authentication/authentica
 import { User } from 'src/app/modules/authentication/user';
 import { RoundPipe } from 'src/app/shared/pipes/round.pipe';
 import { mockAdmin, mockReview, mockUser } from 'src/app/shared/testing/mock-data';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+
 
 import { OfferReviewItemComponent } from './offer-review-item.component';
 
@@ -31,7 +33,10 @@ describe('OfferReviewItemComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [OfferReviewItemComponent, RoundPipe],
       providers: [
-        { provide: AuthenticationService, useValue: authenticationServiceMock }
+        { provide: AuthenticationService, useValue: authenticationServiceMock,
+          DialogService,
+          DynamicDialogRef,
+        }
       ]
     })
       .compileComponents();

@@ -23,7 +23,7 @@ export class SubcategoriesService {
     this.handleError = httpErrorHandler.createHandleError('SubcategoriesService');
   }
 
-  getSubcategory(subcategory:any): Observable<Subcategory> {
+  getSubcategory(subcategory: any): Observable<Subcategory> {
     const url = `${this.subcategoriesUrl}/${subcategory.categoryId}/subcategories/${subcategory.id}`;
     return this.http.get<Subcategory>(url)
       .pipe(
