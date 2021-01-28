@@ -10,8 +10,8 @@ import { SubscribedSubcategoriesPage } from '../../subscriptions-details';
 export class DashboardComponent implements OnInit {
   subSubCatPage: SubscribedSubcategoriesPage;
 
-  page: number = 0;
-  private limit: number = 5;
+  page = 0;
+  private limit = 5;
 
   constructor(private dashboardService: DashboardService) {
   }

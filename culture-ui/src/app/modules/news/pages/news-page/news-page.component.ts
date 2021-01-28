@@ -16,7 +16,7 @@ import { UpdateNewsComponent } from '../update-news/update-news.component';
 export class NewsPageComponent implements OnInit {
   culturalOfferId: number;
   newsPage: NewsPage;
-  
+
   private page: number;
   private limit = 5;
   public ref: DynamicDialogRef;
@@ -70,7 +70,8 @@ export class NewsPageComponent implements OnInit {
     this.ref.onClose.subscribe((submitted) => {
       if (submitted) {
         this.getNews();
-        this.messageService.add({ severity: 'success', summary: 'News updating successful', detail: 'You have successfully updated news!' });
+        this.messageService.add({
+          severity: 'success', summary: 'News updating successful', detail: 'You have successfully updated news!' });
         setTimeout(() => this.messageService.clear(), 2000);
       }
     });

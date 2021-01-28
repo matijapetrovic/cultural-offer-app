@@ -19,7 +19,7 @@ export class RegistrationComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
-     public messageService: MessageService
+    public messageService: MessageService
     ) { }
 
   ngOnInit(): void {

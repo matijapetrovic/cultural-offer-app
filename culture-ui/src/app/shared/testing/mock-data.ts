@@ -51,48 +51,48 @@ const mockCulturalOffersPage: CulturalOffersPage = {
   data: [
     {
       id: 1,
-      name: "Offer1",
-      description: "Description",
+      name: 'Offer1',
+      description: 'Description',
       subcategory: {
         id: 1,
         name: 'Subcategory1',
         categoryId: 1
       },
-      images: ["img1", "img2"],
+      images: ['img1', 'img2'],
       imagesIds: [1, 2],
       latitude: 2.0,
       longitude: 2.3,
-      address: "address"
+      address: 'address'
     },
     {
       id: 2,
-      name: "Offer2",
-      description: "Description",
+      name: 'Offer2',
+      description: 'Description',
       subcategory: {
         id: 1,
         name: 'Subcategory2',
         categoryId: 1
       },
-      images: ["img1", "img2"],
+      images: ['img1', 'img2'],
       imagesIds: [1, 2],
       latitude: 2.0,
       longitude: 2.3,
-      address: "address"
+      address: 'address'
     },
     {
       id: 1,
-      name: "Offer3",
-      description: "Description",
+      name: 'Offer3',
+      description: 'Description',
       subcategory: {
         id: 1,
         name: 'Subcategory3',
         categoryId: 1
       },
-      images: ["img1", "img2"],
+      images: ['img1', 'img2'],
       imagesIds: [1, 2],
       latitude: 2.0,
       longitude: 2.3,
-      address: "address"
+      address: 'address'
     }
   ],
   links: new Map([['next', 'next-link'], ['self', 'self-link']])
@@ -134,8 +134,8 @@ const mockCulturalOfferView: CulturalOfferView = {
   images: ['1', '2'],
   latitude: 45.0,
   longitude: 45.0,
-  address: "address"
-}
+  address: 'address'
+};
 
 const mockOfferLocations: CulturalOfferLocation[] = [
     {
@@ -185,9 +185,9 @@ const mockNewsView: NewsView = {
       culturalOfferId: 1,
       title: 'Some title',
       text: 'Some text',
-      images: ["1", "2", "3"],
+      images: ['1', '2', '3'],
       imagesIds: [1, 2, 3]
-}
+};
 
 const mockNewsPage: NewsPage = {
     data: [

@@ -25,7 +25,7 @@ describe('CulturalOffers', () => {
 
     const dialogRefMock = {
       close: () => { },
-      onClose: jasmine.createSpy('onClose').and.returnValue({subscribe: () => { true; }})
+      onClose: jasmine.createSpy('onClose').and.returnValue({subscribe: () => { }})
     };
 
     const messageService = {
@@ -34,7 +34,7 @@ describe('CulturalOffers', () => {
 
     const reouterMock = {
         navigate: jasmine.createSpy('navigate').and.returnValue(of({}))
-    }
+    };
 
     const confirmationServiceMock = {
       confirm: {

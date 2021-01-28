@@ -1,36 +1,36 @@
-import { Component, OnInit } from '@angular/core'
-import { CulturalOffersPage } from '../../cultural-offer'
-import { CulturalOffersService } from '../../cultural-offers.service'
+import { Component, OnInit } from '@angular/core';
+import { CulturalOffersPage } from '../../cultural-offer';
+import { CulturalOffersService } from '../../cultural-offers.service';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { AddOfferComponent } from '../add-offer/add-offer.component';
 import { UpdateOfferComponent } from '../update-offer/update-offer.component';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-cultural-offers',
     templateUrl: './cultural-offers.component.html',
     styleUrls: ['./cultural-offers.component.scss'],
-    providers: [DialogService] 
+    providers: [DialogService]
 })
 export class CulturalOffersComponent implements OnInit {
 
-    culturalOffersPage:CulturalOffersPage;
+    culturalOffersPage: CulturalOffersPage;
     public ref: DynamicDialogRef;
 
     private page: number;
     private limit: number;
 
     constructor(
-        private culturalOffersService:CulturalOffersService,
-        public dialogService:DialogService,
-        public confirmationService:ConfirmationService,
+        private culturalOffersService: CulturalOffersService,
+        public dialogService: DialogService,
+        public confirmationService: ConfirmationService,
         private router: Router,
         public messageService: MessageService
     ) {
         this.page = 0;
-        this.limit = 5;;
+        this.limit = 5;
     }
 
     showAddForm(): void {
@@ -45,27 +45,27 @@ export class CulturalOffersComponent implements OnInit {
         );
 
         this.ref.onClose.subscribe(submited => {
-            if(submited) {
+            if (submited) {
                 this.getCulturalOffers();
                 this.messageService.add({
                     severity: 'success', summary: 'Cultural offer adding successful', detail: 'You have successfully added cultural offer!'
                 });
             }
-        })
+        });
 
     }
 
-    showNews(offer:any) {
+    showNews(offer: any): void {
         this.router.navigate([`/cultural-offers/${offer.id}/news`]);
     }
 
-    showUpdateForm(offer:any): void {
+    showUpdateForm(offer: any): void {
 
         this.ref = this.dialogService.open(
             UpdateOfferComponent,
             {
                 data: {
-                    offer: offer
+                    offer
                 },
                 header: 'Update Cultural Offer',
                 width: '55%',
@@ -74,17 +74,17 @@ export class CulturalOffersComponent implements OnInit {
         );
 
         this.ref.onClose.subscribe(submited => {
-            if(submited) {
+            if (submited) {
                 this.getCulturalOffers();
                 this.messageService.add({
                     severity: 'success', summary: 'Cultural offer updating successful', detail: 'You have successfully updated cultural offer!'
                 });
             }
-        })
+        });
 
     }
 
-    showDeleteForm(offer:any): void {
+    showDeleteForm(offer: any): void {
         this.confirmationService.confirm({
             message: 'Do you want to delete this cultural offer?',
             header: 'Delete Confirmation',
@@ -102,7 +102,7 @@ export class CulturalOffersComponent implements OnInit {
         this.getCulturalOffers();
     }
 
-    deleteCulturalOffer(culturalOffer:any):void {
+    deleteCulturalOffer(culturalOffer: any): void {
         this.culturalOffersService.deleteCulturalOffer(culturalOffer)
         .subscribe(
             () => {
@@ -113,15 +113,15 @@ export class CulturalOffersComponent implements OnInit {
     getCulturalOffers(): void {
         this.culturalOffersService
         .getCulturaOffers(this.page, this.limit)
-        .subscribe(culturalOffers => this.culturalOffersPage = culturalOffers);        
+        .subscribe(culturalOffers => this.culturalOffersPage = culturalOffers);
     }
 
-    getNextCulturalOffers() {
+    getNextCulturalOffers(): void {
         this.page++;
         this.getCulturalOffers();
     }
-    
-    getPrevCulturalOffers() {
+
+    getPrevCulturalOffers(): void {
         this.page--;
         this.getCulturalOffers();
     }

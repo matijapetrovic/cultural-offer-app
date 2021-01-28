@@ -49,7 +49,7 @@ export class AddSubcategoryComponent implements OnInit {
         this.addSubcategory();
     }
 
-    addSubcategory() {
+    addSubcategory(): void {
         const subcategory: Subcategory = {id: null, categoryId: this.category.id, name: this.f.name.value };
         this.subcategoryService.addSubcategory(subcategory)
         .subscribe(() => {
@@ -59,7 +59,7 @@ export class AddSubcategoryComponent implements OnInit {
         });
     }
 
-    get f() { return this.addForm.controls; }
+    get f(): any { return this.addForm.controls; }
 
     invalidFormInputs(): boolean {
         if (this.f.name.value === '' || this.f.name.value === null) {
@@ -68,11 +68,11 @@ export class AddSubcategoryComponent implements OnInit {
         return false;
     }
 
-    removeFormInputs() {
+    removeFormInputs(): void {
         this.addForm.reset();
     }
 
-    errorMessage() {
+    errorMessage(): string {
         return 'Name is required!';
     }
 

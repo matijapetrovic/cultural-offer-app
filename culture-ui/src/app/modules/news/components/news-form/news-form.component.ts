@@ -17,7 +17,7 @@ export class NewsFormComponent implements OnInit {
     formSubmitted = new EventEmitter<NewsToAdd>();
 
     @ViewChild('subcategorySelect') subcategorySelect;
-    
+
     newImages: Array<File>;
 
     news: NewsView;
@@ -28,12 +28,12 @@ export class NewsFormComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.setUp(); 
+        this.setUp();
         this.newImages = new Array<File>();
     }
 
-    setUp() {
-        if(this.model) {
+    setUp(): void {
+        if (this.model) {
             this.news = JSON.parse(JSON.stringify(this.model));
         }
         else {
@@ -49,23 +49,23 @@ export class NewsFormComponent implements OnInit {
         }
     }
 
-    appendFile(event: any) {
+    appendFile(event: any): void {
         this.newImages.push(event.target.files.item(0));
 
-        var reader = new FileReader();
+        const reader = new FileReader();
 
-        reader.onload = (event:any) => {
-            this.news.images.push(event.target.result);
-        }
+        reader.onload = (image: any) => {
+            this.news.images.push(image.target.result);
+        };
 
         reader.readAsDataURL(event.target.files[0]);
     }
 
-    removeImage(imageUrl: string) {
-        let index:number = this.news.images.indexOf(imageUrl);
+    removeImage(imageUrl: string): void {
+        const index: number = this.news.images.indexOf(imageUrl);
         this.news.images.splice(index, 1);
 
-        if(index < this.news.imagesIds.length) {
+        if (index < this.news.imagesIds.length) {
             this.news.imagesIds.splice(index, 1);
         }
         else {
@@ -75,23 +75,24 @@ export class NewsFormComponent implements OnInit {
 
     onSubmit(): void {
 
-        if(this.newImages.length > 0) {
+        if (this.newImages.length > 0) {
             this.imageService.addImages(this.imageFormData())
                 .subscribe(imageIds => {
                 this.updateImagesIds(imageIds);
                 this.returnNews();
             });
         }
-        else
+        else {
             this.returnNews();
+        }
     }
 
-    updateImagesIds(imagesIds: number[]) {
+    updateImagesIds(imagesIds: number[]): void {
         this.news.imagesIds = this.news.imagesIds.concat(imagesIds);
     }
 
     imageFormData(): FormData {
-        let imageData = new FormData();
+        const imageData = new FormData();
 
         for (let i = 0; i < this.newImages.length; i++) {
             imageData.append('images', this.newImages[i]);
@@ -101,9 +102,9 @@ export class NewsFormComponent implements OnInit {
     }
 
 
-    returnNews() {
-        
-        let retVal:NewsToAdd = {
+    returnNews(): any {
+
+        const retVal: NewsToAdd = {
             id: this.news.id,
             title: this.news.title,
             text: this.news.text,
@@ -124,8 +125,8 @@ export class NewsFormComponent implements OnInit {
         return false;
     }
 
-    errorMessage() {
-        return "Name is required!"
+    errorMessage(): string {
+        return 'Name is required!';
     }
 
 }

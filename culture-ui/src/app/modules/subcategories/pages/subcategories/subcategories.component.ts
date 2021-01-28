@@ -58,7 +58,7 @@ export class SubcategoriesComponent implements OnInit {
                 this.getSubcategories();
                 this.messageService.add({
                     severity: 'success', summary: 'Subcategory adding successful', detail: 'You have successfully added subcategory' });
-                  setTimeout(() => this.messageService.clear(), 2000);
+                setTimeout(() => this.messageService.clear(), 2000);
             }
         });
 
@@ -134,12 +134,12 @@ export class SubcategoriesComponent implements OnInit {
         .subscribe(subcategories => this.subcategoriesPage = subcategories);
     }
 
-    getNextSubcategories() {
+    getNextSubcategories(): void {
         this.page++;
         this.getSubcategories();
     }
 
-    getPrevSubcategories() {
+    getPrevSubcategories(): void {
         this.page--;
         this.getSubcategories();
     }

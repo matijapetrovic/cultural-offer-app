@@ -1,9 +1,10 @@
-import { HttpClientTestingModule } from "@angular/common/http/testing";
-import { ComponentFixture, fakeAsync, TestBed } from "@angular/core/testing";
-import { DynamicDialogRef } from "primeng/dynamicdialog";
-import { mockCulturalOfferToAdd } from "src/app/shared/testing/mock-data";
-import { CulturalOffersService } from "../../cultural-offers.service";
-import { AddOfferComponent } from "./add-offer.component";
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { mockCulturalOfferToAdd } from 'src/app/shared/testing/mock-data';
+import { CulturalOffersService } from '../../cultural-offers.service';
+import { AddOfferComponent } from './add-offer.component';
+import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 
 
 describe('AddOfferComponent', () => {
@@ -23,20 +24,21 @@ describe('AddOfferComponent', () => {
               })
           };
 
-          const dialogRefMock = {
+        const dialogRefMock = {
             close: () => { },
             onClose: jasmine.createSpy('onClose').and.returnValue({subscribe: () => { true; }})
           };
 
-          await TestBed.configureTestingModule({
+        await TestBed.configureTestingModule({
             declarations: [AddOfferComponent],
             imports: [HttpClientTestingModule],
             providers: [{ provide: DynamicDialogRef, useValue: dialogRefMock},
-                        { provide: CulturalOffersService, useValue: culturalOffersServiceMock }]
+                        { provide: CulturalOffersService, useValue: culturalOffersServiceMock,
+                          DynamicDialogConfig }]
           })
           .compileComponents();
 
-    })
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(AddOfferComponent);
@@ -44,11 +46,11 @@ describe('AddOfferComponent', () => {
         fixture.detectChanges();
       });
 
-      it('should create', () => {
+    it('should create', () => {
         expect(component).toBeTruthy();
       });
 
-      it('postOffer() should post offer when form is submited', fakeAsync(() => {
+    it('postOffer() should post offer when form is submited', fakeAsync(() => {
 
         spyOn(component.ref, 'close');
 

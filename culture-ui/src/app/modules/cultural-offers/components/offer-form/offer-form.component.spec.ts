@@ -1,19 +1,19 @@
-import { HttpClientTestingModule } from "@angular/common/http/testing";
-import { DebugElement } from "@angular/core";
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from "@angular/core/testing";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { By } from "@angular/platform-browser";
-import { GeolocationService } from "src/app/core/services/geolocation.service";
-import { ImageService } from "src/app/core/services/image.service";
-import { CategoriesService } from "src/app/modules/categories/categories.service";
-import { SubcategoriesService } from "src/app/modules/subcategories/subcategories.service";
-import { mockCategoryNames, mockCulturalOfferView, mockSubcategoryNames } from "src/app/shared/testing/mock-data";
-import { OfferFormComponent } from "./offer-form.component";
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { DebugElement } from '@angular/core';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import { GeolocationService } from 'src/app/core/services/geolocation.service';
+import { ImageService } from 'src/app/core/services/image.service';
+import { CategoriesService } from 'src/app/modules/categories/categories.service';
+import { SubcategoriesService } from 'src/app/modules/subcategories/subcategories.service';
+import { mockCategoryNames, mockCulturalOfferView, mockSubcategoryNames } from 'src/app/shared/testing/mock-data';
+import { OfferFormComponent } from './offer-form.component';
 
 
 describe('OfferFormComponent', () => {
 
-    let component:OfferFormComponent;
+    let component: OfferFormComponent;
     let fixture: ComponentFixture<OfferFormComponent>;
 
     beforeEach(async () => {
@@ -21,18 +21,18 @@ describe('OfferFormComponent', () => {
         const categoriesServiceMock = {
             getCategoryNames: jasmine.createSpy('getCategoryNames')
               .and.returnValue({subscribe: () => {
-                component.categories = mockCategoryNames
+                component.categories = mockCategoryNames;
             }})
           };
 
-          const subcategoriesServiceMock = {
+        const subcategoriesServiceMock = {
             getSubcategoryNames: jasmine.createSpy('getSubcategoryNames')
               .and.returnValue({subscribe: () => {
                 component.subcategories = mockSubcategoryNames;
               }})
           };
 
-          const imageServiceMock = {
+        const imageServiceMock = {
             addImages: jasmine.createSpy('addImages')
               .and.returnValue({subscribe: () => {
                 component.updateImagesIds([7, 9, 11]);
@@ -40,7 +40,7 @@ describe('OfferFormComponent', () => {
             }})
           };
 
-          const geocodeServiceMock = {
+        const geocodeServiceMock = {
             geocode: jasmine.createSpy('geocode')
               .and.returnValue({subscribe: () => {
                 component.updateLocation({
@@ -53,7 +53,7 @@ describe('OfferFormComponent', () => {
             }})
           };
 
-          await TestBed.configureTestingModule({
+        await TestBed.configureTestingModule({
             declarations: [OfferFormComponent],
             imports: [
               FormsModule,
@@ -99,10 +99,10 @@ describe('OfferFormComponent', () => {
         .then(() => {
             expect(component.categories.length).toBe(2);
             expect(component.subcategories.length).toBe(2);
-            fixture.detectChanges(); // synchronize HTML with component data        
+            fixture.detectChanges(); // synchronize HTML with component data
             expect(component.ngForm.controls.category).toBeTruthy();
             expect(component.ngForm.controls.subcategory).toBeTruthy();
-        });      
+        });
 
     }));
 
@@ -118,9 +118,9 @@ describe('OfferFormComponent', () => {
         tick();
 
         expect(component.categories.length).toBe(2);
-        // fixture.detectChanges(); // synchronize HTML with component data        
+        // fixture.detectChanges(); // synchronize HTML with component data
         // expect(component.ngForm.controls.category.value.id).toBeFalsy();
-        // expect(component.ngForm.controls.subcategory.value.id).toBeFalsy();     
+        // expect(component.ngForm.controls.subcategory.value.id).toBeFalsy();
 
     }));
 
@@ -151,7 +151,7 @@ describe('OfferFormComponent', () => {
     //     let filesLenght = component.newImages.length;
     //     let srcsLenght = component.culturalOffer.images.length;
 
-    //     let prevElements: DebugElement[] = 
+    //     let prevElements: DebugElement[] =
     //             fixture.debugElement.queryAll(By.css('.img-show'));
     //     let prevElementsLen = prevElements.length;
 
@@ -171,9 +171,9 @@ describe('OfferFormComponent', () => {
     //         expect(component.newImages.length).toBe(filesLenght + 1);
     //         expect(component.culturalOffer.images.length).toBe(srcsLenght + 1);
     //         fixture.detectChanges();
-    //         let elements: DebugElement[] = 
+    //         let elements: DebugElement[] =
     //             fixture.debugElement.queryAll(By.css('.img-show'));
-    //         expect(elements.length).toBe(prevElementsLen + 1); 
+    //         expect(elements.length).toBe(prevElementsLen + 1);
     //     });
 
     // }))
@@ -184,10 +184,10 @@ describe('OfferFormComponent', () => {
 
         fixture.detectChanges();
 
-        let imgLenght = component.culturalOffer.images.length;
-        let idsLenght = component.culturalOffer.imagesIds.length;
-        
-        // let prevElements: DebugElement[] = 
+        const imgLenght = component.culturalOffer.images.length;
+        const idsLenght = component.culturalOffer.imagesIds.length;
+
+        // let prevElements: DebugElement[] =
         //          fixture.debugElement.queryAll(By.css('.img-show'));
         // let prevElementsLen = prevElements.length;
 
@@ -196,15 +196,15 @@ describe('OfferFormComponent', () => {
         expect(component.culturalOffer.images.length).toBe(imgLenght - 1);
         expect(component.culturalOffer.imagesIds.length).toBe(idsLenght - 1);
         fixture.detectChanges();
-        // let elements: DebugElement[] = 
+        // let elements: DebugElement[] =
         //                 fixture.debugElement.queryAll(By.css('.img-show'));
-        // expect(elements.length).toBe(prevElementsLen - 1); 
-    
+        // expect(elements.length).toBe(prevElementsLen - 1);
+
     });
 
     it('onSubmit() shoud post new images if there are some', fakeAsync(() => {
 
-        component.newImages = [new File([""], "...")];
+        component.newImages = [new File([''], '...')];
 
         spyOn(component, 'updateImagesIds');
         spyOn(component, 'returnOfferWithLocation');
@@ -235,7 +235,7 @@ describe('OfferFormComponent', () => {
 
     it('updateImagesIds() should concat imageIds array with new array', () => {
 
-        let lenght = component.culturalOffer.imagesIds.length;
+        const lenght = component.culturalOffer.imagesIds.length;
 
         component.updateImagesIds([1, 2, 3]);
 
@@ -299,7 +299,7 @@ describe('OfferFormComponent', () => {
         component.culturalOffer.name = '';
 
         expect(component.invalidFormInputs()).toBeTruthy();
-    })
+    });
 
     it('invalidFormInputs() to return false when inputs are valid', () => {
 
@@ -310,7 +310,7 @@ describe('OfferFormComponent', () => {
 
     it(`errorMessage() should return 'Name is required!'`, () => {
         const message = 'Name is required!';
-    
+
         expect(component.errorMessage()).toEqual(message);
     });
 

@@ -10,18 +10,18 @@ import { NewsService } from '../../news.service';
 })
 export class UpdateNewsComponent implements OnInit {
 
-    //Offer which we update
+    // Offer which we update
     news: NewsView;
     culturalOfferId: number;
 
-    loading:boolean;
+    loading: boolean;
 
     constructor(
         private config: DynamicDialogConfig,
         private newsService: NewsService,
         public ref: DynamicDialogRef
-    ) { 
-        //deep copying original object
+    ) {
+        // deep copying original object
         this.culturalOfferId = config.data.culturalOfferId;
         this.news = {...this.config.data.news};
         this.loading = false;
@@ -30,7 +30,7 @@ export class UpdateNewsComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  updateNews(news:any) {
+    updateNews(news: any): void {
 
       this.loading = true;
 

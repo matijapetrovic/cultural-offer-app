@@ -13,7 +13,7 @@ describe('CulturalOffersService', () => {
   let injector: TestBed;
   let httpMock: HttpTestingController;
   let httpClient: HttpClient;
-  let offerssUrl = `${environment.apiUrl}/api/cultural-offers`;
+  const offerssUrl = `${environment.apiUrl}/api/cultural-offers`;
   const errorHandler = jasmine.createSpyObj('errorHandler', ['handleError']);
 
   beforeEach(() => {
@@ -36,9 +36,9 @@ describe('CulturalOffersService', () => {
   });
 
   // GET CULTURAL OFFERS
- it('getCulturaOffers() should return valid offers', fakeAsync(() => {
+  it('getCulturaOffers() should return valid offers', fakeAsync(() => {
   let culturalOffersPage: CulturalOffersPage;
-  
+
   const page = 0;
   const limit = 3;
 
@@ -74,9 +74,9 @@ describe('CulturalOffersService', () => {
   expect(culturalOffersPage.data[2].address).toEqual(mockCulturalOffersPage.data[2].address);
 }));
 
-it('getCulturaOffers() should return empty', fakeAsync(() => {
+  it('getCulturaOffers() should return empty', fakeAsync(() => {
   let culturalOffersPage: CulturalOffersPage;
-  
+
   const page = 0;
   const limit = 3;
 
@@ -99,7 +99,7 @@ it('getCulturaOffers() should return empty', fakeAsync(() => {
 
 // ADD CULTURAL OFFER
 
-it('addCulturalOffer() should add valid CulturalOffer', fakeAsync(() => {
+  it('addCulturalOffer() should add valid CulturalOffer', fakeAsync(() => {
   let response: any;
 
   service.addCulturalOffer(mockCulturalOfferToAdd).subscribe(data => { response = data; });
@@ -113,7 +113,7 @@ it('addCulturalOffer() should add valid CulturalOffer', fakeAsync(() => {
   expect(response).toBeTruthy();
 }));
 
-it('addCulturalOffer() should throw offer already exists', fakeAsync(() => {
+  it('addCulturalOffer() should throw offer already exists', fakeAsync(() => {
   let response: any;
   const errorMessage = 'Offer already exists!';
 
@@ -133,7 +133,7 @@ it('addCulturalOffer() should throw offer already exists', fakeAsync(() => {
 
 // UPDATE CULTURAL OFFER
 
-it('updateCulturalOffer() should update valid offer', fakeAsync(() => {
+  it('updateCulturalOffer() should update valid offer', fakeAsync(() => {
   let offer: CulturalOffer;
 
   service.updateCulturalOffer(mockCulturalOfferToAdd).subscribe();
@@ -157,20 +157,19 @@ it('updateCulturalOffer() should update valid offer', fakeAsync(() => {
   expect(offer.description).toEqual(mockCulturalOfferToAdd.description);
 }));
 
-it('updateCulturalOffer() should throw invalid offer Id', fakeAsync(() => {
-  let offer: CulturalOffer;
-  const errorMessage = "Invalid Offer Id";
+  it('updateCulturalOffer() should throw invalid offer Id', fakeAsync(() => {
+  const errorMessage = 'Invalid Offer Id';
 
   const updatedMockOffer: CulturalOfferToAdd = {
     id: -1,
-    name: "name",
-    description: "description",
+    name: 'name',
+    description: 'description',
     latitude: 1.0,
     longitude: 1.0,
-    images: [1, 2], 
+    images: [1, 2],
     subcategoryId: 1,
     categoryId: 1,
-    address: "address"
+    address: 'address'
   };
 
   service.updateCulturalOffer(updatedMockOffer).subscribe();
@@ -189,7 +188,7 @@ it('updateCulturalOffer() should throw invalid offer Id', fakeAsync(() => {
 
 // DELETE OFFER
 
-it('deleteCulturalOffer() should delete valid offer', fakeAsync(() => {
+  it('deleteCulturalOffer() should delete valid offer', fakeAsync(() => {
 
   service.deleteCulturalOffer(mockCulturalOfferToAdd).subscribe();
   const req = httpMock.expectOne(offerssUrl + `/${mockCulturalOfferToAdd.id}`);
@@ -197,20 +196,20 @@ it('deleteCulturalOffer() should delete valid offer', fakeAsync(() => {
   req.flush({});
 }));
 
-it('deleteCulturalOffer() should throw invalid offer Id', fakeAsync(() => {
+  it('deleteCulturalOffer() should throw invalid offer Id', fakeAsync(() => {
 
-    const errorMessage = "Invalid Offer Id";
+    const errorMessage = 'Invalid Offer Id';
 
     const deleteMockOffer: CulturalOfferToAdd = {
       id: -1,
-      name: "name",
-      description: "description",
+      name: 'name',
+      description: 'description',
       latitude: 1.0,
       longitude: 1.0,
-      images: [1, 2], 
+      images: [1, 2],
       subcategoryId: 1,
       categoryId: 1,
-      address: "address"
+      address: 'address'
     };
 
     service.deleteCulturalOffer(deleteMockOffer).subscribe();

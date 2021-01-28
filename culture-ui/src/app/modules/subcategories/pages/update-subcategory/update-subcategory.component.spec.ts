@@ -14,7 +14,7 @@ describe('UpdateSubcategoryComponent', () => {
   beforeEach(async () => {
     const subcategoriesServiceMock = {
       updateSubcategory: jasmine.createSpy('updateSubcategory')
-        .and.returnValue({subscribe: () => { component.ref.close(true)}})
+        .and.returnValue({subscribe: () => { component.ref.close(true); } })
       };
 
     const dialogRefMock = {
@@ -23,7 +23,7 @@ describe('UpdateSubcategoryComponent', () => {
 
     const dialogRefConfigMock = {
       data: {
-        subcategory: { 
+        subcategory: {
             id: 1,
             name: 'Subcategory1',
             categoryId: 1
@@ -92,7 +92,7 @@ describe('UpdateSubcategoryComponent', () => {
   });
 
   it('invalidInputForms() should return false if form inputs are valid', () => {
-    
+
     component.subcategory.name = '?';
     fixture.detectChanges();
 
@@ -100,14 +100,14 @@ describe('UpdateSubcategoryComponent', () => {
   });
 
   it('invalidInputForms() should return true if form inputs are invalid', () => {
-    component.subcategory.name = "";
+    component.subcategory.name = '';
     fixture.detectChanges();
 
     expect(component.invalidFormInputs()).toBeTrue();
   });
 
   it('nameNotChanged() should return true when names are equal', () => {
-    
+
     component.subcategory.name = config.data.subcategory.name;
 
     expect(component.nameNotChanged()).toBeTrue();
@@ -115,7 +115,7 @@ describe('UpdateSubcategoryComponent', () => {
 
   it(`errorMessage() should return 'Name is required!'`, () => {
     const message = 'Name is required!';
-    
+
     expect(component.errorMessage()).toEqual(message);
   });
 });

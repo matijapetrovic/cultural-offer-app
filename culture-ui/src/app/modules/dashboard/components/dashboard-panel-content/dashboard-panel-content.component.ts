@@ -10,9 +10,9 @@ import { SubscribedOffer, SubscribedOfferPage, SubscribedSubcategory } from '../
 export class DashboardPanelContentComponent implements OnInit {
   @Input() subscribedSubcategory: SubscribedSubcategory;
 
-  page: number = 0;
-  limit: number = 6;
-  loading: boolean = false;
+  page = 0;
+  limit = 6;
+  loading = false;
 
   subscribedOfferPage: SubscribedOfferPage;
 

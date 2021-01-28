@@ -11,22 +11,22 @@ import { CulturalOffersService } from '../../cultural-offers.service';
 })
 export class UpdateOfferComponent{
 
-    //Offer which we update
+    // Offer which we update
     offer: CulturalOfferView;
 
-    loading:boolean;
+    loading: boolean;
 
     constructor(
         private config: DynamicDialogConfig,
         private culturalOffersService: CulturalOffersService,
         public ref: DynamicDialogRef
-    ) { 
-        //deep copying original object
+    ) {
+        // deep copying original object
         this.offer = {...this.config.data.offer};
         this.loading = false;
     }
 
-    updateOffer(offer:any) {
+    updateOffer(offer: any): void {
 
         this.loading = true;
 

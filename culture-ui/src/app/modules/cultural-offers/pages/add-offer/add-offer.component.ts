@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
-import { CulturalOffersService } from 'src/app/modules/cultural-offers/cultural-offers.service'
+import { CulturalOffersService } from 'src/app/modules/cultural-offers/cultural-offers.service';
 
 
 
@@ -16,11 +16,11 @@ export class AddOfferComponent{
     constructor(
         private culturalOffersService: CulturalOffersService,
         public ref: DynamicDialogRef,
-    ) { 
+    ) {
         this.loading = false;
     }
 
-    postOffer(offer:any): void {
+    postOffer(offer: any): void {
         this.loading = true;
 
         this.culturalOffersService.addCulturalOffer(offer)

@@ -16,7 +16,7 @@ export class AddNewsComponent implements OnInit {
       config: DynamicDialogConfig,
       private newsService: NewsService,
       public ref: DynamicDialogRef
-  ) { 
+  ) {
       this.loading = false;
       this.culturalOfferId = config.data.culturalOfferId;
   }
@@ -24,7 +24,7 @@ export class AddNewsComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  postNews(news:any): void {
+  postNews(news: any): void {
       this.loading = true;
 
       this.newsService.addNews(this.culturalOfferId, news)
